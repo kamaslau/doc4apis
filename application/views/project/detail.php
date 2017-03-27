@@ -49,17 +49,32 @@
 	<dl class=dl-horizontal>
 		<?php if ( !empty($item['url']) ): ?>
 		<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB</dt>
-		<dd><?php echo $item['url'] ?></dd>
+		<dd id=url_web>
+			<?php echo $item['url'] ?>
+			<script>
+				jQuery('<div class=qrcode>').appendTo('#url_web').qrcode("<?php echo $item['url'] ?>");
+			</script>
+		</dd>
 		<?php endif ?>
 		
 		<?php if ( !empty($item['url_ios']) ): ?>
 		<dt><i class="fa fa-apple" aria-hidden="true"></i> iOS</dt>
-		<dd><?php echo $item['url_ios'] ?></dd>
+		<dd id=url_ios>
+			<?php echo $item['url_ios'] ?>
+			<script>
+				jQuery('<div class=qrcode>').appendTo('#url_ios').qrcode("<?php echo $item['url_ios'] ?>");
+			</script>
+		</dd>
 		<?php endif ?>
 		
 		<?php if ( !empty($item['url_android']) ): ?>
 		<dt><i class="fa fa-android" aria-hidden="true"></i> Android</dt>
-		<dd><?php echo $item['url_android'] ?></dd>
+		<dd id=url_android>
+			<?php echo $item['url_android'] ?>
+			<script>
+				jQuery('<div class=qrcode>').appendTo('#url_android').qrcode("<?php echo $item['url_android'] ?>");
+			</script>
+		</dd>
 		<?php endif ?>
 	</dl>
 

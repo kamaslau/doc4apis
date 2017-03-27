@@ -162,6 +162,8 @@
 
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
+			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|required');
+			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('code', '序号', 'trim|required');
 			$this->form_validation->set_rules('url', 'URL', 'trim|required');
@@ -207,6 +209,7 @@
 			*/
 
 			// 待验证的表单项
+			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('code', '序号', 'trim|required');
 			$this->form_validation->set_rules('url', 'URL', 'trim|required');
@@ -217,7 +220,6 @@
 			// 需要编辑的信息
 			// 不建议直接用$this->input->post、$this->input->get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_edit = array(
-				'project_id' => $this->input->post('project_id'),
 				'category_id' => $this->input->post('category_id'),
 				'name' => $this->input->post('name'),
 				'code' => $this->input->post('code'),

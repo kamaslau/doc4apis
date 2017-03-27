@@ -1,10 +1,5 @@
 <style>
 
-.input-group {border:1px solid #ddd;padding:11px 8px 11px 50px;width:240px;position:relative;}
-	.input-group-addon {color:#fff;background-color:#ddd;
-width:40px;height:40px;line-height:40px;position: absolute;left:0;top:0;display:block;text-align: center;}
-	input {width:100%;height:18px;line-height:18px;}
-
 /* 宽度在960像素以上的设备 */
 @media only screen and (min-width:961px)
 {
