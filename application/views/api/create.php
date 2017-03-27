@@ -52,7 +52,13 @@
 		<fieldset>
 			<legend>请填写以下信息</legend>
 			
-			<input name=project_id type=hidden value="<?php echo $this->input->get('project_id') ?>">
+			<div class=form-group>
+				<label for=project_id class="col-sm-2 control-label">所属项目</label>
+				<div class=col-sm-10>
+					<p class="form-control-static"><?php echo $project['name'] ?></p>
+					<input name=project_id type=hidden value="<?php echo $project['project_id'] ?>">
+				</div>
+			</div>
 			
 			<div class=form-group>
 				<label for=name class="col-sm-2 control-label">名称</label>

@@ -77,26 +77,11 @@
 		</dd>
 		<?php endif ?>
 	</dl>
-
-	<dl id=list-record class=dl-horizontal>
-		<dt>创建时间</dt>
-		<dd>
-			<?php echo $item['time_create'] ?>
-			<a href="<?php echo base_url('stuff/detail?id='.$item['creator_id']) ?>" target=new>查看创建者</a>
-		</dd>
-
-		<?php if ( ! empty($item['time_delete'])): ?>
-		<dt>删除时间</dt>
-		<dd>
-			<?php echo $item['time_delete'] ?>
-			<a href="<?php echo base_url('stuff/detail?id='.$item['operator_id']) ?>" target=new>查看删除者</a>
-		</dd>
-		<?php endif ?>
-
-		<dt>最后操作时间</dt>
-		<dd>
-			<?php echo $item['time_edit'] ?>
-			<a href="<?php echo base_url('stuff/detail?id='.$item['operator_id']) ?>" target=new>查看最后操作者</a>
-		</dd>
-	</dl>
+	
+	<ul class=horizontal>
+		<li><a title="查看页面" href="<?php echo base_url('page?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-eye"></i> 查看页面</a></li>
+		<li><a title="创建页面" href="<?php echo base_url('page/create?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-plus-square"></i> 创建页面</a></li>
+		<li><a title="查看API" href="<?php echo base_url('api?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-eye"></i> 查看API</a></li>
+		<li><a title="创建API" href="<?php echo base_url('api/create?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-plus-square"></i> 创建API</a></li>
+	</ul>
 </div>

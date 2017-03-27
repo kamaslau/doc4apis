@@ -40,7 +40,7 @@
 			$this->class_name = strtolower(__CLASS__);
 			$this->class_name_cn = '页面'; // 改这里……
 			$this->table_name = 'page'; // 和这里……
-			$this->id_name = 'page_id';  // 还有这里，OK，这就可以了
+			$this->id_name = 'page_id'; // 还有这里，OK，这就可以了
 			$this->view_root = $this->class_name;
 
 			// 设置需要自动在视图文件中生成显示的字段
@@ -71,7 +71,7 @@
 		 * 列表页
 		 */
 		public function index()
-		{
+		{	
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '列表',
@@ -83,11 +83,10 @@
 			
 			// 筛选条件
 			$condition = NULL;
-			//$condition['name'] = 'value';
+			if ( !empty($this->input->get('project_id')) ) $condition['project_id'] = $this->input->get('project_id'); // 若已传入项目ID，则进行筛选
 			
 			// 排序条件
-			$order_by = NULL;
-			//$order_by['name'] = 'value';
+			$order_by[$this->id_name] = 'ASC';
 			
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);
@@ -98,17 +97,34 @@
 		 */
 		public function detail()
 		{
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+
+			// 检查是否已传入必要参数
+			if (empty($id)):
+				$this->error(404, '网址不完整');
+				exit;
+			endif;
+			
 			// 页面信息
 			$data = array(
-				'title' => $this->class_name_cn. '详情',
+				'title' => NULL,
 				'class' => $this->class_name.' '. $this->class_name.'-detail',
 			);
 
-			// 将需要显示的数据传到视图以备使用
-			$data['data_to_display'] = $this->data_to_display;
+			// 获取页面数据
+			$data['item'] = $this->basic_model->select_by_id($id);
 			
-			// Go Basic！
-			$this->basic->detail($data);
+			// 获取项目数据
+			$this->basic_model->table_name = 'project';
+			$this->basic_model->id_name = 'project_id';
+			$data['project'] = $this->basic_model->select_by_id($data['item']['project_id']);
+
+			// 生成最终页面标题
+			$data['title'] = $data['project']['name']. $data['item']['name']. '页 ';
+
+			$this->load->view('templates/header', $data);
+			$this->load->view($this->view_root.'/detail', $data);
+			$this->load->view('templates/footer', $data);
 		}
 
 		/**
@@ -146,11 +162,24 @@
 		 */
 		public function create()
 		{
+			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+
+			// 检查是否已传入必要参数
+			if (empty($id)):
+				$this->error(404, '网址不完整');
+				exit;
+			endif;
+			
 			// 页面信息
 			$data = array(
 				'title' => '创建'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
+			
+			// 获取项目数据
+			$this->basic_model->table_name = 'project';
+			$this->basic_model->id_name = 'project_id';
+			$data['project'] = $this->basic_model->select_by_id($id);
 
 			// 后台操作可能需要检查操作权限
 			/*
@@ -182,6 +211,8 @@
 			);
 
 			// Go Basic!
+			$this->basic_model->table_name = 'page';
+			$this->basic_model->id_name = 'page_id';
 			$this->basic->create($data, $data_to_create);
 		}
 

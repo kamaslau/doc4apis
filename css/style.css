@@ -28,7 +28,7 @@ th, td {border:1px solid #ddd;word-break:break-all;overflow-wrap:break-word;}
 	td {padding:6px 10px;line-height:24px;}
 
 .horizontal {overflow:hidden;}
-	.horizontal li,.horizontal .li {float:left;display:inline;}
+	.horizontal>li,.horizontal>.li {float:left;display:inline;}
 	
 #header {font-size:14px;background-color:#373942;}
 	#header a {color:#e5e9ee;display:block;height:100%;padding:0 20px;}
@@ -42,7 +42,7 @@ th, td {border:1px solid #ddd;word-break:break-all;overflow-wrap:break-word;}
 	#breadcrumb li {float:left;}
 		#breadcrumb li:not(:last-child):after {content:">";padding:.5em;}
 
-#content {padding-top:40px;}
+#content {padding:40px 0;}
 	.detail h2+p {margin-top:30px;}
 	.detail table {margin:15px 0;}
 		.detail th, .detail td {border:0;}

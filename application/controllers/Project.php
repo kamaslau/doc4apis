@@ -40,7 +40,7 @@
 			$this->class_name = strtolower(__CLASS__);
 			$this->class_name_cn = '项目'; // 改这里……
 			$this->table_name = 'project'; // 和这里……
-			$this->id_name = 'project_id';  // 还有这里，OK，这就可以了
+			$this->id_name = 'project_id'; // 还有这里，OK，这就可以了
 			$this->view_root = $this->class_name;
 
 			// 设置需要自动在视图文件中生成显示的字段
@@ -86,8 +86,7 @@
 			//$condition['name'] = 'value';
 			
 			// 排序条件
-			$order_by = NULL;
-			//$order_by['name'] = 'value';
+			$order_by[$this->id_name] = 'ASC';
 			
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);
