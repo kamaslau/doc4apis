@@ -69,7 +69,7 @@
 			<div class=form-group>
 				<label for=url class="col-sm-2 control-label">URL</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url type=url value="<?php echo $item['url'] ?>" placeholder="URL" required>
+					<input class=form-control name=url type=text value="<?php echo $item['url'] ?>" placeholder="URL" required>
 				</div>
 				<?php echo form_error('url') ?>
 			</div>

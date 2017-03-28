@@ -175,7 +175,7 @@
 				'title' => '创建'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
-			
+
 			// 获取项目数据
 			$this->basic_model->table_name = 'project';
 			$this->basic_model->id_name = 'project_id';
@@ -190,13 +190,16 @@
 
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
-			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|required');
-			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim');
+			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
+			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim|required');
+			$this->form_validation->set_rules('private', '是否需登录', 'trim');
 			$this->form_validation->set_rules('elements', '视图元素', 'trim');
 			$this->form_validation->set_rules('onloads', '载入事件', 'trim');
 			$this->form_validation->set_rules('events', '业务流程', 'trim');
+			$this->form_validation->set_rules('entrance', '入口页面', 'trim');
+			$this->form_validation->set_rules('exit', '出口页面', 'trim');
 
 			// 需要存入数据库的信息
 			// 不建议直接用$this->input->post/get/post_get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
@@ -205,9 +208,12 @@
 				'category_id' => $this->input->post('category_id'),
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
+				'private' => $this->input->post('private'),
 				'elements' => $this->input->post('elements'),
 				'onloads' => $this->input->post('onloads'),
 				'events' => $this->input->post('events'),
+				'entrance' => $this->input->post('entrance'),
+				'exit' => $this->input->post('exit'),
 			);
 
 			// Go Basic!
@@ -237,12 +243,15 @@
 			*/
 
 			// 待验证的表单项
-			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim');
+			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim|required');
+			$this->form_validation->set_rules('private', '是否需登录', 'trim');
 			$this->form_validation->set_rules('elements', '视图元素', 'trim');
 			$this->form_validation->set_rules('onloads', '载入事件', 'trim');
 			$this->form_validation->set_rules('events', '业务流程', 'trim');
+			$this->form_validation->set_rules('entrance', '入口页面', 'trim');
+			$this->form_validation->set_rules('exit', '出口页面', 'trim');
 
 			// 需要编辑的信息
 			// 不建议直接用$this->input->post、$this->input->get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
@@ -250,9 +259,12 @@
 				'category_id' => $this->input->post('category_id'),
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
+				'private' => $this->input->post('private'),
 				'elements' => $this->input->post('elements'),
 				'onloads' => $this->input->post('onloads'),
 				'events' => $this->input->post('events'),
+				'entrance' => $this->input->post('entrance'),
+				'exit' => $this->input->post('exit'),
 			);
 
 			// Go Basic!

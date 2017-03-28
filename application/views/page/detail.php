@@ -44,6 +44,7 @@
 	<?php endif ?>
 
 	<h2><?php echo $item['name'] ?></h2>
+	<em><?php echo ($item['private'] === '1')? '需登录': '不需登录'; ?></em>
 	<p><?php echo $item['description'] ?></p>
 	
 	<section>
@@ -59,6 +60,16 @@
 	<section>
 		<h3>业务流程</h3>
 		<?php echo $item['events'] ?>
+	</section>
+	
+	<section>
+		<h3>入口页面</h3>
+		<?php echo !empty($item['entrance'])? $item['entrance']: '不限'; ?>
+	</section>
+	
+	<section>
+		<h3>出口页面</h3>
+		<?php echo !empty($item['exit'])? $item['exit']: '无'; ?>
 	</section>
 
 	<dl id=list-record class=dl-horizontal>

@@ -67,7 +67,18 @@
 			</div>
 			
 			<div class=form-group>
-				<label for=elements class="col-sm-2 control-label">视图元素</label>
+				<label for=private class="col-sm-2 control-label">是否需登录</label>
+				<div class=col-sm-10>
+					<select class=form-control name=private required>
+						<option value="1" <?php if ($item['private'] === '1') echo 'selected'; ?>>是</option>
+						<option value="0" <?php if ($item['private'] === '0') echo 'selected'; ?>>否</option>
+					</select>
+				</div>
+				<?php echo form_error('private') ?>
+			</div>
+			
+			<div class=form-group>
+				<label for=elements class="col-sm-2 control-label">视图元素（可选）</label>
 				<div class=col-sm-10>
 					<textarea class=form-control name=elements rows=10 placeholder="视图元素"><?php echo $item['elements'] ?></textarea>
 				</div>
@@ -75,7 +86,7 @@
 			</div>
 			
 			<div class=form-group>
-				<label for=onloads class="col-sm-2 control-label">载入事件</label>
+				<label for=onloads class="col-sm-2 control-label">载入事件（可选）</label>
 				<div class=col-sm-10>
 					<textarea class=form-control name=onloads rows=10 placeholder="载入事件"><?php echo $item['onloads'] ?></textarea>
 				</div>
@@ -83,11 +94,27 @@
 			</div>
 			
 			<div class=form-group>
-				<label for=events class="col-sm-2 control-label">业务流程</label>
+				<label for=events class="col-sm-2 control-label">业务流程（可选）</label>
 				<div class=col-sm-10>
 					<textarea class=form-control name=events rows=10 placeholder="业务流程"><?php echo $item['events'] ?></textarea>
 				</div>
 				<?php echo form_error('events') ?>
+			</div>
+			
+			<div class=form-group>
+				<label for=entrance class="col-sm-2 control-label">入口页面（可选）</label>
+				<div class=col-sm-10>
+					<input class=form-control name=entrance type=text value="<?php echo $item['entrance'] ?>" placeholder="入口页面">
+				</div>
+				<?php echo form_error('entrance') ?>
+			</div>
+			
+			<div class=form-group>
+				<label for=exit class="col-sm-2 control-label">出口页面（可选）</label>
+				<div class=col-sm-10>
+					<input class=form-control name=exit type=text value="<?php echo $item['exit'] ?>" placeholder="出口页面">
+				</div>
+				<?php echo form_error('exit') ?>
 			</div>
 		</fieldset>
 

@@ -73,7 +73,7 @@
 			<div class=form-group>
 				<label for=url class="col-sm-2 control-label">WEB URL（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url type=url value="<?php echo set_value('url') ?>" placeholder="WEB URL">
+					<input class=form-control name=url type=url value="<?php echo set_value('url') ?>" placeholder="必须以https://开头">
 				</div>
 				<?php echo form_error('url') ?>
 			</div>
@@ -81,7 +81,7 @@
 			<div class=form-group>
 				<label for=url_ios class="col-sm-2 control-label">iOS URL（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url_ios type=url value="<?php echo set_value('url_ios') ?>" placeholder="iOS下载URL">
+					<input class=form-control name=url_ios type=url value="<?php echo set_value('url_ios') ?>" placeholder="必须是官方下载URL；URL中除appid外不可有其它参数">
 				</div>
 				<?php echo form_error('url_ios') ?>
 			</div>
@@ -89,7 +89,7 @@
 			<div class=form-group>
 				<label for=url_android class="col-sm-2 control-label">Android URL（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url_android type=url value="<?php echo set_value('url_android') ?>" placeholder="Android下载URL">
+					<input class=form-control name=url_android type=url value="<?php echo set_value('url_android') ?>" placeholder="必须以https://开头">
 				</div>
 				<?php echo form_error('url_android') ?>
 			</div>

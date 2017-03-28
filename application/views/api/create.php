@@ -63,7 +63,7 @@
 			<div class=form-group>
 				<label for=name class="col-sm-2 control-label">名称</label>
 				<div class=col-sm-10>
-					<input class=form-control name=name type=text value="<?php echo set_value('name') ?>" placeholder="名称" required>
+					<input class=form-control name=name type=text value="<?php echo set_value('name') ?>" placeholder="例如：商家详情" required>
 				</div>
 				<?php echo form_error('name') ?>
 			</div>
@@ -71,7 +71,7 @@
 			<div class=form-group>
 				<label for=code class="col-sm-2 control-label">序号</label>
 				<div class=col-sm-10>
-					<input class=form-control name=code type=text value="<?php echo set_value('code') ?>" placeholder="序号" required>
+					<input class=form-control name=code type=text value="<?php echo set_value('code') ?>" placeholder="例如：BIZ1" required>
 				</div>
 				<?php echo form_error('code') ?>
 			</div>
@@ -79,7 +79,7 @@
 			<div class=form-group>
 				<label for=url class="col-sm-2 control-label">URL</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url type=url value="<?php echo set_value('url') ?>" placeholder="URL" required>
+					<input class=form-control name=url type=text value="<?php echo set_value('url') ?>" placeholder="除API服务器根URL之外的路径，例如：biz/detail" required>
 				</div>
 				<?php echo form_error('url') ?>
 			</div>

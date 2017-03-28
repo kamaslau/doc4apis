@@ -51,7 +51,7 @@
 	?>
 		<fieldset>
 			<legend>请填写以下信息</legend>
-			
+
 			<div class=form-group>
 				<label for=project_id class="col-sm-2 control-label">所属项目</label>
 				<div class=col-sm-10>
@@ -59,7 +59,7 @@
 					<input name=project_id type=hidden value="<?php echo $project['project_id'] ?>">
 				</div>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=name class="col-sm-2 control-label">名称</label>
 				<div class=col-sm-10>
@@ -77,27 +77,54 @@
 			</div>
 			
 			<div class=form-group>
-				<label for=elements class="col-sm-2 control-label">视图元素</label>
+				<label for=private class="col-sm-2 control-label">是否需登录</label>
+				<div class=col-sm-10>
+					<select class=form-control name=private required>
+						<option value="1" <?php echo set_select('private', '1') ?>>是</option>
+						<option value="0" <?php echo set_select('private', '0') ?>>否</option>
+					</select>
+				</div>
+				<?php echo form_error('private') ?>
+			</div>
+
+			<div class=form-group>
+				<label for=elements class="col-sm-2 control-label">视图元素（可选）</label>
 				<div class=col-sm-10>
 					<textarea class=form-control name=elements rows=10 placeholder="视图元素"><?php echo set_value('elements') ?></textarea>
 				</div>
 				<?php echo form_error('elements') ?>
 			</div>
-			
+
 			<div class=form-group>
-				<label for=onloads class="col-sm-2 control-label">载入事件</label>
+				<label for=onloads class="col-sm-2 control-label">载入事件（可选）</label>
 				<div class=col-sm-10>
 					<textarea class=form-control name=onloads rows=10 placeholder="载入事件"><?php echo set_value('onloads') ?></textarea>
 				</div>
 				<?php echo form_error('onloads') ?>
 			</div>
-			
+
 			<div class=form-group>
-				<label for=events class="col-sm-2 control-label">业务流程</label>
+				<label for=events class="col-sm-2 control-label">业务流程（可选）</label>
 				<div class=col-sm-10>
 					<textarea class=form-control name=events rows=10 placeholder="业务流程"><?php echo set_value('events') ?></textarea>
 				</div>
 				<?php echo form_error('events') ?>
+			</div>
+
+			<div class=form-group>
+				<label for=entrance class="col-sm-2 control-label">入口页面（可选）</label>
+				<div class=col-sm-10>
+					<input class=form-control name=entrance type=text value="<?php echo set_value('entrance') ?>" placeholder="入口页面">
+				</div>
+				<?php echo form_error('entrance') ?>
+			</div>
+
+			<div class=form-group>
+				<label for=exit class="col-sm-2 control-label">出口页面（可选）</label>
+				<div class=col-sm-10>
+					<input class=form-control name=exit type=text value="<?php echo set_value('exit') ?>" placeholder="出口页面">
+				</div>
+				<?php echo form_error('exit') ?>
 			</div>
 		</fieldset>
 

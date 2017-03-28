@@ -87,7 +87,7 @@
 			if ( !empty($this->input->get('project_id')) ) $condition['project_id'] = $this->input->get('project_id'); // 若已传入项目ID，则进行筛选
 			
 			// 排序条件
-			$order_by[$this->id_name] = 'ASC';
+			$order_by['code'] = 'ASC'; // 按API序号字母顺序进行排序
 			
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);
@@ -191,10 +191,10 @@
 
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
-			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|required');
-			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim');
+			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
+			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('code', '序号', 'trim|required');
+			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
 			$this->form_validation->set_rules('url', 'URL', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('request_sample', '请求示例', 'trim');
@@ -240,9 +240,9 @@
 			*/
 
 			// 待验证的表单项
-			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim');
+			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('code', '序号', 'trim|required');
+			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
 			$this->form_validation->set_rules('url', 'URL', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('request_sample', '请求示例', 'trim');

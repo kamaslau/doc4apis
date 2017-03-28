@@ -27,6 +27,7 @@
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
+		<meta name=robots content="nofollow">
 
 		<meta name=viewport content="width=device-width">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">

@@ -50,7 +50,6 @@
 	<table class="table table-condensed table-responsive table-striped sortable">
 		<thead>
 			<tr>
-				<th><?php echo $this->class_name_cn ?>ID</th>
 				<?php
 					$thead = array_values($data_to_display);
 					foreach ($thead as $th):
@@ -64,7 +63,6 @@
 		<tbody>
 		<?php foreach ($items as $item): ?>
 			<tr>
-				<td><?php echo $item[$this->id_name] ?></td>
 				<?php
 					$tr = array_keys($data_to_display);
 					foreach ($tr as $td):
