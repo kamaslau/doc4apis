@@ -6,7 +6,7 @@ define('SITE_NAME', 'A派道客'); // 站点名称
 define('SITE_SLOGAN', '基于API的项目开发文档库'); // 站点广告语
 define('SITE_KEYWORDS', 'API,RESTful,开发文档,项目管理,开发管理,敏捷开发'); // 站点关键词
 define('SITE_DESCRIPTION', 'API文档管理系统基于BasicCodeIgniter框架'); // 站点描述
-define('ICP_NUMBER', '鲁ICP备15027187号-1'); // ICP备案号码，没有请留空
+define('ICP_NUMBER', NULL); // ICP备案号码，没有请留空
 
 define('BASE_URL', 'https://'. $_SERVER['SERVER_NAME']); // 可对外使用的站点URL, 自动判断协议（HTTP/HTTPS等等）；在本地测试时须替换为类似“localhost/BasicCodeigniter”形式
 //define('IMAGES_URL', '//images.xx.com/'); // （可选）非样式图片存储的根目录所在URL，可用于配合又拍云等第三方存储

@@ -1,6 +1,7 @@
 <style>
-	/* 宽度在640像素以上的设备 */
-	@media only screen and (min-width:641px)
+
+	/* 宽度在768像素以上的设备 */
+	@media only screen and (min-width:769px)
 	{
 
 	}
@@ -21,7 +22,7 @@
 <div id=breadcrumb>
 	<ol class="breadcrumb container">
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
-		<li class=active><a href="<?php echo base_url($this->class_name) ?>"><?php echo $this->class_name_cn ?></a></li>
+		<li class=active><?php echo $this->class_name_cn ?></li>
 	</ol>
 </div>
 
@@ -30,7 +31,7 @@
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
 	$current_level = $this->session->level; // 当前用户权限
-	$role_allowed = array('管理员');
+	$role_allowed = array('经理', '管理员');
 	$level_allowed = 1;
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
@@ -50,7 +51,6 @@
 	<table class="table table-condensed table-responsive table-striped sortable">
 		<thead>
 			<tr>
-				<th><?php echo $this->class_name_cn ?>ID</th>
 				<?php
 					$thead = array_values($data_to_display);
 					foreach ($thead as $th):
@@ -64,7 +64,6 @@
 		<tbody>
 		<?php foreach ($items as $item): ?>
 			<tr>
-				<td><?php echo $item[$this->id_name] ?></td>
 				<?php
 					$tr = array_keys($data_to_display);
 					foreach ($tr as $td):
@@ -76,7 +75,7 @@
 						<li><a title="查看" href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-eye"></i> 查看</a></li>
 						<?php
 						// 需要特定角色和权限进行该操作
-						$role_allowed = array('管理员');
+						$role_allowed = array('经理', '管理员');
 						$level_allowed = 1;
 						if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 						?>

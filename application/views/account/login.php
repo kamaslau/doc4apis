@@ -41,7 +41,7 @@
 		</fieldset>
 
 		<div class=form-group>
-		    <div class="col-sm-offset-2 col-sm-10">
+		    <div class="col-xs-12">
 				<button class="btn btn-primary btn-lg btn-block" type=submit role=button>登录</button>
 		    </div>
 		</div>

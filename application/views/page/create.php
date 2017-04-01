@@ -1,8 +1,8 @@
 <style>
 
 
-	/* 宽度在640像素以上的设备 */
-	@media only screen and (min-width:641px)
+	/* 宽度在768像素以上的设备 */
+	@media only screen and (min-width:769px)
 	{
 
 	}
@@ -33,7 +33,7 @@
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
 	$current_level = $this->session->level; // 当前用户权限
-	$role_allowed = array('管理员');
+	$role_allowed = array('经理', '管理员');
 	$level_allowed = 1;
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
@@ -79,10 +79,12 @@
 			<div class=form-group>
 				<label for=private class="col-sm-2 control-label">是否需登录</label>
 				<div class=col-sm-10>
-					<select class=form-control name=private required>
-						<option value="1" <?php echo set_select('private', '1') ?>>是</option>
-						<option value="0" <?php echo set_select('private', '0') ?>>否</option>
-					</select>
+					<label class=radio-inline>
+						<input type=radio name=private value="是" required <?php echo set_radio('private', '是', TRUE) ?>> 是
+					</label>
+					<label class=radio-inline>
+						<input type=radio name=private value="否" required <?php echo set_radio('private', '否') ?>> 否
+					</label>
 				</div>
 				<?php echo form_error('private') ?>
 			</div>

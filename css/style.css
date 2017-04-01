@@ -6,56 +6,45 @@
 @charset "utf-8";
 @viewport{width:device-width;}
 
-* {box-sizing:border-box;}
-body {color:#333;background-color:#fff;font:1rem/1.5 "FZLanTingHei","微软雅黑",verdana,sans-serif;}
-figure {line-height:1;}
-img {width:100%;max-width:100%;}
-a {color:#333;}
+body {color:#333;background-color:#fff;}
+.container {padding:0;/* 清理BootStrap样式 */}
+
+a {color:#333;text-decoration:none;/* 清理BootStrap样式 */}
 	a:hover {color:#999;}
 
 h2 {color:#333;font-size:22px;}
 	h2>span {color:gray;font-size:20px;}
 h3 {color:#333;font-size:20px;line-height:20px;margin-top:25px;padding-top:12px;padding-bottom:12px;border-bottom:1px solid #ddd}
-
-.input-group, label+div {border:1px solid #ddd;padding:11px 8px 11px 50px;width:240px;position:relative;overflow:hidden;}
-	.input-group-addon {color:#fff;background-color:#ddd;
-width:40px;height:40px;line-height:40px;position: absolute;left:0;top:0;display:block;text-align: center;}
-	input {width:100%;height:18px;line-height:18px;}
-
-table {font-size:12px;border: 1px solid #dddddd;table-layout:fixed;}
-th, td {border:1px solid #ddd;word-break:break-all;overflow-wrap:break-word;}
-	th {color:#fff;background-color:#666;padding:10px;text-align:left;}
-	td {padding:6px 10px;line-height:24px;}
-
-.horizontal {overflow:hidden;}
-	.horizontal>li,.horizontal>.li {float:left;display:inline;}
 	
 #header {font-size:14px;background-color:#373942;}
-	#header a {color:#e5e9ee;display:block;height:100%;padding:0 20px;}
+	#header h1 {width:100%;margin:0;}
+	#header a {color:#e5e9ee;display:block;width:100%;height:100%;text-align:center;padding:0 20px;}
 		#header a:hover, #header .active a {background-color:#2b2d34;}
-	#header>.container>* {float:left;height:64px;line-height:64px;}
-	#nav-header {margin-left:40px;}
-	#header #account-panel {float:right;}
+	#header>.container>* {height:44px;line-height:44px;}
 	
-#breadcrumb {color:#fff;font-size:12px;background-color:#0089cd;height:80px;line-height:80px;overflow:hidden;}
-	#breadcrumb a {color:#fff;}
-	#breadcrumb li {float:left;}
-		#breadcrumb li:not(:last-child):after {content:">";padding:.5em;}
+#breadcrumb {color:#4cb5ff;font-size:12px;background-color:#0089cd;height:80px;line-height:80px;overflow:hidden;}
+	#breadcrumb a {color:#4cb5ff;}
+	.breadcrumb {background-color:transparent;border-radius:0;margin-bottom:0;}
+		.breadcrumb>.active {color:#fff;}
 
 #content {padding:40px 0;}
 	.detail h2+p {margin-top:30px;}
 	.detail table {margin:15px 0;}
 		.detail th, .detail td {border:0;}
 
-#footer {color:#666;font-size:12px;background-color:#373942;padding:40px 0 50px;}
-	#footer a {color:#666;}
+#footer {color:#666;font-size:12px;background-color:#373942;padding:20px 0 25px;text-align:center;}
+	#footer a {color:#999;}
+		#footer a:hover,#footer a:active {color:#4cb5ff;}
 
-#totop {position:fixed;right:1em;bottom:1em;}
-
-/* 宽度在640像素以上的设备 */
-@media only screen and (min-width:641px)
+/* 宽度在768像素以上的设备 */
+@media only screen and (min-width:769px)
 {
-	.container {width:95%;margin:0 auto;}
+	#header>.container>* {height:64px;line-height:64px;}
+	#header h1 {width:auto;float:left;}
+	#nav-header {margin-left:40px;float:left;}
+	#account-panel {float:right;}
+	
+	#footer {padding:40px 0 50px;text-align:left;}
 }
 
 /* 宽度在960像素以上的设备 */

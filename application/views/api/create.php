@@ -1,8 +1,8 @@
 <style>
 
 
-	/* 宽度在640像素以上的设备 */
-	@media only screen and (min-width:641px)
+	/* 宽度在768像素以上的设备 */
+	@media only screen and (min-width:769px)
 	{
 
 	}
@@ -33,7 +33,7 @@
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
 	$current_level = $this->session->level; // 当前用户权限
-	$role_allowed = array('管理员');
+	$role_allowed = array('经理', '管理员');
 	$level_allowed = 1;
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
@@ -75,7 +75,7 @@
 				</div>
 				<?php echo form_error('code') ?>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=url class="col-sm-2 control-label">URL</label>
 				<div class=col-sm-10>
@@ -91,7 +91,7 @@
 				</div>
 				<?php echo form_error('description') ?>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=request_sample class="col-sm-2 control-label">请求示例（可选）</label>
 				<div class=col-sm-10>
@@ -99,7 +99,7 @@
 				</div>
 				<?php echo form_error('request_sample') ?>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=respond_sample class="col-sm-2 control-label">返回示例（可选）</label>
 				<div class=col-sm-10>
