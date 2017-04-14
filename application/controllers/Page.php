@@ -57,7 +57,7 @@
 			);
 			$this->load->library('basic', $basic_configs);
 		}
-		
+
 		/**
 		 * 截止3.1.3为止，CI_Controller类无析构函数，所以无需继承相应方法
 		 */
@@ -71,7 +71,11 @@
 		 * 列表页
 		 */
 		public function index()
-		{	
+		{
+			// 检查是否已传入必要参数
+			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+			if ( empty($project_id) ) redirect(base_url('project'));
+
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '列表',
@@ -82,8 +86,7 @@
 			$data['data_to_display'] = $this->data_to_display;
 			
 			// 筛选条件
-			$condition = NULL;
-			if ( !empty($this->input->get('project_id')) ) $condition['project_id'] = $this->input->get('project_id'); // 若已传入项目ID，则进行筛选
+			$condition['project_id'] = $project_id;
 			
 			// 排序条件
 			$order_by[$this->id_name] = 'ASC';
@@ -100,7 +103,7 @@
 			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
 
 			// 检查是否已传入必要参数
-			if (empty($id)):
+			if ( empty($id) ):
 				$this->error(404, '网址不完整');
 				exit;
 			endif;
@@ -114,6 +117,26 @@
 			// 获取页面数据
 			$data['item'] = $this->basic_model->select_by_id($id);
 			
+			// 若存在相关页面，则获取页面信息
+			if ( !empty($data['item']['page_ids']) ):
+				$page_ids = explode(' ', $data['item']['page_ids']);
+				$data['pages'] = array();
+				foreach ($page_ids as $page_id):
+					$data['pages'][] = $this->basic_model->select_by_id($page_id);
+				endforeach;
+			endif;
+
+			// 若存在相关API，则获取API信息
+			if ( !empty($data['item']['api_ids']) ):
+				$api_ids = explode(' ', $data['item']['api_ids']);
+				$data['apis'] = array();
+				$this->basic_model->table_name = 'project';
+				$this->basic_model->id_name = 'project_id';
+				foreach ($api_ids as $api_id):
+					$data['apis'][] = $this->basic_model->select_by_id($api_id);
+				endforeach;
+			endif;
+
 			// 获取项目数据
 			$this->basic_model->table_name = 'project';
 			$this->basic_model->id_name = 'project_id';
@@ -169,7 +192,7 @@
 				$this->error(404, '网址不完整');
 				exit;
 			endif;
-			
+
 			// 页面信息
 			$data = array(
 				'title' => '创建'.$this->class_name_cn,
@@ -196,10 +219,12 @@
 			$this->form_validation->set_rules('description', '说明', 'trim|required');
 			$this->form_validation->set_rules('private', '是否需登录', 'trim');
 			$this->form_validation->set_rules('elements', '视图元素', 'trim');
+			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
+			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim');
 			$this->form_validation->set_rules('onloads', '载入事件', 'trim');
 			$this->form_validation->set_rules('events', '业务流程', 'trim');
-			$this->form_validation->set_rules('entrance', '入口页面', 'trim');
-			$this->form_validation->set_rules('exit', '出口页面', 'trim');
+			$this->form_validation->set_rules('api_ids', '相关API', 'trim');
+			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
 
 			// 需要存入数据库的信息
 			// 不建议直接用$this->input->post/get/post_get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
@@ -210,10 +235,12 @@
 				'description' => $this->input->post('description'),
 				'private' => $this->input->post('private'),
 				'elements' => $this->input->post('elements'),
+				'url_design' => $this->input->post('url_design'),
+				'url_assets' => $this->input->post('url_assets'),
 				'onloads' => $this->input->post('onloads'),
 				'events' => $this->input->post('events'),
-				'entrance' => $this->input->post('entrance'),
-				'exit' => $this->input->post('exit'),
+				'api_ids' => $this->input->post('api_ids'),
+				'page_ids' => $this->input->post('page_ids'),
 			);
 
 			// Go Basic!
@@ -248,10 +275,12 @@
 			$this->form_validation->set_rules('description', '说明', 'trim|required');
 			$this->form_validation->set_rules('private', '是否需登录', 'trim');
 			$this->form_validation->set_rules('elements', '视图元素', 'trim');
+			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
+			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim');
 			$this->form_validation->set_rules('onloads', '载入事件', 'trim');
 			$this->form_validation->set_rules('events', '业务流程', 'trim');
-			$this->form_validation->set_rules('entrance', '入口页面', 'trim');
-			$this->form_validation->set_rules('exit', '出口页面', 'trim');
+			$this->form_validation->set_rules('api_ids', '相关API', 'trim');
+			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
 
 			// 需要编辑的信息
 			// 不建议直接用$this->input->post、$this->input->get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
@@ -261,10 +290,12 @@
 				'description' => $this->input->post('description'),
 				'private' => $this->input->post('private'),
 				'elements' => $this->input->post('elements'),
+				'url_design' => $this->input->post('url_design'),
+				'url_assets' => $this->input->post('url_assets'),
 				'onloads' => $this->input->post('onloads'),
 				'events' => $this->input->post('events'),
-				'entrance' => $this->input->post('entrance'),
-				'exit' => $this->input->post('exit'),
+				'api_ids' => $this->input->post('api_ids'),
+				'page_ids' => $this->input->post('page_ids'),
 			);
 
 			// Go Basic!

@@ -83,7 +83,6 @@
 			
 			// 筛选条件
 			$condition = NULL;
-			//$condition['name'] = 'value';
 			
 			// 排序条件
 			$order_by[$this->id_name] = 'ASC';
@@ -128,11 +127,9 @@
 			
 			// 筛选条件
 			$condition = NULL;
-			//$condition['name'] = 'value';
 			
 			// 排序条件
 			$order_by = NULL;
-			//$order_by['name'] = 'value';
 			
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
@@ -163,8 +160,11 @@
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('url', 'WEB URL', 'trim');
+			$this->form_validation->set_rules('url_api', 'API URL', 'trim');
 			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim');
 			$this->form_validation->set_rules('url_android', 'Android URL', 'trim');
+			$this->form_validation->set_rules('sandbox_url_web', 'WEB沙箱环境URL', 'trim');
+			$this->form_validation->set_rules('sandbox_url_api', 'API沙箱环境URL', 'trim');
 
 			// 需要存入数据库的信息
 			// 不建议直接用$this->input->post/get/post_get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
@@ -172,8 +172,11 @@
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
 				'url' => $this->input->post('url'),
+				'url_api' => $this->input->post('url_api'),
 				'url_ios' => $this->input->post('url_ios'),
 				'url_android' => $this->input->post('url_android'),
+				'sandbox_url_web' => $this->input->post('sandbox_url_web'),
+				'sandbox_url_api' => $this->input->post('sandbox_url_api'),
 			);
 
 			// Go Basic!
@@ -204,8 +207,11 @@
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('url', 'WEB URL', 'trim');
+			$this->form_validation->set_rules('url_api', 'API URL', 'trim');
 			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim');
 			$this->form_validation->set_rules('url_android', 'Android URL', 'trim');
+			$this->form_validation->set_rules('sandbox_url_web', 'WEB沙箱环境URL', 'trim');
+			$this->form_validation->set_rules('sandbox_url_api', 'API沙箱环境URL', 'trim');
 
 			// 需要编辑的信息
 			// 不建议直接用$this->input->post、$this->input->get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
@@ -213,8 +219,11 @@
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
 				'url' => $this->input->post('url'),
+				'url_api' => $this->input->post('url_api'),
 				'url_ios' => $this->input->post('url_ios'),
 				'url_android' => $this->input->post('url_android'),
+				'sandbox_url_web' => $this->input->post('sandbox_url_web'),
+				'sandbox_url_api' => $this->input->post('sandbox_url_api'),
 			);
 
 			// Go Basic!

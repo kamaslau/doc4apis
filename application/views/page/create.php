@@ -38,9 +38,9 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
-		<a type=button class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fa fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
-	  	<a type=button class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fa fa-trash fa-fw" aria-hidden=true></i> 回收站</a>
-		<a type=button class="btn btn-primary" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fa fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
+	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fa fa-trash fa-fw" aria-hidden=true></i> 回收站</a>
+		<a class="btn btn-primary" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
 	</div>
 	<?php endif ?>
 
@@ -71,7 +71,7 @@
 			<div class=form-group>
 				<label for=description class="col-sm-2 control-label">说明</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=description rows=10 placeholder="说明" required><?php echo set_value('description') ?></textarea>
+					<textarea class=form-control name=description rows=5 placeholder="说明" required><?php echo set_value('description') ?></textarea>
 				</div>
 				<?php echo form_error('description') ?>
 			</div>
@@ -98,6 +98,22 @@
 			</div>
 
 			<div class=form-group>
+				<label for=url_design class="col-sm-2 control-label">设计图URL（可选）</label>
+				<div class=col-sm-10>
+					<input class=form-control name=url_design type=file value="<?php echo set_value('url_design') ?>" placeholder="请上传jpg/webp格式设计图，文件大小控制在2M之内">
+				</div>
+				<?php echo form_error('url_design') ?>
+			</div>
+
+			<div class=form-group>
+				<label for=url_assets class="col-sm-2 control-label">美术素材URL（可选）</label>
+				<div class=col-sm-10>
+					<input class=form-control name=url_assets type=text value="<?php echo set_value('url_assets') ?>" placeholder="请将UI素材、字体、媒体文件等压缩后上传到百度云盘，并将该压缩文件的分享链接填入此处">
+				</div>
+				<?php echo form_error('url_assets') ?>
+			</div>
+
+			<div class=form-group>
 				<label for=onloads class="col-sm-2 control-label">载入事件（可选）</label>
 				<div class=col-sm-10>
 					<textarea class=form-control name=onloads rows=10 placeholder="载入事件"><?php echo set_value('onloads') ?></textarea>
@@ -112,21 +128,21 @@
 				</div>
 				<?php echo form_error('events') ?>
 			</div>
-
+			
 			<div class=form-group>
-				<label for=entrance class="col-sm-2 control-label">入口页面（可选）</label>
+				<label for=api_ids class="col-sm-2 control-label">相关API（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=entrance type=text value="<?php echo set_value('entrance') ?>" placeholder="入口页面">
+					<input class=form-control name=api_ids type=text value="<?php echo set_value('api_ids') ?>" placeholder="与当前页面有关的API的ID们，多个ID间用一个空格分隔">
 				</div>
-				<?php echo form_error('entrance') ?>
+				<?php echo form_error('api_ids') ?>
 			</div>
-
+			
 			<div class=form-group>
-				<label for=exit class="col-sm-2 control-label">出口页面（可选）</label>
+				<label for=page_ids class="col-sm-2 control-label">相关页面（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=exit type=text value="<?php echo set_value('exit') ?>" placeholder="出口页面">
+					<input class=form-control name=page_ids type=text value="<?php echo set_value('page_ids') ?>" placeholder="与当前页面有关的其它页面的ID们，多个ID间用一个空格分隔">
 				</div>
-				<?php echo form_error('exit') ?>
+				<?php echo form_error('page_ids') ?>
 			</div>
 		</fieldset>
 

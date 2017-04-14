@@ -74,7 +74,7 @@
 				'password' => sha1( $this->input->post('password') ),
 			);
 
-			$query = $this->db->get_where('stuff', $data);
+			$query = $this->db->get_where('user', $data);
 			return $query->row_array();
 		}
 

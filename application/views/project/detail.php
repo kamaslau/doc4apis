@@ -37,9 +37,9 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
-		<a type=button class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fa fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
-	  	<a type=button class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fa fa-trash fa-fw" aria-hidden=true></i> 回收站</a>
-		<a type=button class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fa fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
+	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fa fa-trash fa-fw" aria-hidden=true></i> 回收站</a>
+		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
 	</div>
 	<?php endif ?>
 
@@ -55,6 +55,11 @@
 				jQuery('<div class=qrcode>').appendTo('#url_web').qrcode("<?php echo $item['url'] ?>");
 			</script>
 		</dd>
+		<?php endif ?>
+		
+		<?php if ( !empty($item['url_api']) ): ?>
+		<dt><i class="fa fa-safari" aria-hidden="true"></i> API</dt>
+		<dd><?php echo $item['url_api'] ?></dd>
 		<?php endif ?>
 		
 		<?php if ( !empty($item['url_ios']) ): ?>
@@ -77,10 +82,27 @@
 		</dd>
 		<?php endif ?>
 	</dl>
+	
+	<dl class=dl-horizontal>
+		<?php if ( !empty($item['sandbox_url_web']) ): ?>
+		<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB沙箱环境URL</dt>
+		<dd id=sandbox_url_web>
+			<?php echo $item['sandbox_url_web'] ?>
+			<script>
+				jQuery('<div class=qrcode>').appendTo('#sandbox_url_web').qrcode("<?php echo $item['sandbox_url_web'] ?>");
+			</script>
+		</dd>
+		<?php endif ?>
+		
+		<?php if ( !empty($item['sandbox_url_api']) ): ?>
+		<dt><i class="fa fa-safari" aria-hidden="true"></i> API沙箱环境URL</dt>
+		<dd><?php echo $item['sandbox_url_api'] ?></dd>
+		<?php endif ?>
+	</dl>
 
 	<ul class="list-unstyled list-inline">
-		<li><a title="查看页面" href="<?php echo base_url('page?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-eye"></i> 查看页面</a></li>
-		<li><a title="查看API" href="<?php echo base_url('api?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-eye"></i> 查看API</a></li>
+		<li><a title="查看页面" href="<?php echo base_url('page?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-eye"></i> 查看该项目页面</a></li>
+		<li><a title="查看API" href="<?php echo base_url('api?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-eye"></i> 查看该项目API</a></li>
 		<?php
 		// 需要特定角色和权限进行该操作
 		$role_allowed = array('经理', '管理员');

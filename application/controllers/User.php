@@ -2,14 +2,14 @@
 	defined('BASEPATH') OR exit('此文件不可被直接访问');
 
 	/**
-	 * Api 类
+	 * User 类
 	 *
 	 *
 	 * @version 1.0.0
 	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
 	 * @copyright ICBG <www.bingshankeji.com>
 	 */
-	class Api extends CI_Controller
+	class User extends CI_Controller
 	{
 		/* 类名称小写，应用于多处动态生成内容 */
 		public $class_name;
@@ -38,16 +38,16 @@
 			
 			// 向类属性赋值
 			$this->class_name = strtolower(__CLASS__);
-			$this->class_name_cn = 'API'; // 改这里……
-			$this->table_name = 'api'; // 和这里……
-			$this->id_name = 'api_id'; // 还有这里，OK，这就可以了
+			$this->class_name_cn = '用户'; // 改这里……
+			$this->table_name = 'user'; // 和这里……
+			$this->id_name = 'user_id'; // 还有这里，OK，这就可以了
 			$this->view_root = $this->class_name;
 
 			// 设置需要自动在视图文件中生成显示的字段
 			$this->data_to_display = array(
-				'code' => '序号',
-				'name' => '名称',
-				'description' => '描述',
+				'mobile' => '手机号',
+				'lastname' => '姓',
+				'firstname' => '名',
 			);
 
 			// 设置并调用Basic核心库
@@ -73,10 +73,6 @@
 		 */
 		public function index()
 		{
-			// 检查是否已传入必要参数
-			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($project_id) ) redirect(base_url('project'));
-
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '列表',
@@ -87,10 +83,10 @@
 			$data['data_to_display'] = $this->data_to_display;
 			
 			// 筛选条件
-			$condition['project_id'] = $project_id;
+			$condition = NULL;
 			
 			// 排序条件
-			$order_by['code'] = 'ASC'; // 按API序号字母顺序进行排序
+			$order_by[$this->id_name] = 'ASC';
 			
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);
@@ -101,34 +97,17 @@
 		 */
 		public function detail()
 		{
-			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-
-			// 检查是否已传入必要参数
-			if (empty($id)):
-				$this->error(404, '网址不完整');
-				exit;
-			endif;
-			
 			// 页面信息
 			$data = array(
-				'title' => NULL,
+				'title' => $this->class_name_cn. '详情',
 				'class' => $this->class_name.' '. $this->class_name.'-detail',
 			);
 
-			// 获取页面数据
-			$data['item'] = $this->basic_model->select_by_id($id);
+			// 将需要显示的数据传到视图以备使用
+			$data['data_to_display'] = $this->data_to_display;
 			
-			// 获取项目数据
-			$this->basic_model->table_name = 'project';
-			$this->basic_model->id_name = 'project_id';
-			$data['project'] = $this->basic_model->select_by_id($data['item']['project_id']);
-
-			// 生成最终页面标题
-			$data['title'] = $data['project']['name']. $data['item']['name']. 'API ';
-
-			$this->load->view('templates/header', $data);
-			$this->load->view($this->view_root.'/detail', $data);
-			$this->load->view('templates/footer', $data);
+			// Go Basic！
+			$this->basic->detail($data);
 		}
 
 		/**
@@ -143,17 +122,15 @@
 				'title' => $this->class_name_cn. '回收站',
 				'class' => $this->class_name.' '. $this->class_name.'-trash',
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 			
 			// 筛选条件
 			$condition = NULL;
-			//$condition['name'] = 'value';
 			
 			// 排序条件
 			$order_by = NULL;
-			//$order_by['name'] = 'value';
 			
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
@@ -166,24 +143,11 @@
 		 */
 		public function create()
 		{
-			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-
-			// 检查是否已传入必要参数
-			if (empty($id)):
-				$this->error(404, '网址不完整');
-				exit;
-			endif;
-
 			// 页面信息
 			$data = array(
 				'title' => '创建'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
-			
-			// 获取项目数据
-			$this->basic_model->table_name = 'project';
-			$this->basic_model->id_name = 'project_id';
-			$data['project'] = $this->basic_model->select_by_id($id);
 
 			// 后台操作可能需要检查操作权限
 			/*
@@ -194,31 +158,31 @@
 
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
-			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
-			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
-			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
-			$this->form_validation->set_rules('url', 'URL', 'trim|required');
-			$this->form_validation->set_rules('description', '说明', 'trim');
-			$this->form_validation->set_rules('request_sample', '请求示例', 'trim');
-			$this->form_validation->set_rules('respond_sample', '返回示例', 'trim');
+			$this->form_validation->set_rules('mobile', '手机号', 'trim|required');
+			$this->form_validation->set_rules('lastname', '姓', 'trim|required');
+			$this->form_validation->set_rules('firstname', '名', 'trim|required');
+			$this->form_validation->set_rules('gender', '性别', 'trim');
+			$this->form_validation->set_rules('dob', '生日（公历）', 'trim');
+			$this->form_validation->set_rules('avatar', '头像URL', 'trim');
+			$this->form_validation->set_rules('email', 'Email', 'trim');
+			$this->form_validation->set_rules('role', '角色', 'trim');
+			$this->form_validation->set_rules('level', '等级', 'trim');
 
 			// 需要存入数据库的信息
 			// 不建议直接用$this->input->post/get/post_get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_create = array(
-				'project_id' => $this->input->post('project_id'),
-				'category_id' => $this->input->post('category_id'),
-				'name' => $this->input->post('name'),
-				'code' => $this->input->post('code'),
-				'url' => $this->input->post('url'),
-				'description' => $this->input->post('description'),
-				'request_sample' => $this->input->post('request_sample'),
-				'respond_sample' => $this->input->post('respond_sample'),
+				'mobile' => $this->input->post('mobile'),
+				'lastname' => $this->input->post('lastname'),
+				'firstname' => $this->input->post('firstname'),
+				'gender' => $this->input->post('gender'),
+				'dob' => $this->input->post('dob'),
+				'avatar' => $this->input->post('avatar'),
+				'email' => $this->input->post('email'),
+				'role' => $this->input->post('role'),
+				'level' => $this->input->post('level'),
 			);
 
 			// Go Basic!
-			$this->basic_model->table_name = 'api';
-			$this->basic_model->id_name = 'api_id';
 			$this->basic->create($data, $data_to_create);
 		}
 
@@ -243,24 +207,28 @@
 			*/
 
 			// 待验证的表单项
-			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
-			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
-			$this->form_validation->set_rules('url', 'URL', 'trim|required');
-			$this->form_validation->set_rules('description', '说明', 'trim');
-			$this->form_validation->set_rules('request_sample', '请求示例', 'trim');
-			$this->form_validation->set_rules('respond_sample', '返回示例', 'trim');
+			$this->form_validation->set_rules('mobile', '手机号', 'trim|required');
+			$this->form_validation->set_rules('lastname', '姓', 'trim|required');
+			$this->form_validation->set_rules('firstname', '名', 'trim|required');
+			$this->form_validation->set_rules('gender', '性别', 'trim');
+			$this->form_validation->set_rules('dob', '生日（公历）', 'trim');
+			$this->form_validation->set_rules('avatar', '头像URL', 'trim');
+			$this->form_validation->set_rules('email', 'Email', 'trim');
+			$this->form_validation->set_rules('role', '角色', 'trim');
+			$this->form_validation->set_rules('level', '等级', 'trim');
 
 			// 需要编辑的信息
 			// 不建议直接用$this->input->post、$this->input->get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_edit = array(
-				'category_id' => $this->input->post('category_id'),
-				'name' => $this->input->post('name'),
-				'code' => $this->input->post('code'),
-				'url' => $this->input->post('url'),
-				'description' => $this->input->post('description'),
-				'request_sample' => $this->input->post('request_sample'),
-				'respond_sample' => $this->input->post('respond_sample'),
+				'mobile' => $this->input->post('mobile'),
+				'lastname' => $this->input->post('lastname'),
+				'firstname' => $this->input->post('firstname'),
+				'gender' => $this->input->post('gender'),
+				'dob' => $this->input->post('dob'),
+				'avatar' => $this->input->post('avatar'),
+				'email' => $this->input->post('email'),
+				'role' => $this->input->post('role'),
+				'level' => $this->input->post('level'),
 			);
 
 			// Go Basic!
@@ -320,7 +288,7 @@
 				'title' => $op_name. $this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-'. $op_view,
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
@@ -344,5 +312,5 @@
 		}
 	}
 
-/* End of file Api.php */
-/* Location: ./application/controllers/Api.php */
+/* End of file User.php */
+/* Location: ./application/controllers/User.php */

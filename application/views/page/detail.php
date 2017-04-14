@@ -28,21 +28,6 @@
 </div>
 
 <div id=content class=container>
-	<?php
-	// 需要特定角色和权限进行该操作
-	$current_role = $this->session->role; // 当前用户角色
-	$current_level = $this->session->level; // 当前用户权限
-	$role_allowed = array('经理', '管理员');
-	$level_allowed = 1;
-	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
-	?>
-	<div class=btn-group role=group>
-		<a type=button class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fa fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
-	  	<a type=button class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fa fa-trash fa-fw" aria-hidden=true></i> 回收站</a>
-		<a type=button class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
-	</div>
-	<?php endif ?>
-
 	<h2><?php echo $item['name'] ?></h2>
 	<em><?php echo ($item['private'] === '1')? '需登录': '不需登录'; ?></em>
 	<p><?php echo $item['description'] ?></p>
@@ -50,6 +35,19 @@
 	<section>
 		<h3>视图元素</h3>
 		<?php echo $item['elements'] ?>
+		<ul>
+			<?php if ( !empty($item['url_design_image']) ): ?>
+			<li>
+				设计稿 <a id=design-show title="显示设计稿" href="<?php echo $item['url_design_image'] ?>" target=_blank><i class="fa fa-eye" aria-hidden=true></i> 显示</a>
+				<figure id=design-image></figure>
+			</li>
+			<?php endif ?>
+			<?php if ( !empty($item['url_design_assets']) ): ?>
+			<li>
+				设计附件 <a title="下载设计附件" href="<?php echo $item['url_design_assets'] ?>" target=_blank><i class="fa fa-download" aria-hidden=true></i> 去下载</a>
+			</li>
+			<?php endif ?>
+		</ul>
 	</section>
 	
 	<section>
@@ -62,15 +60,29 @@
 		<?php echo $item['events'] ?>
 	</section>
 	
+	<?php if ( !empty($item['api_ids']) ): ?>
 	<section>
-		<h3>入口页面</h3>
-		<?php echo !empty($item['entrance'])? $item['entrance']: '不限'; ?>
+		<h3>相关API</h3>
+		<p>
+			<?php foreach ($apis as $api): ?>
+			<span class="label label-default">
+				<a href="<?php echo base_url('api/detail?id='.$api['api_id']) ?>" target=_blank><?php echo $api['name'] ?></a>
+			</span>
+			<?php endforeach ?>
+		</p>
 	</section>
-	
+	<?php endif ?>
+
+	<?php if ( !empty($item['page_ids']) ): ?>
 	<section>
-		<h3>出口页面</h3>
-		<?php echo !empty($item['exit'])? $item['exit']: '无'; ?>
+		<h3>相关页面</h3>
+		<p>
+			<?php foreach ($pages as $page): ?>
+			<a class="btn btn-default" href="<?php echo base_url('page/detail?id='.$page['page_id']) ?>" target=_blank><?php echo $page['name'] ?></a>
+			<?php endforeach ?>
+		</p>
 	</section>
+	<?php endif ?>
 
 	<dl id=list-record class=dl-horizontal>
 		<dt>创建时间</dt>
@@ -97,6 +109,8 @@
 	<ul class="list-unstyled horizontal">
 		<?php
 		// 需要特定角色和权限进行该操作
+		$current_role = $this->session->role; // 当前用户角色
+		$current_level = $this->session->level; // 当前用户权限
 		$role_allowed = array('经理', '管理员');
 		$level_allowed = 1;
 		if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):

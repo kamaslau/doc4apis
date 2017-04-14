@@ -1,55 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/*
-| -------------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------------
-| This file lets you re-map URI requests to specific controller functions.
-|
-| Typically there is a one-to-one relationship between a URL string
-| and its corresponding controller class/method. The segments in a
-| URL normally follow this pattern:
-|
-|	example.com/class/method/id/
-|
-| In some instances, however, you may want to remap this relationship
-| so that a different class/function is called than the one
-| corresponding to the URL.
-|
-| Please see the user guide for complete details:
-|
-|	https://codeigniter.com/user_guide/general/routing.html
-|
-| -------------------------------------------------------------------------
-| RESERVED ROUTES
-| -------------------------------------------------------------------------
-|
-| There are three reserved routes:
-|
-|	$route['default_controller'] = 'welcome';
-|
-| This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the "welcome" class
-| would be loaded.
-|
-|	$route['404_override'] = 'errors/page_missing';
-|
-| This route will tell the Router which controller/method to use if those
-| provided in the URL cannot be matched to a valid route.
-|
-|	$route['translate_uri_dashes'] = FALSE;
-|
-| This is not exactly a route, but allows you to automatically route
-| controller and method names that contain dashes. '-' isn't a valid
-| class or method name character, so it requires translation.
-| When you set this option to TRUE, it will replace ALL dashes in the
-| controller and method URI segments.
-|
-| Examples:	my-controller/index	-> my_controller/index
-|		my-controller/my-method	-> my_controller/my_method
-*/
-
 /* Home 首页 */
 $route['home'] = 'home/index'; // 首页
 
@@ -64,25 +15,24 @@ $route['password_reset'] = 'account/password_reset'; // 重置密码（仅限登
 $route['password_change'] = 'account/password_change'; // 修改密码（仅限登录后）
 $route['account/edit'] = 'account/edit'; // 编辑账户资料
 
-/* 以下按控制器类名称字母降序排列 */
 
-/* API 接口 */
-$route['api/detail'] = 'api/detail'; // 详情
-$route['api/edit'] = 'api/edit'; // 编辑
-$route['api/create'] = 'api/create'; // 创建
-$route['api/delete'] = 'api/delete'; // 删除
-$route['api/restore'] = 'api/restore'; // 恢复
-$route['api/trash'] = 'api/trash'; // 回收站
-$route['api'] = 'api/index'; // 列表
+/* Project 项目 */
+$route['project/detail'] = 'project/detail'; // 详情
+$route['project/edit'] = 'project/edit'; // 编辑
+$route['project/create'] = 'project/create'; // 创建
+$route['project/delete'] = 'project/delete'; // 删除
+$route['project/restore'] = 'project/restore'; // 恢复
+$route['project/trash'] = 'project/trash'; // 回收站
+$route['project'] = 'project/index'; // 列表
 
-/*TODO Category 类别 */
-$route['category/detail'] = 'category/detail'; // 详情
-$route['category/edit'] = 'category/edit'; // 编辑
-$route['category/create'] = 'category/create'; // 创建
-$route['category/delete'] = 'category/delete'; // 删除
-$route['category/restore'] = 'category/restore'; // 恢复
-$route['category/trash'] = 'category/trash'; // 回收站
-$route['category'] = 'category/index'; // 列表
+/* Flow 流程 */
+$route['flow/detail'] = 'flow/detail'; // 详情
+$route['flow/edit'] = 'flow/edit'; // 编辑
+$route['flow/create'] = 'flow/create'; // 创建
+$route['flow/delete'] = 'flow/delete'; // 删除
+$route['flow/restore'] = 'flow/restore'; // 恢复
+$route['flow/trash'] = 'flow/trash'; // 回收站
+$route['flow'] = 'flow/index'; // 列表
 
 /* Page 页面 */
 $route['page/detail'] = 'page/detail'; // 详情
@@ -93,14 +43,50 @@ $route['page/restore'] = 'page/restore'; // 恢复
 $route['page/trash'] = 'page/trash'; // 回收站
 $route['page'] = 'page/index'; // 列表
 
-/* Project 项目 */
-$route['project/detail'] = 'project/detail'; // 详情
-$route['project/edit'] = 'project/edit'; // 编辑
-$route['project/create'] = 'project/create'; // 创建
-$route['project/delete'] = 'project/delete'; // 删除
-$route['project/restore'] = 'project/restore'; // 恢复
-$route['project/trash'] = 'project/trash'; // 回收站
-$route['project'] = 'project/index'; // 列表
+/* API 接口 */
+$route['api/detail'] = 'api/detail'; // 详情
+$route['api/edit'] = 'api/edit'; // 编辑
+$route['api/create'] = 'api/create'; // 创建
+$route['api/delete'] = 'api/delete'; // 删除
+$route['api/restore'] = 'api/restore'; // 恢复
+$route['api/trash'] = 'api/trash'; // 回收站
+$route['api'] = 'api/index'; // 列表
+
+/* Biz 企业 */
+$route['biz/detail'] = 'biz/detail'; // 详情
+$route['biz/edit'] = 'biz/edit'; // 编辑
+$route['biz/create'] = 'biz/create'; // 创建
+$route['biz/delete'] = 'biz/delete'; // 删除
+$route['biz/restore'] = 'biz/restore'; // 恢复
+$route['biz/trash'] = 'biz/trash'; // 回收站
+$route['biz'] = 'biz/index'; // 列表
+
+/* Team 团队 */
+$route['team/detail'] = 'team/detail'; // 详情
+$route['team/edit'] = 'team/edit'; // 编辑
+$route['team/create'] = 'team/create'; // 创建
+$route['team/delete'] = 'team/delete'; // 删除
+$route['team/restore'] = 'team/restore'; // 恢复
+$route['team/trash'] = 'team/trash'; // 回收站
+$route['team'] = 'team/index'; // 列表
+
+/* User 用户 */
+$route['user/detail'] = 'user/detail'; // 详情
+$route['user/edit'] = 'user/edit'; // 编辑
+$route['user/create'] = 'user/create'; // 创建
+$route['user/delete'] = 'user/delete'; // 删除
+$route['user/restore'] = 'user/restore'; // 恢复
+$route['user/trash'] = 'user/trash'; // 回收站
+$route['user'] = 'user/index'; // 列表
+
+/* Task 任务 */
+$route['task/detail'] = 'task/detail'; // 详情
+$route['task/edit'] = 'task/edit'; // 编辑
+$route['task/create'] = 'task/create'; // 创建
+$route['task/delete'] = 'task/delete'; // 删除
+$route['task/restore'] = 'task/restore'; // 恢复
+$route['task/trash'] = 'task/trash'; // 回收站
+$route['task'] = 'task/index'; // 列表
 
 /* Param_public 公共参数 */
 $route['param_public/detail'] = 'param_public/detail'; // 详情
@@ -119,11 +105,6 @@ $route['faq/delete'] = 'faq/delete'; // 删除
 $route['faq/restore'] = 'faq/restore'; // 恢复
 $route['faq/trash'] = 'faq/trash'; // 回收站
 $route['faq'] = 'faq/index'; // 列表
-
-/* Order 订单 */
-$route['order/mine'] = 'order/mine'; // 我的
-$route['order/detail'] = 'order/detail'; // 详情
-$route['order'] = 'order/index'; // 列表
 
 /* User 用户（无社交功能的前台一般可删除该组） */
 $route['user/detail'] = 'user/detail'; // 用户详情

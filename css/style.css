@@ -11,6 +11,9 @@ body {color:#333;background-color:#fff;}
 
 a {color:#333;text-decoration:none;/* 清理BootStrap样式 */}
 	a:hover {color:#999;}
+	
+/* 修复BootStrap样式 */
+
 
 h2 {color:#333;font-size:22px;}
 	h2>span {color:gray;font-size:20px;}
