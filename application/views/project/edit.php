@@ -61,7 +61,7 @@
 			<div class=form-group>
 				<label for=description class="col-sm-2 control-label">说明（可选）</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=description rows=10 placeholder="说明"><?php echo $item['description'] ?></textarea>
+					<textarea class=form-control name=description rows=5 placeholder="说明"><?php echo $item['description'] ?></textarea>
 				</div>
 				<?php echo form_error('description') ?>
 			</div>

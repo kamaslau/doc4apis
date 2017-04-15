@@ -68,7 +68,7 @@
 			<div class=form-group>
 				<label for=answer class="col-sm-2 control-label">回答</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=answer rows=10 placeholder="回答" required><?php echo $item['answer'] ?></textarea>
+					<textarea class=form-control name=answer rows=5 placeholder="回答" required><?php echo $item['answer'] ?></textarea>
 				</div>
 				<?php echo form_error('answer') ?>
 			</div>

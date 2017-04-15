@@ -61,7 +61,7 @@
 			<div class=form-group>
 				<label for=description class="col-sm-2 control-label">说明</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=description rows=10 placeholder="说明" required><?php echo $item['description'] ?></textarea>
+					<textarea class=form-control name=description rows=5 placeholder="说明" required><?php echo $item['description'] ?></textarea>
 				</div>
 				<?php echo form_error('description') ?>
 			</div>
@@ -88,7 +88,7 @@
 			<div class=form-group>
 				<label for=url_design class="col-sm-2 control-label">设计图URL（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url_design type=file value="<?php echo $item['url_design'] ?>" placeholder="请上传jpg/webp格式设计图，文件大小控制在2M之内">
+					<input class=form-control name=url_design type=file value="<?php echo $item['url_design'] ?>" placeholder="请上传jpg/png/webp格式设计图，文件大小控制在2M之内">
 				</div>
 				<?php echo form_error('url_design') ?>
 			</div>
@@ -96,7 +96,7 @@
 			<div class=form-group>
 				<label for=url_assets class="col-sm-2 control-label">美术素材URL（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url_assets type=text value="<?php echo $item['url_assets'] ?>" placeholder="请将UI素材、字体、媒体文件等压缩后上传到百度云盘，并将该压缩文件的分享链接填入此处">
+					<input class=form-control name=url_assets type=url value="<?php echo $item['url_assets'] ?>" placeholder="请将PSD文件、UI素材、字体、媒体文件等压缩后上传到百度云盘，并将该压缩文件的分享链接填入此处">
 				</div>
 				<?php echo form_error('url_assets') ?>
 			</div>

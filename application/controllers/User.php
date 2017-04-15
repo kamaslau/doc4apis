@@ -158,18 +158,17 @@
 
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
-			$this->form_validation->set_rules('mobile', '手机号', 'trim|required');
+			$this->form_validation->set_rules('mobile', '手机号', 'trim|required|is_natural|exact_length[11]');
 			$this->form_validation->set_rules('lastname', '姓', 'trim|required');
 			$this->form_validation->set_rules('firstname', '名', 'trim|required');
 			$this->form_validation->set_rules('gender', '性别', 'trim');
 			$this->form_validation->set_rules('dob', '生日（公历）', 'trim');
-			$this->form_validation->set_rules('avatar', '头像URL', 'trim');
+			$this->form_validation->set_rules('avatar', '头像URL', 'trim|valid_url');
 			$this->form_validation->set_rules('email', 'Email', 'trim');
 			$this->form_validation->set_rules('role', '角色', 'trim');
 			$this->form_validation->set_rules('level', '等级', 'trim');
 
 			// 需要存入数据库的信息
-			// 不建议直接用$this->input->post/get/post_get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_create = array(
 				'mobile' => $this->input->post('mobile'),
 				'lastname' => $this->input->post('lastname'),
@@ -207,18 +206,17 @@
 			*/
 
 			// 待验证的表单项
-			$this->form_validation->set_rules('mobile', '手机号', 'trim|required');
+			$this->form_validation->set_rules('mobile', '手机号', 'trim|required|is_natural|exact_length[11]');
 			$this->form_validation->set_rules('lastname', '姓', 'trim|required');
 			$this->form_validation->set_rules('firstname', '名', 'trim|required');
 			$this->form_validation->set_rules('gender', '性别', 'trim');
 			$this->form_validation->set_rules('dob', '生日（公历）', 'trim');
-			$this->form_validation->set_rules('avatar', '头像URL', 'trim');
+			$this->form_validation->set_rules('avatar', '头像URL', 'trim|valid_url');
 			$this->form_validation->set_rules('email', 'Email', 'trim');
 			$this->form_validation->set_rules('role', '角色', 'trim');
 			$this->form_validation->set_rules('level', '等级', 'trim');
 
 			// 需要编辑的信息
-			// 不建议直接用$this->input->post、$this->input->get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_edit = array(
 				'mobile' => $this->input->post('mobile'),
 				'lastname' => $this->input->post('lastname'),

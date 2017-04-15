@@ -46,6 +46,22 @@
 	<h2><?php echo $item['name'] ?> <span>[<?php echo $item['code'] ?>]</span></h2>
 	<p><?php echo $item['description'] ?></p>
 	
+	<dl class=list-horizontal>
+		<dt>生产环境URL</dt>
+		<?php if ( empty($item['url_full']) ): ?>
+		<dd><?php echo $project['url_api']. $item['url'] ?></dd>
+		<?php else: ?>
+		<dd><?php echo $item['url_full'] ?></dd>
+		<?php endif ?>
+
+		<dt>沙盒环境URL</dt>
+		<?php if ( empty($item['url_full']) ): ?>
+		<dd><?php echo $project['sandbox_url_api']. $item['url'] ?></dd>
+		<?php else: ?>
+		<dd><?php echo $item['url_full'] ?></dd>
+		<?php endif ?>
+	</dl>
+	
 	<section>
 		<h3>公共参数</h3>
 		<table>

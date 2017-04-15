@@ -75,7 +75,7 @@
 			else:
 				$data_to_search = array(
 					'mobile' => $this->input->post('mobile'),
-					'password' => sha1($this->input->post('password'))
+					'password' => sha1( $this->input->post('password') ),
 				);
 				$result = $this->basic_model->match($data_to_search); // 使用密码登录
 
@@ -240,7 +240,7 @@
 		}
 
 		/**
-		 * 密码重置
+		 * TODO 密码重置
 		 *
 		 * 用户未登录时可重置密码
 		 *

@@ -28,10 +28,13 @@
 </div>
 
 <div id=content class=container>
-	<h2><?php echo $item['name'] ?></h2>
+	<h2>
+		<?php echo $item['name'] ?>
+		<a title="<?php echo $project['name'] ?>" href="<?php echo base_url('project/detail?id='.$project['project_id']) ?>" target=_blank><?php echo $project['name'] ?></a>
+	</h2>
 	<em><?php echo ($item['private'] === '1')? '需登录': '不需登录'; ?></em>
 	<p><?php echo $item['description'] ?></p>
-	
+
 	<section>
 		<h3>视图元素</h3>
 		<?php echo $item['elements'] ?>
@@ -42,6 +45,7 @@
 				<figure id=design-image></figure>
 			</li>
 			<?php endif ?>
+
 			<?php if ( !empty($item['url_design_assets']) ): ?>
 			<li>
 				设计附件 <a title="下载设计附件" href="<?php echo $item['url_design_assets'] ?>" target=_blank><i class="fa fa-download" aria-hidden=true></i> 去下载</a>

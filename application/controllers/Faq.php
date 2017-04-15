@@ -83,7 +83,6 @@
 			
 			// 筛选条件
 			$condition = NULL;
-			//$condition['name'] = 'value';
 			
 			// 排序条件
 			$order_by[$this->id_name] = 'ASC';
@@ -160,13 +159,12 @@
 
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
-			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|required');
-			$this->form_validation->set_rules('api_id', '所属API ID', 'trim');
+			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
+			$this->form_validation->set_rules('api_id', '所属API ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('question', '问题', 'trim|required');
 			$this->form_validation->set_rules('answer', '回答', 'trim|required');
 
 			// 需要存入数据库的信息
-			// 不建议直接用$this->input->post/get/post_get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_create = array(
 				'project_id' => $this->input->post('project_id'),
 				'api_id' => $this->input->post('api_id'),
@@ -199,12 +197,11 @@
 			*/
 
 			// 待验证的表单项
-			$this->form_validation->set_rules('api_id', '所属API ID', 'trim');
+			$this->form_validation->set_rules('api_id', '所属API ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('question', '问题', 'trim|required');
 			$this->form_validation->set_rules('answer', '回答', 'trim|required');
 
 			// 需要编辑的信息
-			// 不建议直接用$this->input->post、$this->input->get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_edit = array(
 				'api_id' => $this->input->post('api_id'),
 				'question' => $this->input->post('question'),

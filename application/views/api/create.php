@@ -79,15 +79,23 @@
 			<div class=form-group>
 				<label for=url class="col-sm-2 control-label">URL</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url type=text value="<?php echo set_value('url') ?>" placeholder="除API服务器根URL之外的路径，例如：biz/detail" required>
+					<input class=form-control name=url type=text value="<?php echo set_value('url') ?>" placeholder="除API服务器根URL之外的路径，例如：biz/detail；若填写了此项，则第三方URL将被忽略">
 				</div>
 				<?php echo form_error('url') ?>
 			</div>
 
 			<div class=form-group>
+				<label for=url_full class="col-sm-2 control-label">第三方URL</label>
+				<div class=col-sm-10>
+					<input class=form-control name=url_full type=url value="<?php echo set_value('url_full') ?>" placeholder="完整URL，非自有API或URL不在根URL下的API有此项；若填写了此项，则URL将被忽略">
+				</div>
+				<?php echo form_error('url_full') ?>
+			</div>
+
+			<div class=form-group>
 				<label for=description class="col-sm-2 control-label">说明（可选）</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=description rows=10 placeholder="说明"><?php echo set_value('description') ?></textarea>
+					<textarea class=form-control name=description rows=5 placeholder="说明"><?php echo set_value('description') ?></textarea>
 				</div>
 				<?php echo form_error('description') ?>
 			</div>

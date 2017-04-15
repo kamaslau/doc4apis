@@ -1,8 +1,8 @@
 <style>
 
 
-	/* 宽度在640像素以上的设备 */
-	@media only screen and (min-width:641px)
+	/* 宽度在768像素以上的设备 */
+	@media only screen and (min-width:769px)
 	{
 
 	}
@@ -19,6 +19,12 @@
 
 	}
 </style>
+
+<script>
+	$(function(){
+
+	});
+</script>
 
 <div id=content class=container>
 	<h2><?php echo $title ?></h2>

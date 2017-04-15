@@ -64,16 +64,16 @@
 				<label for=name class="col-sm-2 control-label">名称</label>
 				<div class=col-sm-10>
 					<input class=form-control name=name type=text value="<?php echo set_value('name') ?>" placeholder="名称" required>
+					<?php echo form_error('name') ?>
 				</div>
-				<?php echo form_error('name') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=description class="col-sm-2 control-label">说明</label>
 				<div class=col-sm-10>
 					<textarea class=form-control name=description rows=5 placeholder="说明" required><?php echo set_value('description') ?></textarea>
+					<?php echo form_error('description') ?>
 				</div>
-				<?php echo form_error('description') ?>
 			</div>
 			
 			<div class=form-group>
@@ -85,32 +85,32 @@
 					<label class=radio-inline>
 						<input type=radio name=private value="否" required <?php echo set_radio('private', '否') ?>> 否
 					</label>
+					<?php echo form_error('private') ?>
 				</div>
-				<?php echo form_error('private') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=elements class="col-sm-2 control-label">视图元素（可选）</label>
 				<div class=col-sm-10>
 					<textarea class=form-control name=elements rows=10 placeholder="视图元素"><?php echo set_value('elements') ?></textarea>
+					<?php echo form_error('elements') ?>
 				</div>
-				<?php echo form_error('elements') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=url_design class="col-sm-2 control-label">设计图URL（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url_design type=file value="<?php echo set_value('url_design') ?>" placeholder="请上传jpg/webp格式设计图，文件大小控制在2M之内">
+					<input class=form-control name=url_design type=file value="<?php echo set_value('url_design') ?>" placeholder="请上传jpg/png/webp格式设计图，文件大小控制在2M之内">
+					<?php echo form_error('url_design') ?>
 				</div>
-				<?php echo form_error('url_design') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=url_assets class="col-sm-2 control-label">美术素材URL（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url_assets type=text value="<?php echo set_value('url_assets') ?>" placeholder="请将UI素材、字体、媒体文件等压缩后上传到百度云盘，并将该压缩文件的分享链接填入此处">
+					<input class=form-control name=url_assets type=url value="<?php echo set_value('url_assets') ?>" placeholder="请将PSD文件、UI素材、字体、媒体文件等压缩后上传到百度云盘，并将该压缩文件的分享链接填入此处">
+					<?php echo form_error('url_assets') ?>
 				</div>
-				<?php echo form_error('url_assets') ?>
 			</div>
 
 			<div class=form-group>

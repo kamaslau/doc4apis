@@ -159,15 +159,14 @@
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
-			$this->form_validation->set_rules('url', 'WEB URL', 'trim');
-			$this->form_validation->set_rules('url_api', 'API URL', 'trim');
-			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim');
-			$this->form_validation->set_rules('url_android', 'Android URL', 'trim');
-			$this->form_validation->set_rules('sandbox_url_web', 'WEB沙箱环境URL', 'trim');
-			$this->form_validation->set_rules('sandbox_url_api', 'API沙箱环境URL', 'trim');
+			$this->form_validation->set_rules('url', 'WEB URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_api', 'API URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sandbox_url_web', 'WEB沙箱环境URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sandbox_url_api', 'API沙箱环境URL', 'trim|valid_url');
 
 			// 需要存入数据库的信息
-			// 不建议直接用$this->input->post/get/post_get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_create = array(
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
@@ -206,15 +205,14 @@
 			// 待验证的表单项
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
-			$this->form_validation->set_rules('url', 'WEB URL', 'trim');
-			$this->form_validation->set_rules('url_api', 'API URL', 'trim');
-			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim');
-			$this->form_validation->set_rules('url_android', 'Android URL', 'trim');
-			$this->form_validation->set_rules('sandbox_url_web', 'WEB沙箱环境URL', 'trim');
-			$this->form_validation->set_rules('sandbox_url_api', 'API沙箱环境URL', 'trim');
+			$this->form_validation->set_rules('url', 'WEB URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_api', 'API URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sandbox_url_web', 'WEB沙箱环境URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sandbox_url_api', 'API沙箱环境URL', 'trim|valid_url');
 
 			// 需要编辑的信息
-			// 不建议直接用$this->input->post、$this->input->get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_edit = array(
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),

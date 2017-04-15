@@ -119,9 +119,9 @@
 			$data['item'] = $this->basic_model->select_by_id($id);
 			
 			// 获取项目数据
-			$this->basic_model->table_name = 'project';
-			$this->basic_model->id_name = 'project_id';
-			$data['project'] = $this->basic_model->select_by_id($data['item']['project_id']);
+			if ( !empty($data['item']['project_id']) ):
+				$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
+			endif;
 
 			// 生成最终页面标题
 			$data['title'] = $data['project']['name']. $data['item']['name']. 'API ';
@@ -198,19 +198,20 @@
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
-			$this->form_validation->set_rules('url', 'URL', 'trim|required');
+			$this->form_validation->set_rules('url', 'URL', 'trim');
+			$this->form_validation->set_rules('url_full', '第三方URL', 'trim');
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('request_sample', '请求示例', 'trim');
 			$this->form_validation->set_rules('respond_sample', '返回示例', 'trim');
 
 			// 需要存入数据库的信息
-			// 不建议直接用$this->input->post/get/post_get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_create = array(
 				'project_id' => $this->input->post('project_id'),
 				'category_id' => $this->input->post('category_id'),
 				'name' => $this->input->post('name'),
 				'code' => $this->input->post('code'),
 				'url' => $this->input->post('url'),
+				'url_full' => $this->input->post('url_full'),
 				'description' => $this->input->post('description'),
 				'request_sample' => $this->input->post('request_sample'),
 				'respond_sample' => $this->input->post('respond_sample'),
@@ -246,18 +247,19 @@
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
-			$this->form_validation->set_rules('url', 'URL', 'trim|required');
+			$this->form_validation->set_rules('url', 'URL', 'trim');
+			$this->form_validation->set_rules('url_full', '第三方URL', 'trim');
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('request_sample', '请求示例', 'trim');
 			$this->form_validation->set_rules('respond_sample', '返回示例', 'trim');
 
 			// 需要编辑的信息
-			// 不建议直接用$this->input->post、$this->input->get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_edit = array(
 				'category_id' => $this->input->post('category_id'),
 				'name' => $this->input->post('name'),
 				'code' => $this->input->post('code'),
 				'url' => $this->input->post('url'),
+				'url_full' => $this->input->post('url_full'),
 				'description' => $this->input->post('description'),
 				'request_sample' => $this->input->post('request_sample'),
 				'respond_sample' => $this->input->post('respond_sample'),

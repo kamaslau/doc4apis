@@ -100,14 +100,13 @@
 		 */
 		public function detail()
 		{
-			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-
 			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
 			if ( empty($id) ):
-				$this->error(404, '网址不完整');
+				$this->basic->error(404, '网址不完整');
 				exit;
 			endif;
-			
+
 			// 页面信息
 			$data = array(
 				'title' => NULL,
@@ -116,34 +115,16 @@
 
 			// 获取页面数据
 			$data['item'] = $this->basic_model->select_by_id($id);
-			
+
 			// 若存在相关页面，则获取页面信息
 			if ( !empty($data['item']['page_ids']) ):
-				$page_ids = explode(' ', $data['item']['page_ids']);
-				$data['pages'] = array();
-				foreach ($page_ids as $page_id):
-					$data['pages'][] = $this->basic_model->select_by_id($page_id);
-				endforeach;
-			endif;
-
-			// 若存在相关API，则获取API信息
-			if ( !empty($data['item']['api_ids']) ):
-				$api_ids = explode(' ', $data['item']['api_ids']);
-				$data['apis'] = array();
-				$this->basic_model->table_name = 'project';
-				$this->basic_model->id_name = 'project_id';
-				foreach ($api_ids as $api_id):
-					$data['apis'][] = $this->basic_model->select_by_id($api_id);
-				endforeach;
+				$data['pages'] = $this->basic->get_by_ids($data['item']['page_ids'], 'page', 'page_id');
 			endif;
 
 			// 获取项目数据
 			$this->basic_model->table_name = 'project';
 			$this->basic_model->id_name = 'project_id';
 			$data['project'] = $this->basic_model->select_by_id($data['item']['project_id']);
-
-			// 生成最终页面标题
-			$data['title'] = $data['project']['name']. $data['item']['name']. '页 ';
 
 			$this->load->view('templates/header', $data);
 			$this->load->view($this->view_root.'/detail', $data);
@@ -183,9 +164,8 @@
 		 */
 		public function create()
 		{
-			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-
 			// 检查是否已传入必要参数
+			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
 			if (empty($id)):
 				$this->error(404, '网址不完整');
 				exit;
@@ -215,7 +195,6 @@
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim|required');
 			$this->form_validation->set_rules('page_ids', '相关页面ID们', 'trim');
-			
 
 			// 需要存入数据库的信息
 			// 不建议直接用$this->input->post/get/post_get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景

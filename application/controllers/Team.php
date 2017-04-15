@@ -96,17 +96,40 @@
 		 */
 		public function detail()
 		{
+			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			if ( empty($id) ):
+				$this->basic->error(404, '网址不完整');
+				exit;
+			endif;
+
 			// 页面信息
 			$data = array(
-				'title' => $this->class_name_cn. '详情',
+				'title' => NULL,
 				'class' => $this->class_name.' '. $this->class_name.'-detail',
 			);
 
-			// 将需要显示的数据传到视图以备使用
-			$data['data_to_display'] = $this->data_to_display;
-			
-			// Go Basic！
-			$this->basic->detail($data);
+			// 获取页面数据
+			$data['item'] = $this->basic_model->select_by_id($id);
+
+			// 若已指定成员，则获取成员信息
+			if ( !empty($data['item']['leader_id']) ):
+				$data['user'] = $this->basic->get_by_id($data['item']['leader_id'], 'user', 'user_id');
+			endif;
+
+			// 若存在相关用户，则获取用户信息
+			if ( !empty($data['item']['user_ids']) ):
+				$data['user'] = $this->basic->get_by_ids($data['item']['user_ids'], 'user', 'user_id');
+			endif;
+
+			// 若存在相关项目，则获取项目信息
+			if ( !empty($data['item']['project_ids']) ):
+				$data['projects'] = $this->basic->get_by_ids($data['item']['project_ids'], 'project', 'project_id');
+			endif;
+
+			$this->load->view('templates/header', $data);
+			$this->load->view($this->view_root.'/detail', $data);
+			$this->load->view('templates/footer', $data);
 		}
 
 		/**
@@ -164,7 +187,6 @@
 			$this->form_validation->set_rules('user_ids', '相关用户ID', 'trim');
 
 			// 需要存入数据库的信息
-			// 不建议直接用$this->input->post/get/post_get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_create = array(
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
@@ -205,7 +227,6 @@
 			$this->form_validation->set_rules('user_ids', '相关用户ID', 'trim');
 
 			// 需要编辑的信息
-			// 不建议直接用$this->input->post、$this->input->get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_edit = array(
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),

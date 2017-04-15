@@ -1,11 +1,10 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
-<html lang="en">
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-	<meta charset="utf-8">
-	<title>404 Page Not Found</title>
-	<style type="text/css">
+	<meta charset=utf-8>
+	<title>404</title>
+	<style>
 
 	::selection { background-color: #f07746; color: #fff; }
 	::-moz-selection { background-color: #f07746; color: #fff; }
@@ -78,9 +77,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
 	<div id="container">
-		<h1><?php echo $heading; ?></h1>
+		<h1><?php echo $heading ?></h1>
 		<div id="body">
-			<?php echo $message; ?>
+			<?php echo $message ?>
 		</div>
 	</div>
 </body>

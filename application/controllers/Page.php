@@ -100,14 +100,13 @@
 		 */
 		public function detail()
 		{
-			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-
 			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
 			if ( empty($id) ):
-				$this->error(404, '网址不完整');
+				$this->basic->error(404, '网址不完整');
 				exit;
 			endif;
-			
+
 			// 页面信息
 			$data = array(
 				'title' => NULL,
@@ -116,31 +115,21 @@
 
 			// 获取页面数据
 			$data['item'] = $this->basic_model->select_by_id($id);
-			
+
+			// 获取项目数据
+			if ( !empty($data['item']['project_id']) ):
+				$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
+			endif;
+
 			// 若存在相关页面，则获取页面信息
 			if ( !empty($data['item']['page_ids']) ):
-				$page_ids = explode(' ', $data['item']['page_ids']);
-				$data['pages'] = array();
-				foreach ($page_ids as $page_id):
-					$data['pages'][] = $this->basic_model->select_by_id($page_id);
-				endforeach;
+				$data['pages'] = $this->basic->get_by_ids($data['item']['page_ids'], 'page', 'page_id');
 			endif;
 
 			// 若存在相关API，则获取API信息
 			if ( !empty($data['item']['api_ids']) ):
-				$api_ids = explode(' ', $data['item']['api_ids']);
-				$data['apis'] = array();
-				$this->basic_model->table_name = 'project';
-				$this->basic_model->id_name = 'project_id';
-				foreach ($api_ids as $api_id):
-					$data['apis'][] = $this->basic_model->select_by_id($api_id);
-				endforeach;
+				$data['apis'] = $this->basic->get_by_ids($data['item']['api_ids'], 'api', 'api_id');
 			endif;
-
-			// 获取项目数据
-			$this->basic_model->table_name = 'project';
-			$this->basic_model->id_name = 'project_id';
-			$data['project'] = $this->basic_model->select_by_id($data['item']['project_id']);
 
 			// 生成最终页面标题
 			$data['title'] = $data['project']['name']. $data['item']['name']. '页 ';
@@ -168,11 +157,9 @@
 			
 			// 筛选条件
 			$condition = NULL;
-			//$condition['name'] = 'value';
 			
 			// 排序条件
 			$order_by = NULL;
-			//$order_by['name'] = 'value';
 			
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
@@ -185,11 +172,10 @@
 		 */
 		public function create()
 		{
-			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-
 			// 检查是否已传入必要参数
-			if (empty($id)):
-				$this->error(404, '网址不完整');
+			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+			if ( empty($id) ):
+				$this->basic->error(404, '网址不完整');
 				exit;
 			endif;
 
@@ -200,9 +186,9 @@
 			);
 
 			// 获取项目数据
-			$this->basic_model->table_name = 'project';
-			$this->basic_model->id_name = 'project_id';
-			$data['project'] = $this->basic_model->select_by_id($id);
+			if ( !empty($data['item']['project_id']) ):
+				$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
+			endif;
 
 			// 后台操作可能需要检查操作权限
 			/*
@@ -220,14 +206,13 @@
 			$this->form_validation->set_rules('private', '是否需登录', 'trim');
 			$this->form_validation->set_rules('elements', '视图元素', 'trim');
 			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
-			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim');
+			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim|valid_url');
 			$this->form_validation->set_rules('onloads', '载入事件', 'trim');
 			$this->form_validation->set_rules('events', '业务流程', 'trim');
 			$this->form_validation->set_rules('api_ids', '相关API', 'trim');
 			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
 
 			// 需要存入数据库的信息
-			// 不建议直接用$this->input->post/get/post_get等方法直接在此处赋值，向数组赋值前处理会保持最大的灵活性以应对图片上传等场景
 			$data_to_create = array(
 				'project_id' => $this->input->post('project_id'),
 				'category_id' => $this->input->post('category_id'),
@@ -276,7 +261,7 @@
 			$this->form_validation->set_rules('private', '是否需登录', 'trim');
 			$this->form_validation->set_rules('elements', '视图元素', 'trim');
 			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
-			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim');
+			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim|valid_url');
 			$this->form_validation->set_rules('onloads', '载入事件', 'trim');
 			$this->form_validation->set_rules('events', '业务流程', 'trim');
 			$this->form_validation->set_rules('api_ids', '相关API', 'trim');

@@ -96,17 +96,55 @@
 		 */
 		public function detail()
 		{
+			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			if ( empty($id) ):
+				$this->basic->error(404, '网址不完整');
+				exit;
+			endif;
+
 			// 页面信息
 			$data = array(
-				'title' => $this->class_name_cn. '详情',
+				'title' => NULL,
 				'class' => $this->class_name.' '. $this->class_name.'-detail',
 			);
 
-			// 将需要显示的数据传到视图以备使用
-			$data['data_to_display'] = $this->data_to_display;
+			// 获取页面数据
+			$data['item'] = $this->basic_model->select_by_id($id);
+
+			// 获取项目数据
+			if ( !empty($data['item']['project_id']) ):
+				$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
+			endif;
 			
-			// Go Basic！
-			$this->basic->detail($data);
+			// 若存在相关流程，则获取流程信息
+			if ( !empty($data['item']['flow_ids']) ):
+				$data['flows'] = $this->basic->get_by_ids($data['item']['flow_ids'], 'flow', 'flow_id');
+			endif;
+
+			// 若存在相关页面，则获取页面信息
+			if ( !empty($data['item']['page_ids']) ):
+				$data['pages'] = $this->basic->get_by_ids($data['item']['page_ids'], 'page', 'page_id');
+			endif;
+
+			// 若存在相关API，则获取API信息
+			if ( !empty($data['item']['api_ids']) ):
+				$data['apis'] = $this->basic->get_by_ids($data['item']['api_ids'], 'api', 'api_id');
+			endif;
+
+			// 若已指定团队，则获取团队信息
+			if ( !empty($data['item']['team_id']) ):
+				$data['team'] = $this->basic->get_by_id($data['item']['team_id'], 'team', 'team_id');
+			endif;
+			
+			// 若已指定成员，则获取成员信息
+			if ( !empty($data['item']['user_id']) ):
+				$data['user'] = $this->basic->get_by_id($data['item']['user_id'], 'user', 'user_id');
+			endif;
+
+			$this->load->view('templates/header', $data);
+			$this->load->view($this->view_root.'/detail', $data);
+			$this->load->view('templates/footer', $data);
 		}
 
 		/**
@@ -163,8 +201,8 @@
 			$this->form_validation->set_rules('flow_ids', '相关流程ID们', 'trim');
 			$this->form_validation->set_rules('page_ids', '相关页面ID们', 'trim');
 			$this->form_validation->set_rules('api_ids', '相关API ID们', 'trim');
-			$this->form_validation->set_rules('team_id', '指定团队ID', 'trim');
-			$this->form_validation->set_rules('user_id', '指定用户ID', 'trim');
+			$this->form_validation->set_rules('team_id', '指定团队ID', 'trim|is_natural_no_zero');
+			$this->form_validation->set_rules('user_id', '指定用户ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('time_due', '最迟完成时间', 'trim');
 
 			// 需要存入数据库的信息
@@ -210,8 +248,8 @@
 			$this->form_validation->set_rules('flow_ids', '相关流程ID们', 'trim');
 			$this->form_validation->set_rules('page_ids', '相关页面ID们', 'trim');
 			$this->form_validation->set_rules('api_ids', '相关API ID们', 'trim');
-			$this->form_validation->set_rules('team_id', '指定团队ID', 'trim');
-			$this->form_validation->set_rules('user_id', '指定用户ID', 'trim');
+			$this->form_validation->set_rules('team_id', '指定团队ID|is_natural_no_zero', 'trim');
+			$this->form_validation->set_rules('user_id', '指定用户ID|is_natural_no_zero', 'trim');
 			$this->form_validation->set_rules('time_due', '最迟完成时间', 'trim');
 
 			// 需要编辑的信息
