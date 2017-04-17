@@ -49,7 +49,7 @@
 		echo form_open_multipart($this->class_name.'/create', $attributes);
 	?>
 		<fieldset>
-			<legend>请填写以下信息</legend>
+			<legend>基本信息</legend>
 
 			<div class=form-group>
 				<label for=mobile class="col-sm-2 control-label">手机号</label>
@@ -90,7 +90,7 @@
 			<div class=form-group>
 				<label for=level class="col-sm-2 control-label">等级</label>
 				<div class=col-sm-10>
-					<input class=form-control name=level type=number min=0 step=1 max="<?php echo $this->session->role ?>" value="<?php echo set_value('level') ?>" placeholder="等级" required>
+					<input class=form-control name=level type=number min=0 step=1 max="<?php echo $this->session->level ?>" value="<?php echo set_value('level') ?>" placeholder="等级" required>
 					<?php echo form_error('level') ?>
 				</div>
 			</div>
@@ -102,7 +102,7 @@
 			<div class=form-group>
 				<label for=gender class="col-sm-2 control-label">性别</label>
 				<div class=col-sm-10>
-					<select name=gender required>
+					<select class=form-control name=gender required>
 						<option>请选择</option>
 						<option value="女" <?php echo set_select('gender', '女') ?>>女</option>
 						<option value="男" <?php echo set_select('gender', '男') ?>>男</option>
@@ -120,9 +120,9 @@
 			</div>
 
 			<div class=form-group>
-				<label for=dob class="col-sm-2 control-label">生日（可选）</label>
+				<label for=dob class="col-sm-2 control-label">生日（公历，可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=dob type=date value="<?php echo set_value('dob') ?>" placeholder="格式为YYYY-MM-DD，例如：1989-07-28">
+					<input class=form-control name=dob type=date value="<?php echo set_value('dob') ?>" placeholder="例如：<?php echo date('Y-m-d', strtotime("-18 years")) ?>">
 					<?php echo form_error('dob') ?>
 				</div>
 			</div>
@@ -136,8 +136,8 @@
 			</div>
 		</fieldset>
 		
-		<div class="alert alert-info text-center" role="alert">
-			<p>创建新成员后，该成员可使用上述手机号和初始密码（该手机号的最后6位）登录，登录后会提示修改密码；登录网址为<br><strong><?php echo base_url('login') ?></strong></p>
+		<div class="well well-sm text-center">
+			<p>该成员可使用上述手机号和初始密码（该手机号的最后6位）登录，登录后会提示修改初始密码；登录网址为<br><strong><?php echo base_url('login') ?></strong></p>
 		</div>
 
 		<div class=form-group>

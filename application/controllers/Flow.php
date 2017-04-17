@@ -85,6 +85,9 @@
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 			
+			// 获取项目数据
+			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
+			
 			// 筛选条件
 			$condition['project_id'] = $project_id;
 			
@@ -92,6 +95,8 @@
 			$order_by[$this->id_name] = 'ASC';
 			
 			// Go Basic！
+			$this->basic_model->table_name = 'flow';
+			$this->basic_model->id_name = 'flow_id';
 			$this->basic->index($data, $condition, $order_by);
 		}
 
@@ -166,8 +171,8 @@
 		{
 			// 检查是否已传入必要参数
 			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if (empty($id)):
-				$this->error(404, '网址不完整');
+			if ( empty($id) ):
+				$this->basic->error(404, '网址不完整');
 				exit;
 			endif;
 
@@ -178,9 +183,7 @@
 			);
 
 			// 获取项目数据
-			$this->basic_model->table_name = 'project';
-			$this->basic_model->id_name = 'project_id';
-			$data['project'] = $this->basic_model->select_by_id($id);
+			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
 
 			// 后台操作可能需要检查操作权限
 			/*
@@ -206,6 +209,8 @@
 			);
 
 			// Go Basic!
+			$this->basic_model->table_name = 'flow';
+			$this->basic_model->id_name = 'flow_id';
 			$this->basic->create($data, $data_to_create);
 		}
 

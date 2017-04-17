@@ -86,6 +86,9 @@
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 			
+			// 获取项目数据
+			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
+			
 			// 筛选条件
 			$condition['project_id'] = $project_id;
 			
@@ -93,6 +96,8 @@
 			$order_by['code'] = 'ASC'; // 按API序号字母顺序进行排序
 			
 			// Go Basic！
+			$this->basic_model->table_name = 'api';
+			$this->basic_model->id_name = 'api_id';
 			$this->basic->index($data, $condition, $order_by);
 		}
 
@@ -101,14 +106,13 @@
 		 */
 		public function detail()
 		{
-			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-
 			// 检查是否已传入必要参数
-			if (empty($id)):
-				$this->error(404, '网址不完整');
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			if ( empty($id) ):
+				$this->basic->error(404, '网址不完整');
 				exit;
 			endif;
-			
+
 			// 页面信息
 			$data = array(
 				'title' => NULL,
@@ -119,9 +123,7 @@
 			$data['item'] = $this->basic_model->select_by_id($id);
 			
 			// 获取项目数据
-			if ( !empty($data['item']['project_id']) ):
-				$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
-			endif;
+			$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
 
 			// 生成最终页面标题
 			$data['title'] = $data['project']['name']. $data['item']['name']. 'API ';
@@ -166,11 +168,10 @@
 		 */
 		public function create()
 		{
-			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-
 			// 检查是否已传入必要参数
-			if (empty($id)):
-				$this->error(404, '网址不完整');
+			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+			if ( empty($id) ):
+				$this->basic->error(404, '网址不完整');
 				exit;
 			endif;
 
@@ -179,11 +180,9 @@
 				'title' => '创建'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
-			
+
 			// 获取项目数据
-			$this->basic_model->table_name = 'project';
-			$this->basic_model->id_name = 'project_id';
-			$data['project'] = $this->basic_model->select_by_id($id);
+			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
 
 			// 后台操作可能需要检查操作权限
 			/*

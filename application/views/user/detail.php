@@ -45,20 +45,20 @@
 
 	<?php $name = $item['lastname'].$item['firstname'] ?>
 	<h2>
-		<?php echo $name. !empty($item['nickname'])? '('.$item['nickname'].')': NULL; ?>
-		<a title="<?php echo $team['name'] ?>" href="<?php echo base_url('project/detail?id='.$team['team_id']) ?>" target=_blank><?php echo $team['name'] ?></a>
+		<?php echo $name ?>
+		<?php echo !empty($item['nickname'])? '('.$item['nickname'].')': NULL; ?>
 	</h2>
 	<h3><?php echo $item['mobile'] ?></h3>
 
 	<dl class=dl-horizontal>
-		<?php if ( !empty($item['gender']) ): ?>
+		<?php if ( !empty($item['role']) ): ?>
 		<dt>角色</dt>
-		<dd><?php echo $item['gender'] ?></dd>
+		<dd><?php echo $item['role'] ?></dd>
 		<?php endif ?>
 		
-		<?php if ( !empty($item['gender']) ): ?>
+		<?php if ( !empty($item['level']) ): ?>
 		<dt>权限</dt>
-		<dd><?php echo $item['gender'] ?></dd>
+		<dd><?php echo $item['level'] ?></dd>
 		<?php endif ?>
 	</dl>
 
@@ -76,13 +76,13 @@
 		<?php endif ?>
 		
 		<?php if ( !empty($item['dob']) ): ?>
-		<dt>生日</dt>
+		<dt>生日（公历）</dt>
 		<dd><?php echo $item['dob'] ?></dd>
 		<?php endif ?>
 		
-		<?php if ( !empty($item['gender']) ): ?>
+		<?php if ( !empty($item['email']) ): ?>
 		<dt>Email</dt>
-		<dd><?php echo $item['gender'] ?></dd>
+		<dd><?php echo $item['email'] ?></dd>
 		<?php endif ?>
 	</dl>
 

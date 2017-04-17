@@ -72,22 +72,32 @@
 		 */
 		public function index()
 		{
+			// 检查是否已传入必要参数
+			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+			if ( empty($project_id) ) redirect(base_url('project'));
+
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '列表',
 				'class' => $this->class_name.' '. $this->class_name.'-index',
 			);
-
+			
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 			
+			// 获取项目数据
+			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
+			
 			// 筛选条件
-			$condition = NULL;
+			$condition['project_id'] = $project_id;
 			
 			// 排序条件
+			$order_by['priority'] = 'DESC';
 			$order_by[$this->id_name] = 'ASC';
 			
 			// Go Basic！
+			$this->basic_model->table_name = 'task';
+			$this->basic_model->id_name = 'task_id';
 			$this->basic->index($data, $condition, $order_by);
 		}
 
@@ -113,9 +123,7 @@
 			$data['item'] = $this->basic_model->select_by_id($id);
 
 			// 获取项目数据
-			if ( !empty($data['item']['project_id']) ):
-				$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
-			endif;
+			$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
 			
 			// 若存在相关流程，则获取流程信息
 			if ( !empty($data['item']['flow_ids']) ):
@@ -180,11 +188,21 @@
 		 */
 		public function create()
 		{
+			// 检查是否已传入必要参数
+			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+			if ( empty($id) ):
+				$this->basic->error(404, '网址不完整');
+				exit;
+			endif;
+
 			// 页面信息
 			$data = array(
 				'title' => '创建'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
+			
+			// 获取项目数据
+			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
 
 			// 后台操作可能需要检查操作权限
 			/*
@@ -219,6 +237,8 @@
 			);
 
 			// Go Basic!
+			$this->basic_model->table_name = 'task';
+			$this->basic_model->id_name = 'task_id';
 			$this->basic->create($data, $data_to_create);
 		}
 

@@ -29,7 +29,7 @@
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
 	$current_level = $this->session->level; // 当前用户权限
-	$role_allowed = array('经理', '管理员');
+	$role_allowed = array('管理员', '经理');
 	$level_allowed = 1;
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
@@ -52,9 +52,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h2 class="panel-title">
-							<a title="查看" href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank>
-							<?php echo $item['name'] ?>
-							</a>
+							<a title="查看<?php echo $item['name'] ?>" href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><?php echo $item['name'] ?></a>
 						</h2>
 					</div>
 					<div class="panel-body">

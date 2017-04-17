@@ -85,7 +85,7 @@
 	
 	<dl class=dl-horizontal>
 		<?php if ( !empty($item['sandbox_url_web']) ): ?>
-		<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB沙箱环境URL</dt>
+		<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB开发环境URL</dt>
 		<dd id=sandbox_url_web>
 			<?php echo $item['sandbox_url_web'] ?>
 			<script>
@@ -95,7 +95,7 @@
 		<?php endif ?>
 		
 		<?php if ( !empty($item['sandbox_url_api']) ): ?>
-		<dt><i class="fa fa-safari" aria-hidden="true"></i> API沙箱环境URL</dt>
+		<dt><i class="fa fa-safari" aria-hidden="true"></i> API开发环境URL</dt>
 		<dd><?php echo $item['sandbox_url_api'] ?></dd>
 		<?php endif ?>
 	</dl>

@@ -85,6 +85,9 @@
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 			
+			// 获取项目数据
+			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
+			
 			// 筛选条件
 			$condition['project_id'] = $project_id;
 			
@@ -92,6 +95,8 @@
 			$order_by[$this->id_name] = 'ASC';
 			
 			// Go Basic！
+			$this->basic_model->table_name = 'page';
+			$this->basic_model->id_name = 'page_id';
 			$this->basic->index($data, $condition, $order_by);
 		}
 
@@ -117,9 +122,7 @@
 			$data['item'] = $this->basic_model->select_by_id($id);
 
 			// 获取项目数据
-			if ( !empty($data['item']['project_id']) ):
-				$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
-			endif;
+			$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
 
 			// 若存在相关页面，则获取页面信息
 			if ( !empty($data['item']['page_ids']) ):
@@ -186,9 +189,7 @@
 			);
 
 			// 获取项目数据
-			if ( !empty($data['item']['project_id']) ):
-				$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
-			endif;
+			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
 
 			// 后台操作可能需要检查操作权限
 			/*

@@ -86,7 +86,7 @@
 			</div>
 			
 			<div class=form-group>
-				<label for=sandbox_url_web class="col-sm-2 control-label">WEB沙箱环境URL（可选）</label>
+				<label for=sandbox_url_web class="col-sm-2 control-label">WEB开发环境URL（可选）</label>
 				<div class=col-sm-10>
 					<input class=form-control name=sandbox_url_web type=url value="<?php echo set_value('sandbox_url_web') ?>" placeholder="必须以https://开头">
 				</div>
@@ -94,7 +94,7 @@
 			</div>
 			
 			<div class=form-group>
-				<label for=sandbox_url_api class="col-sm-2 control-label">API沙箱环境URL（可选）</label>
+				<label for=sandbox_url_api class="col-sm-2 control-label">API开发环境URL（可选）</label>
 				<div class=col-sm-10>
 					<input class=form-control name=sandbox_url_api type=url value="<?php echo set_value('sandbox_url_api') ?>" placeholder="必须以https://开头">
 				</div>

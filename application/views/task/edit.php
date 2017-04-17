@@ -40,7 +40,7 @@
 	<div class=btn-group role=group>
 		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fa fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
 	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fa fa-trash fa-fw" aria-hidden=true></i> 回收站</a>
-		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create?project_id='.$project['project_id']) ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
 	</div>
 	<?php endif ?>
 
@@ -50,6 +50,18 @@
 		echo form_open_multipart($this->class_name.'/edit?id='.$item[$this->id_name], $attributes);
 	?>
 		<fieldset>
+			<div class=form-group>
+				<label for=priority class="col-sm-2 control-label">优先级</label>
+				<div class=col-sm-10>
+					<select class=form-control name=priority required>
+						<option value="常规" <?php if ($item['priority'] === '常规') echo 'selected' ?>>常规</option>
+						<option value="优先" <?php if ($item['priority'] === '优先') echo 'selected' ?>>优先</option>
+						<option value="紧急" <?php if ($item['priority'] === '紧急') echo 'selected' ?>>紧急</option>
+					</select>
+					<?php echo form_error('priority') ?>
+				</div>
+			</div>
+
 			<div class=form-group>
 				<label for=name class="col-sm-2 control-label">名称</label>
 				<div class=col-sm-10>
@@ -97,7 +109,7 @@
 			<div class=form-group>
 				<label for=team_id class="col-sm-2 control-label">指定团队</label>
 				<div class=col-sm-10>
-					<input name=team_id type=number step=1 min=1 value="<?php echo $item['project_id'] ?>">
+					<input class=form-control name=team_id type=number step=1 min=1 value="<?php echo $item['project_id'] ?>">
 					<?php echo form_error('team_id') ?>
 				</div>
 			</div>
@@ -105,7 +117,7 @@
 			<div class=form-group>
 				<label for=user_id class="col-sm-2 control-label">指定成员</label>
 				<div class=col-sm-10>
-					<input name=user_id type=number step=1 min=1 value="<?php echo $item['user_id'] ?>">
+					<input class=form-control name=user_id type=number step=1 min=1 value="<?php echo $item['user_id'] ?>">
 					<?php echo form_error('user_id') ?>
 				</div>
 			</div>
@@ -113,7 +125,7 @@
 			<div class=form-group>
 				<label for=time_due class="col-sm-2 control-label">最迟完成时间</label>
 				<div class=col-sm-10>
-					<input name=time_due type=datetime value="<?php echo $item['time_due'] ?>">
+					<input class=form-control name=time_due type=datetime value="<?php echo $item['time_due'] ?>" placeholder="例如:<?php echo date('Y-m-d H:i:s', strtotime("+1 day")) ?>">
 					<?php echo form_error('time_due') ?>
 				</div>
 			</div>
