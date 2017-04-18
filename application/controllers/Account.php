@@ -24,10 +24,20 @@
 
 		/* 视图文件所在目录名 */
 		public $view_root;
+		
+		/* 来路页面URL */
+		public $from_url = BASE_URL;
 
 		public function __construct()
 		{
 			parent::__construct();
+
+			// 实际来路URL
+			$from_url = isset($_SERVER["HTTP_REFERER"])? $_SERVER["HTTP_REFERER"]: NULL;
+
+			// 如果来路URL是站内页面，则当前操作成功后跳转到该页面
+			if ( strpos($from_url, BASE_URL) !== FALSE )
+				$this->from_url = $from_url;
 
 			// 向类属性赋值
 			$this->class_name = strtolower(__CLASS__);
@@ -65,7 +75,7 @@
 			);
 
 			$this->form_validation->set_rules('mobile', '手机号', 'trim|required|is_natural|exact_length[11]');
-			$this->form_validation->set_rules('password', '密码', 'trim|required|is_natural|exact_length[6]');
+			$this->form_validation->set_rules('password', '密码', 'trim|required|exact_length[6]');
 
 			if ($this->form_validation->run() === FALSE):
 				$this->load->view('templates/header', $data);
@@ -93,8 +103,8 @@
 
 					// 将管理员手机号写入cookie并保存1个月
 					$this->input->set_cookie('mobile', $data['user']['mobile'], 60*60*24*30, COOKIE_DOMAIN);
-					// 转到首页
-					redirect(base_url());
+					// 转到来路页面
+					redirect( $this->from_url );
 
 				// 若用户不存在
 				$if_exsit = $this->basic_model->find('mobile', $this->input->post('mobile'));
@@ -176,7 +186,7 @@
 					// 将管理员手机号写入cookie并保存1个月
 					$this->input->set_cookie('mobile', $data['user']['mobile'], 60*60*24*30, COOKIE_DOMAIN);
 					// 转到首页
-					redirect(base_url());
+					redirect( $this->from_url );
 
 				// 若密码错误
 				else:

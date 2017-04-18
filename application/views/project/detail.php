@@ -46,59 +46,65 @@
 	<h2><?php echo $item['name'] ?></h2>
 	<p><?php echo $item['description'] ?></p>
 	
-	<dl class=dl-horizontal>
-		<?php if ( !empty($item['url']) ): ?>
-		<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB</dt>
-		<dd id=url_web>
-			<?php echo $item['url'] ?>
-			<script>
-				jQuery('<div class=qrcode>').appendTo('#url_web').qrcode("<?php echo $item['url'] ?>");
-			</script>
-		</dd>
-		<?php endif ?>
+	<section>
+		<h3>开发环境</h3>
+		<dl class=dl-horizontal>
+			<?php if ( !empty($item['sandbox_url_web']) ): ?>
+			<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB开发环境URL</dt>
+			<dd id=sandbox_url_web>
+				<?php echo $item['sandbox_url_web'] ?>
+				<script>
+					jQuery('<div class=qrcode>').appendTo('#sandbox_url_web').qrcode("<?php echo $item['sandbox_url_web'] ?>");
+				</script>
+			</dd>
+			<?php endif ?>
 		
-		<?php if ( !empty($item['url_api']) ): ?>
-		<dt><i class="fa fa-safari" aria-hidden="true"></i> API</dt>
-		<dd><?php echo $item['url_api'] ?></dd>
-		<?php endif ?>
-		
-		<?php if ( !empty($item['url_ios']) ): ?>
-		<dt><i class="fa fa-apple" aria-hidden="true"></i> iOS</dt>
-		<dd id=url_ios>
-			<?php echo $item['url_ios'] ?>
-			<script>
-				jQuery('<div class=qrcode>').appendTo('#url_ios').qrcode("<?php echo $item['url_ios'] ?>");
-			</script>
-		</dd>
-		<?php endif ?>
-		
-		<?php if ( !empty($item['url_android']) ): ?>
-		<dt><i class="fa fa-android" aria-hidden="true"></i> Android</dt>
-		<dd id=url_android>
-			<?php echo $item['url_android'] ?>
-			<script>
-				jQuery('<div class=qrcode>').appendTo('#url_android').qrcode("<?php echo $item['url_android'] ?>");
-			</script>
-		</dd>
-		<?php endif ?>
-	</dl>
+			<?php if ( !empty($item['sandbox_url_api']) ): ?>
+			<dt><i class="fa fa-safari" aria-hidden="true"></i> API开发环境URL</dt>
+			<dd><?php echo $item['sandbox_url_api'] ?></dd>
+			<?php endif ?>
+		</dl>
+	</section>
 	
-	<dl class=dl-horizontal>
-		<?php if ( !empty($item['sandbox_url_web']) ): ?>
-		<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB开发环境URL</dt>
-		<dd id=sandbox_url_web>
-			<?php echo $item['sandbox_url_web'] ?>
-			<script>
-				jQuery('<div class=qrcode>').appendTo('#sandbox_url_web').qrcode("<?php echo $item['sandbox_url_web'] ?>");
-			</script>
-		</dd>
-		<?php endif ?>
+	<section>
+		<h3>正式环境</h3>
+		<dl class=dl-horizontal>
+			<?php if ( !empty($item['url']) ): ?>
+			<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB</dt>
+			<dd id=url_web>
+				<?php echo $item['url'] ?>
+				<script>
+					jQuery('<div class=qrcode>').appendTo('#url_web').qrcode("<?php echo $item['url'] ?>");
+				</script>
+			</dd>
+			<?php endif ?>
 		
-		<?php if ( !empty($item['sandbox_url_api']) ): ?>
-		<dt><i class="fa fa-safari" aria-hidden="true"></i> API开发环境URL</dt>
-		<dd><?php echo $item['sandbox_url_api'] ?></dd>
-		<?php endif ?>
-	</dl>
+			<?php if ( !empty($item['url_api']) ): ?>
+			<dt><i class="fa fa-safari" aria-hidden="true"></i> API</dt>
+			<dd><?php echo $item['url_api'] ?></dd>
+			<?php endif ?>
+		
+			<?php if ( !empty($item['url_ios']) ): ?>
+			<dt><i class="fa fa-apple" aria-hidden="true"></i> iOS</dt>
+			<dd id=url_ios>
+				<?php echo $item['url_ios'] ?>
+				<script>
+					jQuery('<div class=qrcode>').appendTo('#url_ios').qrcode("<?php echo $item['url_ios'] ?>");
+				</script>
+			</dd>
+			<?php endif ?>
+		
+			<?php if ( !empty($item['url_android']) ): ?>
+			<dt><i class="fa fa-android" aria-hidden="true"></i> Android</dt>
+			<dd id=url_android>
+				<?php echo $item['url_android'] ?>
+				<script>
+					jQuery('<div class=qrcode>').appendTo('#url_android').qrcode("<?php echo $item['url_android'] ?>");
+				</script>
+			</dd>
+			<?php endif ?>
+		</dl>
+	</section>
 
 	<ul class="list-unstyled list-inline">
 		<li><a title="查看任务" href="<?php echo base_url('task?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-tasks" aria-hidden=true></i> 任务</a></li>

@@ -68,21 +68,7 @@
 		</fieldset>
 
 		<fieldset>
-			<div class=form-group>
-				<label for=url class="col-sm-2 control-label">WEB URL（可选）</label>
-				<div class=col-sm-10>
-					<input class=form-control name=url type=url value="<?php echo $item['url'] ?>" placeholder="必须以https://开头">
-				</div>
-				<?php echo form_error('url') ?>
-			</div>
-
-			<div class=form-group>
-				<label for=url_api class="col-sm-2 control-label">API URL（可选）</label>
-				<div class=col-sm-10>
-					<input class=form-control name=url_api type=url value="<?php echo $item['url_api'] ?>" placeholder="必须以https://开头">
-				</div>
-				<?php echo form_error('url_api') ?>
-			</div>
+			<legend>正式环境</legend>
 			
 			<div class=form-group>
 				<label for=sandbox_url_web class="col-sm-2 control-label">WEB开发环境URL（可选）</label>
@@ -98,6 +84,26 @@
 					<input class=form-control name=sandbox_url_api type=url value="<?php echo $item['sandbox_url_api'] ?>" placeholder="必须以https://开头">
 				</div>
 				<?php echo form_error('sandbox_url_api') ?>
+			</div>
+		</fieldset>
+		
+		<fieldset>
+			<legend>正式环境</legend>
+
+			<div class=form-group>
+				<label for=url class="col-sm-2 control-label">WEB URL（可选）</label>
+				<div class=col-sm-10>
+					<input class=form-control name=url type=url value="<?php echo $item['url'] ?>" placeholder="必须以https://开头">
+				</div>
+				<?php echo form_error('url') ?>
+			</div>
+
+			<div class=form-group>
+				<label for=url_api class="col-sm-2 control-label">API URL（可选）</label>
+				<div class=col-sm-10>
+					<input class=form-control name=url_api type=url value="<?php echo $item['url_api'] ?>" placeholder="必须以https://开头">
+				</div>
+				<?php echo form_error('url_api') ?>
 			</div>
 			
 			<div class=form-group>

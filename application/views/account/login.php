@@ -27,10 +27,10 @@
 </script>
 
 <div id=content class=container>
-	<h2><?php echo $title ?></h2>
+	<h2 class=text-center><?php echo $title ?></h2>
 	<?php
 		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
-		$attributes = array('class' => 'form-login', 'role' => 'form');
+		$attributes = array('class' => 'form-login col-xs-12 col-md-6 col-md-offset-3', 'role' => 'form');
 		echo form_open('login', $attributes);
 	?>
 		<fieldset>
@@ -47,7 +47,7 @@
 				<label for=password>密码</label>
 				<div class=input-group>
 					<span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden=true></i></span>
-					<input class=form-control name=password type=password <?php if ($this->input->cookie('mobile')) echo 'autofocus '; ?>size=6 pattern="\d{6}" placeholder="密码（6位数字）" required>
+					<input class=form-control name=password type=password <?php if ($this->input->cookie('mobile')) echo 'autofocus '; ?> placeholder="密码" required>
 					<?php echo form_error('password') ?>
 				</div>
 			</div>

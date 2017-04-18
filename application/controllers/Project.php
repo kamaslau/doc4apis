@@ -163,8 +163,8 @@
 			$this->form_validation->set_rules('url_api', 'API URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
-			$this->form_validation->set_rules('sandbox_url_web', 'WEB开发环境URL', 'trim|valid_url');
-			$this->form_validation->set_rules('sandbox_url_api', 'API开发环境URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sandbox_url_web', '开发环境WEB URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sandbox_url_api', '开发环境API URL', 'trim|valid_url');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
@@ -209,8 +209,9 @@
 			$this->form_validation->set_rules('url_api', 'API URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
-			$this->form_validation->set_rules('sandbox_url_web', 'WEB开发环境URL', 'trim|valid_url');
-			$this->form_validation->set_rules('sandbox_url_api', 'API开发环境URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sandbox_url_web', '开发环境WEB URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sandbox_url_api', '开发环境API URL', 'trim|valid_url');
+			
 
 			// 需要编辑的信息
 			$data_to_edit = array(

@@ -33,6 +33,9 @@
         public function __construct()
         {
             parent::__construct();
+			
+			// （可选）未登录用户转到登录页
+			if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
             
             // 向类属性赋值
             $this->class_name = strtolower(__CLASS__);
@@ -52,15 +55,9 @@
                'name' => '名称',
                'description' => '描述',
             );
-            
+
             // 载入Basic库
             $this->load->library('basic', $basic_configs);
-            
-            // （可选）某些用于此类的自定义函数
-            function function_name($parameter)
-            {
-                //...
-            }
         }
 
 		// 首页
@@ -71,7 +68,7 @@
 				'title' => NULL, // 直接使用默认标题
 				'class' => $this->class_name.' '. $this->class_name.'-index', // 页面body标签的class属性值
 			);
-			
+
 			// 载入视图
 			$this->load->view('templates/header', $data);
 			$this->load->view('home', $data);

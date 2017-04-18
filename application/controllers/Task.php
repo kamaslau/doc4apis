@@ -90,9 +90,11 @@
 			
 			// 筛选条件
 			$condition['project_id'] = $project_id;
-			
+
 			// 排序条件
 			$order_by['priority'] = 'DESC';
+			$order_by['time_due'] = 'ASC';
+			$order_by['time_start'] = 'ASC';
 			$order_by[$this->id_name] = 'ASC';
 			
 			// Go Basic！
