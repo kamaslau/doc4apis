@@ -75,7 +75,7 @@
 			);
 
 			$this->form_validation->set_rules('mobile', '手机号', 'trim|required|is_natural|exact_length[11]');
-			$this->form_validation->set_rules('password', '密码', 'trim|required|exact_length[6]');
+			$this->form_validation->set_rules('password', '密码', 'trim|required|min_length[6]|max_length[20]');
 
 			if ($this->form_validation->run() === FALSE):
 				$this->load->view('templates/header', $data);
@@ -228,8 +228,8 @@
 			var_dump($data1);
 
 			// 待验证的表单项
-			$this->form_validation->set_rules('password', '原密码', 'trim|required|is_natural|exact_length[6]');
-			$this->form_validation->set_rules('password_new', '新密码', 'trim|required|is_natural|exact_length[6]');
+			$this->form_validation->set_rules('password', '原密码', 'trim|required|min_length[6]|max_length[20]');
+			$this->form_validation->set_rules('password_new', '新密码', 'trim|required|min_length[6]|max_length[20]');
 			$this->form_validation->set_rules('password2', '确认密码', 'trim|required|matches[password_new]');
 
 			if ($this->input->post('password') === $this->input->post('password_new')):

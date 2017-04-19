@@ -260,16 +260,14 @@
 		public function permission_check($role_allowed, $min_level)
 		{
 			// 目前管理员角色和级别
-			$current_role = $this->session->role;
-			$current_level = $this->session->level;
+			$current_role = $this->CI->session->role;
+			$current_level = $this->CI->session->level;
 
-			// 执行此操作的角色及权限要求
-			if ( ! in_array($current_role, $role_allowed) || ! $current_level < $min_level):
-				$data['content'] = '抱歉，您的员工角色不符或权限不足。';
-				$this->CI->load->view('templates/header', $data);
-				$this->CI->load->view($this->view_root.'result', $data);
-				$this->CI->load->view('templates/footer', $data);
-				exit;
+			// 检查执行此操作的角色及权限要求
+			if ( ! in_array($current_role, $role_allowed)):
+				redirect( base_url('error/permission_role') );
+			elseif ( $current_level < $min_level):
+				redirect( base_url('error/permission_level') );
 			endif;
 		}
 
@@ -326,13 +324,10 @@
 		 */
 		public function detail($data, $title_name = NULL, $position = 'after')
 		{
-			$id = $this->CI->input->get_post('id')? $this->CI->input->get_post('id'): NULL;
-
 			// 检查是否已传入必要参数
-			if (empty($id)):
-				$this->error(404, '网址不完整');
-				exit;
-			endif;
+			$id = $this->CI->input->get_post('id')? $this->CI->input->get_post('id'): NULL;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
 
 			// 获取项目
 			$data['item'] = $this->CI->basic_model->select_by_id($id);
@@ -409,13 +404,10 @@
 		 */
 		public function edit($data, $data_to_edit, $view_file_name = NULL)
 		{
-			$id = $this->CI->input->get_post('id')? $this->CI->input->get_post('id'): $data['id'];
-
 			// 检查是否已传入必要参数
-			if ( empty($id) ):
-				$this->error(404, '网址不完整');
-				exit;
-			endif;
+			$id = $this->CI->input->get_post('id')? $this->CI->input->get_post('id'): NULL;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
 
 			// 获取待编辑信息
 			$data['item'] = $this->CI->basic_model->select_by_id($id);

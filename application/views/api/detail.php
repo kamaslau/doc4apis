@@ -44,9 +44,9 @@
 	</div>
 	<?php endif ?>
 
-	<h2><?php echo $item['name'] ?> <span>[<?php echo $item['code'] ?>]</span></h2>
+	<h2><span>[<?php echo $item['code'] ?>]</span> <?php echo $item['name'] ?></h2>
 	<p><?php echo $item['description'] ?></p>
-	
+
 	<dl class=list-horizontal>
 		<dt>生产环境URL</dt>
 		<?php if ( empty($item['url_full']) ): ?>
@@ -62,23 +62,11 @@
 		<dd><?php echo $item['url_full'] ?></dd>
 		<?php endif ?>
 	</dl>
-	
-	<section>
-		<h3>公共参数</h3>
-		<table>
-			<thead>
-				<tr>
-					<th>名称</th><th>类型</th><th>示例</th><th>说明</th>
-				</tr>
-			</thead>
-			<tbody>
-				
-			</tbody>
-		</table>
-	</section>
-	
+
 	<section>
 		<h3>请求参数</h3>
+		<?php echo $item['params_request'] ?>
+		<!--
 		<table>
 			<thead>
 				<tr>
@@ -89,10 +77,13 @@
 				
 			</tbody>
 		</table>
+		-->
 	</section>
-	
+
 	<section>
 		<h3>响应参数</h3>
+		<?php echo $item['params_respond'] ?>
+		<!--
 		<table>
 			<thead>
 				<tr>
@@ -100,23 +91,26 @@
 				</tr>
 			</thead>
 			<tbody>
-				
+		
 			</tbody>
 		</table>
+		-->
 	</section>
-	
-	<?php if ( !empty($item['request_sample']) ): ?>
+
+	<?php if ( !empty($item['sample_request']) ): ?>
 	<section>
 		<h3>请求示例</h3>
+		<?php echo $item['sample_request'] ?>
 	</section>
 	<?php endif ?>
-	
-	<?php if ( !empty($item['respond_sample']) ): ?>
+
+	<?php if ( !empty($item['sample_respond']) ): ?>
 	<section>
-		<h3>响应示例</h3>
+		<h3>返回示例</h3>
+		<?php echo $item['sample_request'] ?>
 	</section>
 	<?php endif ?>
-	
+
 	<?php if ( !empty($item['faq']) ): ?>
 	<section>
 		<h3>FAQ</h3>

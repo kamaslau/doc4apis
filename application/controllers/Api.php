@@ -47,7 +47,7 @@
 			$this->data_to_display = array(
 				'code' => '序号',
 				'name' => '名称',
-				'description' => '描述',
+				'description' => '说明',
 			);
 
 			// 设置并调用Basic核心库
@@ -74,8 +74,9 @@
 		public function index()
 		{
 			// 检查是否已传入必要参数
-			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($project_id) ) redirect(base_url('project'));
+			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+			if ( empty($id) )
+				redirect(base_url('project'));
 
 			// 页面信息
 			$data = array(
@@ -85,16 +86,16 @@
 
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
-			
+
 			// 获取项目数据
-			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
-			
+			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
+
 			// 筛选条件
-			$condition['project_id'] = $project_id;
-			
+			$condition['project_id'] = $id;
+
 			// 排序条件
 			$order_by['code'] = 'ASC'; // 按API序号字母顺序进行排序
-			
+
 			// Go Basic！
 			$this->basic_model->table_name = 'api';
 			$this->basic_model->id_name = 'api_id';
@@ -108,10 +109,9 @@
 		{
 			// 检查是否已传入必要参数
 			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-			if ( empty($id) ):
-				$this->basic->error(404, '网址不完整');
-				exit;
-			endif;
+			if ( empty($id) )
+				//redirect(base_url($this->class_name));
+			redirect(base_url('error/code_404'));
 
 			// 页面信息
 			$data = array(
@@ -121,12 +121,12 @@
 
 			// 获取页面数据
 			$data['item'] = $this->basic_model->select_by_id($id);
-			
+
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
 
 			// 生成最终页面标题
-			$data['title'] = $data['project']['name']. $data['item']['name']. 'API ';
+			$data['title'] = '['.$data['item']['code'].']'. $data['item']['name']. ' < API < '. $data['project']['name'];
 
 			$this->load->view('templates/header', $data);
 			$this->load->view($this->view_root.'/detail', $data);
@@ -140,22 +140,25 @@
 		 */
 		public function trash()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '回收站',
 				'class' => $this->class_name.' '. $this->class_name.'-trash',
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
-			
+
 			// 筛选条件
 			$condition = NULL;
-			//$condition['name'] = 'value';
-			
+
 			// 排序条件
-			$order_by = NULL;
-			//$order_by['name'] = 'value';
+			$order_by['time_delete'] = 'DESC'; // 按API序号字母顺序进行排序
 			
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
@@ -168,12 +171,15 @@
 		 */
 		public function create()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+			
 			// 检查是否已传入必要参数
 			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($id) ):
-				$this->basic->error(404, '网址不完整');
-				exit;
-			endif;
+			if ( empty($id) )
+				redirect(base_url('error/404'));
 
 			// 页面信息
 			$data = array(
@@ -184,13 +190,6 @@
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
 
-			// 后台操作可能需要检查操作权限
-			/*
-			$role_allowed = array('editor', 'manager'); // 员工角色要求
-			$min_level = 0; // 员工最低权限
-			$this->basic->permission_check($role_allowed, $min_level);
-			*/
-
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
 			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
@@ -198,10 +197,12 @@
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
 			$this->form_validation->set_rules('url', 'URL', 'trim');
-			$this->form_validation->set_rules('url_full', '第三方URL', 'trim');
+			$this->form_validation->set_rules('url_full', '第三方URL', 'trim|valid_url');
 			$this->form_validation->set_rules('description', '说明', 'trim');
-			$this->form_validation->set_rules('request_sample', '请求示例', 'trim');
-			$this->form_validation->set_rules('respond_sample', '返回示例', 'trim');
+			$this->form_validation->set_rules('params_request', '请求参数', 'trim');
+			$this->form_validation->set_rules('params_respond', '返回参数', 'trim');
+			$this->form_validation->set_rules('sample_request', '请求示例', 'trim');
+			$this->form_validation->set_rules('sample_respond', '返回示例', 'trim');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
@@ -212,8 +213,10 @@
 				'url' => $this->input->post('url'),
 				'url_full' => $this->input->post('url_full'),
 				'description' => $this->input->post('description'),
-				'request_sample' => $this->input->post('request_sample'),
-				'respond_sample' => $this->input->post('respond_sample'),
+				'params_request' => $this->input->post('params_request'),
+				'params_respond' => $this->input->post('params_respond'),
+				'sample_request' => $this->input->post('sample_request'),
+				'sample_respond' => $this->input->post('sample_respond'),
 			);
 
 			// Go Basic!
@@ -229,28 +232,28 @@
 		 */
 		public function edit()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+
 			// 页面信息
 			$data = array(
 				'title' => '编辑'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-edit',
 			);
 
-			// 后台操作可能需要检查操作权限
-			/*
-			$role_allowed = array('editor', 'manager'); // 员工角色要求
-			$min_level = 0; // 员工最低权限
-			$this->basic->permission_check($role_allowed, $min_level);
-			*/
-
 			// 待验证的表单项
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
 			$this->form_validation->set_rules('url', 'URL', 'trim');
-			$this->form_validation->set_rules('url_full', '第三方URL', 'trim');
+			$this->form_validation->set_rules('url_full', '第三方URL', 'trim|valid_url');
 			$this->form_validation->set_rules('description', '说明', 'trim');
-			$this->form_validation->set_rules('request_sample', '请求示例', 'trim');
-			$this->form_validation->set_rules('respond_sample', '返回示例', 'trim');
+			$this->form_validation->set_rules('params_request', '请求参数', 'trim');
+			$this->form_validation->set_rules('params_respond', '返回参数', 'trim');
+			$this->form_validation->set_rules('sample_request', '请求示例', 'trim');
+			$this->form_validation->set_rules('sample_respond', '返回示例', 'trim');
 
 			// 需要编辑的信息
 			$data_to_edit = array(
@@ -260,8 +263,10 @@
 				'url' => $this->input->post('url'),
 				'url_full' => $this->input->post('url_full'),
 				'description' => $this->input->post('description'),
-				'request_sample' => $this->input->post('request_sample'),
-				'respond_sample' => $this->input->post('respond_sample'),
+				'params_request' => $this->input->post('params_request'),
+				'params_respond' => $this->input->post('params_respond'),
+				'sample_request' => $this->input->post('sample_request'),
+				'sample_respond' => $this->input->post('sample_respond'),
 			);
 
 			// Go Basic!
@@ -275,6 +280,11 @@
 		 */
 		public function delete()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+
 			$op_name = '删除'; // 操作的名称
 			$op_view = 'delete'; // 视图文件名
 
@@ -283,19 +293,12 @@
 				'title' => $op_name. $this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-'. $op_view,
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
-			// 后台操作可能需要检查操作权限
-			/*
-			$role_allowed = array('editor', 'manager'); // 员工角色要求
-			$min_level = 0; // 员工最低权限
-			$this->basic->permission_check($role_allowed, $min_level);
-			*/
-
 			// 待验证的表单项
-			$this->form_validation->set_rules('password', '密码', 'trim|required|is_natural|exact_length[6]');
+			$this->form_validation->set_rules('password', '密码', 'trim|required|min_length[6]|max_length[20]');
 
 			// 需要存入数据库的信息
 			$data_to_edit = array(
@@ -313,6 +316,11 @@
 		 */
 		public function restore()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+
 			$op_name = '恢复'; // 操作的名称
 			$op_view = 'restore'; // 视图文件名
 
@@ -321,19 +329,12 @@
 				'title' => $op_name. $this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-'. $op_view,
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
-			// 后台操作可能需要检查操作权限
-			/*
-			$role_allowed = array('editor', 'manager'); // 员工角色要求
-			$min_level = 0; // 员工最低权限
-			$this->basic->permission_check($role_allowed, $min_level);
-			*/
-
 			// 待验证的表单项
-			$this->form_validation->set_rules('password', '密码', 'trim|required|is_natural|exact_length[6]');
+			$this->form_validation->set_rules('password', '密码', 'trim|required|min_length[6]|max_length[20]');
 
 			// 需要存入数据库的信息
 			$data_to_edit = array(

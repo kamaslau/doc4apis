@@ -71,7 +71,7 @@
 					endforeach;
 				?>
 				<td>
-					<ul class=list-unstyled>
+					<ul class="list-unstyled list-inline">
 						<li><a title="查看" href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-eye"></i> 查看</a></li>
 						<?php
 						// 需要特定角色和权限进行该操作

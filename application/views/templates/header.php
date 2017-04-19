@@ -23,7 +23,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20170418">
+		<meta name=version content="revision20170419">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -90,11 +90,12 @@
 
 				<div id=account-panel>
 					<ul id=user-actions class=horizontal>
-						<?php if ($this->session->logged_in != TRUE): ?>
+						<?php if ($this->session->logged_in !== TRUE): ?>
 						<li><a title="登录" href="<?php echo base_url('login') ?>">登录</a></li>
 						<!--<li><a title="注册" href="<?php echo base_url('register') ?>">注册</a></li>-->
 						<?php else: ?>
-						<!--<li><a title="个人中心" href="<?php echo base_url('account') ?>">个人中心</a></li>-->
+						<?php $display_name = !empty($this->session->nickname)? $this->session->nickname: $this->session->lastname.$this->session->firstname; ?>
+						<li><a title="<?php echo $display_name ?>" href="<?php echo base_url('user/detail?id='.$this->session->user_id) ?>"><?php echo $display_name ?> [<?php echo $this->session->role ?>]</a></li>
 						<li><a title="退出" href="<?php echo base_url('logout') ?>">退出</a></li>
 						<?php endif ?>
 					</ul>

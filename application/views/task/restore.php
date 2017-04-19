@@ -77,24 +77,25 @@
 	</div>
 
 	<?php
-		if (isset($error)) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
+		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
 		$attributes = array('class' => 'form-'.$this->class_name.'-restore form-horizontal', 'role' => 'form');
 		echo form_open($this->class_name.'/restore', $attributes);
 	?>
 		<fieldset>
 			<input name=ids type=hidden value="<?php echo implode('|', $ids) ?>">
+
 			<div class=form-group>
 				<label for=url_cn class="col-sm-2 control-label">密码</label>
 				<div class=col-sm-10>
-					<input class=form-control name=password type=password size=6 pattern="\d{6}" placeholder="请输入您的登录密码" autofocus required>
+					<input class=form-control name=password type=password placeholder="请输入您的登录密码" autofocus required>
 				</div>
 				<?php echo form_error('password') ?>
 			</div>
 		</fieldset>
 
 		<div class=form-group>
-		    <div class="col-sm-offset-2 col-sm-10">
-				<button class="btn btn-warning" type=submit>确定</button>
+		    <div class="col-xs-12 col-sm-offset-2 col-sm-2">
+				<button class="btn btn-warning btn-lg btn-block" type=submit>确定</button>
 		    </div>
 		</div>
 	</form>

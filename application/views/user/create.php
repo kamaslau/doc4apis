@@ -137,12 +137,13 @@
 		</fieldset>
 		
 		<div class="well well-sm text-center">
-			<p>该成员可使用上述手机号和初始密码（该手机号的最后6位）登录，登录后会提示修改初始密码；登录网址为<br><strong><?php echo base_url('login') ?></strong></p>
+			<p>该成员可使用上述手机号和初始密码（该手机号的最后6位）登录，登录后首页会提示修改初始密码；登录网址为：</p>
+			<p><strong><?php echo base_url('login') ?></strong></p>
 		</div>
 
 		<div class=form-group>
-		    <div class="col-sm-offset-2 col-sm-10">
-				<button class="btn btn-primary" type=submit>确定</button>
+		    <div class="col-xs-12 col-sm-offset-2 col-sm-2">
+				<button class="btn btn-primary btn-lg btn-block" type=submit>确定</button>
 		    </div>
 		</div>
 	</form>

@@ -45,8 +45,8 @@
 
 			// 设置需要自动在视图文件中生成显示的字段
 			$this->data_to_display = array(
-				'question' => '问题',
-				'answer' => '回答',
+				'question' => 'Q',
+				'answer' => 'A',
 			);
 
 			// 设置并调用Basic核心库
@@ -116,6 +116,11 @@
 		 */
 		public function trash()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+			
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '回收站',
@@ -144,22 +149,20 @@
 		 */
 		public function create()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+			
 			// 页面信息
 			$data = array(
 				'title' => '创建'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
 
-			// 后台操作可能需要检查操作权限
-			/*
-			$role_allowed = array('editor', 'manager'); // 员工角色要求
-			$min_level = 0; // 员工最低权限
-			$this->basic->permission_check($role_allowed, $min_level);
-			*/
-
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
-			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
+			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero'); // 允许全局FAQ
 			$this->form_validation->set_rules('api_id', '所属API ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('question', '问题', 'trim|required');
 			$this->form_validation->set_rules('answer', '回答', 'trim|required');
@@ -183,20 +186,19 @@
 		 */
 		public function edit()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+			
 			// 页面信息
 			$data = array(
 				'title' => '编辑'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-edit',
 			);
 
-			// 后台操作可能需要检查操作权限
-			/*
-			$role_allowed = array('editor', 'manager'); // 员工角色要求
-			$min_level = 0; // 员工最低权限
-			$this->basic->permission_check($role_allowed, $min_level);
-			*/
-
 			// 待验证的表单项
+			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero'); // 允许全局FAQ
 			$this->form_validation->set_rules('api_id', '所属API ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('question', '问题', 'trim|required');
 			$this->form_validation->set_rules('answer', '回答', 'trim|required');
@@ -219,6 +221,11 @@
 		 */
 		public function delete()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+			
 			$op_name = '删除'; // 操作的名称
 			$op_view = 'delete'; // 视图文件名
 
@@ -231,15 +238,8 @@
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
-			// 后台操作可能需要检查操作权限
-			/*
-			$role_allowed = array('editor', 'manager'); // 员工角色要求
-			$min_level = 0; // 员工最低权限
-			$this->basic->permission_check($role_allowed, $min_level);
-			*/
-
 			// 待验证的表单项
-			$this->form_validation->set_rules('password', '密码', 'trim|required|is_natural|exact_length[6]');
+			$this->form_validation->set_rules('password', '密码', 'trim|required|min_length[6]|max_length[20]');
 
 			// 需要存入数据库的信息
 			$data_to_edit = array(
@@ -257,6 +257,11 @@
 		 */
 		public function restore()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+			
 			$op_name = '恢复'; // 操作的名称
 			$op_view = 'restore'; // 视图文件名
 
@@ -269,15 +274,8 @@
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
-			// 后台操作可能需要检查操作权限
-			/*
-			$role_allowed = array('editor', 'manager'); // 员工角色要求
-			$min_level = 0; // 员工最低权限
-			$this->basic->permission_check($role_allowed, $min_level);
-			*/
-
 			// 待验证的表单项
-			$this->form_validation->set_rules('password', '密码', 'trim|required|is_natural|exact_length[6]');
+			$this->form_validation->set_rules('password', '密码', 'trim|required|min_length[6]|max_length[20]');
 
 			// 需要存入数据库的信息
 			$data_to_edit = array(

@@ -91,19 +91,35 @@
 			</div>
 			
 			<div class=form-group>
-				<label for=request_sample class="col-sm-2 control-label">请求示例（可选）</label>
+				<label for=params_request class="col-sm-2 control-label">请求参数（可选）</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=request_sample rows=10 placeholder="请求示例"><?php echo $item['request_sample'] ?></textarea>
+					<textarea class=form-control name=params_request rows=10 placeholder="请求参数"><?php echo $item['params_request'] ?></textarea>
 				</div>
-				<?php echo form_error('request_sample') ?>
+				<?php echo form_error('params_request') ?>
 			</div>
 			
 			<div class=form-group>
-				<label for=respond_sample class="col-sm-2 control-label">返回示例（可选）</label>
+				<label for=params_respond class="col-sm-2 control-label">返回参数（可选）</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=respond_sample rows=10 placeholder="返回示例"><?php echo $item['respond_sample'] ?></textarea>
+					<textarea class=form-control name=params_respond rows=10 placeholder="返回参数"><?php echo $item['params_respond'] ?></textarea>
 				</div>
-				<?php echo form_error('respond_sample') ?>
+				<?php echo form_error('params_respond') ?>
+			</div>
+			
+			<div class=form-group>
+				<label for=sample_request class="col-sm-2 control-label">请求示例（可选）</label>
+				<div class=col-sm-10>
+					<textarea class=form-control name=sample_request rows=10 placeholder="请求示例"><?php echo $item['sample_request'] ?></textarea>
+				</div>
+				<?php echo form_error('sample_request') ?>
+			</div>
+			
+			<div class=form-group>
+				<label for=sample_respond class="col-sm-2 control-label">返回示例（可选）</label>
+				<div class=col-sm-10>
+					<textarea class=form-control name=sample_respond rows=10 placeholder="返回示例"><?php echo $item['sample_respond'] ?></textarea>
+				</div>
+				<?php echo form_error('sample_respond') ?>
 			</div>
 		</fieldset>
 

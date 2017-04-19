@@ -117,7 +117,7 @@
 
 		<fieldset>
 			<div class=form-group>
-				<label for=team_id class="col-sm-2 control-label">指定团队</label>
+				<label for=team_id class="col-sm-2 control-label">指定团队（可选）</label>
 				<div class=col-sm-10>
 					<input class=form-control name=team_id type=number step=1 min=1 value="<?php echo set_value('project_id') ?>">
 					<?php echo form_error('team_id') ?>
@@ -125,7 +125,7 @@
 			</div>
 
 			<div class=form-group>
-				<label for=user_id class="col-sm-2 control-label">指定成员</label>
+				<label for=user_id class="col-sm-2 control-label">指定成员（可选）</label>
 				<div class=col-sm-10>
 					<input class=form-control name=user_id type=number step=1 min=1 value="<?php echo set_value('user_id') ?>">
 					<?php echo form_error('user_id') ?>
@@ -133,9 +133,17 @@
 			</div>
 
 			<div class=form-group>
-				<label for=time_due class="col-sm-2 control-label">最迟完成时间</label>
+				<label for=time_start class="col-sm-2 control-label">开始日期（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=time_due type=datetime value="<?php echo set_value('time_due') ?>" placeholder="例如:<?php echo date('Y-m-d H:i:s', strtotime("+1 day")) ?>">
+					<input class=form-control name=time_start type=datetime value="<?php echo set_value('time_start') ?>" placeholder="例如:<?php echo date('Y-m-d H:i:s', strtotime("+1 day")) ?>">
+					<?php echo form_error('time_start') ?>
+				</div>
+			</div>
+
+			<div class=form-group>
+				<label for=time_due class="col-sm-2 control-label">截止日期（可选）</label>
+				<div class=col-sm-10>
+					<input class=form-control name=time_due type=datetime value="<?php echo set_value('time_due') ?>" placeholder="例如:<?php echo date('Y-m-d H:i:s', strtotime("+3 day")) ?>">
 					<?php echo form_error('time_due') ?>
 				</div>
 			</div>

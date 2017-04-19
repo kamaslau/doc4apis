@@ -4,6 +4,7 @@
 	/**
 	 * User 类
 	 *
+	 * 用户相关功能
 	 *
 	 * @version 1.0.0
 	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
@@ -46,8 +47,8 @@
 			// 设置需要自动在视图文件中生成显示的字段
 			$this->data_to_display = array(
 				'mobile' => '手机号',
-				'lastname' => '姓',
-				'firstname' => '名',
+				'role' => '角色',
+				'level' => '级别',
 			);
 
 			// 设置并调用Basic核心库
@@ -117,6 +118,11 @@
 		 */
 		public function trash()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '回收站',
@@ -138,23 +144,19 @@
 
 		/**
 		 * 创建
-		 *
-		 * 一般为后台功能
 		 */
 		public function create()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+
 			// 页面信息
 			$data = array(
 				'title' => '创建'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
-
-			// 后台操作可能需要检查操作权限
-			/*
-			$role_allowed = array('editor', 'manager'); // 员工角色要求
-			$min_level = 0; // 员工最低权限
-			$this->basic->permission_check($role_allowed, $min_level);
-			*/
 
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
@@ -164,13 +166,14 @@
 			$this->form_validation->set_rules('gender', '性别', 'trim');
 			$this->form_validation->set_rules('dob', '生日（公历）', 'trim');
 			$this->form_validation->set_rules('avatar', '头像URL', 'trim|valid_url');
-			$this->form_validation->set_rules('email', 'Email', 'trim');
+			$this->form_validation->set_rules('email', 'Email', 'trim|valid_email');
 			$this->form_validation->set_rules('role', '角色', 'trim');
-			$this->form_validation->set_rules('level', '等级', 'trim');
+			$this->form_validation->set_rules('level', '等级', 'trim|is_natural|max_length[2]');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
 				'mobile' => $this->input->post('mobile'),
+				'password' => SHA1( substr($this->input->post('mobile'), -6) ),
 				'lastname' => $this->input->post('lastname'),
 				'firstname' => $this->input->post('firstname'),
 				'gender' => $this->input->post('gender'),
@@ -187,23 +190,19 @@
 
 		/**
 		 * 编辑单行
-		 *
-		 * 一般为后台功能
 		 */
 		public function edit()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+
 			// 页面信息
 			$data = array(
 				'title' => '编辑'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-edit',
 			);
-
-			// 后台操作可能需要检查操作权限
-			/*
-			$role_allowed = array('editor', 'manager'); // 员工角色要求
-			$min_level = 0; // 员工最低权限
-			$this->basic->permission_check($role_allowed, $min_level);
-			*/
 
 			// 待验证的表单项
 			$this->form_validation->set_rules('mobile', '手机号', 'trim|required|is_natural|exact_length[11]');
@@ -212,9 +211,9 @@
 			$this->form_validation->set_rules('gender', '性别', 'trim');
 			$this->form_validation->set_rules('dob', '生日（公历）', 'trim');
 			$this->form_validation->set_rules('avatar', '头像URL', 'trim|valid_url');
-			$this->form_validation->set_rules('email', 'Email', 'trim');
+			$this->form_validation->set_rules('email', 'Email', 'trim|valid_email');
 			$this->form_validation->set_rules('role', '角色', 'trim');
-			$this->form_validation->set_rules('level', '等级', 'trim');
+			$this->form_validation->set_rules('level', '等级', 'trim|is_natural|max_length[2]');
 
 			// 需要编辑的信息
 			$data_to_edit = array(
@@ -240,6 +239,11 @@
 		 */
 		public function delete()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+			
 			$op_name = '删除'; // 操作的名称
 			$op_view = 'delete'; // 视图文件名
 
@@ -252,15 +256,8 @@
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
-			// 后台操作可能需要检查操作权限
-			/*
-			$role_allowed = array('editor', 'manager'); // 员工角色要求
-			$min_level = 0; // 员工最低权限
-			$this->basic->permission_check($role_allowed, $min_level);
-			*/
-
 			// 待验证的表单项
-			$this->form_validation->set_rules('password', '密码', 'trim|required|is_natural|exact_length[6]');
+			$this->form_validation->set_rules('password', '密码', 'trim|required|min_length[6]|max_length[20]');
 
 			// 需要存入数据库的信息
 			$data_to_edit = array(
@@ -278,6 +275,11 @@
 		 */
 		public function restore()
 		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 10; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+			
 			$op_name = '恢复'; // 操作的名称
 			$op_view = 'restore'; // 视图文件名
 
@@ -290,15 +292,8 @@
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
-			// 后台操作可能需要检查操作权限
-			/*
-			$role_allowed = array('editor', 'manager'); // 员工角色要求
-			$min_level = 0; // 员工最低权限
-			$this->basic->permission_check($role_allowed, $min_level);
-			*/
-
 			// 待验证的表单项
-			$this->form_validation->set_rules('password', '密码', 'trim|required|is_natural|exact_length[6]');
+			$this->form_validation->set_rules('password', '密码', 'trim|required|min_length[6]|max_length[20]');
 
 			// 需要存入数据库的信息
 			$data_to_edit = array(

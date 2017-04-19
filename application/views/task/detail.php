@@ -105,8 +105,13 @@
 		</dd>
 		<?php endif ?>
 
+		<?php if ( !empty($item['time_start']) ): ?>
+		<dt>开始日期</dt>
+		<dd><?php echo date('Y-m-d H:i:s', $item['time_start']) ?></dd>
+		<?php endif ?>
+		
 		<?php if ( !empty($item['time_due']) ): ?>
-		<dt>最迟完成时间</dt>
+		<dt>截止日期</dt>
 		<dd><?php echo date('Y-m-d H:i:s', $item['time_due']) ?></dd>
 		<?php endif ?>
 	</dl>
