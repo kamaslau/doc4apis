@@ -20,8 +20,7 @@
 			if ( ! $is_wechat):
 		?>
 			<div class=container>
-				<!-- 页面底部导航、文章列表等 -->
-				<p>此站点基于在宽屏设备上使用的场景进行设计、开发。</p>
+				<p><em><?php echo SITE_NAME ?></em>基于在桌面端设备上使用的场景进行设计、开发。</p>
 			</div>
 		<?php endif ?>
 

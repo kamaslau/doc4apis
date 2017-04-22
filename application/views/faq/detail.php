@@ -31,9 +31,9 @@
 	<?php
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
-	$current_level = $this->session->level; // 当前用户权限
-	$role_allowed = array('经理', '管理员');
-	$level_allowed = 1;
+	$current_level = $this->session->level; // 当前用户级别
+	$role_allowed = array('管理员', '经理');
+	$level_allowed = 30;
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
@@ -57,21 +57,23 @@
 		<dt>创建时间</dt>
 		<dd>
 			<?php echo $item['time_create'] ?>
-			<a href="<?php echo base_url('stuff/detail?id='.$item['creator_id']) ?>" target=new>查看创建者</a>
+			<a href="<?php echo base_url('user/detail?id='.$item['creator_id']) ?>" target=new>查看创建者</a>
 		</dd>
 
-		<?php if ( ! empty($item['time_delete'])): ?>
+		<?php if ( ! empty($item['time_delete']) ): ?>
 		<dt>删除时间</dt>
 		<dd>
 			<?php echo $item['time_delete'] ?>
-			<a href="<?php echo base_url('stuff/detail?id='.$item['operator_id']) ?>" target=new>查看删除者</a>
+			<a href="<?php echo base_url('user/detail?id='.$item['operator_id']) ?>" target=new>查看删除者</a>
 		</dd>
 		<?php endif ?>
 
+		<?php if ( ! empty($item['operator_id']) ): ?>
 		<dt>最后操作时间</dt>
 		<dd>
 			<?php echo $item['time_edit'] ?>
-			<a href="<?php echo base_url('stuff/detail?id='.$item['operator_id']) ?>" target=new>查看最后操作者</a>
+			<a href="<?php echo base_url('user/detail?id='.$item['operator_id']) ?>" target=new>查看最后操作者</a>
 		</dd>
+		<?php endif ?>
 	</dl>
 </div>

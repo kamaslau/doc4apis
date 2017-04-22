@@ -43,13 +43,14 @@
 	</div>
 	<?php endif ?>
 
-	<?php $name = $item['lastname'].$item['firstname'] ?>
+	<?php $name = $item['lastname'].' '.$item['firstname'] ?>
 	<h2>
 		<?php echo $name ?>
 		<?php echo !empty($item['nickname'])? '('.$item['nickname'].')': NULL; ?>
 	</h2>
 	<h3><?php echo $item['mobile'] ?></h3>
 
+	<?php if (in_array($current_role, $role_allowed)): ?>
 	<dl class=dl-horizontal>
 		<?php if ( !empty($item['role']) ): ?>
 		<dt>角色</dt>
@@ -61,6 +62,7 @@
 		<dd><?php echo $item['level'] ?></dd>
 		<?php endif ?>
 	</dl>
+	<?php endif ?>
 
 	<dl class=dl-horizontal>
 		<?php if ( !empty($item['avatar']) ): ?>
@@ -74,12 +76,31 @@
 		<dt>性别</dt>
 		<dd><?php echo $item['gender'] ?></dd>
 		<?php endif ?>
-		
-		<?php if ( !empty($item['dob']) ): ?>
-		<dt>生日（公历）</dt>
-		<dd><?php echo $item['dob'] ?></dd>
+
+		<?php
+			// 若已设置生日，显示生日祝福或生日预告
+			if ( !empty($item['dob']) && $item['dob'] !== '0000-00-00' ):
+				if ( date('m-d') !== substr($item['dob'],5) ):
+					$dob_next = date('Y-'). substr($item['dob'],5); // 当前年份生日时间
+					// 如果当前年份的生日已过，则计算距离明年生日的时间
+					if ( (strtotime($dob_next) - time()) < 0 ):
+						$dob_next = (date('Y') + 1).'-'.substr($item['dob'],5);
+					endif;
+
+					$time_to_dob = strtotime($dob_next) - time(); // 计算秒数
+					$days_to_dob = round( $time_to_dob / (60 * 60 * 24) ); // 计算天数，四舍五入到个位数
+					
+					$dob_string = $item['dob']. ' （<i class="fa fa-calendar" aria-hidden=true></i> '. $days_to_dob. '天后过生日）';
+
+				else:
+					$dob_string = '<i class="fa fa-birthday-cake" aria-hidden=true></i> 生日快乐！！！';
+
+				endif;
+		?>
+		<dt>生日</dt>
+		<dd><?php echo $dob_string ?></dd>
 		<?php endif ?>
-		
+
 		<?php if ( !empty($item['email']) ): ?>
 		<dt>Email</dt>
 		<dd><?php echo $item['email'] ?></dd>
@@ -87,13 +108,14 @@
 	</dl>
 
 	<ul class="list-unstyled list-inline">
+		<li><a title="编辑" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-edit"></i> 编辑</a></li>
+
 		<?php
 		// 需要特定角色和权限进行该操作
 		$role_allowed = array('经理', '管理员');
 		$level_allowed = 1;
 		if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 		?>
-		<li><a title="编辑" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-edit"></i> 编辑</a></li>
 		<li><a title="删除" href="<?php echo base_url($this->class_name.'/delete?ids='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-trash"></i> 删除</a></li>
 		<?php endif ?>
 	</ul>

@@ -24,7 +24,7 @@
 
 		/* 视图文件所在目录名 */
 		public $view_root;
-		
+
 		/* 需要显示的字段 */
 		public $data_to_display;
 
@@ -34,7 +34,7 @@
 
 			// （可选）未登录用户转到登录页
 			if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
-			
+
 			// 向类属性赋值
 			$this->class_name = strtolower(__CLASS__);
 			$this->class_name_cn = '项目'; // 改这里……
@@ -116,8 +116,8 @@
 		public function trash()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$role_allowed = array('管理员'); // 角色要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
 			// 页面信息
@@ -147,8 +147,8 @@
 		public function create()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$role_allowed = array('管理员'); // 角色要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
 			// 页面信息
@@ -161,9 +161,13 @@
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
+			$this->form_validation->set_rules('url_logo', 'LOGO', 'trim');
+			$this->form_validation->set_rules('url_assets', '素材URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url', 'WEB URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url_api', 'API URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sdk_ios', 'iOS最低版本', 'trim');
+			$this->form_validation->set_rules('sdk_android', 'Android最低版本', 'trim');
 			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
 			$this->form_validation->set_rules('sandbox_url_web', '开发环境WEB URL', 'trim|valid_url');
 			$this->form_validation->set_rules('sandbox_url_api', '开发环境API URL', 'trim|valid_url');
@@ -172,8 +176,12 @@
 			$data_to_create = array(
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
+				'url_logo' => $this->input->post('url_logo'),
+				'url_assets' => $this->input->post('url_assets'),
 				'url' => $this->input->post('url'),
 				'url_api' => $this->input->post('url_api'),
+				'sdk_ios' => $this->input->post('sdk_ios'),
+				'sdk_android' => $this->input->post('sdk_android'),
 				'url_ios' => $this->input->post('url_ios'),
 				'url_android' => $this->input->post('url_android'),
 				'sandbox_url_web' => $this->input->post('sandbox_url_web'),
@@ -182,6 +190,96 @@
 
 			// Go Basic!
 			$this->basic->create($data, $data_to_create);
+		}
+		
+		public function upload_process($field_index)
+		{
+			$config['upload_path'] = $_SERVER['DOCUMENT_ROOT'].'/uploads/';
+			$config['file_name'] = date('Ymd_His');
+			$config['file_ext_tolower'] = TRUE; // 文件名后缀转换为小写
+			$config['allowed_types'] = 'webp|jpg|jpeg|png';
+			$config['max_width'] = 2048; // 图片宽度不得超过1024px
+			$config['max_height'] = 2048; // 图片高度不得超过1024px
+			$config['max_size'] = 2048; // 文件不得大于2M
+
+			// 载入CodeIgniter的上传库并尝试上传文件
+			$this->load->library('upload', $config);
+			$result = $this->upload->do_upload($field_index);
+
+			if ($result === TRUE):
+				$data['status'] = 200;
+				$data['content'] = $this->upload->data('file_name'); // 返回上传后的文件名
+			else:
+				$data['status'] = 400;
+				$data['content'] = $this->upload->display_errors('',''); // 返回纯文本格式的错误说明
+			endif;
+			
+			return $data;
+		}
+
+		public function upload()
+		{
+			// 仅接受AJAX请求
+			$is_ajax = $this->input->is_ajax_request();
+			if ($is_ajax !== TRUE)
+				redirect('error/code_404');
+
+			// 若有文件被上传，继续处理文件
+			if ( !empty($_FILES) ):
+
+				// 获取待处理文件总数
+				$file_count = count($_FILES);
+
+				// 依次处理文件
+				for ($i=0; $i<$file_count; $i++):
+					// 获取待处理文件
+					$file_index = 'file'. $i;
+					$file = $_FILES[$file_index];
+
+					// 若获取成功，继续处理文件
+					if ($file['error'] === 0):
+						// 处理上传
+						$upload_result = $this->upload_process($file_index);
+
+						// 返回上传结果
+						$result = $upload_result;
+
+					// 若获取失败，判断失败原因，并返回相应提示
+					else:
+						switch($file['error']):
+							case 1:
+								$content = '文件大小超出了PHP配置文件中 upload_max_filesize 的值';
+								break;
+							case 2:
+								$content = '文件大小超出了HTML表单中 MAX_FILE_SIZE 的值（若有）';
+								break;
+							case 3:
+								$content = '文件只有部分被上传';
+								break;
+							case 4:
+								$content = '没有文件被上传';
+								break;
+							default:
+								$content = '上传失败';
+						endswitch;
+						$result['status'] = 400;
+						$result['content'] = $content;
+
+					endif;
+
+				endfor;
+
+			// 若没有文件被上传，返回相应提示
+			else:
+				$content = '没有文件被上传';
+				$result['status'] = 400;
+				$result['content'] = $content;
+
+			endif;
+
+			header("Content-type:application/json;charset=utf-8");
+			$output_json = json_encode($result);
+			echo $output_json;
 		}
 
 		/**
@@ -192,8 +290,8 @@
 		public function edit()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$role_allowed = array('管理员'); // 角色要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
 			// 页面信息
@@ -205,20 +303,27 @@
 			// 待验证的表单项
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
+			$this->form_validation->set_rules('url_logo', 'LOGO', 'trim');
+			$this->form_validation->set_rules('url_assets', '素材URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url', 'WEB URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url_api', 'API URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sdk_ios', 'iOS最低版本', 'trim');
+			$this->form_validation->set_rules('sdk_android', 'Android最低版本', 'trim');
 			$this->form_validation->set_rules('sandbox_url_web', '开发环境WEB URL', 'trim|valid_url');
 			$this->form_validation->set_rules('sandbox_url_api', '开发环境API URL', 'trim|valid_url');
-			
 
 			// 需要编辑的信息
 			$data_to_edit = array(
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
+				'url_logo' => $this->input->post('url_logo'),
+				'url_assets' => $this->input->post('url_assets'),
 				'url' => $this->input->post('url'),
 				'url_api' => $this->input->post('url_api'),
+				'sdk_ios' => $this->input->post('sdk_ios'),
+				'sdk_android' => $this->input->post('sdk_android'),
 				'url_ios' => $this->input->post('url_ios'),
 				'url_android' => $this->input->post('url_android'),
 				'sandbox_url_web' => $this->input->post('sandbox_url_web'),
@@ -237,8 +342,8 @@
 		public function delete()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$role_allowed = array('管理员'); // 角色要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
 			$op_name = '删除'; // 操作的名称
@@ -273,8 +378,8 @@
 		public function restore()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$role_allowed = array('管理员'); // 角色要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
 			$op_name = '恢复'; // 操作的名称

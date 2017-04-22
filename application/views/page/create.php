@@ -148,8 +148,8 @@
 		</fieldset>
 
 		<div class=form-group>
-		    <div class="col-sm-offset-2 col-sm-10">
-				<button class="btn btn-primary" type=submit>确定</button>
+		    <div class="col-xs-12 col-sm-offset-2 col-sm-2">
+				<button class="btn btn-primary btn-lg btn-block" type=submit>确定</button>
 		    </div>
 		</div>
 	</form>

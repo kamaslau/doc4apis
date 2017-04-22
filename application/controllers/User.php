@@ -36,7 +36,7 @@
 
 			// （可选）未登录用户转到登录页
 			if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
-			
+
 			// 向类属性赋值
 			$this->class_name = strtolower(__CLASS__);
 			$this->class_name_cn = '用户'; // 改这里……
@@ -47,6 +47,8 @@
 			// 设置需要自动在视图文件中生成显示的字段
 			$this->data_to_display = array(
 				'mobile' => '手机号',
+				'lastname' => '姓',
+				'firstname' => '名',
 				'role' => '角色',
 				'level' => '级别',
 			);
@@ -74,6 +76,9 @@
 		 */
 		public function index()
 		{
+			// 若角色为成员，则转到相应的详情页面
+			if ($this->session->role === '成员')
+				redirect( base_url('user/detail?id='.$this->session->user_id) );
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '列表',
@@ -85,10 +90,10 @@
 			
 			// 筛选条件
 			$condition = NULL;
-			
+
 			// 排序条件
 			$order_by[$this->id_name] = 'ASC';
-			
+
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);
 		}
@@ -113,14 +118,12 @@
 
 		/**
 		 * 回收站
-		 *
-		 * 一般为后台功能
 		 */
 		public function trash()
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
 			// 页面信息
@@ -149,7 +152,7 @@
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
 			// 页面信息
@@ -168,7 +171,7 @@
 			$this->form_validation->set_rules('avatar', '头像URL', 'trim|valid_url');
 			$this->form_validation->set_rules('email', 'Email', 'trim|valid_email');
 			$this->form_validation->set_rules('role', '角色', 'trim');
-			$this->form_validation->set_rules('level', '等级', 'trim|is_natural|max_length[2]');
+			$this->form_validation->set_rules('level', '等级', 'trim|is_natural|max_length[2]|less_than['.$this->session->level.']');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
@@ -194,9 +197,13 @@
 		public function edit()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
+			$role_allowed = array('管理员', '经理', '成员'); // 角色要求
 			$min_level = 10; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
+
+			// "成员"角色的用户仅可修改自己的信息
+			if ($this->session->role === '成员' && $this->session->user_id !== $this->input->get_post('id'))
+				redirect(base_url('error/permission_role'));
 
 			// 页面信息
 			$data = array(
@@ -205,28 +212,43 @@
 			);
 
 			// 待验证的表单项
-			$this->form_validation->set_rules('mobile', '手机号', 'trim|required|is_natural|exact_length[11]');
-			$this->form_validation->set_rules('lastname', '姓', 'trim|required');
-			$this->form_validation->set_rules('firstname', '名', 'trim|required');
+			// "成员"角色的用户仅可修改部分信息
+			if ($this->session->role !== '成员'):
+				$this->form_validation->set_rules('mobile', '手机号', 'trim|required|is_natural|exact_length[11]');
+				$this->form_validation->set_rules('lastname', '姓', 'trim|required');
+				$this->form_validation->set_rules('firstname', '名', 'trim|required');
+				$this->form_validation->set_rules('role', '角色', 'trim');
+
+				// 不可授予他人比自己高的等级
+				if ($this->session->user_id !== $this->input->get_post('id')):
+					$max_level = $this->session->level - 1;
+				else:
+					$max_level = $this->session->level;
+				endif;
+
+				$this->form_validation->set_rules('level', '等级', 'trim|is_natural|max_length[2]|less_than_equal_to['.$max_level.']');
+			endif;
+			$this->form_validation->set_rules('nickname', '昵称', 'trim');
 			$this->form_validation->set_rules('gender', '性别', 'trim');
 			$this->form_validation->set_rules('dob', '生日（公历）', 'trim');
 			$this->form_validation->set_rules('avatar', '头像URL', 'trim|valid_url');
 			$this->form_validation->set_rules('email', 'Email', 'trim|valid_email');
-			$this->form_validation->set_rules('role', '角色', 'trim');
-			$this->form_validation->set_rules('level', '等级', 'trim|is_natural|max_length[2]');
 
 			// 需要编辑的信息
 			$data_to_edit = array(
-				'mobile' => $this->input->post('mobile'),
-				'lastname' => $this->input->post('lastname'),
-				'firstname' => $this->input->post('firstname'),
+				'nickname' => $this->input->post('nickname'),
 				'gender' => $this->input->post('gender'),
 				'dob' => $this->input->post('dob'),
 				'avatar' => $this->input->post('avatar'),
 				'email' => $this->input->post('email'),
-				'role' => $this->input->post('role'),
-				'level' => $this->input->post('level'),
 			);
+			if ($this->session->role !== '成员'):
+				$data_to_edit['mobile'] = $this->input->post('mobile');
+				$data_to_edit['lastname'] = $this->input->post('lastname');
+				$data_to_edit['firstname'] = $this->input->post('firstname');
+				$data_to_edit['role'] = $this->input->post('role');
+				$data_to_edit['level'] = $this->input->post('level');
+			endif;
 
 			// Go Basic!
 			$this->basic->edit($data, $data_to_edit);
@@ -234,16 +256,14 @@
 
 		/**
 		 * 删除单行或多行项目
-		 *
-		 * 一般用于存为草稿、上架、下架、删除、恢复等状态变化，请根据需要修改方法名，例如delete、restore、draft等
 		 */
 		public function delete()
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
-			
+
 			$op_name = '删除'; // 操作的名称
 			$op_view = 'delete'; // 视图文件名
 
@@ -252,7 +272,7 @@
 				'title' => $op_name. $this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-'. $op_view,
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
@@ -267,19 +287,17 @@
 			// Go Basic!
 			$this->basic->bulk($data, $data_to_edit, $op_name, $op_view);
 		}
-		
+
 		/**
 		 * 恢复单行或多行项目
-		 *
-		 * 一般用于存为草稿、上架、下架、删除、恢复等状态变化，请根据需要修改方法名，例如delete、restore、draft等
 		 */
 		public function restore()
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
-			
+
 			$op_name = '恢复'; // 操作的名称
 			$op_view = 'restore'; // 视图文件名
 

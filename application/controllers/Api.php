@@ -110,8 +110,7 @@
 			// 检查是否已传入必要参数
 			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
 			if ( empty($id) )
-				//redirect(base_url($this->class_name));
-			redirect(base_url('error/code_404'));
+				redirect(base_url('error/code_404'));
 
 			// 页面信息
 			$data = array(
@@ -135,8 +134,6 @@
 
 		/**
 		 * 回收站
-		 *
-		 * 一般为后台功能
 		 */
 		public function trash()
 		{
@@ -166,8 +163,6 @@
 
 		/**
 		 * 创建
-		 *
-		 * 一般为后台功能
 		 */
 		public function create()
 		{
@@ -179,7 +174,7 @@
 			// 检查是否已传入必要参数
 			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
 			if ( empty($id) )
-				redirect(base_url('error/404'));
+				redirect(base_url('error/code_404'));
 
 			// 页面信息
 			$data = array(
@@ -227,8 +222,6 @@
 
 		/**
 		 * 编辑单行
-		 *
-		 * 一般为后台功能
 		 */
 		public function edit()
 		{
@@ -236,12 +229,23 @@
 			$role_allowed = array('管理员', '经理'); // 角色要求
 			$min_level = 10; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
+			
+			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
 
 			// 页面信息
 			$data = array(
 				'title' => '编辑'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-edit',
 			);
+			
+			// 获取待编辑信息
+			$data['item'] = $this->basic_model->select_by_id($id);
+
+			// 获取项目数据
+			$data['project'] = $this->basic->get_by_id($data['item'][$this->id_name], 'project', 'project_id');
 
 			// 待验证的表单项
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
@@ -255,22 +259,39 @@
 			$this->form_validation->set_rules('sample_request', '请求示例', 'trim');
 			$this->form_validation->set_rules('sample_respond', '返回示例', 'trim');
 
-			// 需要编辑的信息
-			$data_to_edit = array(
-				'category_id' => $this->input->post('category_id'),
-				'name' => $this->input->post('name'),
-				'code' => $this->input->post('code'),
-				'url' => $this->input->post('url'),
-				'url_full' => $this->input->post('url_full'),
-				'description' => $this->input->post('description'),
-				'params_request' => $this->input->post('params_request'),
-				'params_respond' => $this->input->post('params_respond'),
-				'sample_request' => $this->input->post('sample_request'),
-				'sample_respond' => $this->input->post('sample_respond'),
-			);
+			// 验证表单值格式
+			if ($this->form_validation->run() === FALSE):
+				$this->load->view('templates/header', $data);
+				$this->load->view($this->view_root.'/edit', $data);
+				$this->load->view('templates/footer', $data);
 
-			// Go Basic!
-			$this->basic->edit($data, $data_to_edit);
+			else:
+				// 需要编辑的信息
+				$data_to_edit = array(
+					'category_id' => $this->input->post('category_id'),
+					'name' => $this->input->post('name'),
+					'code' => $this->input->post('code'),
+					'url' => $this->input->post('url'),
+					'url_full' => $this->input->post('url_full'),
+					'description' => $this->input->post('description'),
+					'params_request' => $this->input->post('params_request'),
+					'params_respond' => $this->input->post('params_respond'),
+					'sample_request' => $this->input->post('sample_request'),
+					'sample_respond' => $this->input->post('sample_respond'),
+				);
+				$result = $this->basic_model->edit($id, $data_to_edit);
+
+				if ($result !== FALSE):
+					$data['content'] = '<p class="alert alert-success">保存成功。</p>';
+				else:
+					$data['content'] = '<p class="alert alert-warning">保存失败。</p>';
+				endif;
+
+				$this->load->view('templates/header', $data);
+				$this->load->view($this->view_root.'/result', $data);
+				$this->load->view('templates/footer', $data);
+
+			endif;
 		}
 
 		/**

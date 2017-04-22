@@ -32,9 +32,9 @@
 	<?php
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
-	$current_level = $this->session->level; // 当前用户权限
-	$role_allowed = array('经理', '管理员');
-	$level_allowed = 1;
+	$current_level = $this->session->level; // 当前用户级别
+	$role_allowed = array('管理员', '经理');
+	$level_allowed = 30;
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
@@ -96,8 +96,8 @@
 		</fieldset>
 
 		<div class=form-group>
-		    <div class="col-sm-offset-2 col-sm-10">
-				<button class="btn btn-primary" type=submit>保存</button>
+		    <div class="col-xs-12 col-sm-offset-2 col-sm-2">
+				<button class="btn btn-primary btn-lg btn-block" type=submit>保存</button>
 		    </div>
 		</div>
 	</form>

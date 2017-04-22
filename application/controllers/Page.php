@@ -107,10 +107,8 @@
 		{
 			// 检查是否已传入必要参数
 			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-			if ( empty($id) ):
-				$this->basic->error(404, '网址不完整');
-				exit;
-			endif;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
 
 			// 页面信息
 			$data = array(
@@ -144,8 +142,6 @@
 
 		/**
 		 * 回收站
-		 *
-		 * 一般为后台功能
 		 */
 		public function trash()
 		{
@@ -175,8 +171,6 @@
 
 		/**
 		 * 创建
-		 *
-		 * 一般为后台功能
 		 */
 		public function create()
 		{
@@ -187,10 +181,8 @@
 			
 			// 检查是否已传入必要参数
 			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($id) ):
-				$this->basic->error(404, '网址不完整');
-				exit;
-			endif;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
 
 			// 页面信息
 			$data = array(
@@ -240,8 +232,6 @@
 
 		/**
 		 * 编辑单行
-		 *
-		 * 一般为后台功能
 		 */
 		public function edit()
 		{
@@ -249,12 +239,23 @@
 			$role_allowed = array('管理员', '经理'); // 角色要求
 			$min_level = 10; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
-			
+
+			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
+
 			// 页面信息
 			$data = array(
 				'title' => '编辑'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-edit',
 			);
+
+			// 获取待编辑信息
+			$data['item'] = $this->basic_model->select_by_id($id);
+
+			// 获取项目数据
+			$data['project'] = $this->basic->get_by_id($data['item'][$this->id_name], 'project', 'project_id');
 
 			// 待验证的表单项
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
@@ -269,29 +270,44 @@
 			$this->form_validation->set_rules('api_ids', '相关API', 'trim');
 			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
 
-			// 需要编辑的信息
-			$data_to_edit = array(
-				'category_id' => $this->input->post('category_id'),
-				'name' => $this->input->post('name'),
-				'description' => $this->input->post('description'),
-				'private' => $this->input->post('private'),
-				'elements' => $this->input->post('elements'),
-				'url_design' => $this->input->post('url_design'),
-				'url_assets' => $this->input->post('url_assets'),
-				'onloads' => $this->input->post('onloads'),
-				'events' => $this->input->post('events'),
-				'api_ids' => $this->input->post('api_ids'),
-				'page_ids' => $this->input->post('page_ids'),
-			);
+			// 验证表单值格式
+			if ($this->form_validation->run() === FALSE):
+				$this->load->view('templates/header', $data);
+				$this->load->view($this->view_root.'/edit', $data);
+				$this->load->view('templates/footer', $data);
 
-			// Go Basic!
-			$this->basic->edit($data, $data_to_edit);
+			else:
+				// 需要编辑的信息
+				$data_to_edit = array(
+					'category_id' => $this->input->post('category_id'),
+					'name' => $this->input->post('name'),
+					'description' => $this->input->post('description'),
+					'private' => $this->input->post('private'),
+					'elements' => $this->input->post('elements'),
+					'url_design' => $this->input->post('url_design'),
+					'url_assets' => $this->input->post('url_assets'),
+					'onloads' => $this->input->post('onloads'),
+					'events' => $this->input->post('events'),
+					'api_ids' => $this->input->post('api_ids'),
+					'page_ids' => $this->input->post('page_ids'),
+				);
+				$result = $this->basic_model->edit($id, $data_to_edit);
+
+				if ($result !== FALSE):
+					$data['content'] = '<p class="alert alert-success">保存成功。</p>';
+				else:
+					$data['content'] = '<p class="alert alert-warning">保存失败。</p>';
+				endif;
+
+				$this->load->view('templates/header', $data);
+				$this->load->view($this->view_root.'/result', $data);
+				$this->load->view('templates/footer', $data);
+
+			endif;
 		}
 
 		/**
 		 * 删除单行或多行项目
-		 *
-		 * 一般用于存为草稿、上架、下架、删除、恢复等状态变化，请根据需要修改方法名，例如delete、restore、draft等
 		 */
 		public function delete()
 		{
@@ -326,8 +342,6 @@
 		
 		/**
 		 * 恢复单行或多行项目
-		 *
-		 * 一般用于存为草稿、上架、下架、删除、恢复等状态变化，请根据需要修改方法名，例如delete、restore、draft等
 		 */
 		public function restore()
 		{

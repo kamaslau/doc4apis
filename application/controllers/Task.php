@@ -110,10 +110,8 @@
 		{
 			// 检查是否已传入必要参数
 			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-			if ( empty($id) ):
-				$this->basic->error(404, '网址不完整');
-				exit;
-			endif;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
 
 			// 页面信息
 			$data = array(
@@ -159,8 +157,6 @@
 
 		/**
 		 * 回收站
-		 *
-		 * 一般为后台功能
 		 */
 		public function trash()
 		{
@@ -190,8 +186,6 @@
 
 		/**
 		 * 创建
-		 *
-		 * 一般为后台功能
 		 */
 		public function create()
 		{
@@ -202,17 +196,15 @@
 			
 			// 检查是否已传入必要参数
 			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($id) ):
-				$this->basic->error(404, '网址不完整');
-				exit;
-			endif;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
 
 			// 页面信息
 			$data = array(
 				'title' => '创建'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
-			
+
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
 
@@ -248,11 +240,9 @@
 			$this->basic_model->id_name = 'task_id';
 			$this->basic->create($data, $data_to_create);
 		}
-
+		
 		/**
 		 * 编辑单行
-		 *
-		 * 一般为后台功能
 		 */
 		public function edit()
 		{
@@ -261,11 +251,22 @@
 			$min_level = 10; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 			
+			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
+
 			// 页面信息
 			$data = array(
 				'title' => '编辑'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-edit',
 			);
+			
+			// 获取待编辑信息
+			$data['item'] = $this->basic_model->select_by_id($id);
+
+			// 获取项目数据
+			$data['project'] = $this->basic->get_by_id($data['item'][$this->id_name], 'project', 'project_id');
 
 			// 待验证的表单项
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
@@ -278,27 +279,42 @@
 			$this->form_validation->set_rules('time_start', '开始时间', 'trim');
 			$this->form_validation->set_rules('time_due', '截止时间', 'trim');
 
-			// 需要编辑的信息
-			$data_to_edit = array(
-				'name' => $this->input->post('name'),
-				'description' => $this->input->post('description'),
-				'flow_ids' => $this->input->post('flow_ids'),
-				'page_ids' => $this->input->post('page_ids'),
-				'api_ids' => $this->input->post('api_ids'),
-				'team_id' => $this->input->post('team_id'),
-				'user_id' => $this->input->post('user_id'),
-				'time_start' => $this->input->post('time_start')? strtotime($this->input->post('time_start')): NULL,
-				'time_due' => $this->input->post('time_due')? strtotime($this->input->post('time_due')): NULL,
-			);
+			// 验证表单值格式
+			if ($this->form_validation->run() === FALSE):
+				$this->load->view('templates/header', $data);
+				$this->load->view($this->view_root.'/edit', $data);
+				$this->load->view('templates/footer', $data);
 
-			// Go Basic!
-			$this->basic->edit($data, $data_to_edit);
+			else:
+				// 需要编辑的信息
+				$data_to_edit = array(
+					'name' => $this->input->post('name'),
+					'description' => $this->input->post('description'),
+					'flow_ids' => $this->input->post('flow_ids'),
+					'page_ids' => $this->input->post('page_ids'),
+					'api_ids' => $this->input->post('api_ids'),
+					'team_id' => $this->input->post('team_id'),
+					'user_id' => $this->input->post('user_id'),
+					'time_start' => $this->input->post('time_start')? strtotime($this->input->post('time_start')): NULL,
+					'time_due' => $this->input->post('time_due')? strtotime($this->input->post('time_due')): NULL,
+				);
+				$result = $this->basic_model->edit($id, $data_to_edit);
+
+				if ($result !== FALSE):
+					$data['content'] = '<p class="alert alert-success">保存成功。</p>';
+				else:
+					$data['content'] = '<p class="alert alert-warning">保存失败。</p>';
+				endif;
+
+				$this->load->view('templates/header', $data);
+				$this->load->view($this->view_root.'/result', $data);
+				$this->load->view('templates/footer', $data);
+
+			endif;
 		}
 
 		/**
 		 * 删除单行或多行项目
-		 *
-		 * 一般用于存为草稿、上架、下架、删除、恢复等状态变化，请根据需要修改方法名，例如delete、restore、draft等
 		 */
 		public function delete()
 		{
@@ -333,8 +349,6 @@
 		
 		/**
 		 * 恢复单行或多行项目
-		 *
-		 * 一般用于存为草稿、上架、下架、删除、恢复等状态变化，请根据需要修改方法名，例如delete、restore、draft等
 		 */
 		public function restore()
 		{

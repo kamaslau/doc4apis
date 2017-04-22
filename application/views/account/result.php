@@ -1,32 +1,10 @@
-<style>
-
-
-	/* 宽度在768像素以上的设备 */
-	@media only screen and (min-width:769px)
-	{
-
-	}
-	
-	/* 宽度在960像素以上的设备 */
-	@media only screen and (min-width:961px)
-	{
-
-	}
-
-	/* 宽度在1280像素以上的设备 */
-	@media only screen and (min-width:1281px)
-	{
-
-	}
-</style>
-
-<script>
-	$(function(){
-
-	});
-</script>
-
 <div id=content class=container>
 	<h2><?php echo $title ?></h2>
 	<p><?php echo $content ?></p>
+	
+	<div class=form-group>
+	    <div class="col-xs-12 col-sm-offset-2 col-sm-2">
+			<a class="btn btn-primary btn-lg btn-block" title="个人中心" href="<?php echo base_url('mine') ?>">返回个人中心</a>
+	    </div>
+	</div>
 </div>

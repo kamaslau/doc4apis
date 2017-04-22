@@ -30,35 +30,39 @@
 	<h2><?php echo $title ?></h2>
 	<?php
 		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
-		$attributes = array('class' => 'form-password-change', 'role' => 'form');
+		$attributes = array('class' => 'form-password-change form-horizontal', 'role' => 'form');
 		echo form_open('password_change', $attributes);
 	?>
 		<fieldset>
 			<div class=form-group>
-				<label for=password>现密码</label>
-				<div>
-					<input name=password type=text placeholder="现密码" required>
+				<label for=password class="col-sm-2 control-label">现密码</label>
+				<div class=col-sm-10>
+					<input class=form-control name=password type=password placeholder="现密码" required>
 					<?php echo form_error('password') ?>
 				</div>
 			</div>
 
 			<div class=form-group>
-				<label for=password_new>新密码</label>
-				<div>
-					<input name=password_new type=password placeholder="新密码" required>
+				<label for=password_new class="col-sm-2 control-label">新密码</label>
+				<div class=col-sm-10>
+					<input class=form-control name=password_new type=password placeholder="新密码" required>
 					<?php echo form_error('password_new') ?>
 				</div>
 			</div>
 
 			<div class=form-group>
-				<label for=password2>确认新密码</label>
-				<div>
-					<input name=password2 type=password placeholder="确认新密码" required>
+				<label for=password2 class="col-sm-2 control-label">确认新密码</label>
+				<div class=col-sm-10>
+					<input class=form-control name=password2 type=password placeholder="确认新密码" required>
 					<?php echo form_error('password2') ?>
 				</div>
 			</div>
 		</fieldset>
 
-		<button type=submit>确定</button>
+		<div class=form-group>
+		    <div class="col-xs-12 col-sm-offset-2 col-sm-2">
+				<button class="btn btn-primary btn-lg btn-block" type=submit>确定</button>
+		    </div>
+		</div>
 	</form>
 </div>

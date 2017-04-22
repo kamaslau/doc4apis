@@ -49,6 +49,7 @@
 		$attributes = array('class' => 'form-'.$this->class_name.'-edit form-horizontal', 'role' => 'form');
 		echo form_open_multipart($this->class_name.'/edit?id='.$item[$this->id_name], $attributes);
 	?>
+	<?php if ($this->session->role !== '成员'): ?>
 		<fieldset>
 			<legend>基本信息</legend>
 
@@ -83,22 +84,45 @@
 			<div class=form-group>
 				<label for=role class="col-sm-2 control-label">角色</label>
 				<div class=col-sm-10>
-					<input class=form-control name=role type=text value="<?php echo $item['role'] ?>" placeholder="角色" required>
+					<select class=form-control name=role required>
+						<option value="成员" <?php if ($item['role'] === '成员') echo 'selected' ?>>成员</option>
+						<option value="经理" <?php if ($item['role'] === '经理') echo 'selected' ?>>经理</option>
+						<?php if ($this->session->role === '管理员'): ?>
+							<option value="管理员" <?php if ($item['role'] === '管理员') echo 'selected' ?>>管理员</option>
+						<?php endif ?>
+					</select>
 					<?php echo form_error('role') ?>
 				</div>
 			</div>
-
+			
+			<?php
+				// 不可授予他人比自己高的等级
+				if ($this->session->user_id !== $this->input->get_post('id')):
+					$max_level = $this->session->level - 1;
+				else:
+					$max_level = $this->session->level;
+				endif;
+			?>
 			<div class=form-group>
 				<label for=level class="col-sm-2 control-label">等级</label>
 				<div class=col-sm-10>
-					<input class=form-control name=level type=number min=0 step=1 max="<?php echo $this->session->level ?>" value="<?php echo $item['level'] ?>" placeholder="等级" required>
+					<input class=form-control name=level type=number min=0 step=1 max="<?php echo $max_level ?>" value="<?php echo $item['level'] ?>" placeholder="等级" required>
 					<?php echo form_error('level') ?>
 				</div>
 			</div>
 		</fieldset>
-		
+	<?php endif ?>
+
 		<fieldset>
 			<legend>资料</legend>
+
+			<div class=form-group>
+				<label for=nickname class="col-sm-2 control-label">昵称</label>
+				<div class=col-sm-10>
+					<input class=form-control name=nickname type=text value="<?php echo $item['nickname'] ?>" placeholder="最多10个字符">
+					<?php echo form_error('nickname') ?>
+				</div>
+			</div>
 
 			<div class=form-group>
 				<label for=gender class="col-sm-2 control-label">性别</label>

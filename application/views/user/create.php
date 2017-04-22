@@ -82,15 +82,21 @@
 			<div class=form-group>
 				<label for=role class="col-sm-2 control-label">角色</label>
 				<div class=col-sm-10>
-					<input class=form-control name=role type=text value="<?php echo set_value('role') ?>" placeholder="角色" required>
+					<select class=form-control name=role required>
+						<option value="成员" <?php echo set_select('role', '成员') ?>>成员</option>
+						<option value="经理" <?php echo set_select('role', '经理') ?>>经理</option>
+						<?php if ($this->session->role === '管理员'): ?>
+							<option value="管理员" <?php echo set_select('role', '管理员') ?>>管理员</option>
+						<?php endif ?>
+					</select>
 					<?php echo form_error('role') ?>
 				</div>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=level class="col-sm-2 control-label">等级</label>
 				<div class=col-sm-10>
-					<input class=form-control name=level type=number min=0 step=1 max="<?php echo $this->session->level ?>" value="<?php echo set_value('level') ?>" placeholder="等级" required>
+					<input class=form-control name=level type=number min=0 step=1 max="<?php echo ($this->session->level - 1) ?>" value="<?php echo set_value('level') ?>" placeholder="等级" required>
 					<?php echo form_error('level') ?>
 				</div>
 			</div>

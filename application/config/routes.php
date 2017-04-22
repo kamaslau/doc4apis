@@ -5,16 +5,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['home'] = 'home/index'; // 首页
 
 /* Account 账号 */
-$route['mine'] = 'account/mine'; // 个人中心（仅限登录后）
-$route['login'] = 'account/login'; // 登录
-$route['register'] = 'account/register'; // 注册
+$route['mine'] = 'account/mine'; // 个人中心（登录后）
+$route['login_sms'] = 'account/login_sms'; // 短信登录
+$route['login'] = 'account/login'; // 密码登录
+$route['register_sms'] = 'account/register_sms'; // 短信注册
+$route['register'] = 'account/register'; // 密码注册
 $route['logout'] = 'account/logout'; // 退出当前账号
-$route['email_reset'] = 'account/email_reset'; // 换绑Email（仅限登录后）
-$route['mobile_reset'] = 'account/mobile_reset'; // 换绑手机号（仅限登录后）
-$route['password_reset'] = 'account/password_reset'; // 重置密码（仅限登录前）
-$route['password_change'] = 'account/password_change'; // 修改密码（仅限登录后）
-$route['account/edit'] = 'account/edit'; // 编辑账户资料
-
+//$route['mobile_reset'] = 'account/mobile_reset'; // 换绑手机号（登录后）
+$route['password_set'] = 'account/password_set'; // 设置密码（登录后）
+$route['password_change'] = 'account/password_change'; // 修改密码（登录后）
+$route['password_reset'] = 'account/login_sms'; // 重置密码（登录前），即转到短信登录
 
 /* Project 项目 */
 $route['project/detail'] = 'project/detail'; // 详情

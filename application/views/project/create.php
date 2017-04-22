@@ -31,9 +31,9 @@
 	<?php
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
-	$current_level = $this->session->level; // 当前用户权限
-	$role_allowed = array('经理', '管理员');
-	$level_allowed = 1;
+	$current_level = $this->session->level; // 当前用户等级
+	$role_allowed = array('管理员');
+	$level_allowed = 30;
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
@@ -49,8 +49,8 @@
 		echo form_open_multipart($this->class_name.'/create', $attributes);
 	?>
 		<fieldset>
-			<legend>请填写以下信息</legend>
-			
+			<legend>基本信息</legend>
+
 			<div class=form-group>
 				<label for=name class="col-sm-2 control-label">名称</label>
 				<div class=col-sm-10>
@@ -66,28 +66,66 @@
 				</div>
 				<?php echo form_error('description') ?>
 			</div>
+
+			<div class=form-group>
+				<label for=sdk_ios class="col-sm-2 control-label">iOS最低版本</label>
+				<div class=col-sm-10>
+					<input class=form-control name=sdk_ios type=text value="<?php echo set_value('sdk_ios') ?>" placeholder="例如：9.0">
+				</div>
+				<?php echo form_error('sdk_ios') ?>
+			</div>
+
+			<div class=form-group>
+				<label for=sdk_android class="col-sm-2 control-label">Android最低版本</label>
+				<div class=col-sm-10>
+					<input class=form-control name=sdk_android type=text value="<?php echo set_value('sdk_android') ?>" placeholder="例如：4.1">
+				</div>
+				<?php echo form_error('sdk_android') ?>
+			</div>
+		</fieldset>
+		
+		<fieldset>
+			<legend>项目素材</legend>
+
+			<div class=form-group>
+				<label for=url_logo class="col-sm-2 control-label">LOGO（可选）</label>
+				<div class=col-sm-10>
+					<button class="btn btn-primary btn-lg" type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
+					<input class=form-control name=url_logo type=file value="<?php echo set_value('url_logo') ?>" placeholder="请上传jpg/png/webp格式设计图，文件大小控制在2M之内">
+					<?php echo form_error('url_logo') ?>
+				</div>
+			</div>
+
+			<div class=form-group>
+				<label for=url_assets class="col-sm-2 control-label">素材URL（可选）</label>
+				<div class=col-sm-10>
+					<span class=help-block>此处填写项目的LOGO文件、应用商店预览图等素材URL；具体页面相关的素材URL建议在相应页面上传。</span>
+					<input class=form-control name=url_assets type=url value="<?php echo set_value('url_assets') ?>" placeholder="请将PSD文件、UI素材、字体、媒体文件等压缩后上传到百度云盘，并将该压缩文件的分享链接填入此处">
+					<?php echo form_error('url_assets') ?>
+				</div>
+			</div>
 		</fieldset>
 
 		<fieldset>
 			<legend>开发环境</legend>
 			
 			<div class=form-group>
-				<label for=sandbox_url_web class="col-sm-2 control-label">WEB开发环境URL（可选）</label>
+				<label for=sandbox_url_web class="col-sm-2 control-label">WEB URL（可选）</label>
 				<div class=col-sm-10>
 					<input class=form-control name=sandbox_url_web type=url value="<?php echo set_value('sandbox_url_web') ?>" placeholder="必须以https://开头">
 				</div>
 				<?php echo form_error('sandbox_url_web') ?>
 			</div>
-			
+
 			<div class=form-group>
-				<label for=sandbox_url_api class="col-sm-2 control-label">API开发环境URL（可选）</label>
+				<label for=sandbox_url_api class="col-sm-2 control-label">API URL（可选）</label>
 				<div class=col-sm-10>
 					<input class=form-control name=sandbox_url_api type=url value="<?php echo set_value('sandbox_url_api') ?>" placeholder="必须以https://开头">
 				</div>
 				<?php echo form_error('sandbox_url_api') ?>
 			</div>
 		</fieldset>
-		
+
 		<fieldset>
 			<legend>正式环境</legend>
 
@@ -106,7 +144,7 @@
 				</div>
 				<?php echo form_error('url_api') ?>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=url_ios class="col-sm-2 control-label">iOS URL（可选）</label>
 				<div class=col-sm-10>
@@ -114,7 +152,7 @@
 				</div>
 				<?php echo form_error('url_ios') ?>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=url_android class="col-sm-2 control-label">Android URL（可选）</label>
 				<div class=col-sm-10>
@@ -125,8 +163,8 @@
 		</fieldset>
 
 		<div class=form-group>
-		    <div class="col-sm-offset-2 col-sm-10">
-				<button class="btn btn-primary" type=submit>确定</button>
+		    <div class="col-xs-12 col-sm-offset-2 col-sm-2">
+				<button class="btn btn-primary btn-lg btn-block" type=submit>确定</button>
 		    </div>
 		</div>
 	</form>

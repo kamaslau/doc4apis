@@ -31,9 +31,9 @@
 	<?php
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
-	$current_level = $this->session->level; // 当前用户权限
-	$role_allowed = array('经理', '管理员');
-	$level_allowed = 1;
+	$current_level = $this->session->level; // 当前用户等级
+	$role_allowed = array('管理员');
+	$level_allowed = 30;
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
@@ -45,27 +45,47 @@
 
 	<h2><?php echo $item['name'] ?></h2>
 	<p><?php echo $item['description'] ?></p>
-	
+
+	<?php if ( !empty($item['url_logo']) ): ?>
+	<figure id=project-logo>
+		<img class=img-rounded alt="<?php echo $item['name'] ?>LOGO" src="<?php $item['url_logo'] ?>">
+	</figure>
+	<?php endif ?>
+
+	<?php if ( !empty($item['url_assets']) ): ?>
+	<a href="<?php $item['url_assets'] ?>" target=_blank><i class="fa fa-download" aria-hidden=true></i>下载基本素材</a>
+	<?php endif ?>
+
+	<p>
+		<?php if ( !empty($item['sdk_ios']) ): ?>
+		<span><i class="fa fa-apple" aria-hidden="true"></i> ≥<?php echo $item['sdk_ios'] ?></span>
+		<?php endif ?>
+
+		<?php if ( !empty($item['sdk_android']) ): ?>
+		<span><i class="fa fa-android" aria-hidden="true"></i> ≥<?php echo $item['sdk_android'] ?></span>
+		<?php endif ?>
+	</p>
+
 	<section>
 		<h3>开发环境</h3>
 		<dl class=dl-horizontal>
 			<?php if ( !empty($item['sandbox_url_web']) ): ?>
-			<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB开发环境URL</dt>
+			<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB</dt>
 			<dd id=sandbox_url_web>
 				<?php echo $item['sandbox_url_web'] ?>
 				<script>
-					jQuery('<div class=qrcode>').appendTo('#sandbox_url_web').qrcode("<?php echo $item['sandbox_url_web'] ?>");
+					jQuery('<figure class=qrcode>').appendTo('#sandbox_url_web').qrcode("<?php echo $item['sandbox_url_web'] ?>");
 				</script>
 			</dd>
 			<?php endif ?>
 		
 			<?php if ( !empty($item['sandbox_url_api']) ): ?>
-			<dt><i class="fa fa-safari" aria-hidden="true"></i> API开发环境URL</dt>
+			<dt><i class="fa fa-safari" aria-hidden="true"></i> API</dt>
 			<dd><?php echo $item['sandbox_url_api'] ?></dd>
 			<?php endif ?>
 		</dl>
 	</section>
-	
+
 	<section>
 		<h3>正式环境</h3>
 		<dl class=dl-horizontal>
@@ -74,11 +94,11 @@
 			<dd id=url_web>
 				<?php echo $item['url'] ?>
 				<script>
-					jQuery('<div class=qrcode>').appendTo('#url_web').qrcode("<?php echo $item['url'] ?>");
+					jQuery('<figure class=qrcode>').appendTo('#url_web').qrcode("<?php echo $item['url'] ?>");
 				</script>
 			</dd>
 			<?php endif ?>
-		
+
 			<?php if ( !empty($item['url_api']) ): ?>
 			<dt><i class="fa fa-safari" aria-hidden="true"></i> API</dt>
 			<dd><?php echo $item['url_api'] ?></dd>
@@ -89,7 +109,7 @@
 			<dd id=url_ios>
 				<?php echo $item['url_ios'] ?>
 				<script>
-					jQuery('<div class=qrcode>').appendTo('#url_ios').qrcode("<?php echo $item['url_ios'] ?>");
+					jQuery('<figure class=qrcode>').appendTo('#url_ios').qrcode("<?php echo $item['url_ios'] ?>");
 				</script>
 			</dd>
 			<?php endif ?>
@@ -99,7 +119,7 @@
 			<dd id=url_android>
 				<?php echo $item['url_android'] ?>
 				<script>
-					jQuery('<div class=qrcode>').appendTo('#url_android').qrcode("<?php echo $item['url_android'] ?>");
+					jQuery('<figure class=qrcode>').appendTo('#url_android').qrcode("<?php echo $item['url_android'] ?>");
 				</script>
 			</dd>
 			<?php endif ?>
@@ -113,8 +133,8 @@
 		<li><a title="查看API" href="<?php echo base_url('api?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-arrows-v" aria-hidden=true></i> API</a></li>
 		<?php
 		// 需要特定角色和权限进行该操作
-		$role_allowed = array('经理', '管理员');
-		$level_allowed = 1;
+		$role_allowed = array('管理员');
+		$level_allowed = 30;
 		if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 		?>
 		<li><a title="创建任务" href="<?php echo base_url('task/create?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-plus-square"></i> 创建任务</a></li>
