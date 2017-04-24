@@ -46,16 +46,6 @@
 	<h2><?php echo $item['name'] ?></h2>
 	<p><?php echo $item['description'] ?></p>
 
-	<?php if ( !empty($item['url_logo']) ): ?>
-	<figure id=project-logo>
-		<img class=img-rounded alt="<?php echo $item['name'] ?>LOGO" src="<?php $item['url_logo'] ?>">
-	</figure>
-	<?php endif ?>
-
-	<?php if ( !empty($item['url_assets']) ): ?>
-	<a href="<?php $item['url_assets'] ?>" target=_blank><i class="fa fa-download" aria-hidden=true></i>下载基本素材</a>
-	<?php endif ?>
-
 	<p>
 		<?php if ( !empty($item['sdk_ios']) ): ?>
 		<span><i class="fa fa-apple" aria-hidden="true"></i> ≥<?php echo $item['sdk_ios'] ?></span>
@@ -65,6 +55,16 @@
 		<span><i class="fa fa-android" aria-hidden="true"></i> ≥<?php echo $item['sdk_android'] ?></span>
 		<?php endif ?>
 	</p>
+
+	<?php if ( !empty($item['url_logo']) ): ?>
+	<figure id=project-logo class=row>
+		<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>LOGO" src="<?php echo IMAGES_URL.'project/'.$item['url_logo'] ?>">
+	</figure>
+	<?php endif ?>
+
+	<?php if ( !empty($item['url_assets']) ): ?>
+	<a href="<?php echo $item['url_assets'] ?>" target=_blank><i class="fa fa-download" aria-hidden=true></i>下载素材</a>
+	<?php endif ?>
 
 	<section>
 		<h3>开发环境</h3>

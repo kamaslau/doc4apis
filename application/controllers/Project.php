@@ -191,10 +191,11 @@
 			// Go Basic!
 			$this->basic->create($data, $data_to_create);
 		}
-		
+
 		public function upload_process($field_index)
 		{
-			$config['upload_path'] = $_SERVER['DOCUMENT_ROOT'].'/uploads/';
+			// 设置上传限制
+			$config['upload_path'] = $_SERVER['DOCUMENT_ROOT'].'/uploads/project';
 			$config['file_name'] = date('Ymd_His');
 			$config['file_ext_tolower'] = TRUE; // 文件名后缀转换为小写
 			$config['allowed_types'] = 'webp|jpg|jpeg|png';
@@ -203,6 +204,7 @@
 			$config['max_size'] = 2048; // 文件不得大于2M
 
 			// 载入CodeIgniter的上传库并尝试上传文件
+			// https://www.codeigniter.com/user_guide/libraries/file_uploading.html
 			$this->load->library('upload', $config);
 			$result = $this->upload->do_upload($field_index);
 
@@ -211,9 +213,10 @@
 				$data['content'] = $this->upload->data('file_name'); // 返回上传后的文件名
 			else:
 				$data['status'] = 400;
-				$data['content'] = $this->upload->display_errors('',''); // 返回纯文本格式的错误说明
+				$data['content']['file'] = $_FILES[$field_index]; // 返回源文件信息
+				$data['content']['descirption'] = $this->upload->display_errors('',''); // 返回纯文本格式的错误说明
 			endif;
-			
+
 			return $data;
 		}
 
@@ -226,6 +229,12 @@
 
 			// 若有文件被上传，继续处理文件
 			if ( !empty($_FILES) ):
+
+				// 初始化总体上传结果，默认上传成功
+				$result = array(
+					'status' => 200,
+					'content' => '上传成功',
+				);
 
 				// 获取待处理文件总数
 				$file_count = count($_FILES);
@@ -241,12 +250,17 @@
 						// 处理上传
 						$upload_result = $this->upload_process($file_index);
 
-						// 返回上传结果
-						$result = $upload_result;
+						// 储存上传结果
+						// 若存在上传失败的文件，在总体结果中进行体现
+						if ( $upload_result['status'] === 400 ):
+							$result['status'] = 400;
+							$result['content'] = '文件上传失败';
+						endif;
+						$result['items'][] = $upload_result;
 
 					// 若获取失败，判断失败原因，并返回相应提示
 					else:
-						switch($file['error']):
+						switch( $file['error'] ):
 							case 1:
 								$content = '文件大小超出了PHP配置文件中 upload_max_filesize 的值';
 								break;

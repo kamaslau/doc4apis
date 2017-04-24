@@ -20,6 +20,8 @@
 	}
 </style>
 
+<script src="/js/file-upload.js"></script>
+
 <div id=breadcrumb>
 	<ol class="breadcrumb container">
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
@@ -84,77 +86,28 @@
 				<?php echo form_error('sdk_android') ?>
 			</div>
 		</fieldset>
-		
+
 		<fieldset>
 			<legend>项目素材</legend>
-
+			
 			<div class=form-group>
 				<label for=url_logo class="col-sm-2 control-label">LOGO（可选）</label>
 				<div class=col-sm-10>
-					<input id=url_logo class=form-control name=url_logo type=file placeholder="请上传jpg/png/webp格式设计图，文件大小控制在2M之内" multiple>
-					<button id=file-upload class="btn btn-primary btn-lg" type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
+					<?php if ( !empty($item['url_logo'] ) ): ?>
+						<figure id=project-logo class=row>
+							<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>LOGO" src="<?php echo IMAGES_URL.'project/'.$item['url_logo'] ?>">
+						</figure>
+					<?php endif ?>
+					<input id=url_logo class=form-control type=file multiple>
+					<input name=url_logo type=hidden value="<?php echo $item['url_logo'] ?>">
+
+					<button class="file-upload btn btn-primary btn-lg" data-selector-id=url_logo data-input-name=url_logo type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
+
+					<ul class="upload_preview list-inline"></ul>
+
 					<?php echo form_error('url_logo') ?>
 				</div>
 			</div>
-
-<script>
-$(function(){
-	// 检查浏览器是否支持完成文件上传必须的XHR2（FormData）功能
-	function check_support_formdata()
-	{
-		if ( ! window.hasOwnProperty('FormData') )
-		{
-			alert('您正在使用安全性差或者已过时的浏览器；请使用谷歌或火狐浏览器。');
-			return false;
-		}
-	}
-
-	// 获取文件大小
-	function file_size(file)
-	{
-		return (file.files[0].size / 1024).toFixed(2);
-	}
-
-	// 处理文件上传
-	function file_upload()
-	{
-		//TODO 禁用上传按钮
-		$('#file-upload').html('<i class="fa fa-refresh" aria-hidden=true></i> 上传中');
-		
-		// 创建FormData对象
-		var formData = new FormData();
-
-		// 获取待上传的文件数量（HTML中可通过type=file表单项中添加multiple属性对多文件上传提供支持）
-		var file_count = $('#url_logo')[0].files.length;
-
-		// 将所有需上传的文件信息放入formData对象
-		for (var i=0; i<file_count; i++)
-		{
-			formData.append('file'+i, $('#url_logo')[0].files[ i ] );
-		}
-
-		$.ajax({
-	        url: 'https://www.doc4apis.com/project/upload',
-	        type: 'POST',
-			cache: false, // 上传文件不需要缓存
-	        data: formData,
-
-	        processData: false,  // 不处理发送的数据
-	        contentType: false // 不设置Content-Type请求头
-	    }).then(function(data){
-			alert(data.content);
-
-			//TODO 激活上传按钮
-			$('#file-upload').html('<i class="fa fa-upload" aria-hidden=true></i> 上传');
-	    });
-	}
-
-	$('#file-upload').click(function(){
-		check_support_formdata();
-		file_upload();
-	});
-});
-</script>
 
 			<div class=form-group>
 				<label for=url_assets class="col-sm-2 control-label">素材URL（可选）</label>

@@ -9,7 +9,7 @@ define('SITE_DESCRIPTION', 'doc4apis是一个基于API的WEB项目协作平台�
 define('ICP_NUMBER', NULL); // ICP备案号码，没有请留空
 
 define('BASE_URL', 'https://'. $_SERVER['SERVER_NAME']); // 可对外使用的站点URL, 自动判断协议（HTTP/HTTPS等等）；在本地测试时须替换为类似“localhost/BasicCodeigniter”形式
-//define('IMAGES_URL', '//images.xx.com/'); // （可选）非样式图片存储的根目录所在URL，可用于配合又拍云等第三方存储
+define('IMAGES_URL', '//www.doc4apis.com/uploads/'); // （可选）非样式图片存储的根目录所在URL，可用于配合又拍云等第三方存储
 define('COOKIE_DOMAIN', '.doc4apis.com'); // cookie存储路径；方便起见可让所有子域共享，若需分离可自行配置
 define('SESSION_COOKIE_NAME', 'ci_sessions_web'); // 用于cookie存储的session名（设置此值后，前后台session互不影响）
 define('SESSION_TABLE', 'ci_sessions_web'); // 用于session存储的数据库表名
