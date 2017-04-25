@@ -29,7 +29,7 @@
 <div id=content class=container>
 	<h2><?php echo $title ?></h2>
 	<?php
-		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
+		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>'; // 若有错误提示信息则显示
 		$attributes = array('class' => 'form-password-change form-horizontal', 'role' => 'form');
 		echo form_open('password_change', $attributes);
 	?>

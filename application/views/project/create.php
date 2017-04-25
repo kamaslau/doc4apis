@@ -19,6 +19,9 @@
 	}
 </style>
 
+<script>var target = 'project'</script>
+<script src="/js/file-upload.js"></script>
+
 <div id=breadcrumb>
 	<ol class="breadcrumb container">
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
@@ -90,8 +93,12 @@
 			<div class=form-group>
 				<label for=url_logo class="col-sm-2 control-label">LOGO（可选）</label>
 				<div class=col-sm-10>
-					<button class="btn btn-primary btn-lg" type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
-					<input class=form-control name=url_logo type=file value="<?php echo set_value('url_logo') ?>" placeholder="请上传jpg/png/webp格式设计图，文件大小控制在2M之内">
+					<input id=url_logo class=form-control type=file multiple>
+					<input name=url_logo type=hidden value="<?php echo set_value('url_logo') ?>">
+
+					<button class="file-upload btn btn-primary btn-lg" data-selector-id=url_logo data-input-name=url_logo type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
+
+					<ul class="upload_preview list-inline"></ul>
 					<?php echo form_error('url_logo') ?>
 				</div>
 			</div>

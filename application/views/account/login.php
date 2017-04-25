@@ -29,7 +29,7 @@
 <div id=content class=container>
 	<h2 class=text-center><?php echo $title ?></h2>
 	<?php
-		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
+		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>'; // 若有错误提示信息则显示
 		$attributes = array('class' => 'form-login col-xs-12 col-md-6 col-md-offset-3', 'role' => 'form');
 		echo form_open('login', $attributes);
 	?>
@@ -62,6 +62,6 @@
 
 	<ul class=hide>
 		<li><a title="注册" href="<?php echo base_url('register') ?>">注册</a></li>
-		<li><a title="找回密码" href="<?php echo base_url('password_reset') ?>">找回密码</a></li>
+		<li><a title="忘记密码" href="<?php echo base_url('password_reset') ?>">忘记密码</a></li>
 	</ul>
 </div>

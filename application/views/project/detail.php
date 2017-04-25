@@ -58,7 +58,19 @@
 
 	<?php if ( !empty($item['url_logo']) ): ?>
 	<figure id=project-logo class=row>
-		<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>LOGO" src="<?php echo IMAGES_URL.'project/'.$item['url_logo'] ?>">
+	<?php
+			// 若含多项，根据分隔符拆分并轮番输出
+			if (strpos( trim($item['url_logo']), ' ') !== FALSE):
+				$items_array = explode(' ', $item['url_logo']);
+				foreach ($items_array as $item_to_show):
+	?>	
+		<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'project/'.$item_to_show ?>">
+	<?php
+				endforeach;
+			else:
+	?>
+		<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'project/'.$item['url_logo'] ?>">
+	<?php 	endif ?>
 	</figure>
 	<?php endif ?>
 
@@ -103,7 +115,7 @@
 			<dt><i class="fa fa-safari" aria-hidden="true"></i> API</dt>
 			<dd><?php echo $item['url_api'] ?></dd>
 			<?php endif ?>
-		
+
 			<?php if ( !empty($item['url_ios']) ): ?>
 			<dt><i class="fa fa-apple" aria-hidden="true"></i> iOS</dt>
 			<dd id=url_ios>

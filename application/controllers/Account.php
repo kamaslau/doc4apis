@@ -83,16 +83,14 @@
 		public function mine()
 		{
 			// 若未登录，转到登录页
-			if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
+			if ($this->session->logged_in !== TRUE) redirect( base_url('login') );
 			
 			// 转到相应的用户详情页
 			redirect( base_url('user/detail?id='.$this->session->user_id) );
 		}
 
 		/**
-		 * 登录
-		 *
-		 * 此处以手机号及密码登录为示例
+		 * 密码登录
 		 *
 		 * @param string $_POST['mobile']
 		 * @param string $_POST['password']
@@ -324,8 +322,15 @@
 
 					// 将管理员手机号写入cookie并保存1个月
 					$this->input->set_cookie('mobile', $data['user']['mobile'], 60*60*24*30, COOKIE_DOMAIN);
-					// 转到首页
-					redirect( $this->from_url );
+
+					// 若未设置密码则转到密码设置页；若已设置密码则转到来路页面
+					if ( empty($user['password']) ):
+						redirect( 'password_set' );
+
+					else:
+						redirect( $this->from_url );
+
+					endif;
 
 				// 若密码错误
 				else:

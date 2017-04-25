@@ -1,12 +1,23 @@
+/**
+ * Kamas Lau
+ * 2017-04-25
+ */
+
+// 通过全局变量获取上传目标文件夹名
+var target = target;
+
+// AJAX文件上传服务器端URL
+var api_url = 'https://www.doc4apis.com/ajaxupload?target=' + target;
+
+// 图片存储根路径
 var uploads_url = '//www.doc4apis.com/uploads/';
-var api_url = 'https://www.doc4apis.com/project/upload';
 
 $(function(){
 	// 文件上传主处理方法
 	$('.file-upload').click(function(){
 		// 检查当前浏览器是否支持AJAX文件上传
 		check_support_formdata();
-		
+
 		var button = $(this);
 
 		// 禁用上传按钮
@@ -114,8 +125,8 @@ $(function(){
 					var file_previewer = button.siblings('.upload_preview');
 					file_previewer.prepend(item_content);
 				}
-			); // end $.each
-			
+			); //end $.each
+
 			// 激活上传按钮
 			button.removeAttr('disabled');
 			button.html('<i class="fa fa-upload" aria-hidden=true></i> 上传');
@@ -127,12 +138,6 @@ $(function(){
 				$('[name=' + button.attr('data-input-name') + ']').val(input_value);
 			}
 	    });
-	}
-
-	$('form').submit(function(){
-		//var form_data = $(this).serialize();
-		//console.log(form_data);
-		//return false;
-	});
+	} //end file_upload
 
 });

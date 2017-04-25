@@ -20,6 +20,7 @@
 	}
 </style>
 
+<script>var target = 'project'</script>
 <script src="/js/file-upload.js"></script>
 
 <div id=breadcrumb>
@@ -98,6 +99,7 @@
 							<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>LOGO" src="<?php echo IMAGES_URL.'project/'.$item['url_logo'] ?>">
 						</figure>
 					<?php endif ?>
+
 					<input id=url_logo class=form-control type=file multiple>
 					<input name=url_logo type=hidden value="<?php echo $item['url_logo'] ?>">
 
@@ -121,7 +123,7 @@
 
 		<fieldset>
 			<legend>正式环境</legend>
-			
+
 			<div class=form-group>
 				<label for=sandbox_url_web class="col-sm-2 control-label">WEB URL（可选）</label>
 				<div class=col-sm-10>
