@@ -147,7 +147,7 @@
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 			
 			// 页面信息
@@ -176,7 +176,7 @@
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 			
 			// 检查是否已传入必要参数
@@ -198,9 +198,11 @@
 			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('description', '说明', 'trim|required');
+			$this->form_validation->set_rules('description', '说明', 'trim');
+			$this->form_validation->set_rules('code_class', '类名', 'trim|alpha_dash');
+			$this->form_validation->set_rules('code_function', '方法名', 'trim|alpha_dash');
 			$this->form_validation->set_rules('private', '是否需登录', 'trim');
-			$this->form_validation->set_rules('elements', '视图元素', 'trim');
+			$this->form_validation->set_rules('elements', '主要视图元素', 'trim');
 			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
 			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim|valid_url');
 			$this->form_validation->set_rules('onloads', '载入事件', 'trim');
@@ -214,6 +216,8 @@
 				'category_id' => $this->input->post('category_id'),
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
+				'code_class' => $this->input->post('code_class'),
+				'code_function' => $this->input->post('code_function'),
 				'private' => $this->input->post('private'),
 				'elements' => $this->input->post('elements'),
 				'url_design' => $this->input->post('url_design'),
@@ -237,7 +241,7 @@
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
 			// 检查是否已传入必要参数
@@ -260,7 +264,9 @@
 			// 待验证的表单项
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('description', '说明', 'trim|required');
+			$this->form_validation->set_rules('description', '说明', 'trim');
+			$this->form_validation->set_rules('code_class', '类名', 'trim|alpha_dash');
+			$this->form_validation->set_rules('code_function', '方法名', 'trim|alpha_dash');
 			$this->form_validation->set_rules('private', '是否需登录', 'trim');
 			$this->form_validation->set_rules('elements', '视图元素', 'trim');
 			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
@@ -282,6 +288,8 @@
 					'category_id' => $this->input->post('category_id'),
 					'name' => $this->input->post('name'),
 					'description' => $this->input->post('description'),
+					'code_class' => $this->input->post('code_class'),
+					'code_function' => $this->input->post('code_function'),
 					'private' => $this->input->post('private'),
 					'elements' => $this->input->post('elements'),
 					'url_design' => $this->input->post('url_design'),
@@ -291,6 +299,9 @@
 					'api_ids' => $this->input->post('api_ids'),
 					'page_ids' => $this->input->post('page_ids'),
 				);
+				
+				$this->basic_model->table_name = 'page';
+				$this->basic_model->id_name = 'page_id';
 				$result = $this->basic_model->edit($id, $data_to_edit);
 
 				if ($result !== FALSE):
@@ -313,7 +324,7 @@
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 			
 			$op_name = '删除'; // 操作的名称
@@ -347,7 +358,7 @@
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
 			$op_name = '恢复'; // 操作的名称

@@ -48,11 +48,21 @@
 		<?php echo $item['name'] ?>
 		<a title="<?php echo $project['name'] ?>" href="<?php echo base_url('project/detail?id='.$project['project_id']) ?>" target=_blank><?php echo $project['name'] ?></a>
 	</h2>
-	<em><?php echo ($item['private'] === '1')? '需登录': '不需登录'; ?></em>
 	<p><?php echo $item['description'] ?></p>
+	<dl class=dl-horizontal>
+		<?php if ( !empty($item['code_class']) && !empty($item['code_function']) ): ?>
+		<dt>类名</dt>
+		<dd><?php echo $item['code_class'] ?></dd>
+		<dt>方法名</dt>
+		<dd><?php echo $item['code_function'] ?></dd>
+		<?php endif ?>
+
+		<dt>需登录</dt>
+		<dd><?php echo ($item['private'] === '1')? '<i class="fa fa-lock" aria-hidden=true></i> 是': '<i class="fa fa-unlock" aria-hidden=true></i> 否'; ?></dd>
+	</dl>
 
 	<section>
-		<h3>视图元素</h3>
+		<h3>主要视图元素</h3>
 		<?php echo $item['elements'] ?>
 		<ul>
 			<?php if ( !empty($item['url_design_image']) ): ?>
@@ -69,17 +79,17 @@
 			<?php endif ?>
 		</ul>
 	</section>
-	
+
 	<section>
 		<h3>载入事件</h3>
 		<?php echo $item['onloads'] ?>
 	</section>
-	
+
 	<section>
 		<h3>业务流程</h3>
 		<?php echo $item['events'] ?>
 	</section>
-	
+
 	<?php if ( !empty($item['api_ids']) ): ?>
 	<section>
 		<h3>相关API</h3>

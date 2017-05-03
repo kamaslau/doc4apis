@@ -48,53 +48,49 @@
 	<p><?php echo $item['description'] ?></p>
 
 	<dl class=list-horizontal>
-		<dt>生产环境URL</dt>
-		<?php if ( empty($item['url_full']) ): ?>
-		<dd><?php echo $project['url_api']. $item['url'] ?></dd>
-		<?php else: ?>
-		<dd><?php echo $item['url_full'] ?></dd>
-		<?php endif ?>
-
 		<dt>开发环境URL</dt>
 		<?php if ( empty($item['url_full']) ): ?>
 		<dd><?php echo $project['sandbox_url_api']. $item['url'] ?></dd>
 		<?php else: ?>
 		<dd><?php echo $item['url_full'] ?></dd>
 		<?php endif ?>
+		
+		<dt>生产环境URL</dt>
+		<?php if ( empty($item['url_full']) ): ?>
+		<dd><?php echo $project['url_api']. $item['url'] ?></dd>
+		<?php else: ?>
+		<dd><?php echo $item['url_full'] ?></dd>
+		<?php endif ?>
 	</dl>
 
 	<section>
-		<h3>请求参数</h3>
-		<?php echo $item['params_request'] ?>
-		<!--
-		<table>
+		<h3>请求参数（除公共参数外）</h3>
+
+		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>名称</th><th>类型</th><th>是否必要</th><th>示例</th><th>说明</th>
+					<th>名称</th><th>类型</th><th>必要</th><th>示例</th><th>说明</th>
 				</tr>
 			</thead>
 			<tbody>
-				
+				<?php echo $item['params_request'] ?>
 			</tbody>
 		</table>
-		-->
 	</section>
 
 	<section>
-		<h3>响应参数</h3>
-		<?php echo $item['params_respond'] ?>
-		<!--
-		<table>
+		<h3>响应参数（除公共参数外）</h3>
+
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>名称</th><th>类型</th><th>示例</th><th>说明</th>
 				</tr>
 			</thead>
 			<tbody>
-		
+				<?php echo $item['params_respond'] ?>
 			</tbody>
 		</table>
-		-->
 	</section>
 
 	<?php if ( !empty($item['sample_request']) ): ?>

@@ -114,10 +114,10 @@
 		</fieldset>
 
 		<fieldset>
-			<legend>开发环境</legend>
+			<legend>开发环境（可选）</legend>
 			
 			<div class=form-group>
-				<label for=sandbox_url_web class="col-sm-2 control-label">WEB URL（可选）</label>
+				<label for=sandbox_url_web class="col-sm-2 control-label">WEB URL</label>
 				<div class=col-sm-10>
 					<input class=form-control name=sandbox_url_web type=url value="<?php echo set_value('sandbox_url_web') ?>" placeholder="必须以https://开头">
 				</div>
@@ -125,7 +125,7 @@
 			</div>
 
 			<div class=form-group>
-				<label for=sandbox_url_api class="col-sm-2 control-label">API URL（可选）</label>
+				<label for=sandbox_url_api class="col-sm-2 control-label">API URL</label>
 				<div class=col-sm-10>
 					<input class=form-control name=sandbox_url_api type=url value="<?php echo set_value('sandbox_url_api') ?>" placeholder="必须以https://开头">
 				</div>
@@ -134,18 +134,27 @@
 		</fieldset>
 
 		<fieldset>
-			<legend>正式环境</legend>
+			<legend>正式/生产环境（可选）</legend>
 
 			<div class=form-group>
-				<label for=url class="col-sm-2 control-label">WEB URL（可选）</label>
+				<label for=url_web class="col-sm-2 control-label">WEB URL</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url type=url value="<?php echo set_value('url') ?>" placeholder="必须以https://开头">
+					<input class=form-control name=url_web type=url value="<?php echo set_value('url_web') ?>" placeholder="必须以https://开头">
 				</div>
-				<?php echo form_error('url') ?>
+				<?php echo form_error('url_web') ?>
+			</div>
+			
+			<div class=form-group>
+				<label for=url_wechat class="col-sm-2 control-label">微信公众号二维码</label>
+				<div class=col-sm-10>
+					<input class=form-control name=url_wechat type=url value="<?php echo set_value('url_wechat') ?>" placeholder="即微信公众号二维码文本">
+					<p class=help-block>可以通过二维码解码工具获取二维码文本 http://cli.im/deqr</p>
+				</div>
+				<?php echo form_error('url_wechat') ?>
 			</div>
 
 			<div class=form-group>
-				<label for=url_api class="col-sm-2 control-label">API URL（可选）</label>
+				<label for=url_api class="col-sm-2 control-label">API URL</label>
 				<div class=col-sm-10>
 					<input class=form-control name=url_api type=url value="<?php echo set_value('url_api') ?>" placeholder="必须以https://开头">
 				</div>
@@ -153,7 +162,7 @@
 			</div>
 
 			<div class=form-group>
-				<label for=url_ios class="col-sm-2 control-label">iOS URL（可选）</label>
+				<label for=url_ios class="col-sm-2 control-label">iOS URL</label>
 				<div class=col-sm-10>
 					<input class=form-control name=url_ios type=url value="<?php echo set_value('url_ios') ?>" placeholder="必须是官方下载URL；URL中除appid外不可有其它参数">
 				</div>
@@ -161,11 +170,37 @@
 			</div>
 
 			<div class=form-group>
-				<label for=url_android class="col-sm-2 control-label">Android URL（可选）</label>
+				<label for=url_android class="col-sm-2 control-label">Android URL</label>
 				<div class=col-sm-10>
 					<input class=form-control name=url_android type=url value="<?php echo set_value('url_android') ?>" placeholder="必须以https://开头">
 				</div>
 				<?php echo form_error('url_android') ?>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend>公共参数（可选）</legend>
+
+			<div class=form-group>
+				<label for=params_request class="col-sm-2 control-label">请求参数</label>
+				<div class=col-sm-10>
+					<code class=help-block>
+						&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;
+					</code>
+					<textarea class=form-control name=params_request rows=10 placeholder="请求参数"><?php echo set_value('params_request') ?></textarea>
+				</div>
+				<?php echo form_error('params_request') ?>
+			</div>
+
+			<div class=form-group>
+				<label for=params_respond class="col-sm-2 control-label">响应参数</label>
+				<div class=col-sm-10>
+					<code class=help-block>
+						&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;
+					</code>
+					<textarea class=form-control name=params_respond rows=10 placeholder="响应参数"><?php echo set_value('params_respond') ?></textarea>
+				</div>
+				<?php echo form_error('params_respond') ?>
 			</div>
 		</fieldset>
 

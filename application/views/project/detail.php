@@ -90,7 +90,7 @@
 				</script>
 			</dd>
 			<?php endif ?>
-		
+
 			<?php if ( !empty($item['sandbox_url_api']) ): ?>
 			<dt><i class="fa fa-safari" aria-hidden="true"></i> API</dt>
 			<dd><?php echo $item['sandbox_url_api'] ?></dd>
@@ -99,14 +99,24 @@
 	</section>
 
 	<section>
-		<h3>正式环境</h3>
+		<h3>正式/生产环境</h3>
 		<dl class=dl-horizontal>
-			<?php if ( !empty($item['url']) ): ?>
+			<?php if ( !empty($item['url_web']) ): ?>
 			<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB</dt>
 			<dd id=url_web>
-				<?php echo $item['url'] ?>
+				<?php echo $item['url_web'] ?>
 				<script>
-					jQuery('<figure class=qrcode>').appendTo('#url_web').qrcode("<?php echo $item['url'] ?>");
+					jQuery('<figure class=qrcode>').appendTo('#url_web').qrcode("<?php echo $item['url_web'] ?>");
+				</script>
+			</dd>
+			<?php endif ?>
+
+			<?php if ( !empty($item['url_wechat']) ): ?>
+			<dt><i class="fa fa-safari" aria-hidden="true"></i> 微信公众号二维码</dt>
+			<dd id=url_wechat>
+				<?php echo $item['url_wechat'] ?>
+				<script>
+					jQuery('<figure class=qrcode>').appendTo('#url_wechat').qrcode("<?php echo $item['url_wechat'] ?>");
 				</script>
 			</dd>
 			<?php endif ?>
@@ -125,7 +135,7 @@
 				</script>
 			</dd>
 			<?php endif ?>
-		
+
 			<?php if ( !empty($item['url_android']) ): ?>
 			<dt><i class="fa fa-android" aria-hidden="true"></i> Android</dt>
 			<dd id=url_android>
@@ -137,24 +147,55 @@
 			<?php endif ?>
 		</dl>
 	</section>
+	
+	<section>
+		<h3>公共参数</h3>
+
+		<table class="table table-striped">
+			<caption>请求参数</caption>
+			<thead>
+				<tr>
+					<th>名称</th><th>类型</th><th>必要</th><th>示例</th><th>说明</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php echo $item['params_request'] ?>
+			</tbody>
+		</table>
+
+		<table class="table table-striped">
+			<caption>响应参数</caption>
+			<thead>
+				<tr>
+					<th>名称</th><th>类型</th><th>示例</th><th>说明</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php echo $item['params_respond'] ?>
+			</tbody>
+		</table>
+	</section>
 
 	<ul class="list-unstyled list-inline">
 		<li><a title="查看任务" href="<?php echo base_url('task?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-tasks" aria-hidden=true></i> 任务</a></li>
 		<li><a title="查看流程" href="<?php echo base_url('flow?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-code-fork" aria-hidden=true></i> 流程</a></li>
 		<li><a title="查看页面" href="<?php echo base_url('page?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-html5" aria-hidden=true></i> 页面</a></li>
 		<li><a title="查看API" href="<?php echo base_url('api?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-arrows-v" aria-hidden=true></i> API</a></li>
-		<?php
-		// 需要特定角色和权限进行该操作
-		$role_allowed = array('管理员');
-		$level_allowed = 30;
-		if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
-		?>
+	</ul>
+	
+	<?php
+	// 需要特定角色和权限进行该操作
+	$role_allowed = array('管理员');
+	$level_allowed = 30;
+	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
+	?>
+	<ul class="list-unstyled list-inline">
 		<li><a title="创建任务" href="<?php echo base_url('task/create?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-plus-square"></i> 创建任务</a></li>
 		<li><a title="创建流程" href="<?php echo base_url('flow/create?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-plus-square"></i> 创建流程</a></li>
 		<li><a title="创建页面" href="<?php echo base_url('page/create?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-plus-square"></i> 创建页面</a></li>
 		<li><a title="创建API" href="<?php echo base_url('api/create?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-plus-square"></i> 创建API</a></li>
 		<li><a title="编辑" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-edit"></i> 编辑</a></li>
 		<li><a title="删除" href="<?php echo base_url($this->class_name.'/delete?ids='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-trash"></i> 删除</a></li>
-		<?php endif ?>
 	</ul>
+	<?php endif ?>
 </div>

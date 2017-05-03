@@ -56,7 +56,7 @@
 			);
 			$this->load->library('basic', $basic_configs);
 		}
-		
+
 		/**
 		 * 截止3.1.3为止，CI_Controller类无析构函数，所以无需继承相应方法
 		 */
@@ -163,7 +163,8 @@
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('url_logo', 'LOGO', 'trim');
 			$this->form_validation->set_rules('url_assets', '素材URL', 'trim|valid_url');
-			$this->form_validation->set_rules('url', 'WEB URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_web', 'WEB URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_wechat', '微信公众号二维码', 'trim|valid_url');
 			$this->form_validation->set_rules('url_api', 'API URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim|valid_url');
 			$this->form_validation->set_rules('sdk_ios', 'iOS最低版本', 'trim');
@@ -171,6 +172,8 @@
 			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
 			$this->form_validation->set_rules('sandbox_url_web', '开发环境WEB URL', 'trim|valid_url');
 			$this->form_validation->set_rules('sandbox_url_api', '开发环境API URL', 'trim|valid_url');
+			$this->form_validation->set_rules('params_request', '请求参数', 'trim');
+			$this->form_validation->set_rules('params_respond', '返回参数', 'trim');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
@@ -178,7 +181,8 @@
 				'description' => $this->input->post('description'),
 				'url_logo' => $this->input->post('url_logo'),
 				'url_assets' => $this->input->post('url_assets'),
-				'url' => $this->input->post('url'),
+				'url_web' => $this->input->post('url_web'),
+				'url_wechat' => $this->input->post('url_wechat'),
 				'url_api' => $this->input->post('url_api'),
 				'sdk_ios' => $this->input->post('sdk_ios'),
 				'sdk_android' => $this->input->post('sdk_android'),
@@ -186,6 +190,8 @@
 				'url_android' => $this->input->post('url_android'),
 				'sandbox_url_web' => $this->input->post('sandbox_url_web'),
 				'sandbox_url_api' => $this->input->post('sandbox_url_api'),
+				'params_request' => $this->input->post('params_request'),
+				'params_respond' => $this->input->post('params_respond'),
 			);
 
 			// Go Basic!
@@ -215,7 +221,8 @@
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('url_logo', 'LOGO', 'trim');
 			$this->form_validation->set_rules('url_assets', '素材URL', 'trim|valid_url');
-			$this->form_validation->set_rules('url', 'WEB URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_web', 'WEB URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_wechat', '微信公众号二维码', 'trim|valid_url');
 			$this->form_validation->set_rules('url_api', 'API URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim|valid_url');
 			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
@@ -223,6 +230,8 @@
 			$this->form_validation->set_rules('sdk_android', 'Android最低版本', 'trim');
 			$this->form_validation->set_rules('sandbox_url_web', '开发环境WEB URL', 'trim|valid_url');
 			$this->form_validation->set_rules('sandbox_url_api', '开发环境API URL', 'trim|valid_url');
+			$this->form_validation->set_rules('params_request', '公共请求参数', 'trim');
+			$this->form_validation->set_rules('params_respond', '公共返回参数', 'trim');
 
 			// 需要编辑的信息
 			$data_to_edit = array(
@@ -230,7 +239,8 @@
 				'description' => $this->input->post('description'),
 				'url_logo' => $this->input->post('url_logo'),
 				'url_assets' => $this->input->post('url_assets'),
-				'url' => $this->input->post('url'),
+				'url_web' => $this->input->post('url_web'),
+				'url_wechat' => $this->input->post('url_wechat'),
 				'url_api' => $this->input->post('url_api'),
 				'sdk_ios' => $this->input->post('sdk_ios'),
 				'sdk_android' => $this->input->post('sdk_android'),
@@ -238,6 +248,8 @@
 				'url_android' => $this->input->post('url_android'),
 				'sandbox_url_web' => $this->input->post('sandbox_url_web'),
 				'sandbox_url_api' => $this->input->post('sandbox_url_api'),
+				'params_request' => $this->input->post('params_request'),
+				'params_respond' => $this->input->post('params_respond'),
 			);
 
 			// Go Basic!

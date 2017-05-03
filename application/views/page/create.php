@@ -51,7 +51,7 @@
 		echo form_open_multipart($this->class_name.'/create', $attributes);
 	?>
 		<fieldset>
-			<legend>请填写以下信息</legend>
+			<legend>基本信息</legend>
 
 			<div class=form-group>
 				<label for=project_id class="col-sm-2 control-label">所属项目</label>
@@ -64,7 +64,7 @@
 			<div class=form-group>
 				<label for=name class="col-sm-2 control-label">名称</label>
 				<div class=col-sm-10>
-					<input class=form-control name=name type=text value="<?php echo set_value('name') ?>" placeholder="名称" required>
+					<input class=form-control name=name type=text value="<?php echo set_value('name') ?>" placeholder="页面名称，无需加“页”字" required>
 					<?php echo form_error('name') ?>
 				</div>
 			</div>
@@ -72,13 +72,29 @@
 			<div class=form-group>
 				<label for=description class="col-sm-2 control-label">说明</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=description rows=5 placeholder="说明" required><?php echo set_value('description') ?></textarea>
+					<textarea class=form-control name=description rows=3 placeholder="页面功能的简要描述"><?php echo set_value('description') ?></textarea>
 					<?php echo form_error('description') ?>
 				</div>
 			</div>
-			
+
 			<div class=form-group>
-				<label for=private class="col-sm-2 control-label">是否需登录</label>
+				<label for=code_class class="col-sm-2 control-label">类名</label>
+				<div class=col-sm-10>
+					<input class=form-control name=code_class type=text value="<?php echo set_value('code_class') ?>" placeholder="输出该页面的入口方法所属的类名；需注意相关开发语言的保留字" required>
+					<?php echo form_error('code_class') ?>
+				</div>
+			</div>
+
+			<div class=form-group>
+				<label for=code_function class="col-sm-2 control-label">方法名</label>
+				<div class=col-sm-10>
+					<input class=form-control name=code_function type=text value="<?php echo set_value('code_function') ?>" placeholder="输出该页面的入口方法名；需注意相关开发语言的保留字" required>
+					<?php echo form_error('code_function') ?>
+				</div>
+			</div>
+
+			<div class=form-group>
+				<label for=private class="col-sm-2 control-label">需登录</label>
 				<div class=col-sm-10>
 					<label class=radio-inline>
 						<input type=radio name=private value="是" required <?php echo set_radio('private', '是', TRUE) ?>> 是
@@ -91,9 +107,9 @@
 			</div>
 
 			<div class=form-group>
-				<label for=elements class="col-sm-2 control-label">视图元素（可选）</label>
+				<label for=elements class="col-sm-2 control-label">主要视图元素（可选）</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=elements rows=10 placeholder="视图元素"><?php echo set_value('elements') ?></textarea>
+					<textarea class=form-control name=elements rows=10 placeholder="完成页面功能所必需的视图元素，包括但不限于文本、图片、视频、按钮、表单项等"><?php echo set_value('elements') ?></textarea>
 					<?php echo form_error('elements') ?>
 				</div>
 			</div>
@@ -117,7 +133,7 @@
 			<div class=form-group>
 				<label for=onloads class="col-sm-2 control-label">载入事件（可选）</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=onloads rows=10 placeholder="载入事件"><?php echo set_value('onloads') ?></textarea>
+					<textarea class=form-control name=onloads rows=10 placeholder="页面载入时需要完成的功能"><?php echo set_value('onloads') ?></textarea>
 				</div>
 				<?php echo form_error('onloads') ?>
 			</div>
@@ -125,7 +141,7 @@
 			<div class=form-group>
 				<label for=events class="col-sm-2 control-label">业务流程（可选）</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=events rows=10 placeholder="业务流程"><?php echo set_value('events') ?></textarea>
+					<textarea class=form-control name=events rows=10 placeholder="除载入事件外，页面内可以完成的功能"><?php echo set_value('events') ?></textarea>
 				</div>
 				<?php echo form_error('events') ?>
 			</div>
