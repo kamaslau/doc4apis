@@ -20,6 +20,8 @@
 	}
 </style>
 
+<script defer src="/js/main.js"></script>
+
 <div id=breadcrumb>
 	<ol class="breadcrumb container">
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
@@ -105,8 +107,9 @@
 				<label for=params_request class="col-sm-2 control-label">请求参数（可选）</label>
 				<div class=col-sm-10>
 					<code class=help-block>
-						&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;
+						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
+					<a class="add-row btn btn-info" data-textarea-name=params_request>+</a>
 					<textarea class=form-control name=params_request rows=10 placeholder="请求参数"><?php echo set_value('params_request') ?></textarea>
 				</div>
 				<?php echo form_error('params_request') ?>
@@ -116,8 +119,9 @@
 				<label for=params_respond class="col-sm-2 control-label">响应参数（可选）</label>
 				<div class=col-sm-10>
 					<code class=help-block>
-						&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;
+						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
+					<a class="add-row btn btn-info" data-textarea-name=params_respond>+</a>
 					<textarea class=form-control name=params_respond rows=10 placeholder="响应参数"><?php echo set_value('params_respond') ?></textarea>
 				</div>
 				<?php echo form_error('params_respond') ?>

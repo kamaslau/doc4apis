@@ -20,7 +20,8 @@
 </style>
 
 <script>var target = 'project'</script>
-<script src="/js/file-upload.js"></script>
+<script defer src="/js/file-upload.js"></script>
+<script defer src="/js/main.js"></script>
 
 <div id=breadcrumb>
 	<ol class="breadcrumb container">
@@ -143,12 +144,12 @@
 				</div>
 				<?php echo form_error('url_web') ?>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=url_wechat class="col-sm-2 control-label">微信公众号二维码</label>
 				<div class=col-sm-10>
 					<input class=form-control name=url_wechat type=url value="<?php echo set_value('url_wechat') ?>" placeholder="即微信公众号二维码文本">
-					<p class=help-block>可以通过二维码解码工具获取二维码文本 http://cli.im/deqr</p>
+					<p class=help-block>可以通过<a class="btn btn-sm" href="http://cli.im/deqr" target=_blank>解码工具</a>获取二维码文本</p>
 				</div>
 				<?php echo form_error('url_wechat') ?>
 			</div>
@@ -185,8 +186,9 @@
 				<label for=params_request class="col-sm-2 control-label">请求参数</label>
 				<div class=col-sm-10>
 					<code class=help-block>
-						&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;
+						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
+					<a class="add-row btn btn-info" data-textarea-name=params_request>+</a>
 					<textarea class=form-control name=params_request rows=10 placeholder="请求参数"><?php echo set_value('params_request') ?></textarea>
 				</div>
 				<?php echo form_error('params_request') ?>
@@ -196,8 +198,9 @@
 				<label for=params_respond class="col-sm-2 control-label">响应参数</label>
 				<div class=col-sm-10>
 					<code class=help-block>
-						&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;
+						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
+					<a class="add-row btn btn-info" data-textarea-name=params_respond>+</a>
 					<textarea class=form-control name=params_respond rows=10 placeholder="响应参数"><?php echo set_value('params_respond') ?></textarea>
 				</div>
 				<?php echo form_error('params_respond') ?>

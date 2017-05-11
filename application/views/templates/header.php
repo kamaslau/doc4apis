@@ -23,7 +23,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20170503">
+		<meta name=version content="revision20170511">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -33,8 +33,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 		<script src="https://cdn.key2all.com/js/jquery/new.js"></script>
-		<script src="<?php echo base_url('js/jquery-qrcode.js') ?>"></script>
-		<script src="https://cdn.key2all.com/bootstrap/js/bootstrap-3_3_7.min.js"></script>
+		<script defer src="<?php echo base_url('js/jquery-qrcode.js') ?>"></script>
+		<script defer src="https://cdn.key2all.com/bootstrap/js/bootstrap-3_3_7.min.js"></script>
 
 		<link rel=stylesheet media=all href="https://cdn.key2all.com/css/reset.css">
 		<link rel=stylesheet media=all href="https://cdn.key2all.com/bootstrap/css/bootstrap-3_3_7.min.css">

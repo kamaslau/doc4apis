@@ -204,7 +204,7 @@
 				'project_id' => $this->input->post('project_id'),
 				'category_id' => $this->input->post('category_id'),
 				'name' => $this->input->post('name'),
-				'code' => $this->input->post('code'),
+				'code' => strtoupper($this->input->post('code')),
 				'url' => $this->input->post('url'),
 				'url_full' => $this->input->post('url_full'),
 				'description' => $this->input->post('description'),
@@ -215,8 +215,6 @@
 			);
 
 			// Go Basic!
-			$this->basic_model->table_name = 'api';
-			$this->basic_model->id_name = 'api_id';
 			$this->basic->create($data, $data_to_create);
 		}
 
@@ -279,9 +277,7 @@
 					'sample_request' => $this->input->post('sample_request'),
 					'sample_respond' => $this->input->post('sample_respond'),
 				);
-				
-				$this->basic_model->table_name = 'api';
-				$this->basic_model->id_name = 'api_id';
+
 				$result = $this->basic_model->edit($id, $data_to_edit);
 
 				if ($result !== FALSE):

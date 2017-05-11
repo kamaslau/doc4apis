@@ -141,7 +141,7 @@
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 			
 			// 页面信息
@@ -170,7 +170,7 @@
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
 			// 检查是否已传入必要参数
@@ -203,8 +203,6 @@
 			);
 
 			// Go Basic!
-			$this->basic_model->table_name = 'flow';
-			$this->basic_model->id_name = 'flow_id';
 			$this->basic->create($data, $data_to_create);
 		}
 		
@@ -215,7 +213,7 @@
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 			
 			// 检查是否已传入必要参数
@@ -275,7 +273,7 @@
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 			
 			$op_name = '删除'; // 操作的名称
@@ -309,7 +307,7 @@
 		{
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 10; // 级别要求
+			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
 			$op_name = '恢复'; // 操作的名称

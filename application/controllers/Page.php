@@ -229,8 +229,6 @@
 			);
 
 			// Go Basic!
-			$this->basic_model->table_name = 'page';
-			$this->basic_model->id_name = 'page_id';
 			$this->basic->create($data, $data_to_create);
 		}
 
@@ -299,9 +297,7 @@
 					'api_ids' => $this->input->post('api_ids'),
 					'page_ids' => $this->input->post('page_ids'),
 				);
-				
-				$this->basic_model->table_name = 'page';
-				$this->basic_model->id_name = 'page_id';
+
 				$result = $this->basic_model->edit($id, $data_to_edit);
 
 				if ($result !== FALSE):
