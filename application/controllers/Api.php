@@ -97,8 +97,6 @@
 			$order_by['code'] = 'ASC'; // 按API序号字母顺序进行排序
 
 			// Go Basic！
-			$this->basic_model->table_name = 'api';
-			$this->basic_model->id_name = 'api_id';
 			$this->basic->index($data, $condition, $order_by);
 		}
 

@@ -20,6 +20,9 @@
 	}
 </style>
 
+<script defer src="/js/file-upload.js"></script>
+<script defer src="/js/main.js"></script>
+
 <div id=breadcrumb>
 	<ol class="breadcrumb container">
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
@@ -109,6 +112,10 @@
 			<div class=form-group>
 				<label for=elements class="col-sm-2 control-label">主要视图元素（可选）</label>
 				<div class=col-sm-10>
+					<code class=help-block>
+						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
+					</code>
+					<a class="add-html btn btn-info" data-textarea-name=elements>+</a>
 					<textarea class=form-control name=elements rows=10 placeholder="完成页面功能所必需的视图元素，包括但不限于文本、图片、视频、按钮、表单项等"><?php echo set_value('elements') ?></textarea>
 					<?php echo form_error('elements') ?>
 				</div>
@@ -117,7 +124,14 @@
 			<div class=form-group>
 				<label for=url_design class="col-sm-2 control-label">设计图URL（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url_design type=file value="<?php echo set_value('url_design') ?>" placeholder="请上传jpg/png/webp格式设计图，文件大小控制在2M之内">
+					<p class=help-block>请上传jpg/png/webp格式设计图，文件大小控制在2M之内</p>
+
+					<input id=url_design class=form-control type=file multiple>
+					<input name=url_design type=hidden value="<?php echo set_value('url_design') ?>">
+
+					<button class="file-upload btn btn-primary btn-lg" data-target-dir=page data-selector-id=url_design data-input-name=url_design type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
+
+					<ul class="upload_preview list-inline"></ul>
 					<?php echo form_error('url_design') ?>
 				</div>
 			</div>
@@ -133,6 +147,7 @@
 			<div class=form-group>
 				<label for=onloads class="col-sm-2 control-label">载入事件（可选）</label>
 				<div class=col-sm-10>
+					<a class="add-html btn btn-info" data-textarea-name=onloads>+</a>
 					<textarea class=form-control name=onloads rows=10 placeholder="页面载入时需要完成的功能"><?php echo set_value('onloads') ?></textarea>
 				</div>
 				<?php echo form_error('onloads') ?>
@@ -141,6 +156,7 @@
 			<div class=form-group>
 				<label for=events class="col-sm-2 control-label">业务流程（可选）</label>
 				<div class=col-sm-10>
+					<a class="add-html btn btn-info" data-textarea-name=events>+</a>
 					<textarea class=form-control name=events rows=10 placeholder="除载入事件外，页面内可以完成的功能"><?php echo set_value('events') ?></textarea>
 				</div>
 				<?php echo form_error('events') ?>

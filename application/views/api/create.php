@@ -107,9 +107,9 @@
 				<label for=params_request class="col-sm-2 control-label">请求参数（可选）</label>
 				<div class=col-sm-10>
 					<code class=help-block>
-						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
+						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;是否必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
-					<a class="add-row btn btn-info" data-textarea-name=params_request>+</a>
+					<a class="add-html btn btn-info" data-textarea-name=params_request>+</a>
 					<textarea class=form-control name=params_request rows=10 placeholder="请求参数"><?php echo set_value('params_request') ?></textarea>
 				</div>
 				<?php echo form_error('params_request') ?>
@@ -119,9 +119,9 @@
 				<label for=params_respond class="col-sm-2 control-label">响应参数（可选）</label>
 				<div class=col-sm-10>
 					<code class=help-block>
-						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
+						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
-					<a class="add-row btn btn-info" data-textarea-name=params_respond>+</a>
+					<a class="add-html btn btn-info" data-textarea-name=params_respond>+</a>
 					<textarea class=form-control name=params_respond rows=10 placeholder="响应参数"><?php echo set_value('params_respond') ?></textarea>
 				</div>
 				<?php echo form_error('params_respond') ?>
@@ -130,6 +130,7 @@
 			<div class=form-group>
 				<label for=sample_request class="col-sm-2 control-label">请求示例（可选）</label>
 				<div class=col-sm-10>
+					<a class="add-html btn btn-info" data-textarea-name=sample_request>+</a>
 					<textarea class=form-control name=sample_request rows=10 placeholder="请求示例"><?php echo set_value('sample_request') ?></textarea>
 				</div>
 				<?php echo form_error('sample_request') ?>
@@ -138,6 +139,7 @@
 			<div class=form-group>
 				<label for=sample_respond class="col-sm-2 control-label">返回示例（可选）</label>
 				<div class=col-sm-10>
+					<a class="add-html btn btn-info" data-textarea-name=sample_respond>+</a>
 					<textarea class=form-control name=sample_respond rows=10 placeholder="返回示例"><?php echo set_value('sample_respond') ?></textarea>
 				</div>
 				<?php echo form_error('sample_respond') ?>

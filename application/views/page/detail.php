@@ -65,11 +65,22 @@
 		<h3>主要视图元素</h3>
 		<?php echo $item['elements'] ?>
 		<ul>
-			<?php if ( !empty($item['url_design_image']) ): ?>
-			<li>
-				设计稿 <a id=design-show title="显示设计稿" href="<?php echo $item['url_design_image'] ?>" target=_blank><i class="fa fa-eye" aria-hidden=true></i> 显示</a>
-				<figure id=design-image></figure>
-			</li>
+			<?php if ( !empty($item['url_design']) ): ?>
+			<figure id=page-design class=row>
+			<?php
+					// 若含多项，根据分隔符拆分并轮番输出
+					if (strpos( trim($item['url_design']), ' ') !== FALSE):
+						$items_array = explode(' ', $item['url_design']);
+						foreach ($items_array as $item_to_show):
+			?>	
+				<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'page/'.$item_to_show ?>">
+			<?php
+						endforeach;
+					else:
+			?>
+				<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'page/'.$item['url_design'] ?>">
+			<?php 	endif ?>
+			</figure>
 			<?php endif ?>
 
 			<?php if ( !empty($item['url_design_assets']) ): ?>

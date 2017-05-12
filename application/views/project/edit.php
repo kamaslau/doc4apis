@@ -1,6 +1,5 @@
 <style>
 
-
 	/* 宽度在768像素以上的设备 */
 	@media only screen and (min-width:769px)
 	{
@@ -20,7 +19,6 @@
 	}
 </style>
 
-<script>var target = 'project'</script>
 <script defer src="/js/file-upload.js"></script>
 <script defer src="/js/main.js"></script>
 
@@ -91,23 +89,34 @@
 
 		<fieldset>
 			<legend>项目素材</legend>
-			
+
 			<div class=form-group>
 				<label for=url_logo class="col-sm-2 control-label">LOGO（可选）</label>
 				<div class=col-sm-10>
-					<?php if ( !empty($item['url_logo'] ) ): ?>
-						<figure id=project-logo class=row>
-							<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>LOGO" src="<?php echo IMAGES_URL.'project/'.$item['url_logo'] ?>">
-						</figure>
+					<?php if ( !empty($item['url_logo']) ): ?>
+					<figure id=project-logo class=row>
+					<?php
+							// 若含多项，根据分隔符拆分并轮番输出
+							if (strpos( trim($item['url_logo']), ' ') !== FALSE):
+								$items_array = explode(' ', $item['url_logo']);
+								foreach ($items_array as $item_to_show):
+					?>	
+						<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'project/'.$item_to_show ?>">
+					<?php
+								endforeach;
+							else:
+					?>
+						<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'project/'.$item['url_logo'] ?>">
+					<?php 	endif ?>
+					</figure>
 					<?php endif ?>
 
 					<input id=url_logo class=form-control type=file multiple>
 					<input name=url_logo type=hidden value="<?php echo $item['url_logo'] ?>">
 
-					<button class="file-upload btn btn-primary btn-lg" data-selector-id=url_logo data-input-name=url_logo type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
+					<button class="file-upload btn btn-primary btn-lg" data-target-dir=project data-selector-id=url_logo data-input-name=url_logo type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
 
 					<ul class="upload_preview list-inline"></ul>
-
 					<?php echo form_error('url_logo') ?>
 				</div>
 			</div>
@@ -194,9 +203,9 @@
 				<label for=params_request class="col-sm-2 control-label">请求参数</label>
 				<div class=col-sm-10>
 					<code class=help-block>
-						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
+						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;是否必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
-					<a class="add-row btn btn-info" data-textarea-name=params_request>+</a>
+					<a class="add-html btn btn-info" data-textarea-name=params_request>+</a>
 					<textarea class=form-control name=params_request rows=10 placeholder="请求参数"><?php echo $item['params_request'] ?></textarea>
 				</div>
 				<?php echo form_error('params_request') ?>
@@ -208,7 +217,7 @@
 					<code class=help-block>
 						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
-					<a class="add-row btn btn-info" data-textarea-name=params_respond>+</a>
+					<a class="add-html btn btn-info" data-textarea-name=params_respond>+</a>
 					<textarea class=form-control name=params_respond rows=10 placeholder="响应参数"><?php echo $item['params_respond'] ?></textarea>
 				</div>
 				<?php echo form_error('params_respond') ?>

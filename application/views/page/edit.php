@@ -20,6 +20,9 @@
 	}
 </style>
 
+<script defer src="/js/file-upload.js"></script>
+<script defer src="/js/main.js"></script>
+
 <div id=breadcrumb>
 	<ol class="breadcrumb container">
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
@@ -91,13 +94,17 @@
 						<option value="1" <?php if ($item['private'] === '1') echo 'selected'; ?>>是</option>
 						<option value="0" <?php if ($item['private'] === '0') echo 'selected'; ?>>否</option>
 					</select>
+					<?php echo form_error('private') ?>
 				</div>
-				<?php echo form_error('private') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=elements class="col-sm-2 control-label">主要视图元素（可选）</label>
 				<div class=col-sm-10>
+					<code class=help-block>
+						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
+					</code>
+					<a class="add-html btn btn-info" data-textarea-name=elements>+</a>
 					<textarea class=form-control name=elements rows=10 placeholder="完成页面功能所必需的视图元素，包括但不限于文本、图片、视频、按钮、表单项等"><?php echo $item['elements'] ?></textarea>
 				</div>
 				<?php echo form_error('elements') ?>
@@ -106,49 +113,76 @@
 			<div class=form-group>
 				<label for=url_design class="col-sm-2 control-label">设计图URL（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=url_design type=file value="<?php echo $item['url_design'] ?>" placeholder="请上传jpg/png/webp格式设计图，文件大小控制在2M之内">
+					<?php if ( !empty($item['url_design']) ): ?>
+					<figure id=page-design class=row>
+					<?php
+							// 若含多项，根据分隔符拆分并轮番输出
+							if (strpos( trim($item['url_design']), ' ') !== FALSE):
+								$items_array = explode(' ', $item['url_design']);
+								foreach ($items_array as $item_to_show):
+					?>	
+						<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'page/'.$item_to_show ?>">
+					<?php
+								endforeach;
+							else:
+					?>
+						<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'page/'.$item['url_design'] ?>">
+					<?php 	endif ?>
+					</figure>
+					<?php endif ?>
+
+					<p class=help-block>请上传jpg/png/webp格式设计图，文件大小控制在2M之内</p>
+
+					<input id=url_design class=form-control type=file multiple>
+					<input name=url_design type=hidden value="<?php echo set_value('url_design') ?>">
+
+					<button class="file-upload btn btn-primary btn-lg" data-target-dir=page data-selector-id=url_design data-input-name=url_design type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
+
+					<ul class="upload_preview list-inline"></ul>
+					<?php echo form_error('url_design') ?>
 				</div>
-				<?php echo form_error('url_design') ?>
 			</div>
 			
 			<div class=form-group>
 				<label for=url_assets class="col-sm-2 control-label">美术素材URL（可选）</label>
 				<div class=col-sm-10>
 					<input class=form-control name=url_assets type=url value="<?php echo $item['url_assets'] ?>" placeholder="请将PSD文件、UI素材、字体、媒体文件等压缩后上传到百度云盘，并将该压缩文件的分享链接填入此处">
+					<?php echo form_error('url_assets') ?>
 				</div>
-				<?php echo form_error('url_assets') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=onloads class="col-sm-2 control-label">载入事件（可选）</label>
 				<div class=col-sm-10>
+					<a class="add-html btn btn-info" data-textarea-name=onloads>+</a>
 					<textarea class=form-control name=onloads rows=10 placeholder="页面载入时需要完成的功能"><?php echo $item['onloads'] ?></textarea>
+					<?php echo form_error('onloads') ?>
 				</div>
-				<?php echo form_error('onloads') ?>
 			</div>
 			
 			<div class=form-group>
 				<label for=events class="col-sm-2 control-label">业务流程（可选）</label>
 				<div class=col-sm-10>
+					<a class="add-html btn btn-info" data-textarea-name=events>+</a>
 					<textarea class=form-control name=events rows=10 placeholder="除载入事件外，页面内可以完成的功能"><?php echo $item['events'] ?></textarea>
+					<?php echo form_error('events') ?>
 				</div>
-				<?php echo form_error('events') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=api_ids class="col-sm-2 control-label">相关API（可选）</label>
 				<div class=col-sm-10>
 					<input class=form-control name=api_ids type=text value="<?php echo $item['api_ids'] ?>" placeholder="与当前页面有关的API的ID们，多个ID间用一个空格分隔">
+					<?php echo form_error('api_ids') ?>
 				</div>
-				<?php echo form_error('api_ids') ?>
 			</div>
 			
 			<div class=form-group>
 				<label for=page_ids class="col-sm-2 control-label">相关页面（可选）</label>
 				<div class=col-sm-10>
 					<input class=form-control name=page_ids type=text value="<?php echo $item['page_ids'] ?>" placeholder="与当前页面有关的其它页面的ID们，多个ID间用一个空格分隔">
+					<?php echo form_error('page_ids') ?>
 				</div>
-				<?php echo form_error('page_ids') ?>
 			</div>
 		</fieldset>
 

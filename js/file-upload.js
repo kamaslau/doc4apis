@@ -3,11 +3,8 @@
  * 2017-04-25
  */
 
-// 通过全局变量获取上传目标文件夹名
-var target = target;
-
-// AJAX文件上传服务器端URL
-var api_url = 'https://www.doc4apis.com/ajaxupload?target=' + target;
+// AJAX文件上传服务器端URL；上传目标文件夹名稍后通过上传按钮的相关属性获取
+var api_url = '//www.doc4apis.com/ajaxupload?target=';
 
 // 图片存储根路径
 var uploads_url = '//www.doc4apis.com/uploads/';
@@ -26,6 +23,10 @@ $(function(){
 
 		// 处理上传
 		file_upload( button );
+		
+		// 激活上传按钮
+		button.removeAttr('disabled');
+		button.html('<i class="fa fa-upload" aria-hidden=true></i> 上传');
 	});
 
 	// 检查浏览器是否支持完成文件上传必须的XHR2（FormData）功能
@@ -47,8 +48,6 @@ $(function(){
 	// 处理文件上传
 	function file_upload(button)
 	{
-		button.html('<i class="fa fa-refresh" aria-hidden=true></i> 上传中');
-
 		// 创建FormData对象
 		var formData = new FormData();
 
@@ -57,6 +56,13 @@ $(function(){
 
 		// 获取待上传的文件数量（HTML中可通过type=file表单项中添加multiple属性对多文件上传提供支持）
 		var file_count = file_selector[0].files.length;
+		
+		// 若无任何文件被选中，进行提示
+		if (file_count == 0)
+		{
+			alert('请选择文件');
+			return;
+		}
 
 		// 将所有需上传的文件信息放入formData对象
 		for (var i=0; i<file_count; i++)
@@ -64,8 +70,11 @@ $(function(){
 			formData.append('file'+i, file_selector[0].files[ i ] );
 		}
 
+		// 获取上传目标文件夹名
+		var dir_target = button.attr('data-target-dir');
+
 		$.ajax({
-	        url: api_url, // 处理上传的后端URL
+	        url: api_url + dir_target, // 处理上传的后端URL
 	        type: 'POST',
 			cache: false, // 上传文件不需要缓存
 	        data: formData,
@@ -100,7 +109,7 @@ $(function(){
 						'<li class="col-xs-12 col-md-3">' +
 						'	<figure class="thumbnail">' +
 						'		<figcaption>' + item.content + '</figcaption>' +
-						'		<img src="' + uploads_url + 'project/'+ item.content +'">' +
+						'		<img src="' + uploads_url + dir_target + '/'+ item.content +'">' +
 						'	</figure>' +
 						'</li>';
 
@@ -127,10 +136,6 @@ $(function(){
 				}
 			); //end $.each
 
-			// 激活上传按钮
-			button.removeAttr('disabled');
-			button.html('<i class="fa fa-upload" aria-hidden=true></i> 上传');
-			
 			// 向表单项赋值
 			input_value = $.trim(input_value);
 			if (input_value != '')

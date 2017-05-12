@@ -17,7 +17,7 @@
 
 		// 上传目标路径
 		public $target_url;
-		
+
 		// 初始化总体上传结果，默认上传成功
 		public $result = array(
 			'status' => 200,
@@ -123,7 +123,7 @@
 
 			endif;
 		}
-		
+
 		// 上传具体文件
 		private function upload_process($field_index)
 		{
