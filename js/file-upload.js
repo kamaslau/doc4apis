@@ -1,6 +1,11 @@
 /**
- * Kamas Lau
- * 2017-04-25
+ * Ajaxupload类
+ *
+ * 处理AJAX文件上传
+ *
+ * @version beta20170515
+ * @author Kamas 'Iceberg' Lau <https://github.com/kamaslau/ajaxupload>
+ * @copyright Kamas 'Iceberg' Lau <kamaslau@outlook.com>
  */
 
 // AJAX文件上传服务器端URL；上传目标文件夹名稍后通过上传按钮的相关属性获取
@@ -9,21 +14,21 @@ var api_url = '//www.doc4apis.com/ajaxupload?target=';
 // 图片存储根路径
 var uploads_url = '//www.doc4apis.com/uploads/';
 
+/* 从此处起请谨慎修改 */
 $(function(){
 	// 文件上传主处理方法
 	$('.file-upload').click(function(){
 		// 检查当前浏览器是否支持AJAX文件上传
 		check_support_formdata();
 
-		var button = $(this);
-
 		// 禁用上传按钮
-		button.attr('disabled', 'disabled');
-		button.html('<i class="fa fa-refresh" aria-hidden=true></i> 上传中');
+		$(this).attr('disabled', 'disabled');
+		$(this).html('<i class="fa fa-refresh" aria-hidden=true></i> 上传中……');
 
 		// 处理上传
+		var button = $(this);
 		file_upload( button );
-		
+
 		// 激活上传按钮
 		button.removeAttr('disabled');
 		button.html('<i class="fa fa-upload" aria-hidden=true></i> 上传');
@@ -136,13 +141,14 @@ $(function(){
 				}
 			); //end $.each
 
-			// 向表单项赋值
+			// 向相应表单项赋值
 			input_value = $.trim(input_value);
 			if (input_value != '')
 			{
 				$('[name=' + button.attr('data-input-name') + ']').val(input_value);
 			}
 	    });
+
 	} //end file_upload
 
 });

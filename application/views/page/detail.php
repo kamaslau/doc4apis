@@ -63,7 +63,18 @@
 
 	<section>
 		<h3>主要视图元素</h3>
-		<?php echo $item['elements'] ?>
+		<table class="table table-striped">
+			<caption>请求参数</caption>
+			<thead>
+				<tr>
+					<th>ID</th><th>类型</th><th>内容</th><th>说明</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php echo $item['elements'] ?>
+			</tbody>
+		</table>
+
 		<ul>
 			<?php if ( !empty($item['url_design']) ): ?>
 			<figure id=page-design class=row>
@@ -93,7 +104,9 @@
 
 	<section>
 		<h3>载入事件</h3>
+		<ol>
 		<?php echo $item['onloads'] ?>
+		</ol>
 	</section>
 
 	<section>

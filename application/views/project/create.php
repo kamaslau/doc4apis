@@ -96,9 +96,9 @@
 					<input id=url_logo class=form-control type=file multiple>
 					<input name=url_logo type=hidden value="<?php echo set_value('url_logo') ?>">
 
-					<button class="file-upload btn btn-primary btn-lg" data-target-dir=project data-selector-id=url_logo data-input-name=url_logo type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
+					<button class="file-upload btn btn-primary btn-lg col-xs-12 col-md-3" data-target-dir=project data-selector-id=url_logo data-input-name=url_logo type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
 
-					<ul class="upload_preview list-inline"></ul>
+					<ul class="upload_preview list-inline row"></ul>
 					<?php echo form_error('url_logo') ?>
 				</div>
 			</div>

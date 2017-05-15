@@ -22,6 +22,7 @@
 		public $result = array(
 			'status' => 200,
 			'content' => '上传成功',
+			'items' => array(),
 		);
 
 		// 构造函数
@@ -94,13 +95,13 @@
 					else:
 						switch( $file['error'] ):
 							case 1:
-								$content = '文件大小超出了PHP配置文件中 upload_max_filesize 的值';
+								$content = '文件大小超出系统限制'; // 文件大小超出了PHP配置文件中 upload_max_filesize 的值
 								break;
 							case 2:
-								$content = '文件大小超出了HTML表单中 MAX_FILE_SIZE 的值（若有）';
+								$content = '文件大小超出页面限制'; // 文件大小超出了HTML表单中 MAX_FILE_SIZE 的值（若有）
 								break;
 							case 3:
-								$content = '文件只有部分被上传';
+								$content = '网络传输失败，请重试或切换联网方式'; // 文件只有部分被上传
 								break;
 							case 4:
 								$content = '没有文件被上传';

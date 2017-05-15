@@ -113,7 +113,7 @@
 				<label for=elements class="col-sm-2 control-label">主要视图元素（可选）</label>
 				<div class=col-sm-10>
 					<code class=help-block>
-						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
+						&lt;tr&gt;&lt;td&gt;ID&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
 					<a class="add-html btn btn-info" data-textarea-name=elements>+</a>
 					<textarea class=form-control name=elements rows=10 placeholder="完成页面功能所必需的视图元素，包括但不限于文本、图片、视频、按钮、表单项等"><?php echo set_value('elements') ?></textarea>
@@ -129,9 +129,9 @@
 					<input id=url_design class=form-control type=file multiple>
 					<input name=url_design type=hidden value="<?php echo set_value('url_design') ?>">
 
-					<button class="file-upload btn btn-primary btn-lg" data-target-dir=page data-selector-id=url_design data-input-name=url_design type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
+					<button class="file-upload btn btn-primary btn-lg col-xs-12 col-md-3" data-target-dir=page data-selector-id=url_design data-input-name=url_design type=button><i class="fa fa-upload" aria-hidden=true></i> 上传</button>
 
-					<ul class="upload_preview list-inline"></ul>
+					<ul class="upload_preview list-inline row"></ul>
 					<?php echo form_error('url_design') ?>
 				</div>
 			</div>
@@ -147,6 +147,9 @@
 			<div class=form-group>
 				<label for=onloads class="col-sm-2 control-label">载入事件（可选）</label>
 				<div class=col-sm-10>
+					<code class=help-block>
+						&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;
+					</code>
 					<a class="add-html btn btn-info" data-textarea-name=onloads>+</a>
 					<textarea class=form-control name=onloads rows=10 placeholder="页面载入时需要完成的功能"><?php echo set_value('onloads') ?></textarea>
 				</div>
@@ -156,6 +159,9 @@
 			<div class=form-group>
 				<label for=events class="col-sm-2 control-label">业务流程（可选）</label>
 				<div class=col-sm-10>
+					<code class=help-block>
+						&lt;h4&gt;&lt;/h4&gt;&lt;ol&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ol&gt;
+					</code>
 					<a class="add-html btn btn-info" data-textarea-name=events>+</a>
 					<textarea class=form-control name=events rows=10 placeholder="除载入事件外，页面内可以完成的功能"><?php echo set_value('events') ?></textarea>
 				</div>

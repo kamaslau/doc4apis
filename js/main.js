@@ -15,11 +15,11 @@ $(function(){
 	var html_templates = {
 		'params_request' : '<tr><td>名称</td><td>类型</td><td>是否必要</td><td>示例</td><td>说明</td></tr>', // 请求参数
 		'params_respond' : '<tr><td>名称</td><td>类型</td><td>示例</td><td>说明</td></tr>', // 响应参数
-		'sample_request' : '{"":"","":"",}', // 请求示例
+		'sample_request' : '{"":"","":""}', // 请求示例
 		'sample_respond' : '{"status":200,"content":[{"":"","":""}]}', // 响应示例
-		'elements' : '<tr><td>名称</td><td>类型</td><td>说明</td></tr>', // 主要视图元素
+		'elements' : '<tr><td>ID</td><td>类型</td><td>内容</td><td>说明</td></tr>', // 主要视图元素
 		'onloads' : '<li></li><li></li><li></li>', // 载入事件
-		'events' : '<li></li><li></li><li></li>', // 业务流程（其它事件）
+		'events' : '<h4></h4><ol><li></li><li></li><li></li></ol>', // 业务流程（其它事件）
 		//'' : '',
 	}
 
