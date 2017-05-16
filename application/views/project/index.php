@@ -72,18 +72,22 @@
 					</div>
 					<div class="panel-footer">
 						<ul class="row actions list-unstyled list-inline">
+							<!--
 							<li class=col-xs-3><a title="查看任务" href="<?php echo base_url('task?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-fw fa-tasks" aria-hidden=true></i> 任务</a></li>
 							<li class=col-xs-3><a title="查看流程" href="<?php echo base_url('flow?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-fw fa-code-fork" aria-hidden=true></i> 流程</a></li>
+							-->
+							<li class=col-xs-3><a title="查看参数" href="<?php echo base_url('meta?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-fw fa-cogs" aria-hidden=true></i> 参数</a></li>
 							<li class=col-xs-3><a title="查看页面" href="<?php echo base_url('page?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-fw fa-html5" aria-hidden=true></i> 页面</a></li>
 							<li class=col-xs-3><a title="查看API" href="<?php echo base_url('api?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-fw fa-arrows-v" aria-hidden=true></i> API</a></li>
 							<?php
 							// 需要特定角色和权限进行该操作
 							$role_allowed = array('管理员', '经理');
-							$level_allowed = 1;
+							$level_allowed = 30;
 							if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 							?>
 							<li class=col-xs-3><a title="创建任务" href="<?php echo base_url('task/create?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-plus-square"></i> 创建任务</a></li>
 							<li class=col-xs-3><a title="创建流程" href="<?php echo base_url('flow/create?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-plus-square"></i> 创建流程</a></li>
+							<li class=col-xs-3><a title="创建参数" href="<?php echo base_url('meta/create?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-plus-square"></i> 创建参数</a></li>
 							<li class=col-xs-3><a title="创建页面" href="<?php echo base_url('page/create?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-plus-square"></i> 创建页面</a></li>
 							<li class=col-xs-3><a title="创建API" href="<?php echo base_url('api/create?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-plus-square"></i> 创建API</a></li>
 							<?php endif ?>

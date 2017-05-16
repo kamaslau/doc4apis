@@ -2,15 +2,15 @@
 	defined('BASEPATH') OR exit('此文件不可被直接访问');
 
 	/**
-	 * Task 类
+	 * Meta 类
 	 *
-	 * 任务相关功能
+	 * 技术参数相关功能
 	 *
 	 * @version 1.0.0
 	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
 	 * @copyright ICBG <www.bingshankeji.com>
 	 */
-	class Task extends CI_Controller
+	class Meta extends CI_Controller
 	{
 		/* 类名称小写，应用于多处动态生成内容 */
 		public $class_name;
@@ -35,19 +35,19 @@
 			parent::__construct();
 
 			// （可选）未登录用户转到登录页
-			if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
-			
+			//if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
+
 			// 向类属性赋值
 			$this->class_name = strtolower(__CLASS__);
-			$this->class_name_cn = '任务'; // 改这里……
-			$this->table_name = 'task'; // 和这里……
-			$this->id_name = 'task_id'; // 还有这里，OK，这就可以了
+			$this->class_name_cn = '参数'; // 改这里……
+			$this->table_name = 'meta'; // 和这里……
+			$this->id_name = 'meta_id'; // 还有这里，OK，这就可以了
 			$this->view_root = $this->class_name;
 
 			// 设置需要自动在视图文件中生成显示的字段
 			$this->data_to_display = array(
 				'name' => '名称',
-				'description' => '说明',
+				'description' => '描述',
 			);
 
 			// 设置并调用Basic核心库
@@ -76,7 +76,7 @@
 			// 检查是否已传入必要参数
 			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
 			if ( empty($project_id) ) redirect(base_url('project'));
-
+			
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '列表',
@@ -88,19 +88,14 @@
 			
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
-			
+
 			// 筛选条件
 			$condition['project_id'] = $project_id;
-
-			// 排序条件
-			$order_by['priority'] = 'DESC';
-			$order_by['time_due'] = 'ASC';
-			$order_by['time_start'] = 'ASC';
-			$order_by[$this->id_name] = 'ASC';
 			
+			// 排序条件
+			$order_by = NULL;
+
 			// Go Basic！
-			$this->basic_model->table_name = 'task';
-			$this->basic_model->id_name = 'task_id';
 			$this->basic->index($data, $condition, $order_by);
 		}
 
@@ -116,44 +111,15 @@
 
 			// 页面信息
 			$data = array(
-				'title' => NULL,
+				'title' => $this->class_name_cn. '详情',
 				'class' => $this->class_name.' '. $this->class_name.'-detail',
 			);
-
-			// 获取页面数据
-			$data['item'] = $this->basic_model->select_by_id($id);
-
+			
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
-			
-			// 若存在相关流程，则获取流程信息
-			if ( !empty($data['item']['flow_ids']) ):
-				$data['flows'] = $this->basic->get_by_ids($data['item']['flow_ids'], 'flow', 'flow_id');
-			endif;
 
-			// 若存在相关页面，则获取页面信息
-			if ( !empty($data['item']['page_ids']) ):
-				$data['pages'] = $this->basic->get_by_ids($data['item']['page_ids'], 'page', 'page_id');
-			endif;
-
-			// 若存在相关API，则获取API信息
-			if ( !empty($data['item']['api_ids']) ):
-				$data['apis'] = $this->basic->get_by_ids($data['item']['api_ids'], 'api', 'api_id');
-			endif;
-
-			// 若已指定团队，则获取团队信息
-			if ( !empty($data['item']['team_id']) ):
-				$data['team'] = $this->basic->get_by_id($data['item']['team_id'], 'team', 'team_id');
-			endif;
-			
-			// 若已指定成员，则获取成员信息
-			if ( !empty($data['item']['user_id']) ):
-				$data['user'] = $this->basic->get_by_id($data['item']['user_id'], 'user', 'user_id');
-			endif;
-
-			$this->load->view('templates/header', $data);
-			$this->load->view($this->view_root.'/detail', $data);
-			$this->load->view('templates/footer', $data);
+			// Go Basic！
+			$this->basic->detail($data);
 		}
 
 		/**
@@ -178,16 +144,16 @@
 
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
-			
+
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
 
 			// 筛选条件
 			$condition['project_id'] = $project_id;
-			
+
 			// 排序条件
 			$order_by = NULL;
-			
+
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
 		}
@@ -201,11 +167,6 @@
 			$role_allowed = array('管理员', '经理'); // 角色要求
 			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
-			
-			// 检查是否已传入必要参数
-			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($id) )
-				redirect(base_url('error/code_404'));
 
 			// 页面信息
 			$data = array(
@@ -213,40 +174,49 @@
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
 
-			// 获取项目数据
+			// (可选) 检查是否已传入必要参数，例如创建某项目所属的页面
+			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
+			//（可选）获取项目数据
 			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
 
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
 			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
-			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('description', '说明', 'trim');
-			$this->form_validation->set_rules('flow_ids', '相关流程ID们', 'trim');
-			$this->form_validation->set_rules('page_ids', '相关页面ID们', 'trim');
-			$this->form_validation->set_rules('api_ids', '相关API ID们', 'trim');
-			$this->form_validation->set_rules('team_id', '指定团队ID', 'trim|is_natural_no_zero');
-			$this->form_validation->set_rules('user_id', '指定用户ID', 'trim|is_natural_no_zero');
-			$this->form_validation->set_rules('time_start', '开始时间', 'trim');
-			$this->form_validation->set_rules('time_due', '截止时间', 'trim');
+			$this->form_validation->set_rules('url_web', 'WEB URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_wechat', '微信公众号二维码', 'trim|valid_url');
+			$this->form_validation->set_rules('url_api', 'API URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sdk_ios', 'iOS最低版本', 'trim');
+			$this->form_validation->set_rules('sdk_android', 'Android最低版本', 'trim');
+			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sandbox_url_web', '开发环境WEB URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sandbox_url_api', '开发环境API URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sign', '签名方式', 'trim');
+			$this->form_validation->set_rules('params_request', '请求参数', 'trim');
+			$this->form_validation->set_rules('params_respond', '返回参数', 'trim');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
-				'project_id' => $this->input->post('project_id'),
-				'name' => $this->input->post('name'),
-				'description' => $this->input->post('description'),
-				'flow_ids' => $this->input->post('flow_ids'),
-				'page_ids' => $this->input->post('page_ids'),
-				'api_ids' => $this->input->post('api_ids'),
-				'team_id' => $this->input->post('team_id'),
-				'user_id' => $this->input->post('user_id'),
-				'time_start' => $this->input->post('time_start')? strtotime($this->input->post('time_start')): NULL,
-				'time_due' => $this->input->post('time_due')? strtotime($this->input->post('time_due')): NULL,
+				'url_web' => $this->input->post('url_web'),
+				'url_wechat' => $this->input->post('url_wechat'),
+				'url_api' => $this->input->post('url_api'),
+				'sdk_ios' => $this->input->post('sdk_ios'),
+				'sdk_android' => $this->input->post('sdk_android'),
+				'url_ios' => $this->input->post('url_ios'),
+				'url_android' => $this->input->post('url_android'),
+				'sandbox_url_web' => $this->input->post('sandbox_url_web'),
+				'sandbox_url_api' => $this->input->post('sandbox_url_api'),
+				'sign' => $this->input->post('sign'),
+				'params_request' => $this->input->post('params_request'),
+				'params_respond' => $this->input->post('params_respond'),
 			);
 
 			// Go Basic!
 			$this->basic->create($data, $data_to_create);
 		}
-		
+
 		/**
 		 * 编辑单行
 		 */
@@ -257,70 +227,50 @@
 			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
-			// 检查是否已传入必要参数
-			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-			if ( empty($id) )
-				redirect(base_url('error/code_404'));
-
 			// 页面信息
 			$data = array(
 				'title' => '编辑'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-edit',
 			);
 
-			// 获取待编辑信息
-			$data['item'] = $this->basic_model->select_by_id($id);
-
-			// 获取项目数据
-			$data['project'] = $this->basic->get_by_id($data['item'][$this->id_name], 'project', 'project_id');
-
 			// 待验证的表单项
-			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('description', '说明', 'trim');
-			$this->form_validation->set_rules('flow_ids', '相关流程ID们', 'trim');
-			$this->form_validation->set_rules('page_ids', '相关页面ID们', 'trim');
-			$this->form_validation->set_rules('api_ids', '相关API ID们', 'trim');
-			$this->form_validation->set_rules('team_id', '指定团队ID', 'trim|is_natural_no_zero');
-			$this->form_validation->set_rules('user_id', '指定用户ID', 'trim|is_natural_no_zero');
-			$this->form_validation->set_rules('time_start', '开始时间', 'trim');
-			$this->form_validation->set_rules('time_due', '截止时间', 'trim');
+			$this->form_validation->set_rules('sdk_ios', 'iOS最低版本', 'trim');
+			$this->form_validation->set_rules('sdk_android', 'Android最低版本', 'trim');
+			$this->form_validation->set_rules('url_web', 'WEB URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_wechat', '微信公众号二维码', 'trim|valid_url');
+			$this->form_validation->set_rules('url_api', 'API URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim|valid_url');
+			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sandbox_url_web', '开发环境WEB URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sandbox_url_api', '开发环境API URL', 'trim|valid_url');
+			$this->form_validation->set_rules('sign', '签名方式', 'trim');
+			$this->form_validation->set_rules('params_request', '公共请求参数', 'trim');
+			$this->form_validation->set_rules('params_respond', '公共返回参数', 'trim');
 
-			// 验证表单值格式
-			if ($this->form_validation->run() === FALSE):
-				$this->load->view('templates/header', $data);
-				$this->load->view($this->view_root.'/edit', $data);
-				$this->load->view('templates/footer', $data);
+			// 需要编辑的信息
+			$data_to_edit = array(
+				'sdk_ios' => $this->input->post('sdk_ios'),
+				'sdk_android' => $this->input->post('sdk_android'),
+				'url_web' => $this->input->post('url_web'),
+				'url_wechat' => $this->input->post('url_wechat'),
+				'url_api' => $this->input->post('url_api'),
+				'url_ios' => $this->input->post('url_ios'),
+				'url_android' => $this->input->post('url_android'),
+				'sandbox_url_web' => $this->input->post('sandbox_url_web'),
+				'sandbox_url_api' => $this->input->post('sandbox_url_api'),
+				'sign' => $this->input->post('sign'),
+				'params_request' => $this->input->post('params_request'),
+				'params_respond' => $this->input->post('params_respond'),
+			);
 
-			else:
-				// 需要编辑的信息
-				$data_to_edit = array(
-					'name' => $this->input->post('name'),
-					'description' => $this->input->post('description'),
-					'flow_ids' => $this->input->post('flow_ids'),
-					'page_ids' => $this->input->post('page_ids'),
-					'api_ids' => $this->input->post('api_ids'),
-					'team_id' => $this->input->post('team_id'),
-					'user_id' => $this->input->post('user_id'),
-					'time_start' => $this->input->post('time_start')? strtotime($this->input->post('time_start')): NULL,
-					'time_due' => $this->input->post('time_due')? strtotime($this->input->post('time_due')): NULL,
-				);
-				$result = $this->basic_model->edit($id, $data_to_edit);
-
-				if ($result !== FALSE):
-					$data['content'] = '<p class="alert alert-success">保存成功。</p>';
-				else:
-					$data['content'] = '<p class="alert alert-warning">保存失败。</p>';
-				endif;
-
-				$this->load->view('templates/header', $data);
-				$this->load->view($this->view_root.'/result', $data);
-				$this->load->view('templates/footer', $data);
-
-			endif;
+			// Go Basic!
+			$this->basic->edit($data, $data_to_edit); // 可以自定义视图文件名
 		}
 
 		/**
 		 * 删除单行或多行项目
+		 *
+		 * 一般用于发货、退款、存为草稿、上架、下架、删除、恢复等状态变化，请根据需要修改方法名，例如deliver、refund、delete、restore、draft等
 		 */
 		public function delete()
 		{
@@ -352,9 +302,11 @@
 			// Go Basic!
 			$this->basic->bulk($data, $data_to_edit, $op_name, $op_view);
 		}
-		
+
 		/**
 		 * 恢复单行或多行项目
+		 *
+		 * 一般用于存为草稿、上架、下架、删除、恢复等状态变化，请根据需要修改方法名，例如delete、restore、draft等
 		 */
 		public function restore()
 		{
@@ -371,7 +323,7 @@
 				'title' => $op_name. $this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-'. $op_view,
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
@@ -388,5 +340,5 @@
 		}
 	}
 
-/* End of file Task.php */
-/* Location: ./application/controllers/Task.php */
+/* End of file Meta.php */
+/* Location: ./application/controllers/Meta.php */

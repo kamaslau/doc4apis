@@ -54,6 +54,13 @@
 	?>
 		<fieldset>
 			<legend>基本信息</legend>
+			
+			<div class=form-group>
+				<label class="col-sm-2 control-label">所属项目</label>
+				<div class=col-sm-10>
+					<p class="form-control-static"><?php echo $project['name'] ?></p>
+				</div>
+			</div>
 
 			<div class=form-group>
 				<label for=name class="col-sm-2 control-label">名称</label>

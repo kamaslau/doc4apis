@@ -4,6 +4,7 @@
 	/**
 	 * Team 类
 	 *
+	 * 团队相关功能
 	 *
 	 * @version 1.0.0
 	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>

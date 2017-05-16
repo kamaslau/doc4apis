@@ -44,7 +44,7 @@
 	</div>
 	<?php endif ?>
 
-	<h2><span>[<?php echo $item['code'] ?>]</span> <?php echo $item['name'] ?></h2>
+	<h2><?php echo $item['code'] ?> <?php echo $item['name'] ?></h2>
 	<p><?php echo $item['description'] ?></p>
 
 	<dl class=list-horizontal>
@@ -104,12 +104,6 @@
 	<section>
 		<h3>返回示例</h3>
 		<?php echo $item['sample_request'] ?>
-	</section>
-	<?php endif ?>
-
-	<?php if ( !empty($item['faq']) ): ?>
-	<section>
-		<h3>FAQ</h3>
 	</section>
 	<?php endif ?>
 

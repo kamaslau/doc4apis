@@ -52,6 +52,15 @@
 		echo form_open_multipart($this->class_name.'/edit?id='.$item[$this->id_name], $attributes);
 	?>
 		<fieldset>
+			<legend>基本信息</legend>
+
+			<div class=form-group>
+				<label class="col-sm-2 control-label">所属项目</label>
+				<div class=col-sm-10>
+					<p class="form-control-static"><?php echo $project['name'] ?></p>
+				</div>
+			</div>
+
 			<div class=form-group>
 				<label for=name class="col-sm-2 control-label">名称</label>
 				<div class=col-sm-10>
@@ -59,7 +68,7 @@
 				</div>
 				<?php echo form_error('name') ?>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=code class="col-sm-2 control-label">序号</label>
 				<div class=col-sm-10>
@@ -67,7 +76,7 @@
 				</div>
 				<?php echo form_error('code') ?>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=url class="col-sm-2 control-label">URL</label>
 				<div class=col-sm-10>
@@ -91,7 +100,7 @@
 				</div>
 				<?php echo form_error('description') ?>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=params_request class="col-sm-2 control-label">请求参数（可选）</label>
 				<div class=col-sm-10>
@@ -103,7 +112,7 @@
 				</div>
 				<?php echo form_error('params_request') ?>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=params_respond class="col-sm-2 control-label">响应参数（可选）</label>
 				<div class=col-sm-10>

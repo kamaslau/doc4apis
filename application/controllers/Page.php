@@ -4,6 +4,7 @@
 	/**
 	 * Page 类
 	 *
+	 * 页面相关功能
 	 *
 	 * @version 1.0.0
 	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
@@ -95,8 +96,6 @@
 			$order_by[$this->id_name] = 'ASC';
 			
 			// Go Basic！
-			$this->basic_model->table_name = 'page';
-			$this->basic_model->id_name = 'page_id';
 			$this->basic->index($data, $condition, $order_by);
 		}
 
@@ -149,18 +148,25 @@
 			$role_allowed = array('管理员', '经理'); // 角色要求
 			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
-			
+
+			// 检查是否已传入必要参数
+			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+			if ( empty($project_id) ) redirect(base_url('project'));
+
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '回收站',
 				'class' => $this->class_name.' '. $this->class_name.'-trash',
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 			
+			// 获取项目数据
+			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
+
 			// 筛选条件
-			$condition = NULL;
+			$condition['project_id'] = $project_id;
 			
 			// 排序条件
 			$order_by = NULL;

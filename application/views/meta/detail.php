@@ -44,100 +44,126 @@
 	</div>
 	<?php endif ?>
 
-	<h2><?php echo $item['name'] ?></h2>
-	<p><?php echo $item['description'] ?></p>
-	<dl class=dl-horizontal>
-		<?php if ( !empty($item['code_class']) && !empty($item['code_function']) ): ?>
-		<dt>类名</dt>
-		<dd><?php echo $item['code_class'] ?></dd>
-		<dt>方法名</dt>
-		<dd><?php echo $item['code_function'] ?></dd>
+	<h2>
+		<a title="<?php echo $project['name'] ?>" href="<?php echo base_url('project/detail?id='.$project['project_id']) ?>" target=_blank><?php echo $project['name'] ?></a>
+	</h2>
+
+	<p>
+		<?php if ( !empty($item['sdk_ios']) ): ?>
+		<span><i class="fa fa-apple" aria-hidden="true"></i> ≥<?php echo $item['sdk_ios'] ?></span>
 		<?php endif ?>
 
-		<dt>需登录</dt>
-		<dd><?php echo ($item['private'] === '1')? '<i class="fa fa-lock" aria-hidden=true></i> 是': '<i class="fa fa-unlock" aria-hidden=true></i> 否'; ?></dd>
-	</dl>
-
+		<?php if ( !empty($item['sdk_android']) ): ?>
+		<span><i class="fa fa-android" aria-hidden="true"></i> ≥<?php echo $item['sdk_android'] ?></span>
+		<?php endif ?>
+	</p>
+	
 	<section>
-		<h3>主要视图元素</h3>
+		<h3>开发环境</h3>
+		<dl class=dl-horizontal>
+			<?php if ( !empty($item['sandbox_url_web']) ): ?>
+			<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB</dt>
+			<dd id=sandbox_url_web>
+				<?php echo $item['sandbox_url_web'] ?>
+				<script>
+					jQuery('<figure class=qrcode>').appendTo('#sandbox_url_web').qrcode("<?php echo $item['sandbox_url_web'] ?>");
+				</script>
+			</dd>
+			<?php endif ?>
+
+			<?php if ( !empty($item['sandbox_url_api']) ): ?>
+			<dt><i class="fa fa-safari" aria-hidden="true"></i> API</dt>
+			<dd><?php echo $item['sandbox_url_api'] ?></dd>
+			<?php endif ?>
+		</dl>
+	<section>
+	
+	<section>
+		<h3>正式/生产环境</h3>
+		<dl class=dl-horizontal>
+			<?php if ( !empty($item['url_web']) ): ?>
+			<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB</dt>
+			<dd id=url_web>
+				<?php echo $item['url_web'] ?>
+				<script>
+					jQuery('<figure class=qrcode>').appendTo('#url_web').qrcode("<?php echo $item['url_web'] ?>");
+				</script>
+			</dd>
+			<?php endif ?>
+
+			<?php if ( !empty($item['url_wechat']) ): ?>
+			<dt><i class="fa fa-safari" aria-hidden="true"></i> 微信公众号二维码</dt>
+			<dd id=url_wechat>
+				<?php echo $item['url_wechat'] ?>
+				<script>
+					jQuery('<figure class=qrcode>').appendTo('#url_wechat').qrcode("<?php echo $item['url_wechat'] ?>");
+				</script>
+			</dd>
+			<?php endif ?>
+
+			<?php if ( !empty($item['url_api']) ): ?>
+			<dt><i class="fa fa-safari" aria-hidden="true"></i> API</dt>
+			<dd><?php echo $item['url_api'] ?></dd>
+			<?php endif ?>
+
+			<?php if ( !empty($item['url_ios']) ): ?>
+			<dt><i class="fa fa-apple" aria-hidden="true"></i> iOS</dt>
+			<dd id=url_ios>
+				<?php echo $item['url_ios'] ?>
+				<script>
+					jQuery('<figure class=qrcode>').appendTo('#url_ios').qrcode("<?php echo $item['url_ios'] ?>");
+				</script>
+			</dd>
+			<?php endif ?>
+
+			<?php if ( !empty($item['url_android']) ): ?>
+			<dt><i class="fa fa-android" aria-hidden="true"></i> Android</dt>
+			<dd id=url_android>
+				<?php echo $item['url_android'] ?>
+				<script>
+					jQuery('<figure class=qrcode>').appendTo('#url_android').qrcode("<?php echo $item['url_android'] ?>");
+				</script>
+			</dd>
+			<?php endif ?>
+		</dl>
+	</section>
+
+	<?php if ( !empty($item['sign']) ): ?>
+	<section>
+		<h3>签名方式</h3>
+		<ol>
+		<?php echo $item['sign'] ?>
+		</ol>
+	</section>
+	<?php endif ?>
+	
+	<section>
+		<h3>公共参数</h3>
+
 		<table class="table table-striped">
 			<caption>请求参数</caption>
 			<thead>
 				<tr>
-					<th>ID</th><th>类型</th><th>内容</th><th>说明</th>
+					<th>名称</th><th>类型</th><th>是否必要</th><th>示例</th><th>说明</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php echo $item['elements'] ?>
+				<?php echo $item['params_request'] ?>
 			</tbody>
 		</table>
 
-		<ul>
-			<?php if ( !empty($item['url_design']) ): ?>
-			<figure id=page-design class=row>
-			<?php
-					// 若含多项，根据分隔符拆分并轮番输出
-					if (strpos( trim($item['url_design']), ' ') !== FALSE):
-						$items_array = explode(' ', $item['url_design']);
-						foreach ($items_array as $item_to_show):
-			?>	
-				<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'page/'.$item_to_show ?>">
-			<?php
-						endforeach;
-					else:
-			?>
-				<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'page/'.$item['url_design'] ?>">
-			<?php 	endif ?>
-			</figure>
-			<?php endif ?>
-
-			<?php if ( !empty($item['url_design_assets']) ): ?>
-			<li>
-				设计附件 <a title="下载设计附件" href="<?php echo $item['url_design_assets'] ?>" target=_blank><i class="fa fa-download" aria-hidden=true></i> 去下载</a>
-			</li>
-			<?php endif ?>
-		</ul>
+		<table class="table table-striped">
+			<caption>响应参数</caption>
+			<thead>
+				<tr>
+					<th>名称</th><th>类型</th><th>示例</th><th>说明</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php echo $item['params_respond'] ?>
+			</tbody>
+		</table>
 	</section>
-
-	<?php if ( !empty($item['onloads']) ): ?>
-	<section>
-		<h3>载入事件</h3>
-		<ol>
-		<?php echo $item['onloads'] ?>
-		</ol>
-	</section>
-	<?php endif ?>
-
-	<?php if ( !empty($item['events']) ): ?>
-	<section>
-		<h3>业务流程</h3>
-		<?php echo $item['events'] ?>
-	</section>
-	<?php endif ?>
-
-	<?php if ( !empty($item['api_ids']) ): ?>
-	<section>
-		<h3>相关API</h3>
-		<p>
-			<?php foreach ($apis as $api): ?>
-			<span class="label label-default">
-				<a href="<?php echo base_url('api/detail?id='.$api['api_id']) ?>" target=_blank><?php echo $api['name'] ?></a>
-			</span>
-			<?php endforeach ?>
-		</p>
-	</section>
-	<?php endif ?>
-
-	<?php if ( !empty($item['page_ids']) ): ?>
-	<section>
-		<h3>相关页面</h3>
-		<p>
-			<?php foreach ($pages as $page): ?>
-			<a class="btn btn-default" href="<?php echo base_url('page/detail?id='.$page['page_id']) ?>" target=_blank><?php echo $page['name'] ?></a>
-			<?php endforeach ?>
-		</p>
-	</section>
-	<?php endif ?>
 
 	<dl id=list-record class=dl-horizontal>
 		<dt>创建时间</dt>

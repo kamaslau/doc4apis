@@ -44,10 +44,7 @@
 	</div>
 	<?php endif ?>
 
-	<h2>
-		<?php echo $item['name'] ?>
-		<a title="<?php echo $project['name'] ?>" href="<?php echo base_url('project/detail?id='.$project['project_id']) ?>" target=_blank><?php echo $project['name'] ?></a>
-	</h2>
+	<h2><?php echo $item['name'] ?></h2>
 	<p><?php echo $item['description'] ?></p>
 
 	<?php if ( !empty($item['page_ids']) ): ?>

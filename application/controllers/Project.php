@@ -4,6 +4,8 @@
 	/**
 	 * Project 类
 	 *
+	 * 项目相关功能
+	 *
 	 * @version 1.0.0
 	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
 	 * @copyright ICBG <www.bingshankeji.com>
@@ -162,36 +164,16 @@
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('url_logo', 'LOGO', 'trim');
+			$this->form_validation->set_rules('url_preview', '效果图', 'trim');
 			$this->form_validation->set_rules('url_assets', '素材URL', 'trim|valid_url');
-			$this->form_validation->set_rules('url_web', 'WEB URL', 'trim|valid_url');
-			$this->form_validation->set_rules('url_wechat', '微信公众号二维码', 'trim|valid_url');
-			$this->form_validation->set_rules('url_api', 'API URL', 'trim|valid_url');
-			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim|valid_url');
-			$this->form_validation->set_rules('sdk_ios', 'iOS最低版本', 'trim');
-			$this->form_validation->set_rules('sdk_android', 'Android最低版本', 'trim');
-			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
-			$this->form_validation->set_rules('sandbox_url_web', '开发环境WEB URL', 'trim|valid_url');
-			$this->form_validation->set_rules('sandbox_url_api', '开发环境API URL', 'trim|valid_url');
-			$this->form_validation->set_rules('params_request', '请求参数', 'trim');
-			$this->form_validation->set_rules('params_respond', '返回参数', 'trim');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
 				'url_logo' => $this->input->post('url_logo'),
+				'url_preview' => $this->input->post('url_preview'),
 				'url_assets' => $this->input->post('url_assets'),
-				'url_web' => $this->input->post('url_web'),
-				'url_wechat' => $this->input->post('url_wechat'),
-				'url_api' => $this->input->post('url_api'),
-				'sdk_ios' => $this->input->post('sdk_ios'),
-				'sdk_android' => $this->input->post('sdk_android'),
-				'url_ios' => $this->input->post('url_ios'),
-				'url_android' => $this->input->post('url_android'),
-				'sandbox_url_web' => $this->input->post('sandbox_url_web'),
-				'sandbox_url_api' => $this->input->post('sandbox_url_api'),
-				'params_request' => $this->input->post('params_request'),
-				'params_respond' => $this->input->post('params_respond'),
 			);
 
 			// Go Basic!
@@ -220,36 +202,16 @@
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('url_logo', 'LOGO', 'trim');
+			$this->form_validation->set_rules('url_preview', '效果图', 'trim');
 			$this->form_validation->set_rules('url_assets', '素材URL', 'trim|valid_url');
-			$this->form_validation->set_rules('url_web', 'WEB URL', 'trim|valid_url');
-			$this->form_validation->set_rules('url_wechat', '微信公众号二维码', 'trim|valid_url');
-			$this->form_validation->set_rules('url_api', 'API URL', 'trim|valid_url');
-			$this->form_validation->set_rules('url_ios', 'iOS URL', 'trim|valid_url');
-			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
-			$this->form_validation->set_rules('sdk_ios', 'iOS最低版本', 'trim');
-			$this->form_validation->set_rules('sdk_android', 'Android最低版本', 'trim');
-			$this->form_validation->set_rules('sandbox_url_web', '开发环境WEB URL', 'trim|valid_url');
-			$this->form_validation->set_rules('sandbox_url_api', '开发环境API URL', 'trim|valid_url');
-			$this->form_validation->set_rules('params_request', '公共请求参数', 'trim');
-			$this->form_validation->set_rules('params_respond', '公共返回参数', 'trim');
 
 			// 需要编辑的信息
 			$data_to_edit = array(
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
 				'url_logo' => $this->input->post('url_logo'),
+				'url_preview' => $this->input->post('url_preview'),
 				'url_assets' => $this->input->post('url_assets'),
-				'url_web' => $this->input->post('url_web'),
-				'url_wechat' => $this->input->post('url_wechat'),
-				'url_api' => $this->input->post('url_api'),
-				'sdk_ios' => $this->input->post('sdk_ios'),
-				'sdk_android' => $this->input->post('sdk_android'),
-				'url_ios' => $this->input->post('url_ios'),
-				'url_android' => $this->input->post('url_android'),
-				'sandbox_url_web' => $this->input->post('sandbox_url_web'),
-				'sandbox_url_api' => $this->input->post('sandbox_url_api'),
-				'params_request' => $this->input->post('params_request'),
-				'params_respond' => $this->input->post('params_respond'),
 			);
 
 			// Go Basic!
@@ -312,7 +274,7 @@
 				'title' => $op_name. $this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-'. $op_view,
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 

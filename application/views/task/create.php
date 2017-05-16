@@ -50,7 +50,7 @@
 		echo form_open_multipart($this->class_name.'/create', $attributes);
 	?>
 		<fieldset>
-			<legend>请填写以下信息</legend>
+			<legend>基本信息</legend>
 
 			<div class=form-group>
 				<label for=project_id class="col-sm-2 control-label">所属项目</label>

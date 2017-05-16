@@ -23,7 +23,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20170515">
+		<meta name=version content="revision20170516">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -71,12 +71,12 @@
 				<nav id=nav-header role=navigation>
 					<ul id=main-nav class=horizontal>
 						<li<?php if (strpos($class, 'home') !== FALSE) echo ' class=active' ?>><a title="首页" href="<?php echo base_url() ?>">首页</a></li>
-						<li<?php if (strpos($class, 'task') !== FALSE) echo ' class=active' ?>><a title="任务" href="<?php echo base_url('task') ?>">任务</a></li>
+						<!--<li<?php if (strpos($class, 'task') !== FALSE) echo ' class=active' ?>><a title="任务" href="<?php echo base_url('task') ?>">任务</a></li>-->
 						<li<?php if (strpos($class, 'project') !== FALSE) echo ' class=active' ?>><a title="项目" href="<?php echo base_url('project') ?>">项目</a></li>
-						<li<?php if (strpos($class, 'flow') !== FALSE) echo ' class=active' ?>><a title="流程" href="<?php echo base_url('flow') ?>">流程</a></li>
+						<!--<li<?php if (strpos($class, 'flow') !== FALSE) echo ' class=active' ?>><a title="流程" href="<?php echo base_url('flow') ?>">流程</a></li>-->
 						<li<?php if (strpos($class, 'page') !== FALSE) echo ' class=active' ?>><a title="页面" href="<?php echo base_url('page') ?>">页面</a></li>
 						<li<?php if (strpos($class, 'api') !== FALSE) echo ' class=active' ?>><a title="API" href="<?php echo base_url('api') ?>">API</a></li>
-						<li<?php if (strpos($class, 'team') !== FALSE) echo ' class=active' ?>><a title="团队" href="<?php echo base_url('team') ?>">团队</a></li>
+						<!--<li<?php if (strpos($class, 'team') !== FALSE) echo ' class=active' ?>><a title="团队" href="<?php echo base_url('team') ?>">团队</a></li>-->
 
 						<?php if ($this->session->role !== '成员'): ?>
 						<li<?php if (strpos($class, 'user') !== FALSE) echo ' class=active' ?>><a title="成员" href="<?php echo base_url('user') ?>">成员</a></li>
@@ -91,8 +91,11 @@
 						<?php if ($this->session->logged_in !== TRUE): ?>
 						<li><a title="登录" href="<?php echo base_url('login') ?>">登录</a></li>
 						<!--<li><a title="注册" href="<?php echo base_url('register') ?>">注册</a></li>-->
-						<?php else: ?>
-						<?php $display_name = !empty($this->session->nickname)? $this->session->nickname: $this->session->lastname.$this->session->firstname; ?>
+
+						<?php
+							else:
+							$display_name = !empty($this->session->nickname)? $this->session->nickname: $this->session->lastname.$this->session->firstname;
+						?>
 						<li><a title="<?php echo $display_name ?>" href="<?php echo base_url('user/detail?id='.$this->session->user_id) ?>"><?php echo $display_name ?> [<?php echo $this->session->role ?>]</a></li>
 						<li><a title="退出" href="<?php echo base_url('logout') ?>">退出</a></li>
 						<?php endif ?>

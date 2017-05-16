@@ -15,6 +15,7 @@ $(function(){
 	var html_templates = {
 		'params_request' : '<tr><td>名称</td><td>类型</td><td>是否必要</td><td>示例</td><td>说明</td></tr>', // 请求参数
 		'params_respond' : '<tr><td>名称</td><td>类型</td><td>示例</td><td>说明</td></tr>', // 响应参数
+		'sign' : '<li></li><li></li><li></li>', // 签名方式
 		'sample_request' : '{"":"","":""}', // 请求示例
 		'sample_respond' : '{"status":200,"content":[{"":"","":""}]}', // 响应示例
 		'elements' : '<tr><td>ID</td><td>类型</td><td>内容</td><td>说明</td></tr>', // 主要视图元素
