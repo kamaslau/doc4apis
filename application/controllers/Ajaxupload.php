@@ -37,15 +37,15 @@
 			($this->input->is_ajax_request() === TRUE) OR (redirect( base_url('error/code_404') ));
 
 			// 获取并设置目标路径
-			$this->target_directory = '/uploads/'. $this->input->post_get('target');
-			
+			$this->target_directory = 'uploads/'. $this->input->post_get('target');
+
 			// 检查目标路径是否存在
 			if ( ! file_exists($this->target_directory) )
 				mkdir($this->target_directory, 0777); // 若不存在则新建
 
 			// 设置目标路径
 			chmod($this->target_directory, 0777); // 设置权限为可写
-			$this->target_url = $_SERVER['DOCUMENT_ROOT']. $this->target_directory;
+			$this->target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $this->target_directory;
 		}
 
 		/**

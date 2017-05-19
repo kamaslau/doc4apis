@@ -22,7 +22,9 @@
 <div id=breadcrumb>
 	<ol class="breadcrumb container">
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
+		<?php if ( isset($project) ): ?>
 		<li><a title="<?php echo $project['name'] ?>" href="<?php echo base_url('project/detail?id='.$project['project_id']) ?>"><?php echo $project['name'] ?></a></li>
+		<?php endif ?>
 		<li><a href="<?php echo base_url($this->class_name.'?project_id='.$project['project_id']) ?>"><?php echo $this->class_name_cn ?></a></li>
 		<li class=active><?php echo $item['name'] ?></li>
 	</ol>
@@ -46,6 +48,9 @@
 
 	<h2><?php echo $item['code'] ?> <?php echo $item['name'] ?></h2>
 	<p><?php echo $item['description'] ?></p>
+	
+	<dl class=list-horizontal>
+	</dl>
 
 	<dl class=list-horizontal>
 		<dt>开发环境URL</dt>

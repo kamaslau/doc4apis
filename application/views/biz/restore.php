@@ -1,5 +1,6 @@
 <style>
 
+
 	/* 宽度在768像素以上的设备 */
 	@media only screen and (min-width:769px)
 	{
@@ -31,8 +32,8 @@
 	<?php
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
-	$current_level = $this->session->level; // 当前用户级别
-	$role_allowed = array('管理员', '经理');
+	$current_level = $this->session->level; // 当前用户权限
+	$role_allowed = array('管理员');
 	$level_allowed = 30;
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
@@ -77,8 +78,8 @@
 
 	<?php
 		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
-		$attributes = array('class' => 'form-'.$this->class_name.'-delete form-horizontal', 'role' => 'form');
-		echo form_open($this->class_name.'/delete', $attributes);
+		$attributes = array('class' => 'form-'.$this->class_name.'-restore form-horizontal', 'role' => 'form');
+		echo form_open($this->class_name.'/restore', $attributes);
 	?>
 		<fieldset>
 			<input name=ids type=hidden value="<?php echo implode('|', $ids) ?>">
@@ -94,7 +95,7 @@
 
 		<div class=form-group>
 		    <div class="col-xs-12 col-sm-offset-2 col-sm-2">
-				<button class="btn btn-danger btn-lg btn-block" type=submit>删除</button>
+				<button class="btn btn-warning btn-lg btn-block" type=submit>确定</button>
 		    </div>
 		</div>
 	</form>

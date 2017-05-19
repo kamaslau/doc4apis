@@ -81,13 +81,16 @@
 
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
-			
+
 			// 筛选条件
 			$condition = NULL;
-			
+			// 非系统级管理员仅可看到自己企业相关的信息
+			if ( ! empty($this->session->biz_id) )
+				$condition['biz_id'] = $this->session->biz_id;
+
 			// 排序条件
-			$order_by[$this->id_name] = 'ASC';
-			
+			$order_by['biz_id'] = 'DESC';
+
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);
 		}
@@ -97,17 +100,34 @@
 		 */
 		public function detail()
 		{
+			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
+
 			// 页面信息
 			$data = array(
-				'title' => $this->class_name_cn. '详情',
+				'title' => NULL,
 				'class' => $this->class_name.' '. $this->class_name.'-detail',
 			);
 
-			// 将需要显示的数据传到视图以备使用
-			$data['data_to_display'] = $this->data_to_display;
+			// 获取页面数据
+			$data['item'] = $this->basic_model->select_by_id($id);
+
+			// 若存在所属企业，则获取企业信息
+			if ( !empty($data['item']['biz_id']) ):
+				$data['biz'] = $this->basic->get_by_id($data['item']['biz_id'], 'biz', 'biz_id');
+			endif;
+
+			// 获取参数数据
+			$data['meta'] = $this->basic->get_by_id($data['item']['project_id'], 'meta', 'project_id');
 			
-			// Go Basic！
-			$this->basic->detail($data);
+			// 生成页面标题
+			$data['title'] = $data['item']['name'];
+
+			$this->load->view('templates/header', $data);
+			$this->load->view($this->view_root.'/detail', $data);
+			$this->load->view('templates/footer', $data);
 		}
 
 		/**
@@ -127,16 +147,19 @@
 				'title' => $this->class_name_cn. '回收站',
 				'class' => $this->class_name.' '. $this->class_name.'-trash',
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
-			
+
 			// 筛选条件
 			$condition = NULL;
-			
+			// 非系统级管理员仅可看到自己企业相关的信息
+			if ( ! empty($this->session->biz_id) )
+				$condition['biz_id'] = $this->session->biz_id;
+
 			// 排序条件
-			$order_by = NULL;
-			
+			$order_by['time_delete'] = 'DESC';
+
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
 		}
@@ -159,16 +182,23 @@
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
 
+			// 获取所属企业数据
+			$biz_id = $this->input->get_post('biz_id')? $this->input->get_post('biz_id'): NULL;
+			if ( ! empty($biz_id) )
+				$data['biz'] = $this->basic->get_by_id($biz_id, 'biz', 'biz_id');
+
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
+			$this->form_validation->set_rules('biz_id', '所属企业', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('description', '说明', 'trim');
+			$this->form_validation->set_rules('description', '简介', 'trim');
 			$this->form_validation->set_rules('url_logo', 'LOGO', 'trim');
 			$this->form_validation->set_rules('url_preview', '效果图', 'trim');
 			$this->form_validation->set_rules('url_assets', '素材URL', 'trim|valid_url');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
+				'biz_id' => $this->input->post('biz_id'),
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
 				'url_logo' => $this->input->post('url_logo'),
@@ -197,10 +227,23 @@
 				'title' => '编辑'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-edit',
 			);
+			
+			// 管理员可获取所有企业信息
+			if ($this->session->role === '管理员'):
+				$this->basic_model->table_name = 'biz';
+				$this->basic_model->id_name = 'biz_id';
+				$data['bizs'] = $this->basic_model->select(NULL, NULL);
+				
+				// 还原数据库相关类属性
+				$this->basic_model->table_name = 'project';
+				$this->basic_model->id_name = 'project_id';
+			endif;
 
 			// 待验证的表单项
+			if ($this->session->role === '管理员')
+				$this->form_validation->set_rules('biz_id', '所属企业', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('description', '说明', 'trim');
+			$this->form_validation->set_rules('description', '简介', 'trim');
 			$this->form_validation->set_rules('url_logo', 'LOGO', 'trim');
 			$this->form_validation->set_rules('url_preview', '效果图', 'trim');
 			$this->form_validation->set_rules('url_assets', '素材URL', 'trim|valid_url');
@@ -213,6 +256,8 @@
 				'url_preview' => $this->input->post('url_preview'),
 				'url_assets' => $this->input->post('url_assets'),
 			);
+			if ($this->session->role === '管理员')
+				$data_to_edit['biz_id'] = $this->input->post('biz_id');
 
 			// Go Basic!
 			$this->basic->edit($data, $data_to_edit);
@@ -247,7 +292,7 @@
 
 			// 需要存入数据库的信息
 			$data_to_edit = array(
-				'time_delete' => date('y-m-d H:i:s'), // 批量删除
+				'time_delete' => date('Y-m-d H:i:s'), // 批量删除
 			);
 
 			// Go Basic!

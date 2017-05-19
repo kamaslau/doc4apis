@@ -49,6 +49,10 @@
 		<?php echo !empty($item['nickname'])? '('.$item['nickname'].')': NULL; ?>
 	</h2>
 	<h3><?php echo $item['mobile'] ?></h3>
+	
+	<?php if ( !empty($item['biz_id']) ): ?>
+	<h3><?php echo $biz['name'] ?> <a class="btn btn-info btn-sm" href="<?php echo base_url('biz/detail?id='.$biz['biz_id']) ?>" target=_blank><?php echo $biz['name'] ?></a></h3>
+	<?php endif ?>
 
 	<?php if (in_array($current_role, $role_allowed)): ?>
 	<dl class=dl-horizontal>
@@ -68,7 +72,9 @@
 		<?php if ( !empty($item['avatar']) ): ?>
 		<dt>头像</dt>
 		<dd>
-			<img alt="<?php echo $name.'的头像' ?>" src="<?php echo $item['avatar'] ?>">
+			<figure class="col-xs-12 col-md-3">
+				<img alt="<?php echo $name.'的头像' ?>" src="<?php echo $item['avatar'] ?>">
+			</figure>
 		</dd>
 		<?php endif ?>
 

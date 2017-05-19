@@ -61,7 +61,7 @@
 			);
 			$this->load->library('basic', $basic_configs);
 		}
-		
+
 		/**
 		 * 截止3.1.3为止，CI_Controller类无析构函数，所以无需继承相应方法
 		 */
@@ -87,12 +87,15 @@
 
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
-			
+
 			// 筛选条件
 			$condition = NULL;
+			// 非系统级管理员仅可看到自己企业相关的信息
+			if ( ! empty($this->session->biz_id) )
+				$condition['biz_id'] = $this->session->biz_id;
 
 			// 排序条件
-			$order_by[$this->id_name] = 'ASC';
+			$order_by['biz_id'] = 'DESC';
 
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);
@@ -103,17 +106,31 @@
 		 */
 		public function detail()
 		{
+			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
+
 			// 页面信息
 			$data = array(
-				'title' => $this->class_name_cn. '详情',
+				'title' => NULL,
 				'class' => $this->class_name.' '. $this->class_name.'-detail',
 			);
 
-			// 将需要显示的数据传到视图以备使用
-			$data['data_to_display'] = $this->data_to_display;
+			// 获取页面数据
+			$data['item'] = $this->basic_model->select_by_id($id);
+
+			// 若存在所属企业，则获取企业信息
+			if ( !empty($data['item']['biz_id']) ):
+				$data['biz'] = $this->basic->get_by_id($data['item']['biz_id'], 'biz', 'biz_id');
+			endif;
 			
-			// Go Basic！
-			$this->basic->detail($data);
+			// 生成页面标题
+			$data['title'] = $data['item']['name'];
+
+			$this->load->view('templates/header', $data);
+			$this->load->view($this->view_root.'/detail', $data);
+			$this->load->view('templates/footer', $data);
 		}
 
 		/**
@@ -134,13 +151,16 @@
 
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
-			
+
 			// 筛选条件
 			$condition = NULL;
-			
+			// 非系统级管理员仅可看到自己企业相关的信息
+			if ( ! empty($this->session->biz_id) )
+				$condition['biz_id'] = $this->session->biz_id;
+
 			// 排序条件
-			$order_by = NULL;
-			
+			$order_by['time_delete'] = 'DESC';
+
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
 		}
@@ -161,27 +181,31 @@
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
 
+			// 获取所属企业数据
+			$biz_id = $this->input->get_post('biz_id')? $this->input->get_post('biz_id'): NULL;
+			if ( ! empty($biz_id) )
+				$data['biz'] = $this->basic->get_by_id($biz_id, 'biz', 'biz_id');
+
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
+			$this->form_validation->set_rules('biz_id', '所属企业', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('mobile', '手机号', 'trim|required|is_natural|exact_length[11]');
 			$this->form_validation->set_rules('lastname', '姓', 'trim|required');
 			$this->form_validation->set_rules('firstname', '名', 'trim|required');
 			$this->form_validation->set_rules('gender', '性别', 'trim');
-			$this->form_validation->set_rules('dob', '生日（公历）', 'trim');
-			$this->form_validation->set_rules('avatar', '头像URL', 'trim|valid_url');
 			$this->form_validation->set_rules('email', 'Email', 'trim|valid_email');
+
 			$this->form_validation->set_rules('role', '角色', 'trim');
-			$this->form_validation->set_rules('level', '等级', 'trim|is_natural|max_length[2]|less_than['.$this->session->level.']');
+			$this->form_validation->set_rules('level', '等级', 'trim|is_natural|max_length[2]|less_than_equal_to['.$this->session->level.']');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
+				'biz_id' => $this->input->post('biz_id'),
 				'mobile' => $this->input->post('mobile'),
 				'password' => SHA1( substr($this->input->post('mobile'), -6) ),
 				'lastname' => $this->input->post('lastname'),
 				'firstname' => $this->input->post('firstname'),
 				'gender' => $this->input->post('gender'),
-				'dob' => $this->input->post('dob'),
-				'avatar' => $this->input->post('avatar'),
 				'email' => $this->input->post('email'),
 				'role' => $this->input->post('role'),
 				'level' => $this->input->post('level'),
@@ -197,12 +221,12 @@
 		public function edit()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理', '成员'); // 角色要求
+			$role_allowed = array('管理员', '经理', '成员', '设计师', '工程师'); // 角色要求
 			$min_level = 10; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
-			// "成员"角色的用户仅可修改自己的信息
-			if ($this->session->role === '成员' && $this->session->user_id !== $this->input->get_post('id'))
+			// 非管理员、经理角色的用户仅可修改自己的信息
+			if ( !in_array($this->session->role, array('管理员', '经理')) && $this->session->user_id !== $this->input->get_post('id'))
 				redirect(base_url('error/permission_role'));
 
 			// 页面信息
@@ -213,7 +237,7 @@
 
 			// 待验证的表单项
 			// "成员"角色的用户仅可修改部分信息
-			if ($this->session->role !== '成员'):
+			if ($this->session->role === '管理员' || $this->session->role === '经理'):
 				$this->form_validation->set_rules('mobile', '手机号', 'trim|required|is_natural|exact_length[11]');
 				$this->form_validation->set_rules('lastname', '姓', 'trim|required');
 				$this->form_validation->set_rules('firstname', '名', 'trim|required');
@@ -242,7 +266,7 @@
 				'avatar' => $this->input->post('avatar'),
 				'email' => $this->input->post('email'),
 			);
-			if ($this->session->role !== '成员'):
+			if ($this->session->role === '管理员' || $this->session->role === '经理'):
 				$data_to_edit['mobile'] = $this->input->post('mobile');
 				$data_to_edit['lastname'] = $this->input->post('lastname');
 				$data_to_edit['firstname'] = $this->input->post('firstname');
@@ -281,7 +305,7 @@
 
 			// 需要存入数据库的信息
 			$data_to_edit = array(
-				'time_delete' => date('y-m-d H:i:s'), // 批量删除
+				'time_delete' => date('Y-m-d H:i:s'), // 批量删除
 			);
 
 			// Go Basic!

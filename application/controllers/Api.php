@@ -74,11 +74,6 @@
 		 */
 		public function index()
 		{
-			// 检查是否已传入必要参数
-			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($id) )
-				redirect(base_url('project'));
-
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '列表',
@@ -89,10 +84,24 @@
 			$data['data_to_display'] = $this->data_to_display;
 
 			// 获取项目数据
-			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
+			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
 
 			// 筛选条件
-			$condition['project_id'] = $id;
+			$condition = NULL;
+			if ( !empty($project_id) )
+				$condition['project_id'] = $project_id;
+
+			// 非系统级管理员仅可看到自己企业相关的信息
+			if ( ! empty($this->session->biz_id) ):
+				$condition['biz_id'] = $this->session->biz_id;
+			
+			// 系统级管理员可查看任意企业的相关信息
+			elseif ($this->session->role === '管理员'):
+				$biz_id = $this->input->get_post('biz_id')? $this->input->get_post('biz_id'): NULL;
+				if ( !empty($biz_id) )
+					$condition['biz_id'] = $biz_id;
+			endif;
 
 			// 排序条件
 			$order_by['code'] = 'ASC'; // 按API序号字母顺序进行排序
@@ -120,8 +129,15 @@
 			// 获取页面数据
 			$data['item'] = $this->basic_model->select_by_id($id);
 
+			// 获取企业信息
+			if ( !empty($data['item']['biz_id']) ):
+				$data['biz'] = $this->basic->get_by_id($data['item']['biz_id'], 'biz', 'biz_id');
+			endif;
+
 			// 获取项目数据
-			$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
+			if ( !empty($data['item']['project_id']) ):
+				$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
+			endif;
 
 			// 生成最终页面标题
 			$data['title'] = '['.$data['item']['code'].']'. $data['item']['name']. ' < API < '. $data['project']['name'];
@@ -159,9 +175,12 @@
 
 			// 筛选条件
 			$condition['project_id'] = $project_id;
+			// 非系统级管理员仅可看到自己企业相关的信息
+			if ( ! empty($this->session->biz_id) )
+				$condition['biz_id'] = $this->session->biz_id;
 			
 			// 排序条件
-			$order_by = NULL;
+			$order_by['time_delete'] = 'DESC';
 			
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
@@ -177,10 +196,38 @@
 			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 			
-			// 检查是否已传入必要参数
-			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($id) )
-				redirect(base_url('error/code_404'));
+			// 获取项目数据
+			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+			if ( !empty($project_id) ):
+				$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
+			else:
+				if ( $this->session->role !== '管理员' )
+					redirect(base_url('error/code_404'));
+			endif;
+			
+			// 获取企业数据
+			$biz_id = $this->input->get_post('biz_id')? $this->input->get_post('biz_id'): NULL;
+			if ( !empty($biz_id) ):
+				$data['biz'] = $this->basic->get_by_id($biz_id, 'biz', 'biz_id');
+			else:
+				if ( $this->session->role !== '管理员' )
+					redirect(base_url('error/code_404'));
+			endif;
+			
+			// 管理员可获取所有企业、项目信息待选
+			if ($this->session->role === '管理员'):
+				$this->basic_model->table_name = 'biz';
+				$this->basic_model->id_name = 'biz_id';
+				$data['bizs'] = $this->basic_model->select(NULL, NULL);
+
+				$this->basic_model->table_name = 'project';
+				$this->basic_model->id_name = 'project_id';
+				$data['projects'] = $this->basic_model->select(NULL, NULL);
+				
+				// 还原数据库相关类属性
+				$this->basic_model->table_name = 'api';
+				$this->basic_model->id_name = 'api_id';
+			endif;
 
 			// 页面信息
 			$data = array(
@@ -188,12 +235,9 @@
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
 
-			// 获取项目数据
-			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
-
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
-			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
+			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
@@ -244,14 +288,32 @@
 				'title' => '编辑'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-edit',
 			);
-			
+
 			// 获取待编辑信息
 			$data['item'] = $this->basic_model->select_by_id($id);
+			
+			// 管理员可获取所有企业、项目信息待选
+			if ($this->session->role === '管理员'):
+				$this->basic_model->table_name = 'biz';
+				$this->basic_model->id_name = 'biz_id';
+				$data['bizs'] = $this->basic_model->select(NULL, NULL);
+
+				$this->basic_model->table_name = 'project';
+				$this->basic_model->id_name = 'project_id';
+				$data['projects'] = $this->basic_model->select(NULL, NULL);
+				
+				// 还原数据库相关类属性
+				$this->basic_model->table_name = 'api';
+				$this->basic_model->id_name = 'api_id';
+			endif;
 
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($data['item'][$this->id_name], 'project', 'project_id');
 
 			// 待验证的表单项
+			if ($this->session->role === '管理员')
+				$this->form_validation->set_rules('biz_id', '所属企业', 'trim|is_natural_no_zero');
+			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
@@ -272,6 +334,7 @@
 			else:
 				// 需要编辑的信息
 				$data_to_edit = array(
+					'project_id' => $this->input->post('project_id'),
 					'category_id' => $this->input->post('category_id'),
 					'name' => $this->input->post('name'),
 					'code' => $this->input->post('code'),
@@ -283,6 +346,8 @@
 					'sample_request' => $this->input->post('sample_request'),
 					'sample_respond' => $this->input->post('sample_respond'),
 				);
+				if ($this->session->role === '管理员')
+					$data_to_edit['biz_id'] = $this->input->post('biz_id');
 
 				$result = $this->basic_model->edit($id, $data_to_edit);
 
@@ -328,7 +393,7 @@
 
 			// 需要存入数据库的信息
 			$data_to_edit = array(
-				'time_delete' => date('y-m-d H:i:s'), // 批量删除
+				'time_delete' => date('Y-m-d H:i:s'), // 批量删除
 			);
 
 			// Go Basic!

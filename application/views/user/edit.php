@@ -49,9 +49,18 @@
 		$attributes = array('class' => 'form-'.$this->class_name.'-edit form-horizontal', 'role' => 'form');
 		echo form_open_multipart($this->class_name.'/edit?id='.$item[$this->id_name], $attributes);
 	?>
-	<?php if ($this->session->role !== '成员'): ?>
+	<?php if ($this->session->role === '管理员' || $this->session->role === '经理'): ?>
 		<fieldset>
 			<legend>基本信息</legend>
+
+			<?php if ( !empty($item['biz_id']) ): ?>
+			<div class=form-group>
+				<label for=biz_id class="col-sm-2 control-label">所属企业</label>
+				<div class=col-sm-10>
+					<p class="form-control-static"><?php echo $biz['brief_name'] ?></p>
+				</div>
+			</div>
+			<?php endif ?>
 
 			<div class=form-group>
 				<label for=mobile class="col-sm-2 control-label">手机号</label>
@@ -85,11 +94,18 @@
 				<label for=role class="col-sm-2 control-label">角色</label>
 				<div class=col-sm-10>
 					<select class=form-control name=role required>
-						<option value="成员" <?php if ($item['role'] === '成员') echo 'selected' ?>>成员</option>
-						<option value="经理" <?php if ($item['role'] === '经理') echo 'selected' ?>>经理</option>
-						<?php if ($this->session->role === '管理员'): ?>
-							<option value="管理员" <?php if ($item['role'] === '管理员') echo 'selected' ?>>管理员</option>
-						<?php endif ?>
+						<?php
+							$input_name = 'role';
+							$option_list = array(
+								'成员', '经理', '设计师', '工程师',
+							);
+							if ($this->session->role === '管理员') $option_list[] = '管理员';
+							foreach ($option_list as $option):
+						?>
+						<option value="<?php echo $option ?>" <?php if ($item[$input_name] === $option) echo 'selected' ?>>
+							<?php echo $option ?>
+						</option>
+						<?php endforeach ?>
 					</select>
 					<?php echo form_error('role') ?>
 				</div>
@@ -125,13 +141,14 @@
 			</div>
 
 			<div class=form-group>
-				<label for=gender class="col-sm-2 control-label">性别</label>
+				<label for=gender class="col-sm-2 control-label">性别（以自我认同为准）</label>
 				<div class=col-sm-10>
-					<select class=form-control name=gender required>
-						<option>请选择</option>
-						<option value="女" <?php if ($item['gender'] === '女') echo 'selected' ?>>女</option>
-						<option value="男" <?php if ($item['gender'] === '男') echo 'selected' ?>>男</option>
-					</select>
+					<label class=radio-inline>
+						<input type=radio name=gender value="女" required <?php if ($item['gender'] === '女') echo 'checked'; ?>> 女
+					</label>
+					<label class=radio-inline>
+						<input type=radio name=gender value="男" required <?php if ($item['gender'] === '男') echo 'checked'; ?>> 男
+					</label>
 					<?php echo form_error('gender') ?>
 				</div>
 			</div>
@@ -151,7 +168,7 @@
 					<?php echo form_error('dob') ?>
 				</div>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=email class="col-sm-2 control-label">Email（可选）</label>
 				<div class=col-sm-10>

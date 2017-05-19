@@ -36,7 +36,7 @@
 
 			// （可选）未登录用户转到登录页
 			if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
-			
+
 			// 向类属性赋值
 			$this->class_name = strtolower(__CLASS__);
 			$this->class_name_cn = '页面'; // 改这里……
@@ -90,7 +90,19 @@
 			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
 			
 			// 筛选条件
-			$condition['project_id'] = $project_id;
+			if ( !empty($project_id) )
+				$condition['project_id'] = $project_id;
+
+			// 非系统级管理员仅可看到自己企业相关的信息
+			if ( ! empty($this->session->biz_id) ):
+				$condition['biz_id'] = $this->session->biz_id;
+			
+			// 系统级管理员可查看任意企业的相关信息
+			elseif ($this->session->role === '管理员'):
+				$biz_id = $this->input->get_post('biz_id')? $this->input->get_post('biz_id'): NULL;
+				if ( !empty($biz_id) )
+					$condition['biz_id'] = $biz_id;
+			endif;
 			
 			// 排序条件
 			$order_by[$this->id_name] = 'ASC';
@@ -151,7 +163,8 @@
 
 			// 检查是否已传入必要参数
 			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($project_id) ) redirect(base_url('project'));
+			if ( empty($project_id) )
+				redirect(base_url('project'));
 
 			// 页面信息
 			$data = array(
@@ -161,16 +174,19 @@
 
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
-			
+
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
 
 			// 筛选条件
 			$condition['project_id'] = $project_id;
-			
+			// 非系统级管理员尽可看到自己企业相关的用户
+			if ( ! empty($this->session->biz_id) )
+				$condition['biz_id'] = $this->session->biz_id;
+
 			// 排序条件
 			$order_by = NULL;
-			
+
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
 		}
@@ -346,7 +362,7 @@
 
 			// 需要存入数据库的信息
 			$data_to_edit = array(
-				'time_delete' => date('y-m-d H:i:s'), // 批量删除
+				'time_delete' => date('Y-m-d H:i:s'), // 批量删除
 			);
 
 			// Go Basic!

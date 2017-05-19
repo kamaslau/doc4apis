@@ -23,7 +23,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20170516">
+		<meta name=version content="revision20170519">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -76,11 +76,13 @@
 						<!--<li<?php if (strpos($class, 'flow') !== FALSE) echo ' class=active' ?>><a title="流程" href="<?php echo base_url('flow') ?>">流程</a></li>-->
 						<li<?php if (strpos($class, 'page') !== FALSE) echo ' class=active' ?>><a title="页面" href="<?php echo base_url('page') ?>">页面</a></li>
 						<li<?php if (strpos($class, 'api') !== FALSE) echo ' class=active' ?>><a title="API" href="<?php echo base_url('api') ?>">API</a></li>
-						<!--<li<?php if (strpos($class, 'team') !== FALSE) echo ' class=active' ?>><a title="团队" href="<?php echo base_url('team') ?>">团队</a></li>-->
 
-						<?php if ($this->session->role !== '成员'): ?>
-						<li<?php if (strpos($class, 'user') !== FALSE) echo ' class=active' ?>><a title="成员" href="<?php echo base_url('user') ?>">成员</a></li>
+						<?php if ($this->session->role === '管理员'): ?>
+						<li<?php if (strpos($class, 'biz') !== FALSE) echo ' class=active' ?>><a title="企业" href="<?php echo base_url('biz') ?>">企业</a></li>
+						<li<?php if (strpos($class, 'team') !== FALSE) echo ' class=active' ?>><a title="团队" href="<?php echo base_url('team') ?>">团队</a></li>
 						<?php endif ?>
+
+						<li<?php if (strpos($class, 'user') !== FALSE) echo ' class=active' ?>><a title="成员" href="<?php echo base_url('user') ?>">成员</a></li>
 
 						<li<?php if (strpos($class, 'faq') !== FALSE) echo ' class=active' ?>><a title="FAQ" href="<?php echo base_url('faq') ?>">FAQ</a></li>
 					</ul>

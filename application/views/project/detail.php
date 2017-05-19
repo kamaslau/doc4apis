@@ -44,11 +44,23 @@
 	<?php endif ?>
 
 	<h2><?php echo $item['name'] ?></h2>
-	<p><?php echo $item['description'] ?></p>
+
+	<dl class=list-horizontal>
+		<?php if ( !empty($item['biz_id']) ): ?>
+		<dt>所属企业</dt>
+		<dd>
+			<?php echo $biz['brief_name'] ?>
+			<a class="btn btn-info btn-sm" href="<?php echo base_url('biz/detail?id='.$biz['biz_id']) ?>" target=_blank>查看</a>
+		</dd>
+		<?php endif ?>
+
+		<dt>简介</dt>
+		<dd><?php echo $item['description'] ?></dd>
+	</dl>
 
 	<?php if ( !empty($item['url_logo']) ): ?>
 	<section>
-		<figure id=project-logo class=row>
+		<figure id=url-logo class=row>
 		<?php
 				// 若含多项，根据分隔符拆分并轮番输出
 				if (strpos( trim($item['url_logo']), ' ') !== FALSE):
@@ -77,7 +89,7 @@
 		<li><a title="查看任务" href="<?php echo base_url('task?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-tasks" aria-hidden=true></i> 任务</a></li>
 		<li><a title="查看流程" href="<?php echo base_url('flow?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-code-fork" aria-hidden=true></i> 流程</a></li>
 		-->
-		<li><a title="查看参数" href="<?php echo base_url('meta?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-cogs" aria-hidden=true></i> 参数</a></li>
+		<li><a title="查看参数" href="<?php echo base_url('meta/detail?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-cogs" aria-hidden=true></i> 技术参数</a></li>
 		<li><a title="查看页面" href="<?php echo base_url('page?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-html5" aria-hidden=true></i> 页面</a></li>
 		<li><a title="查看API" href="<?php echo base_url('api?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-arrows-v" aria-hidden=true></i> API</a></li>
 	</ul>

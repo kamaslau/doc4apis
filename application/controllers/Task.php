@@ -91,6 +91,9 @@
 			
 			// 筛选条件
 			$condition['project_id'] = $project_id;
+			// 非系统级管理员仅可看到自己企业相关的信息
+			if ( ! empty($this->session->biz_id) )
+				$condition['biz_id'] = $this->session->biz_id;
 
 			// 排序条件
 			$order_by['priority'] = 'DESC';
@@ -150,6 +153,9 @@
 			if ( !empty($data['item']['user_id']) ):
 				$data['user'] = $this->basic->get_by_id($data['item']['user_id'], 'user', 'user_id');
 			endif;
+			
+			// 生成页面标题
+			$data['title'] = $data['item']['name'];
 
 			$this->load->view('templates/header', $data);
 			$this->load->view($this->view_root.'/detail', $data);
@@ -184,6 +190,9 @@
 
 			// 筛选条件
 			$condition['project_id'] = $project_id;
+			// 非系统级管理员仅可看到自己企业相关的信息
+			if ( ! empty($this->session->biz_id) )
+				$condition['biz_id'] = $this->session->biz_id;
 			
 			// 排序条件
 			$order_by = NULL;
@@ -346,7 +355,7 @@
 
 			// 需要存入数据库的信息
 			$data_to_edit = array(
-				'time_delete' => date('y-m-d H:i:s'), // 批量删除
+				'time_delete' => date('Y-m-d H:i:s'), // 批量删除
 			);
 
 			// Go Basic!

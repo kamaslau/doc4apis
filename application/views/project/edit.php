@@ -54,18 +54,38 @@
 		<fieldset>
 			<legend>基本信息</legend>
 
+			<?php if ($this->session->role === '管理员'): ?>
+			<div class=form-group>
+				<label for=biz_id class="col-sm-2 control-label">所属企业</label>
+				<div class=col-sm-10>
+					<select class=form-control name=biz_id>
+						<option value="">个人项目</option>
+						<?php
+							$input_name = 'biz_id';
+							$option_list = $bizs;
+							foreach ($option_list as $option):
+						?>
+						<option value="<?php echo $option[$input_name] ?>" <?php if ($item[$input_name] === $option[$input_name]) echo 'selected' ?>>
+							<?php echo $option['brief_name'] ?>
+						</option>
+						<?php endforeach ?>
+					</select>
+				</div>
+			</div>
+			<?php endif ?>
+
 			<div class=form-group>
 				<label for=name class="col-sm-2 control-label">名称</label>
 				<div class=col-sm-10>
-					<input class=form-control name=name type=text value="<?php echo $item['name'] ?>" placeholder="名称" required>
+					<input class=form-control name=name type=text value="<?php echo $item['name'] ?>" placeholder="最多10个字符" required>
 				</div>
 				<?php echo form_error('name') ?>
 			</div>
 			
 			<div class=form-group>
-				<label for=description class="col-sm-2 control-label">说明（可选）</label>
+				<label for=description class="col-sm-2 control-label">简介（可选）</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=description rows=5 placeholder="说明"><?php echo $item['description'] ?></textarea>
+					<textarea class=form-control name=description rows=5 placeholder="最多100个字符"><?php echo $item['description'] ?></textarea>
 				</div>
 				<?php echo form_error('description') ?>
 			</div>

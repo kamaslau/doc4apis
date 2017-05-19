@@ -84,6 +84,9 @@
 			
 			// 筛选条件
 			$condition = NULL;
+			// 非系统级管理员仅可看到自己企业相关的信息
+			if ( ! empty($this->session->biz_id) )
+				$condition['biz_id'] = $this->session->biz_id;
 			
 			// 排序条件
 			$order_by[$this->id_name] = 'ASC';
@@ -156,6 +159,9 @@
 			
 			// 筛选条件
 			$condition = NULL;
+			// 非系统级管理员仅可看到自己企业相关的信息
+			if ( ! empty($this->session->biz_id) )
+				$condition['biz_id'] = $this->session->biz_id;
 			
 			// 排序条件
 			$order_by = NULL;

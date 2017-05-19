@@ -151,10 +151,13 @@
 					<?php echo form_error('url_design') ?>
 				</div>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=url_assets class="col-sm-2 control-label">美术素材URL（可选）</label>
 				<div class=col-sm-10>
+					<?php if ( ! empty($item['url_assets']) ): ?>
+					<p class=help-block>请将PSD文件、UI素材、字体、媒体文件等压缩后上传到百度云盘，并将该压缩文件的分享链接填入此处</p>
+					<?php endif ?>
 					<input class=form-control name=url_assets type=url value="<?php echo $item['url_assets'] ?>" placeholder="请将PSD文件、UI素材、字体、媒体文件等压缩后上传到百度云盘，并将该压缩文件的分享链接填入此处">
 					<?php echo form_error('url_assets') ?>
 				</div>

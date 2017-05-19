@@ -2,15 +2,15 @@
 	defined('BASEPATH') OR exit('此文件不可被直接访问');
 
 	/**
-	 * Flow 类
+	 * Biz 类
 	 *
-	 * 流程相关功能
+	 * 项目相关功能
 	 *
 	 * @version 1.0.0
 	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
 	 * @copyright ICBG <www.bingshankeji.com>
 	 */
-	class Flow extends CI_Controller
+	class Biz extends CI_Controller
 	{
 		/* 类名称小写，应用于多处动态生成内容 */
 		public $class_name;
@@ -26,7 +26,7 @@
 
 		/* 视图文件所在目录名 */
 		public $view_root;
-		
+
 		/* 需要显示的字段 */
 		public $data_to_display;
 
@@ -36,18 +36,18 @@
 
 			// （可选）未登录用户转到登录页
 			if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
-			
+
 			// 向类属性赋值
 			$this->class_name = strtolower(__CLASS__);
-			$this->class_name_cn = '流程'; // 改这里……
-			$this->table_name = 'flow'; // 和这里……
-			$this->id_name = 'flow_id'; // 还有这里，OK，这就可以了
+			$this->class_name_cn = '企业'; // 改这里……
+			$this->table_name = 'biz'; // 和这里……
+			$this->id_name = 'biz_id'; // 还有这里，OK，这就可以了
 			$this->view_root = $this->class_name;
 
 			// 设置需要自动在视图文件中生成显示的字段
 			$this->data_to_display = array(
+				'brief_name' => '简称',
 				'name' => '名称',
-				'description' => '说明',
 			);
 
 			// 设置并调用Basic核心库
@@ -73,10 +73,6 @@
 		 */
 		public function index()
 		{
-			// 检查是否已传入必要参数
-			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($project_id) ) redirect(base_url('project'));
-
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '列表',
@@ -85,22 +81,17 @@
 
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
-			
-			// 获取项目数据
-			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
-			
+
 			// 筛选条件
-			$condition['project_id'] = $project_id;
-			// 非系统级管理员尽可看到自己企业相关的用户
+			$condition = NULL;
+			// 非系统级管理员仅可看到自己企业相关的信息
 			if ( ! empty($this->session->biz_id) )
 				$condition['biz_id'] = $this->session->biz_id;
-			
+
 			// 排序条件
 			$order_by[$this->id_name] = 'ASC';
-			
+
 			// Go Basic！
-			$this->basic_model->table_name = 'flow';
-			$this->basic_model->id_name = 'flow_id';
 			$this->basic->index($data, $condition, $order_by);
 		}
 
@@ -119,20 +110,13 @@
 				'title' => NULL,
 				'class' => $this->class_name.' '. $this->class_name.'-detail',
 			);
-
+			
 			// 获取页面数据
 			$data['item'] = $this->basic_model->select_by_id($id);
-
-			// 若存在相关页面，则获取页面信息
-			if ( !empty($data['item']['page_ids']) ):
-				$data['pages'] = $this->basic->get_by_ids($data['item']['page_ids'], 'page', 'page_id');
-			endif;
-
-			// 获取项目数据
-			$this->basic_model->table_name = 'project';
-			$this->basic_model->id_name = 'project_id';
-			$data['project'] = $this->basic_model->select_by_id($data['item']['project_id']);
-
+			
+			// 生成页面标题
+			$data['title'] = $data['item']['name'];
+			
 			$this->load->view('templates/header', $data);
 			$this->load->view($this->view_root.'/detail', $data);
 			$this->load->view('templates/footer', $data);
@@ -140,17 +124,15 @@
 
 		/**
 		 * 回收站
+		 *
+		 * 一般为后台功能
 		 */
 		public function trash()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
+			$role_allowed = array('管理员'); // 角色要求
 			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
-
-			// 检查是否已传入必要参数
-			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($project_id) ) redirect(base_url('project'));
 
 			// 页面信息
 			$data = array(
@@ -160,37 +142,31 @@
 
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
-			
-			// 获取项目数据
-			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
 
 			// 筛选条件
-			$condition['project_id'] = $project_id;
-			// 非系统级管理员尽可看到自己企业相关的用户
+			$condition = NULL;
+			// 非系统级管理员仅可看到自己企业相关的信息
 			if ( ! empty($this->session->biz_id) )
 				$condition['biz_id'] = $this->session->biz_id;
-			
+
 			// 排序条件
-			$order_by = NULL;
-			
+			$order_by['time_delete'] = 'DESC';
+
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
 		}
 
 		/**
 		 * 创建
+		 *
+		 * 一般为后台功能
 		 */
 		public function create()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
+			$role_allowed = array('管理员'); // 角色要求
 			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
-
-			// 检查是否已传入必要参数
-			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($id) )
-				redirect(base_url('error/code_404'));
 
 			// 页面信息
 			$data = array(
@@ -198,22 +174,19 @@
 				'class' => $this->class_name.' '. $this->class_name.'-create',
 			);
 
-			// 获取项目数据
-			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
-
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
-			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('description', '说明', 'trim|required');
-			$this->form_validation->set_rules('page_ids', '相关页面ID们', 'trim');
+			$this->form_validation->set_rules('description', '说明', 'trim');
+			$this->form_validation->set_rules('brief_name', '简称', 'trim|required');
+			$this->form_validation->set_rules('url_logo', 'LOGO', 'trim');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
-				'project_id' => $this->input->post('project_id'),
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
-				'page_ids' => $this->input->post('page_ids'),
+				'brief_name' => $this->input->post('brief_name'),
+				'url_logo' => $this->input->post('url_logo'),
 			);
 
 			// Go Basic!
@@ -222,62 +195,38 @@
 
 		/**
 		 * 编辑单行
+		 *
+		 * 一般为后台功能
 		 */
 		public function edit()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
+			$role_allowed = array('管理员'); // 角色要求
 			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
-			
-			// 检查是否已传入必要参数
-			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-			if ( empty($id) )
-				redirect(base_url('error/code_404'));
 
 			// 页面信息
 			$data = array(
 				'title' => '编辑'.$this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-edit',
 			);
-			
-			// 获取待编辑信息
-			$data['item'] = $this->basic_model->select_by_id($id);
-
-			// 获取项目数据
-			$data['project'] = $this->basic->get_by_id($data['item'][$this->id_name], 'project', 'project_id');
 
 			// 待验证的表单项
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('description', '说明', 'trim|required');
-			$this->form_validation->set_rules('page_ids', '相关页面ID们', 'trim');
+			$this->form_validation->set_rules('description', '说明', 'trim');
+			$this->form_validation->set_rules('brief_name', '简称', 'trim|required');
+			$this->form_validation->set_rules('url_logo', 'LOGO', 'trim');
 
-			// 验证表单值格式
-			if ($this->form_validation->run() === FALSE):
-				$this->load->view('templates/header', $data);
-				$this->load->view($this->view_root.'/edit', $data);
-				$this->load->view('templates/footer', $data);
+			// 需要编辑的信息
+			$data_to_edit = array(
+				'name' => $this->input->post('name'),
+				'description' => $this->input->post('description'),
+				'brief_name' => $this->input->post('brief_name'),
+				'url_logo' => $this->input->post('url_logo'),
+			);
 
-			else:
-				// 需要编辑的信息
-				$data_to_edit = array(
-					'name' => $this->input->post('name'),
-					'description' => $this->input->post('description'),
-					'page_ids' => $this->input->post('page_ids'),
-				);
-				$result = $this->basic_model->edit($id, $data_to_edit);
-
-				if ($result !== FALSE):
-					$data['content'] = '<p class="alert alert-success">保存成功。</p>';
-				else:
-					$data['content'] = '<p class="alert alert-warning">保存失败。</p>';
-				endif;
-
-				$this->load->view('templates/header', $data);
-				$this->load->view($this->view_root.'/result', $data);
-				$this->load->view('templates/footer', $data);
-
-			endif;
+			// Go Basic!
+			$this->basic->edit($data, $data_to_edit);
 		}
 
 		/**
@@ -286,10 +235,10 @@
 		public function delete()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
+			$role_allowed = array('管理员'); // 角色要求
 			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
-			
+
 			$op_name = '删除'; // 操作的名称
 			$op_view = 'delete'; // 视图文件名
 
@@ -298,7 +247,7 @@
 				'title' => $op_name. $this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-'. $op_view,
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
@@ -313,14 +262,14 @@
 			// Go Basic!
 			$this->basic->bulk($data, $data_to_edit, $op_name, $op_view);
 		}
-		
+
 		/**
 		 * 恢复单行或多行项目
 		 */
 		public function restore()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
+			$role_allowed = array('管理员'); // 角色要求
 			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
@@ -332,7 +281,7 @@
 				'title' => $op_name. $this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-'. $op_view,
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
@@ -349,5 +298,5 @@
 		}
 	}
 
-/* End of file Flow.php */
-/* Location: ./application/controllers/Flow.php */
+/* End of file Biz.php */
+/* Location: ./application/controllers/Biz.php */

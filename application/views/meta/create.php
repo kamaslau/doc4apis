@@ -38,7 +38,7 @@
 	$current_role = $this->session->role; // 当前用户角色
 	$current_level = $this->session->level; // 当前用户权限
 	$role_allowed = array('经理', '管理员');
-	$level_allowed = 1;
+	$level_allowed = 30;
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
@@ -68,16 +68,16 @@
 				<label for=sdk_ios class="col-sm-2 control-label">iOS最低版本</label>
 				<div class=col-sm-10>
 					<input class=form-control name=sdk_ios type=text value="<?php echo set_value('sdk_ios') ?>" placeholder="例如：9.0">
+					<?php echo form_error('sdk_ios') ?>
 				</div>
-				<?php echo form_error('sdk_ios') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=sdk_android class="col-sm-2 control-label">Android最低版本</label>
 				<div class=col-sm-10>
 					<input class=form-control name=sdk_android type=text value="<?php echo set_value('sdk_android') ?>" placeholder="例如：4.1">
+					<?php echo form_error('sdk_android') ?>
 				</div>
-				<?php echo form_error('sdk_android') ?>
 			</div>
 		</fieldset>
 		
@@ -88,16 +88,16 @@
 				<label for=sandbox_url_web class="col-sm-2 control-label">WEB URL</label>
 				<div class=col-sm-10>
 					<input class=form-control name=sandbox_url_web type=url value="<?php echo set_value('sandbox_url_web') ?>" placeholder="必须以https://开头">
+					<?php echo form_error('sandbox_url_web') ?>
 				</div>
-				<?php echo form_error('sandbox_url_web') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=sandbox_url_api class="col-sm-2 control-label">API URL</label>
 				<div class=col-sm-10>
 					<input class=form-control name=sandbox_url_api type=url value="<?php echo set_value('sandbox_url_api') ?>" placeholder="必须以https://开头">
+					<?php echo form_error('sandbox_url_api') ?>
 				</div>
-				<?php echo form_error('sandbox_url_api') ?>
 			</div>
 		</fieldset>
 
@@ -108,41 +108,41 @@
 				<label for=url_web class="col-sm-2 control-label">WEB URL</label>
 				<div class=col-sm-10>
 					<input class=form-control name=url_web type=url value="<?php echo set_value('url_web') ?>" placeholder="必须以https://开头">
+					<?php echo form_error('url_web') ?>
 				</div>
-				<?php echo form_error('url_web') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=url_wechat class="col-sm-2 control-label">微信公众号二维码</label>
 				<div class=col-sm-10>
+					<p class=help-block>可以通过 <a class="btn btn-info btn-sm" href="http://cli.im/deqr" target=_blank>解码工具</a> 获取二维码文本</p>
 					<input class=form-control name=url_wechat type=url value="<?php echo set_value('url_wechat') ?>" placeholder="即微信公众号二维码文本">
-					<p class=help-block>可以通过<a class="btn btn-sm" href="http://cli.im/deqr" target=_blank>解码工具</a>获取二维码文本</p>
+					<?php echo form_error('url_wechat') ?>
 				</div>
-				<?php echo form_error('url_wechat') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=url_api class="col-sm-2 control-label">API URL</label>
 				<div class=col-sm-10>
 					<input class=form-control name=url_api type=url value="<?php echo set_value('url_api') ?>" placeholder="必须以https://开头">
+					<?php echo form_error('url_api') ?>
 				</div>
-				<?php echo form_error('url_api') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=url_ios class="col-sm-2 control-label">iOS URL</label>
 				<div class=col-sm-10>
 					<input class=form-control name=url_ios type=url value="<?php echo set_value('url_ios') ?>" placeholder="必须是官方下载URL；URL中除appid外不可有其它参数">
+					<?php echo form_error('url_ios') ?>
 				</div>
-				<?php echo form_error('url_ios') ?>
 			</div>
 
 			<div class=form-group>
 				<label for=url_android class="col-sm-2 control-label">Android URL</label>
 				<div class=col-sm-10>
 					<input class=form-control name=url_android type=url value="<?php echo set_value('url_android') ?>" placeholder="必须以https://开头">
+					<?php echo form_error('url_android') ?>
 				</div>
-				<?php echo form_error('url_android') ?>
 			</div>
 		</fieldset>
 
@@ -157,8 +157,8 @@
 					</code>
 					<a class="add-html btn btn-info" data-textarea-name=sign>+</a>
 					<textarea class=form-control name=sign rows=10 placeholder="签名方式"><?php echo set_value('sign') ?></textarea>
+					<?php echo form_error('sign') ?>
 				</div>
-				<?php echo form_error('sign') ?>
 			</div>
 			
 			<div class=form-group>
@@ -169,8 +169,8 @@
 					</code>
 					<a class="add-html btn btn-info" data-textarea-name=params_request>+</a>
 					<textarea class=form-control name=params_request rows=10 placeholder="请求参数"><?php echo set_value('params_request') ?></textarea>
+					<?php echo form_error('params_request') ?>
 				</div>
-				<?php echo form_error('params_request') ?>
 			</div>
 
 			<div class=form-group>
@@ -181,8 +181,8 @@
 					</code>
 					<a class="add-html btn btn-info" data-textarea-name=params_respond>+</a>
 					<textarea class=form-control name=params_respond rows=10 placeholder="响应参数"><?php echo set_value('params_respond') ?></textarea>
+					<?php echo form_error('params_respond') ?>
 				</div>
-				<?php echo form_error('params_respond') ?>
 			</div>
 		</fieldset>
 

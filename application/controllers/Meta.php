@@ -35,7 +35,7 @@
 			parent::__construct();
 
 			// （可选）未登录用户转到登录页
-			//if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
+			if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
 
 			// 向类属性赋值
 			$this->class_name = strtolower(__CLASS__);
@@ -46,8 +46,9 @@
 
 			// 设置需要自动在视图文件中生成显示的字段
 			$this->data_to_display = array(
-				'name' => '名称',
-				'description' => '描述',
+				'project_id' => '项目ID',
+				'sdk_ios' => 'iOS最低版本',
+				'sdk_android' => 'Android最低版本',
 			);
 
 			// 设置并调用Basic核心库
@@ -76,22 +77,22 @@
 			// 检查是否已传入必要参数
 			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
 			if ( empty($project_id) ) redirect(base_url('project'));
-			
+
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '列表',
 				'class' => $this->class_name.' '. $this->class_name.'-index',
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
-			
+
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
 
 			// 筛选条件
 			$condition['project_id'] = $project_id;
-			
+
 			// 排序条件
 			$order_by = NULL;
 
@@ -120,42 +121,6 @@
 
 			// Go Basic！
 			$this->basic->detail($data);
-		}
-
-		/**
-		 * 回收站
-		 */
-		public function trash()
-		{
-			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 30; // 级别要求
-			$this->basic->permission_check($role_allowed, $min_level);
-
-			// 检查是否已传入必要参数
-			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($project_id) ) redirect(base_url('project'));
-
-			// 页面信息
-			$data = array(
-				'title' => $this->class_name_cn. '回收站',
-				'class' => $this->class_name.' '. $this->class_name.'-trash',
-			);
-
-			// 将需要显示的数据传到视图以备使用
-			$data['data_to_display'] = $this->data_to_display;
-
-			// 获取项目数据
-			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
-
-			// 筛选条件
-			$condition['project_id'] = $project_id;
-
-			// 排序条件
-			$order_by = NULL;
-
-			// Go Basic！
-			$this->basic->trash($data, $condition, $order_by);
 		}
 
 		/**
@@ -199,6 +164,7 @@
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
+				'project_id' => $this->input->post('project_id'),
 				'url_web' => $this->input->post('url_web'),
 				'url_wechat' => $this->input->post('url_wechat'),
 				'url_api' => $this->input->post('url_api'),
@@ -265,78 +231,6 @@
 
 			// Go Basic!
 			$this->basic->edit($data, $data_to_edit); // 可以自定义视图文件名
-		}
-
-		/**
-		 * 删除单行或多行项目
-		 *
-		 * 一般用于发货、退款、存为草稿、上架、下架、删除、恢复等状态变化，请根据需要修改方法名，例如deliver、refund、delete、restore、draft等
-		 */
-		public function delete()
-		{
-			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 30; // 级别要求
-			$this->basic->permission_check($role_allowed, $min_level);
-
-			$op_name = '删除'; // 操作的名称
-			$op_view = 'delete'; // 视图文件名
-
-			// 页面信息
-			$data = array(
-				'title' => $op_name. $this->class_name_cn,
-				'class' => $this->class_name.' '. $this->class_name.'-'. $op_view,
-			);
-			
-			// 将需要显示的数据传到视图以备使用
-			$data['data_to_display'] = $this->data_to_display;
-
-			// 待验证的表单项
-			$this->form_validation->set_rules('password', '密码', 'trim|required|min_length[6]|max_length[20]');
-
-			// 需要存入数据库的信息
-			$data_to_edit = array(
-				'time_delete' => date('y-m-d H:i:s'), // 批量删除
-			);
-
-			// Go Basic!
-			$this->basic->bulk($data, $data_to_edit, $op_name, $op_view);
-		}
-
-		/**
-		 * 恢复单行或多行项目
-		 *
-		 * 一般用于存为草稿、上架、下架、删除、恢复等状态变化，请根据需要修改方法名，例如delete、restore、draft等
-		 */
-		public function restore()
-		{
-			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 30; // 级别要求
-			$this->basic->permission_check($role_allowed, $min_level);
-
-			$op_name = '恢复'; // 操作的名称
-			$op_view = 'restore'; // 视图文件名
-
-			// 页面信息
-			$data = array(
-				'title' => $op_name. $this->class_name_cn,
-				'class' => $this->class_name.' '. $this->class_name.'-'. $op_view,
-			);
-
-			// 将需要显示的数据传到视图以备使用
-			$data['data_to_display'] = $this->data_to_display;
-
-			// 待验证的表单项
-			$this->form_validation->set_rules('password', '密码', 'trim|required|min_length[6]|max_length[20]');
-
-			// 需要存入数据库的信息
-			$data_to_edit = array(
-				'time_delete' => NULL, // 批量恢复
-			);
-
-			// Go Basic!
-			$this->basic->bulk($data, $data_to_edit, $op_name, $op_view);
 		}
 	}
 

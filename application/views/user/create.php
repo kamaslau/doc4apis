@@ -51,6 +51,16 @@
 		<fieldset>
 			<legend>基本信息</legend>
 
+			<?php if ( !empty($biz) ): ?>
+			<div class=form-group>
+				<label for=biz_id class="col-sm-2 control-label">所属企业</label>
+				<div class=col-sm-10>
+					<p class="form-control-static"><?php echo $biz['brief_name'] ?></p>
+					<input name=biz_id type=hidden value="<?php echo $biz['biz_id'] ?>">
+				</div>
+			</div>
+			<?php endif ?>
+
 			<div class=form-group>
 				<label for=mobile class="col-sm-2 control-label">手机号</label>
 				<div class=col-sm-10>
@@ -83,11 +93,18 @@
 				<label for=role class="col-sm-2 control-label">角色</label>
 				<div class=col-sm-10>
 					<select class=form-control name=role required>
-						<option value="成员" <?php echo set_select('role', '成员') ?>>成员</option>
-						<option value="经理" <?php echo set_select('role', '经理') ?>>经理</option>
-						<?php if ($this->session->role === '管理员'): ?>
-							<option value="管理员" <?php echo set_select('role', '管理员') ?>>管理员</option>
-						<?php endif ?>
+						<?php
+							$input_name = 'role';
+							$option_list = array(
+								'成员', '经理', '设计师', '工程师',
+							);
+							if ($this->session->role === '管理员') $option_list[] = '管理员';
+							foreach ($option_list as $option):
+						?>
+						<option value="<?php echo $option ?>" <?php echo set_select($input_name, $option) ?>>
+							<?php echo $option ?>
+						</option>
+						<?php endforeach ?>
 					</select>
 					<?php echo form_error('role') ?>
 				</div>
@@ -96,7 +113,7 @@
 			<div class=form-group>
 				<label for=level class="col-sm-2 control-label">等级</label>
 				<div class=col-sm-10>
-					<input class=form-control name=level type=number min=0 step=1 max="<?php echo ($this->session->level - 1) ?>" value="<?php echo set_value('level') ?>" placeholder="等级" required>
+					<input class=form-control name=level type=number min=0 step=1 max="<?php echo $this->session->level ?>" value="<?php echo set_value('level') ?>" placeholder="等级" required>
 					<?php echo form_error('level') ?>
 				</div>
 			</div>
@@ -106,30 +123,15 @@
 			<legend>资料</legend>
 
 			<div class=form-group>
-				<label for=gender class="col-sm-2 control-label">性别</label>
+				<label for=gender class="col-sm-2 control-label">性别（以自我认同为准）</label>
 				<div class=col-sm-10>
-					<select class=form-control name=gender required>
-						<option>请选择</option>
-						<option value="女" <?php echo set_select('gender', '女') ?>>女</option>
-						<option value="男" <?php echo set_select('gender', '男') ?>>男</option>
-					</select>
+					<label class=radio-inline>
+						<input type=radio name=gender value="女" required <?php echo set_radio('gender', '女', TRUE) ?>> 女
+					</label>
+					<label class=radio-inline>
+						<input type=radio name=gender value="男" required <?php echo set_radio('gender', '男') ?>> 男
+					</label>
 					<?php echo form_error('gender') ?>
-				</div>
-			</div>
-
-			<div class=form-group>
-				<label for=avatar class="col-sm-2 control-label">头像（可选）</label>
-				<div class=col-sm-10>
-					<input class=form-control name=avatar type=url value="<?php echo set_value('avatar') ?>" placeholder="头像URL">
-					<?php echo form_error('avatar') ?>
-				</div>
-			</div>
-
-			<div class=form-group>
-				<label for=dob class="col-sm-2 control-label">生日（公历，可选）</label>
-				<div class=col-sm-10>
-					<input class=form-control name=dob type=date value="<?php echo set_value('dob') ?>" placeholder="例如：<?php echo date('Y-m-d', strtotime("-18 years")) ?>">
-					<?php echo form_error('dob') ?>
 				</div>
 			</div>
 
@@ -141,9 +143,9 @@
 				</div>
 			</div>
 		</fieldset>
-		
+
 		<div class="well well-sm text-center">
-			<p>该成员可使用上述手机号和初始密码（该手机号的最后6位）登录，登录后首页会提示修改初始密码；登录网址为：</p>
+			<p>新建的成员可使用上述手机号和初始密码（该手机号的最后6位）登录（后附网址），登录后首页会提示修改初始密码；</p>
 			<p><strong><?php echo base_url('login') ?></strong></p>
 		</div>
 
