@@ -24,7 +24,7 @@
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
 		<li><a title="<?php echo $project['name'] ?>" href="<?php echo base_url('project/detail?id='.$project['project_id']) ?>"><?php echo $project['name'] ?></a></li>
 		<li><a href="<?php echo base_url($this->class_name.'?project_id='.$project['project_id']) ?>"><?php echo $this->class_name_cn ?></a></li>
-		<li class=active><?php echo $item['name'] ?></li>
+		<li class=active><?php echo $project['name'] ?></li>
 	</ol>
 </div>
 
@@ -71,7 +71,7 @@
 			<?php endif ?>
 
 			<?php if ( !empty($item['sandbox_url_api']) ): ?>
-			<dt><i class="fa fa-safari" aria-hidden="true"></i> API</dt>
+			<dt><i class="fa fa-plug" aria-hidden="true"></i> API</dt>
 			<dd><?php echo $item['sandbox_url_api'] ?></dd>
 			<?php endif ?>
 		</dl>

@@ -235,8 +235,8 @@
 				$data['bizs'] = $this->basic_model->select(NULL, NULL);
 				
 				// 还原数据库相关类属性
-				$this->basic_model->table_name = 'project';
-				$this->basic_model->id_name = 'project_id';
+				$this->basic_model->table_name = $this->table_name;
+				$this->basic_model->id_name = $this->id_name;
 			endif;
 
 			// 待验证的表单项

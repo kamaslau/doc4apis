@@ -25,7 +25,7 @@
 		<?php if ( isset($project) ): ?>
 		<li><a title="<?php echo $project['name'] ?>" href="<?php echo base_url('project/detail?id='.$project['project_id']) ?>"><?php echo $project['name'] ?></a></li>
 		<?php endif ?>
-		<li><a href="<?php echo base_url($this->class_name.'?project_id='.$project['project_id']) ?>"><?php echo $this->class_name_cn ?></a></li>
+		<li><a href="<?php echo base_url($this->class_name.'?project_id='.@$project['project_id']) ?>"><?php echo $this->class_name_cn ?></a></li>
 		<li class=active><?php echo $item['name'] ?></li>
 	</ol>
 </div>
@@ -42,27 +42,21 @@
 	<div class=btn-group role=group>
 		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fa fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
 	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fa fa-trash fa-fw" aria-hidden=true></i> 回收站</a>
-		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create?project_id='.$project['project_id']) ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create?project_id='.@$project['project_id']) ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
 	</div>
 	<?php endif ?>
 
 	<h2><?php echo $item['code'] ?> <?php echo $item['name'] ?></h2>
 	<p><?php echo $item['description'] ?></p>
-	
+
 	<dl class=list-horizontal>
+
 	</dl>
 
 	<dl class=list-horizontal>
-		<dt>开发环境URL</dt>
+		<dt>URL</dt>
 		<?php if ( empty($item['url_full']) ): ?>
-		<dd><?php echo $project['sandbox_url_api']. $item['url'] ?></dd>
-		<?php else: ?>
-		<dd><?php echo $item['url_full'] ?></dd>
-		<?php endif ?>
-		
-		<dt>生产环境URL</dt>
-		<?php if ( empty($item['url_full']) ): ?>
-		<dd><?php echo $project['url_api']. $item['url'] ?></dd>
+		<dd><?php echo $item['url'] ?></dd>
 		<?php else: ?>
 		<dd><?php echo $item['url_full'] ?></dd>
 		<?php endif ?>
@@ -70,7 +64,7 @@
 
 	<section>
 		<h3>请求参数（除公共参数外）</h3>
-
+		<?php if ( !empty($item['params_request']) ): ?>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -81,11 +75,14 @@
 				<?php echo $item['params_request'] ?>
 			</tbody>
 		</table>
+		<?php else: ?>
+		<p>除公共参数外，无其它参数</p>
+		<?php endif ?>
 	</section>
 
 	<section>
 		<h3>响应参数（除公共参数外）</h3>
-
+		<?php if ( !empty($item['params_respond']) ): ?>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -96,6 +93,9 @@
 				<?php echo $item['params_respond'] ?>
 			</tbody>
 		</table>
+		<?php else: ?>
+		<p>除公共参数外，无其它参数</p>
+		<?php endif ?>
 	</section>
 
 	<?php if ( !empty($item['sample_request']) ): ?>

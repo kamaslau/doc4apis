@@ -43,7 +43,7 @@
 	<div class=btn-group role=group>
 		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fa fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
 	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fa fa-trash fa-fw" aria-hidden=true></i> 回收站</a>
-		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create?project_id='.$project['project_id']) ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create?project_id='.@$project['project_id']) ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
 	</div>
 	<?php endif ?>
 
@@ -54,13 +54,6 @@
 	?>
 		<fieldset>
 			<legend>基本信息</legend>
-
-			<div class=form-group>
-				<label class="col-sm-2 control-label">所属项目</label>
-				<div class=col-sm-10>
-					<p class="form-control-static"><?php echo $project['name'] ?></p>
-				</div>
-			</div>
 
 			<div class=form-group>
 				<label for=sdk_ios class="col-sm-2 control-label">iOS最低版本</label>
@@ -78,7 +71,7 @@
 				</div>
 			</div>
 		</fieldset>
-			
+
 		<fieldset>
 			<legend>开发环境</legend>
 
@@ -154,7 +147,7 @@
 						&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;
 					</code>
 					<a class="add-html btn btn-info" data-textarea-name=sign>+</a>
-					<textarea class=form-control name=sign rows=10 placeholder="签名方式"><?php echo set_value('sign') ?></textarea>
+					<textarea class=form-control name=sign rows=10 placeholder="签名方式"><?php echo $item['sign'] ?></textarea>
 					<?php echo form_error('sign') ?>
 				</div>
 			</div>

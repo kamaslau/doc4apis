@@ -126,7 +126,7 @@
 			endif;
 			
 			// 生成页面标题
-			$data['title'] = $data['item']['name'];
+			$data['title'] = $data['item']['lastname'].$data['item']['firstname'];
 
 			$this->load->view('templates/header', $data);
 			$this->load->view($this->view_root.'/detail', $data);

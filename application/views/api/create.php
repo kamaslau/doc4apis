@@ -59,31 +59,59 @@
 	<?php
 		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
 		$attributes = array('class' => 'form-'.$this->class_name.'-create form-horizontal', 'role' => 'form');
-		echo form_open_multipart($this->class_name.'/create', $attributes);
+		echo form_open($this->class_name.'/create', $attributes);
 	?>
 		<fieldset>
 			<legend>基本信息</legend>
 			
-			<?php if ( isset($biz) ): ?>
 			<div class=form-group>
 				<label for=biz_id class="col-sm-2 control-label">所属企业</label>
 				<div class=col-sm-10>
-					<p class="form-control-static"><?php echo $biz['brief_name'] ?></p>
-					<input name=biz_id type=hidden value="<?php echo $biz['biz_id'] ?>">
+					<select class=form-control name=biz_id>
+					<?php if ( isset($bizs) ):
+							$input_name = 'biz_id';
+							$text_name = 'brief_name';
+							$option_list = $bizs;
+							foreach ($option_list as $option):
+						?>
+						<option value="<?php echo $option[$input_name] ?>" <?php echo set_select($input_name, $option[$input_name]) ?>>
+							<?php echo $option[$text_name] ?>
+						</option>
+						<?php endforeach ?>
+
+					<?php elseif ( isset($biz) ): ?>
+							<option value="<?php echo $biz[$input_name] ?>" <?php echo set_select($input_name, $biz[$input_name], TRUE) ?>><?php echo $biz[$text_name] ?></option>
+					<?php endif ?>
+
+						<option value="">个人项目</option>
+					</select>
 				</div>
 			</div>
-			<?php endif ?>
-			
-			<?php if ( isset($project) ): ?>
+
 			<div class=form-group>
 				<label for=project_id class="col-sm-2 control-label">所属项目</label>
 				<div class=col-sm-10>
-					<p class="form-control-static"><?php echo $project['name'] ?></p>
-					<input name=project_id type=hidden value="<?php echo $project['project_id'] ?>">
+					<select class=form-control name=project_id>
+					<?php if ( isset($projects) ):
+							$input_name = 'project_id';
+							$text_name = 'name';
+							$option_list = $projects;
+							foreach ($option_list as $option):
+						?>
+						<option value="<?php echo $option[$input_name] ?>" <?php echo set_select($input_name, $option[$input_name]) ?>>
+							<?php echo $option[$text_name] ?>
+						</option>
+						<?php endforeach ?>
+
+					<?php elseif ( isset($project) ): ?>
+							<option value="<?php echo $project[$input_name] ?>" <?php echo set_select($input_name, $project[$input_name], TRUE) ?>><?php echo $project[$text_name] ?></option>
+					<?php endif ?>
+
+						<option value="">不限</option>
+					</select>
 				</div>
 			</div>
-			<?php endif ?>
-			
+
 			<div class=form-group>
 				<label for=name class="col-sm-2 control-label">名称</label>
 				<div class=col-sm-10>
@@ -91,11 +119,11 @@
 				</div>
 				<?php echo form_error('name') ?>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=code class="col-sm-2 control-label">序号</label>
 				<div class=col-sm-10>
-					<input class=form-control name=code type=text value="<?php echo set_value('code') ?>" placeholder="例如：BIZ1" required>
+					<input class=form-control name=code type=text value="<?php echo set_value('code') ?>" placeholder="例如：BIZ1；系统会自动将英文字母转为大写" required>
 				</div>
 				<?php echo form_error('code') ?>
 			</div>
@@ -131,7 +159,7 @@
 						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;是否必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
 					<a class="add-html btn btn-info" data-textarea-name=params_request>+</a>
-					<textarea class=form-control name=params_request rows=10 placeholder="请求参数"><?php echo set_value('params_request') ?></textarea>
+					<textarea class=form-control name=params_request rows=10 placeholder="无需重复填写公共参数"><?php echo set_value('params_request') ?></textarea>
 				</div>
 				<?php echo form_error('params_request') ?>
 			</div>
@@ -143,7 +171,7 @@
 						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
 					<a class="add-html btn btn-info" data-textarea-name=params_respond>+</a>
-					<textarea class=form-control name=params_respond rows=10 placeholder="响应参数"><?php echo set_value('params_respond') ?></textarea>
+					<textarea class=form-control name=params_respond rows=10 placeholder="无需重复填写公共参数"><?php echo set_value('params_respond') ?></textarea>
 				</div>
 				<?php echo form_error('params_respond') ?>
 			</div>

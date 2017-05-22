@@ -115,12 +115,19 @@
 				'title' => $this->class_name_cn. '详情',
 				'class' => $this->class_name.' '. $this->class_name.'-detail',
 			);
+
+			// 获取页面数据
+			$data['item'] = $this->basic_model->select_by_id($id);
 			
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
+			
+			// 生成页面标题
+			$data['title'] = $data['project']['name']. $this->class_name_cn;
 
-			// Go Basic！
-			$this->basic->detail($data);
+			$this->load->view('templates/header', $data);
+			$this->load->view($this->view_root.'/detail', $data);
+			$this->load->view('templates/footer', $data);
 		}
 
 		/**
@@ -143,7 +150,7 @@
 			$id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
 			if ( empty($id) )
 				redirect(base_url('error/code_404'));
-			//（可选）获取项目数据
+			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
 
 			// 待验证的表单项
