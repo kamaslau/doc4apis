@@ -22,9 +22,17 @@
 	}
 </style>
 
-<script src="https://cdn.key2all.com/js/highcharts.js"></script>
-
 <div id=content class=container>
+  	<?php
+  		// 检查是否正在使用默认密码（手机号后6位的sha1加密值）
+  		$initial_password = SHA1( substr($this->session->mobile, -6) );
+  		if ($initial_password === $this->session->password):
+  	?>
+	<div class="alert alert-warning" role="alert">
+		<p>Hey，你正在用默认密码，这有一定的安全隐患；请考虑 <a class="btn btn-info btn-sm" href="<?php echo base_url('password_change') ?>" target=_blank>修改密码</a>。</p>
+	</div>
+  	<?php endif ?>
+	<!--
 	<section class="col-xs-12 col-md-6 col-lg-4">
 		<h2>条形图</h2>
 		<div id=bar-chart>
@@ -45,8 +53,11 @@
 
 		</div>
 	</section>
+	-->
 </div>
 
+<!--
+<script defer src="https://cdn.key2all.com/js/highcharts.js"></script>
 <script>
 // 条形图
 Highcharts.chart(
@@ -213,3 +224,4 @@ Highcharts.chart(
     }]
 });
 </script>
+->

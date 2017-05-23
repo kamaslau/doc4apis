@@ -80,7 +80,7 @@
 							<a class="btn btn-default" title="用户列表" href="<?php echo base_url('user/index?biz_id='.$item['biz_id']) ?>"><i class="fa fa-users fa-fw" aria-hidden=true></i> 查看成员</a>
 						</li>
 						<li>
-							<a class="btn btn-default" title="创建用户" href="<?php echo base_url('user/create?biz_id='.$item['biz_id']) ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建成员</a>
+							<a class="btn btn-default" title="创建用户" href="<?php echo base_url('user/create?biz_id='.$item['biz_id']) ?>" target=_blank><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建成员</a>
 						</li>
 					</ul>
 				</td>

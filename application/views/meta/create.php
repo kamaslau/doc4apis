@@ -80,10 +80,10 @@
 				</div>
 			</div>
 		</fieldset>
-		
+
 		<fieldset>
-			<legend>开发环境（可选）</legend>
-			
+			<legend>测试/开发环境（可选）</legend>
+
 			<div class=form-group>
 				<label for=sandbox_url_web class="col-sm-2 control-label">WEB URL</label>
 				<div class=col-sm-10>
@@ -142,6 +142,86 @@
 				<div class=col-sm-10>
 					<input class=form-control name=url_android type=url value="<?php echo set_value('url_android') ?>" placeholder="必须以https://开头">
 					<?php echo form_error('url_android') ?>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend>API规范</legend>
+
+			<div class=form-group>
+				<label for=encode class="col-sm-2 control-label">字符编码</label>
+				<div class=col-sm-10>
+					<select class=form-control name=encode>
+						<?php
+							$input_name = 'encode';
+							$options = array('UTF8','GBK','GB2312','ASCII','BIG5');
+							foreach ($options as $option):
+						?>
+						<option value="<?php echo $option ?>" <?php echo set_select($input_name, $option) ?>>
+							<?php echo $option ?>
+						</option>
+						<?php endforeach ?>
+					</select>
+
+					<?php echo form_error('encode') ?>
+				</div>
+			</div>
+
+			<div class=form-group>
+				<label for=protocol class="col-sm-2 control-label">传输协议</label>
+				<div class=col-sm-10>
+					<select class=form-control name=protocol>
+						<?php
+							$input_name = 'protocol';
+							$options = array('HTTPS','HTTP');
+							foreach ($options as $option):
+						?>
+						<option value="<?php echo $option ?>" <?php echo set_select($input_name, $option) ?>>
+							<?php echo $option ?>
+						</option>
+						<?php endforeach ?>
+					</select>
+
+					<?php echo form_error('protocol') ?>
+				</div>
+			</div>
+
+			<div class=form-group>
+				<label for=request_method class="col-sm-2 control-label">请求方式</label>
+				<div class=col-sm-10>
+					<select class=form-control name=request_method>
+						<?php
+							$input_name = 'request_method';
+							$options = array('POST','GET','PUT','DELETE');
+							foreach ($options as $option):
+						?>
+						<option value="<?php echo $option ?>" <?php echo set_select($input_name, $option) ?>>
+							<?php echo $option ?>
+						</option>
+						<?php endforeach ?>
+					</select>
+
+					<?php echo form_error('request_method') ?>
+				</div>
+			</div>
+
+			<div class=form-group>
+				<label for=respond_format class="col-sm-2 control-label">响应返回格式</label>
+				<div class=col-sm-10>
+					<select class=form-control name=respond_format>
+						<?php
+							$input_name = 'respond_format';
+							$options = array('JSON','XML');
+							foreach ($options as $option):
+						?>
+						<option value="<?php echo $option ?>" <?php echo set_select($input_name, $option) ?>>
+							<?php echo $option ?>
+						</option>
+						<?php endforeach ?>
+					</select>
+
+					<?php echo form_error('respond_format') ?>
 				</div>
 			</div>
 		</fieldset>

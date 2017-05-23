@@ -51,20 +51,13 @@
 	<h3><?php echo $item['mobile'] ?></h3>
 	
 	<?php if ( !empty($item['biz_id']) ): ?>
-	<h3><?php echo $biz['name'] ?> <a class="btn btn-info btn-sm" href="<?php echo base_url('biz/detail?id='.$biz['biz_id']) ?>" target=_blank><?php echo $biz['name'] ?></a></h3>
+	<h3><?php echo $biz['name'] ?> <a class="btn btn-info btn-sm" href="<?php echo base_url('biz/detail?id='.$biz['biz_id']) ?>" target=_blank>企业信息</a></h3>
 	<?php endif ?>
 
 	<?php if (in_array($current_role, $role_allowed)): ?>
 	<dl class=dl-horizontal>
-		<?php if ( !empty($item['role']) ): ?>
-		<dt>角色</dt>
-		<dd><?php echo $item['role'] ?></dd>
-		<?php endif ?>
-		
-		<?php if ( !empty($item['level']) ): ?>
 		<dt>权限</dt>
-		<dd><?php echo $item['level'] ?></dd>
-		<?php endif ?>
+		<dd><?php echo $item['role'] ?> <?php echo $item['level'] ?>级</dd>
 	</dl>
 	<?php endif ?>
 
@@ -78,10 +71,8 @@
 		</dd>
 		<?php endif ?>
 
-		<?php if ( !empty($item['gender']) ): ?>
 		<dt>性别</dt>
 		<dd><?php echo $item['gender'] ?></dd>
-		<?php endif ?>
 
 		<?php
 			// 若已设置生日，显示生日祝福或生日预告

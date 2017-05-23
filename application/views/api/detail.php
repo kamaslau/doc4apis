@@ -49,11 +49,7 @@
 	<h2><?php echo $item['code'] ?> <?php echo $item['name'] ?></h2>
 	<p><?php echo $item['description'] ?></p>
 
-	<dl class=list-horizontal>
-
-	</dl>
-
-	<dl class=list-horizontal>
+	<dl class=dl-horizontal>
 		<dt>URL</dt>
 		<?php if ( empty($item['url_full']) ): ?>
 		<dd><?php echo $item['url'] ?></dd>
@@ -81,7 +77,7 @@
 	</section>
 
 	<section>
-		<h3>响应参数（除公共参数外）</h3>
+		<h3>响应参数（即返回的content内容）</h3>
 		<?php if ( !empty($item['params_respond']) ): ?>
 		<table class="table table-striped">
 			<thead>
@@ -101,14 +97,14 @@
 	<?php if ( !empty($item['sample_request']) ): ?>
 	<section>
 		<h3>请求示例</h3>
-		<?php echo $item['sample_request'] ?>
+		<pre><?php echo $item['sample_request'] ?></pre>
 	</section>
 	<?php endif ?>
 
 	<?php if ( !empty($item['sample_respond']) ): ?>
 	<section>
 		<h3>返回示例</h3>
-		<?php echo $item['sample_request'] ?>
+		<pre><?php echo $item['sample_respond'] ?></pre>
 	</section>
 	<?php endif ?>
 
@@ -135,4 +131,13 @@
 		</dd>
 		<?php endif ?>
 	</dl>
+	
+	<?php
+	// 需要特定角色和权限进行该操作
+	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
+	?>
+	<ul class="list-unstyled horizontal">
+		<li><a title="编辑" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-edit"></i> 编辑</a></li>
+	</ul>
+	<?php endif ?>
 </div>

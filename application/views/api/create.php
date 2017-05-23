@@ -68,6 +68,8 @@
 				<label for=biz_id class="col-sm-2 control-label">所属企业</label>
 				<div class=col-sm-10>
 					<select class=form-control name=biz_id>
+						<option value="">个人项目</option>
+
 					<?php if ( isset($bizs) ):
 							$input_name = 'biz_id';
 							$text_name = 'brief_name';
@@ -82,8 +84,6 @@
 					<?php elseif ( isset($biz) ): ?>
 							<option value="<?php echo $biz[$input_name] ?>" <?php echo set_select($input_name, $biz[$input_name], TRUE) ?>><?php echo $biz[$text_name] ?></option>
 					<?php endif ?>
-
-						<option value="">个人项目</option>
 					</select>
 				</div>
 			</div>
@@ -92,6 +92,8 @@
 				<label for=project_id class="col-sm-2 control-label">所属项目</label>
 				<div class=col-sm-10>
 					<select class=form-control name=project_id>
+						<option value="">不限</option>
+
 					<?php if ( isset($projects) ):
 							$input_name = 'project_id';
 							$text_name = 'name';
@@ -106,8 +108,6 @@
 					<?php elseif ( isset($project) ): ?>
 							<option value="<?php echo $project[$input_name] ?>" <?php echo set_select($input_name, $project[$input_name], TRUE) ?>><?php echo $project[$text_name] ?></option>
 					<?php endif ?>
-
-						<option value="">不限</option>
 					</select>
 				</div>
 			</div>

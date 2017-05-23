@@ -56,9 +56,9 @@
 		<span><i class="fa fa-android" aria-hidden="true"></i> ≥<?php echo $item['sdk_android'] ?></span>
 		<?php endif ?>
 	</p>
-	
+
 	<section>
-		<h3>开发环境</h3>
+		<h3>测试/开发环境</h3>
 		<dl class=dl-horizontal>
 			<?php if ( !empty($item['sandbox_url_web']) ): ?>
 			<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB</dt>
@@ -76,7 +76,7 @@
 			<?php endif ?>
 		</dl>
 	<section>
-	
+
 	<section>
 		<h3>正式/生产环境</h3>
 		<dl class=dl-horizontal>
@@ -126,6 +126,23 @@
 			<?php endif ?>
 		</dl>
 	</section>
+	
+	<section>
+		<h3>API规范</h3>
+		<dl class=dl-horizontal>
+			<dt>字符编码</dt>
+			<dd><?php echo $item['encode'] ?></dd>
+
+			<dt>传输协议</dt>
+			<dd><?php echo $item['protocol'] ?></dd>
+
+			<dt>请求方式</dt>
+			<dd><?php echo $item['request_method'] ?></dd>
+
+			<dt>响应返回格式</dt>
+			<dd><?php echo $item['respond_format'] ?></dd>
+		</dl>
+	</section>
 
 	<?php if ( !empty($item['sign']) ): ?>
 	<section>
@@ -135,7 +152,7 @@
 		</ol>
 	</section>
 	<?php endif ?>
-	
+
 	<section>
 		<h3>公共参数</h3>
 
@@ -188,12 +205,13 @@
 		<?php endif ?>
 	</dl>
 	
+	
+	<?php
+	// 需要特定角色和权限进行该操作
+	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
+	?>
 	<ul class="list-unstyled horizontal">
-		<?php
-		// 需要特定角色和权限进行该操作
-		if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
-		?>
 		<li><a title="编辑" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-edit"></i> 编辑</a></li>
-		<?php endif ?>
 	</ul>
+	<?php endif ?>
 </div>

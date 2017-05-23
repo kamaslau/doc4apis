@@ -23,7 +23,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20170522">
+		<meta name=version content="revision20170523">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -72,6 +72,7 @@
 					<ul id=main-nav class=horizontal>
 						<li<?php if (strpos($class, 'home') !== FALSE) echo ' class=active' ?>><a title="首页" href="<?php echo base_url() ?>">首页</a></li>
 						<!--<li<?php if (strpos($class, 'task') !== FALSE) echo ' class=active' ?>><a title="任务" href="<?php echo base_url('task') ?>">任务</a></li>-->
+						<li<?php if (strpos($class, 'task') !== FALSE) echo ' class=active' ?>><a title="任务" href="https://www.teambition.com/project/59093c6f8752371d796bda6f" target=_blank>任务</a></li>
 						<li<?php if (strpos($class, 'project') !== FALSE) echo ' class=active' ?>><a title="项目" href="<?php echo base_url('project') ?>">项目</a></li>
 						<!--<li<?php if (strpos($class, 'flow') !== FALSE) echo ' class=active' ?>><a title="流程" href="<?php echo base_url('flow') ?>">流程</a></li>-->
 						<li<?php if (strpos($class, 'page') !== FALSE) echo ' class=active' ?>><a title="页面" href="<?php echo base_url('page') ?>">页面</a></li>

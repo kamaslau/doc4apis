@@ -458,6 +458,8 @@
 					$result = $this->basic_model->edit($this->session->user_id, $data_to_edit);
 
 					if ($result !== FALSE):
+						// 更新session中密码信息以避免重复提示修改默认密码
+						unset($_SESSION['password']);
 						$data['content'] = '<p class="alert alert-success">保存成功。</p>';
 					else:
 						$data['content'] = '<p class="alert alert-warning">保存失败。</p>';

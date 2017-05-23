@@ -45,7 +45,7 @@
 			<div class=form-group>
 				<label for=password_new class="col-sm-2 control-label">新密码</label>
 				<div class=col-sm-10>
-					<input class=form-control name=password_new type=password placeholder="新密码" required>
+					<input class=form-control name=password_new type=password placeholder="请设置6-20位长度的密码" required>
 					<?php echo form_error('password_new') ?>
 				</div>
 			</div>
@@ -53,7 +53,7 @@
 			<div class=form-group>
 				<label for=password2 class="col-sm-2 control-label">确认新密码</label>
 				<div class=col-sm-10>
-					<input class=form-control name=password2 type=password placeholder="确认新密码" required>
+					<input class=form-control name=password2 type=password placeholder="确认密码" required>
 					<?php echo form_error('password2') ?>
 				</div>
 			</div>

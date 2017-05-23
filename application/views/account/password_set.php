@@ -20,7 +20,7 @@
 				<label for=password>密码</label>
 				<div class=input-group>
 					<span class="input-group-addon"><i class="fa fa-lock fa-fw" aria-hidden=true></i></span>
-					<input class=form-control name=password type=password size=6 pattern="\d{6}" placeholder="密码（6位数字）" required>
+					<input class=form-control name=password type=password placeholder="请设置6-20位长度的密码" required>
 				</div>
 				<?php echo form_error('password') ?>
 			</div>
@@ -29,7 +29,7 @@
 				<label for=password2>确认密码</label>
 				<div class=input-group>
 					<span class="input-group-addon"><i class="fa fa-lock fa-fw" aria-hidden=true></i></span>
-					<input class=form-control name=password2 type=password size=6 pattern="\d{6}" placeholder="请再次输入一次" required>
+					<input class=form-control name=password2 type=password placeholder="确认密码" required>
 				</div>
 				<?php echo form_error('password2') ?>
 			</div>
