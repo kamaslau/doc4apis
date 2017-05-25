@@ -77,7 +77,7 @@
 	</section>
 
 	<section>
-		<h3>响应参数（即返回的content内容）</h3>
+		<h3>响应参数（即返回值中content的内容）</h3>
 		<?php if ( !empty($item['params_respond']) ): ?>
 		<table class="table table-striped">
 			<thead>
@@ -138,6 +138,7 @@
 	?>
 	<ul class="list-unstyled horizontal">
 		<li><a title="编辑" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-edit"></i> 编辑</a></li>
+		<li><a title="克隆" href="<?php echo base_url($this->class_name.'/duplicate?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-files-o"></i> 克隆</a></li>
 	</ul>
 	<?php endif ?>
 </div>

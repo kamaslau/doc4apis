@@ -20,7 +20,7 @@
 			if ( ! $is_wechat):
 		?>
 			<div class=container>
-				<p><em><?php echo SITE_NAME ?></em>基于在桌面端设备上使用的场景进行设计、开发。</p>
+				<p><em><?php echo SITE_NAME ?></em>主要基于桌面端设备使用场景而设计开发</p>
 			</div>
 		<?php endif ?>
 

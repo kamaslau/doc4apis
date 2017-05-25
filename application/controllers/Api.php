@@ -236,9 +236,9 @@
 			$this->form_validation->set_rules('url_full', '第三方URL', 'trim|valid_url');
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('params_request', '请求参数', 'trim');
-			$this->form_validation->set_rules('params_respond', '返回参数', 'trim');
+			$this->form_validation->set_rules('params_respond', '响应参数', 'trim');
 			$this->form_validation->set_rules('sample_request', '请求示例', 'trim');
-			$this->form_validation->set_rules('sample_respond', '返回示例', 'trim');
+			$this->form_validation->set_rules('sample_respond', '响应示例', 'trim');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
@@ -256,9 +256,9 @@
 			);
 			// 非系统管理员的用户，企业ID默认为当前用户所属企业ID
 			if ($this->session->role !== '管理员'):
-				$data_to_edit['biz_id'] = $this->session->biz_id;
+				$data_to_create['biz_id'] = $this->session->biz_id;
 			else:
-				$data_to_edit['biz_id'] = $this->input->post('biz_id');
+				$data_to_create['biz_id'] = $this->input->post('biz_id');
 			endif;
 
 			// Go Basic!
@@ -318,9 +318,9 @@
 			$this->form_validation->set_rules('url_full', '第三方URL', 'trim|valid_url');
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('params_request', '请求参数', 'trim');
-			$this->form_validation->set_rules('params_respond', '返回参数', 'trim');
+			$this->form_validation->set_rules('params_respond', '相应参数', 'trim');
 			$this->form_validation->set_rules('sample_request', '请求示例', 'trim');
-			$this->form_validation->set_rules('sample_respond', '返回示例', 'trim');
+			$this->form_validation->set_rules('sample_respond', '响应示例', 'trim');
 
 			// 验证表单值格式
 			if ($this->form_validation->run() === FALSE):
@@ -331,11 +331,10 @@
 			else:
 				// 需要编辑的信息
 				$data_to_edit = array(
-					'biz_id' => $this->input->post('biz_id'),
 					'project_id' => $this->input->post('project_id'),
 					'category_id' => $this->input->post('category_id'),
 					'name' => $this->input->post('name'),
-					'code' => $this->input->post('code'),
+					'code' => strtoupper($this->input->post('code')),
 					'url' => $this->input->post('url'),
 					'url_full' => $this->input->post('url_full'),
 					'description' => $this->input->post('description'),
@@ -344,6 +343,11 @@
 					'sample_request' => $this->input->post('sample_request'),
 					'sample_respond' => $this->input->post('sample_respond'),
 				);
+				if ($this->session->role === '管理员'):
+					$data_to_edit['biz_id'] = $this->input->post('biz_id');
+				else:
+					$data_to_edit['biz_id'] = $this->session->biz_id;
+				endif;
 
 				$result = $this->basic_model->edit($id, $data_to_edit);
 
@@ -357,6 +361,104 @@
 				$this->load->view($this->view_root.'/result', $data);
 				$this->load->view('templates/footer', $data);
 
+			endif;
+		}
+		
+		/**
+		 * 克隆单行
+		 */
+		public function duplicate()
+		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 30; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+			
+			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
+
+			// 页面信息
+			$data = array(
+				'title' => '克隆'.$this->class_name_cn,
+				'class' => $this->class_name.' '. $this->class_name.'-edit',
+			);
+
+			// 获取待克隆信息
+			$data['item'] = $this->basic_model->select_by_id($id);
+
+			// 管理员可获取所有企业、项目信息待选
+			if ($this->session->role === '管理员'):
+				$this->basic_model->table_name = 'biz';
+				$this->basic_model->id_name = 'biz_id';
+				$data['bizs'] = $this->basic_model->select(NULL, NULL);
+
+				$this->basic_model->table_name = 'project';
+				$this->basic_model->id_name = 'project_id';
+				$data['projects'] = $this->basic_model->select(NULL, NULL);
+
+				// 还原数据库相关类属性
+				$this->basic_model->table_name = $this->table_name;
+				$this->basic_model->id_name = $this->id_name;
+			endif;
+
+			// 获取项目数据
+			$data['project'] = $this->basic->get_by_id($data['item'][$this->id_name], 'project', 'project_id');
+
+			// 待验证的表单项
+			if ($this->session->role === '管理员')
+				$this->form_validation->set_rules('biz_id', '所属企业', 'trim|is_natural_no_zero');
+			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero');
+			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
+			$this->form_validation->set_rules('name', '名称', 'trim|required');
+			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
+			$this->form_validation->set_rules('url', 'URL', 'trim');
+			$this->form_validation->set_rules('url_full', '第三方URL', 'trim|valid_url');
+			$this->form_validation->set_rules('description', '说明', 'trim');
+			$this->form_validation->set_rules('params_request', '请求参数', 'trim');
+			$this->form_validation->set_rules('params_respond', '相应参数', 'trim');
+			$this->form_validation->set_rules('sample_request', '请求示例', 'trim');
+			$this->form_validation->set_rules('sample_respond', '响应示例', 'trim');
+
+			// 验证表单值格式
+			if ($this->form_validation->run() === FALSE):
+				$this->load->view('templates/header', $data);
+				$this->load->view($this->view_root.'/duplicate', $data);
+				$this->load->view('templates/footer', $data);
+
+			else:
+				// 需要编辑的信息
+				$data_to_create = array(
+					'project_id' => $this->input->post('project_id'),
+					'category_id' => $this->input->post('category_id'),
+					'name' => $this->input->post('name'),
+					'code' => strtoupper($this->input->post('code')),
+					'url' => $this->input->post('url'),
+					'url_full' => $this->input->post('url_full'),
+					'description' => $this->input->post('description'),
+					'params_request' => $this->input->post('params_request'),
+					'params_respond' => $this->input->post('params_respond'),
+					'sample_request' => $this->input->post('sample_request'),
+					'sample_respond' => $this->input->post('sample_respond'),
+				);
+				if ($this->session->role === '管理员'):
+					$data_to_create['biz_id'] = $this->input->post('biz_id');
+				else:
+					$data_to_create['biz_id'] = $this->session->biz_id;
+				endif;
+
+				// 向数据库中写入记录
+				$result = $this->basic_model->create($data_to_create);
+				if ($result !== FALSE):
+					$data['content'] = '<p class="alert alert-success">克隆成功。</p>';
+				else:
+					$data['content'] = '<p class="alert alert-warning">克隆失败。</p>';
+				endif;
+
+				$this->load->view('templates/header', $data);
+				$this->load->view($this->view_root.'/result', $data);
+				$this->load->view('templates/footer', $data);
 			endif;
 		}
 
