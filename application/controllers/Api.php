@@ -86,12 +86,11 @@
 
 			// 获取项目数据
 			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
+			if ( !empty($project_id) )
+				$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
 
 			// 筛选条件
 			$condition = NULL;
-			//if ( !empty($project_id) )
-				//$condition['project_id'] = $project_id;
 
 			// 非系统级管理员仅可看到自己企业相关的信息
 			if ( ! empty($this->session->biz_id) ):
@@ -105,6 +104,7 @@
 			endif;
 
 			// 排序条件
+			$order_by['biz_id'] = 'ASC';
 			$order_by['project_id'] = 'ASC'; // 按API序号字母顺序进行排序
 			$order_by['code'] = 'ASC'; // 按API序号字母顺序进行排序
 

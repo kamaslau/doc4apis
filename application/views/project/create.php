@@ -54,15 +54,29 @@
 		<fieldset>
 			<legend>基本信息</legend>
 
-			<?php if ( !empty($biz) ): ?>
 			<div class=form-group>
 				<label for=biz_id class="col-sm-2 control-label">所属企业</label>
 				<div class=col-sm-10>
-					<p class="form-control-static"><?php echo $biz['brief_name'] ?></p>
-					<input name=biz_id type=hidden value="<?php echo $biz['biz_id'] ?>">
+					<select class=form-control name=biz_id>
+						<option value="">个人项目</option>
+
+					<?php if ( isset($bizs) ):
+							$input_name = 'biz_id';
+							$text_name = 'brief_name';
+							$option_list = $bizs;
+							foreach ($option_list as $option):
+						?>
+						<option value="<?php echo $option[$input_name] ?>" <?php echo set_select($input_name, $option[$input_name]) ?>>
+							<?php echo $option[$text_name] ?>
+						</option>
+						<?php endforeach ?>
+
+					<?php elseif ( isset($biz) ): ?>
+							<option value="<?php echo $biz[$input_name] ?>" <?php echo set_select($input_name, $biz[$input_name], TRUE) ?>><?php echo $biz[$text_name] ?></option>
+					<?php endif ?>
+					</select>
 				</div>
 			</div>
-			<?php endif ?>
 			
 			<div class=form-group>
 				<label for=name class="col-sm-2 control-label">名称</label>

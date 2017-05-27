@@ -114,7 +114,7 @@ $(function(){
 						'<li class="col-xs-12 col-md-3">' +
 						'	<figure class="thumbnail">' +
 						'		<figcaption>' + item.content + '</figcaption>' +
-						'		<img src="' + uploads_url + dir_target + '/'+ item.content +'">' +
+						'		<img src="' + uploads_url + '/'+ item.content +'">' +
 						'	</figure>' +
 						'</li>';
 

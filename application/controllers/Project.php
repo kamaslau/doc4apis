@@ -84,12 +84,20 @@
 
 			// 筛选条件
 			$condition = NULL;
+
 			// 非系统级管理员仅可看到自己企业相关的信息
-			if ( ! empty($this->session->biz_id) )
+			if ( ! empty($this->session->biz_id) ):
 				$condition['biz_id'] = $this->session->biz_id;
 
+			// 系统级管理员可查看任意企业的相关信息
+			elseif ($this->session->role === '管理员'):
+				$biz_id = $this->input->get_post('biz_id')? $this->input->get_post('biz_id'): NULL;
+				if ( !empty($biz_id) )
+					$condition['biz_id'] = $biz_id;
+			endif;
+
 			// 排序条件
-			$order_by['biz_id'] = 'DESC';
+			$order_by['biz_id'] = 'ASC';
 
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);
@@ -186,6 +194,17 @@
 			$biz_id = $this->input->get_post('biz_id')? $this->input->get_post('biz_id'): NULL;
 			if ( ! empty($biz_id) )
 				$data['biz'] = $this->basic->get_by_id($biz_id, 'biz', 'biz_id');
+			
+			// 管理员可获取所有企业、项目信息待选
+			if ($this->session->role === '管理员'):
+				$this->basic_model->table_name = 'biz';
+				$this->basic_model->id_name = 'biz_id';
+				$data['bizs'] = $this->basic_model->select(NULL, NULL);
+
+				// 还原数据库相关类属性
+				$this->basic_model->table_name = $this->table_name;
+				$this->basic_model->id_name = $this->id_name;
+			endif;
 
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
@@ -205,6 +224,12 @@
 				'url_preview' => $this->input->post('url_preview'),
 				'url_assets' => $this->input->post('url_assets'),
 			);
+			// 非系统管理员的用户，企业ID默认为当前用户所属企业ID
+			if ($this->session->role !== '管理员'):
+				$data_to_create['biz_id'] = $this->session->biz_id;
+			else:
+				$data_to_create['biz_id'] = $this->input->post('biz_id');
+			endif;
 
 			// Go Basic!
 			$this->basic->create($data, $data_to_create);

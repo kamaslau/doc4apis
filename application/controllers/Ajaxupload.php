@@ -15,14 +15,15 @@
 		// 上传目标文件夹名
 		public $target_directory;
 
-		// 上传目标路径
+		// 上传目标路径，即含有处理上传的服务器本地路径的URL，例如"uploads/..."
 		public $target_url;
+
+		// 可访问该文件的路径，即忽略服务器本地路径的文件URL
+		public $path_to_file;
 
 		// 初始化总体上传结果，默认上传成功
 		public $result = array(
 			'status' => 200,
-			'content' => '上传成功',
-			'items' => array(),
 		);
 
 		// 构造函数
@@ -36,12 +37,13 @@
 			// 仅接受AJAX请求
 			($this->input->is_ajax_request() === TRUE) OR (redirect( base_url('error/code_404') ));
 
-			// 获取并设置目标路径
-			$this->target_directory = 'uploads/'. $this->input->post_get('target');
+			// 获取并设置可访问路径、上传目标路径
+			$this->path_to_file = $this->input->post_get('target').'/'. date('Y_m').'/'. date('m_d').'/'. date('Hi').'/'; // 按上传时间进行分组，最小分组单位为分
+			$this->target_directory = 'uploads/'. $this->path_to_file;
 
 			// 检查目标路径是否存在
 			if ( ! file_exists($this->target_directory) )
-				mkdir($this->target_directory, 0777); // 若不存在则新建
+				mkdir($this->target_directory, 0777, TRUE); // 若不存在则新建，且允许新建多级子目录
 
 			// 设置目标路径
 			chmod($this->target_directory, 0777); // 设置权限为可写
@@ -92,9 +94,9 @@
 						// 若存在上传失败的文件，在总体结果中进行体现
 						if ( $upload_result['status'] === 400 ):
 							$this->result['status'] = 400;
-							$this->result['content'] = '文件上传失败';
+							$this->result['content']['error']['message'] = '文件上传失败';
 						endif;
-						$this->result['items'][] = $upload_result;
+						$this->result['content']['items'][] = $upload_result;
 
 					// 若获取失败，判断失败原因，并返回相应提示
 					else:
@@ -115,7 +117,7 @@
 								$content = '上传失败';
 						endswitch;
 						$this->result['status'] = 400;
-						$this->result['content'] = $content;
+						$this->result['content']['error']['message'] = $content;
 
 					endif;
 
@@ -125,7 +127,7 @@
 			else:
 				$content = '没有文件被上传';
 				$this->result['status'] = 400;
-				$this->result['content'] = $content;
+				$this->result['content']['error']['message'] = $content;
 
 			endif;
 		}
@@ -149,11 +151,11 @@
 
 			if ($result === TRUE):
 				$data['status'] = 200;
-				$data['content'] = $this->upload->data('file_name'); // 返回上传后的文件名
+				$data['content'] = $this->path_to_file. $this->upload->data('file_name'); // 返回上传后的文件路径
 			else:
 				$data['status'] = 400;
 				$data['content']['file'] = $_FILES[$field_index]; // 返回源文件信息
-				$data['content']['descirption'] = $this->upload->display_errors('',''); // 返回纯文本格式的错误说明
+				$data['content']['error']['message'] = $this->upload->display_errors('',''); // 返回纯文本格式的错误说明
 			endif;
 
 			return $data;

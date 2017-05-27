@@ -63,7 +63,7 @@
 	?>
 		<fieldset>
 			<legend>基本信息</legend>
-			
+
 			<div class=form-group>
 				<label for=biz_id class="col-sm-2 control-label">所属企业</label>
 				<div class=col-sm-10>
