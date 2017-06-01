@@ -165,6 +165,11 @@
 			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
 			$this->form_validation->set_rules('sandbox_url_web', '开发环境WEB URL', 'trim|valid_url');
 			$this->form_validation->set_rules('sandbox_url_api', '开发环境API URL', 'trim|valid_url');
+			$this->form_validation->set_rules('encode', '编码方式', 'trim');
+			$this->form_validation->set_rules('protocol', '传输协议', 'trim');
+			$this->form_validation->set_rules('request_method', '请求方式', 'trim');
+			$this->form_validation->set_rules('request_format', '请求格式', 'trim');
+			$this->form_validation->set_rules('respond_format', '响应返回格式', 'trim');
 			$this->form_validation->set_rules('sign', '签名方式', 'trim');
 			$this->form_validation->set_rules('params_request', '请求参数', 'trim');
 			$this->form_validation->set_rules('params_respond', '返回参数', 'trim');
@@ -181,6 +186,13 @@
 				'url_android' => $this->input->post('url_android'),
 				'sandbox_url_web' => $this->input->post('sandbox_url_web'),
 				'sandbox_url_api' => $this->input->post('sandbox_url_api'),
+				
+				'encode' => $this->input->post('encode'),
+				'protocol' => $this->input->post('protocol'),
+				'request_method' => $this->input->post('request_method'),
+				'request_format' => $this->input->post('request_format'),
+				'respond_format' => $this->input->post('respond_format'),
+				
 				'sign' => $this->input->post('sign'),
 				'params_request' => $this->input->post('params_request'),
 				'params_respond' => $this->input->post('params_respond'),
@@ -216,6 +228,11 @@
 			$this->form_validation->set_rules('url_android', 'Android URL', 'trim|valid_url');
 			$this->form_validation->set_rules('sandbox_url_web', '开发环境WEB URL', 'trim|valid_url');
 			$this->form_validation->set_rules('sandbox_url_api', '开发环境API URL', 'trim|valid_url');
+			$this->form_validation->set_rules('encode', '编码方式', 'trim');
+			$this->form_validation->set_rules('protocol', '传输协议', 'trim');
+			$this->form_validation->set_rules('request_method', '请求方式', 'trim');
+			$this->form_validation->set_rules('request_format', '请求格式', 'trim');
+			$this->form_validation->set_rules('respond_format', '响应返回格式', 'trim');
 			$this->form_validation->set_rules('sign', '签名方式', 'trim');
 			$this->form_validation->set_rules('params_request', '公共请求参数', 'trim');
 			$this->form_validation->set_rules('params_respond', '公共返回参数', 'trim');
@@ -231,6 +248,13 @@
 				'url_android' => $this->input->post('url_android'),
 				'sandbox_url_web' => $this->input->post('sandbox_url_web'),
 				'sandbox_url_api' => $this->input->post('sandbox_url_api'),
+				
+				'encode' => $this->input->post('encode'),
+				'protocol' => $this->input->post('protocol'),
+				'request_method' => $this->input->post('request_method'),
+				'request_format' => $this->input->post('request_format'),
+				'respond_format' => $this->input->post('respond_format'),
+				
 				'sign' => $this->input->post('sign'),
 				'params_request' => $this->input->post('params_request'),
 				'params_respond' => $this->input->post('params_respond'),

@@ -3,7 +3,7 @@
  *
  * 处理AJAX文件上传
  *
- * @version beta20170515
+ * @version beta20170601
  * @author Kamas 'Iceberg' Lau <https://github.com/kamaslau/ajaxupload>
  * @copyright Kamas 'Iceberg' Lau <kamaslau@outlook.com>
  */
@@ -47,7 +47,7 @@ $(function(){
 	// 获取文件大小
 	function file_size(file)
 	{
-		return (file.files[0].size / 1024).toFixed(2);
+		return (file.files[0].size / 1024).toFixed(2); // 保留两位小数
 	}
 
 	// 处理文件上传
@@ -87,6 +87,8 @@ $(function(){
 	        processData: false,  // 不处理发送的数据
 	        contentType: false // 不设置Content-Type请求头
 	    }).then(function(data){
+			// 输出响应值以便测试
+			//console.log(data);
 
 			// 进行总体提示
 			if (data.status == 200)
@@ -101,9 +103,13 @@ $(function(){
 			// 初始化表单值
 			var input_value = '';
 
+			// 初始化预览区
+			var file_previewer = button.siblings('.upload_preview');
+			file_previewer.html('');
+
 			// 轮番显示上传结果
 			$.each(
-				data.items,
+				data.content.items,
 				function(i, item)
 				{
 					// 若上传成功，显示预览；若上传失败，显示源文件信息及错误描述
@@ -112,9 +118,9 @@ $(function(){
 						// 更新预览区
 						var item_content =
 						'<li class="col-xs-12 col-md-3">' +
-						'	<figure class="thumbnail">' +
+						'	<figure class=thumbnail>' +
 						'		<figcaption>' + item.content + '</figcaption>' +
-						'		<img src="' + uploads_url + '/'+ item.content +'">' +
+						'		<img src="' + uploads_url + item.content +'">' +
 						'	</figure>' +
 						'</li>';
 
@@ -135,8 +141,7 @@ $(function(){
 						'</li>';
 					}
 
-					// 在相应位置显示预览
-					var file_previewer = button.siblings('.upload_preview');
+					// 在预览区显示预览
 					file_previewer.prepend(item_content);
 				}
 			); //end $.each

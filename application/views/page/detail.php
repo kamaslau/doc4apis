@@ -44,8 +44,9 @@
 	</div>
 	<?php endif ?>
 
-	<h2><?php echo $item['name'] ?></h2>
+	<h2><?php echo $item['code'] ?> <?php echo $item['name'] ?></h2>
 	<p><?php echo $item['description'] ?></p>
+
 	<dl class=dl-horizontal>
 		<?php if ( !empty($item['code_class']) && !empty($item['code_function']) ): ?>
 		<dt>类名</dt>
@@ -97,6 +98,10 @@
 			</li>
 			<?php endif ?>
 		</ul>
+		
+		<?php if ( !empty($item['note_designer']) ) ?>
+		<p><?php echp $item['note_designer'] ?></p>
+		<?php endif ?>
 	</section>
 
 	<?php if ( !empty($item['onloads']) ): ?>
@@ -136,6 +141,12 @@
 			<a class="btn btn-default" href="<?php echo base_url('page/detail?id='.$page['page_id']) ?>" target=_blank><?php echo $page['name'] ?></a>
 			<?php endforeach ?>
 		</p>
+	</section>
+	<?php endif ?>
+
+	<?php if ( !empty($item['note_developer']) ) ?>
+	<section>
+		<p><?php echp $item['note_developer'] ?></p>
 	</section>
 	<?php endif ?>
 

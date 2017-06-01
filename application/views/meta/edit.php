@@ -198,6 +198,25 @@
 			</div>
 
 			<div class=form-group>
+				<label for=request_format class="col-sm-2 control-label">请求格式</label>
+				<div class=col-sm-10>
+					<select class=form-control name=request_format>
+						<?php
+							$input_name = 'request_format';
+							$options = array('form-data','x-www-form-urlencoded','raw','binary','JSON','XML');
+							foreach ($options as $option):
+						?>
+						<option value="<?php echo $option ?>" <?php if ($option === $item[$input_name]) echo 'selected'; ?>>
+							<?php echo $option ?>
+						</option>
+						<?php endforeach ?>
+					</select>
+
+					<?php echo form_error('request_format') ?>
+				</div>
+			</div>
+
+			<div class=form-group>
 				<label for=respond_format class="col-sm-2 control-label">响应返回格式</label>
 				<div class=col-sm-10>
 					<select class=form-control name=respond_format>

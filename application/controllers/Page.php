@@ -227,10 +227,12 @@
 			$this->form_validation->set_rules('elements', '主要视图元素', 'trim');
 			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
 			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim|valid_url');
+			$this->form_validation->set_rules('note_designer', '设计师备注', 'trim');
 			$this->form_validation->set_rules('onloads', '载入事件', 'trim');
 			$this->form_validation->set_rules('events', '业务流程', 'trim');
 			$this->form_validation->set_rules('api_ids', '相关API', 'trim');
 			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
+			$this->form_validation->set_rules('note_developer', '开发者备注', 'trim');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
@@ -244,10 +246,12 @@
 				'elements' => $this->input->post('elements'),
 				'url_design' => $this->input->post('url_design'),
 				'url_assets' => $this->input->post('url_assets'),
+				'note_designer' => $this->input->post('note_designer'),
 				'onloads' => $this->input->post('onloads'),
 				'events' => $this->input->post('events'),
 				'api_ids' => $this->input->post('api_ids'),
 				'page_ids' => $this->input->post('page_ids'),
+				'note_developer' => $this->input->post('note_developer'),
 			);
 
 			// Go Basic!
@@ -291,10 +295,12 @@
 			$this->form_validation->set_rules('elements', '视图元素', 'trim');
 			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
 			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim|valid_url');
+			$this->form_validation->set_rules('note_designer', '设计师备注', 'trim');
 			$this->form_validation->set_rules('onloads', '载入事件', 'trim');
 			$this->form_validation->set_rules('events', '业务流程', 'trim');
 			$this->form_validation->set_rules('api_ids', '相关API', 'trim');
 			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
+			$this->form_validation->set_rules('note_developer', '开发者备注', 'trim');
 
 			// 验证表单值格式
 			if ($this->form_validation->run() === FALSE):
@@ -314,10 +320,12 @@
 					'elements' => $this->input->post('elements'),
 					'url_design' => $this->input->post('url_design'),
 					'url_assets' => $this->input->post('url_assets'),
+					'note_designer' => $this->input->post('note_designer'),
 					'onloads' => $this->input->post('onloads'),
 					'events' => $this->input->post('events'),
 					'api_ids' => $this->input->post('api_ids'),
 					'page_ids' => $this->input->post('page_ids'),
+					'note_developer' => $this->input->post('note_developer'),
 				);
 
 				$result = $this->basic_model->edit($id, $data_to_edit);

@@ -54,7 +54,7 @@
 	?>
 		<fieldset>
 			<legend>基本信息</legend>
-			
+
 			<div class=form-group>
 				<label class="col-sm-2 control-label">所属项目</label>
 				<div class=col-sm-10>
@@ -65,9 +65,17 @@
 			<div class=form-group>
 				<label for=name class="col-sm-2 control-label">名称</label>
 				<div class=col-sm-10>
-					<input class=form-control name=name type=text value="<?php echo $item['name'] ?>" placeholder="页面名称，无需加“页”字" required>
+					<input class=form-control name=name type=text value="<?php echo $item['name'] ?>" placeholder="页面名称，不加“页”字" required>
 				</div>
 				<?php echo form_error('name') ?>
+			</div>
+
+			<div class=form-group>
+				<label for=code class="col-sm-2 control-label">序号</label>
+				<div class=col-sm-10>
+					<input class=form-control name=code type=text value="<?php echo $item['code'] ?>" placeholder="例如：BIZ100；系统会自动将英文字母转为大写" required>
+				</div>
+				<?php echo form_error('code') ?>
 			</div>
 
 			<div class=form-group>
@@ -93,7 +101,7 @@
 					<?php echo form_error('code_function') ?>
 				</div>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=private class="col-sm-2 control-label">需登录</label>
 				<div class=col-sm-10>
@@ -111,14 +119,14 @@
 				<label for=elements class="col-sm-2 control-label">主要视图元素（可选）</label>
 				<div class=col-sm-10>
 					<code class=help-block>
-						&lt;tr&gt;&lt;td&gt;ID&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
+						&lt;tr&gt;&lt;td&gt;元素ID&lt;/td&gt;&lt;td&gt;所属组件ID&lt;/td&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
 					<a class="add-html btn btn-info" data-textarea-name=elements>+</a>
 					<textarea class=form-control name=elements rows=10 placeholder="完成页面功能所必需的视图元素，包括但不限于文本、图片、视频、按钮、表单项等"><?php echo $item['elements'] ?></textarea>
 				</div>
 				<?php echo form_error('elements') ?>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=url_design class="col-sm-2 control-label">设计图URL（可选）</label>
 				<div class=col-sm-10>
@@ -164,6 +172,14 @@
 			</div>
 
 			<div class=form-group>
+				<label for=note_designer class="col-sm-2 control-label">设计师备注（可选）</label>
+				<div class=col-sm-10>
+					<textarea class=form-control name=note_designer rows=3 placeholder="对于页面设计的补充说明或解释；最多255个字符"><?php echo $item['note_designer'] ?></textarea>
+				</div>
+				<?php echo form_error('note_designer') ?>
+			</div>
+
+			<div class=form-group>
 				<label for=onloads class="col-sm-2 control-label">载入事件（可选）</label>
 				<div class=col-sm-10>
 					<code class=help-block>
@@ -174,7 +190,7 @@
 					<?php echo form_error('onloads') ?>
 				</div>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=events class="col-sm-2 control-label">业务流程（可选）</label>
 				<div class=col-sm-10>
@@ -194,13 +210,21 @@
 					<?php echo form_error('api_ids') ?>
 				</div>
 			</div>
-			
+
 			<div class=form-group>
 				<label for=page_ids class="col-sm-2 control-label">相关页面（可选）</label>
 				<div class=col-sm-10>
 					<input class=form-control name=page_ids type=text value="<?php echo $item['page_ids'] ?>" placeholder="与当前页面有关的其它页面的ID们，多个ID间用一个空格分隔">
 					<?php echo form_error('page_ids') ?>
 				</div>
+			</div>
+
+			<div class=form-group>
+				<label for=note_developer class="col-sm-2 control-label">开发者备注（可选）</label>
+				<div class=col-sm-10>
+					<textarea class=form-control name=note_developer rows=3 placeholder="对于技术开发的补充说明或解释；最多255个字符"><?php echo $item['note_developer'] ?></textarea>
+				</div>
+				<?php echo form_error('note_developer') ?>
 			</div>
 		</fieldset>
 

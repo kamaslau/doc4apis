@@ -126,7 +126,7 @@
 			<?php endif ?>
 		</dl>
 	</section>
-	
+
 	<section>
 		<h3>API规范</h3>
 		<dl class=dl-horizontal>
@@ -138,6 +138,9 @@
 
 			<dt>请求方式</dt>
 			<dd><?php echo $item['request_method'] ?></dd>
+
+			<dt>请求格式</dt>
+			<dd><?php echo $item['request_format'] ?></dd>
 
 			<dt>响应返回格式</dt>
 			<dd><?php echo $item['respond_format'] ?></dd>
