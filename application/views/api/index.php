@@ -59,14 +59,13 @@
 	<table class="table table-condensed table-responsive table-striped sortable">
 		<thead>
 			<tr>
+				<th>动态</th>
 				<?php
 					$thead = array_values($data_to_display);
 					foreach ($thead as $th):
 						echo '<th>' .$th. '</th>';
 					endforeach;
 				?>
-				<th>动态</th>
-				<th>更新时间</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -74,12 +73,6 @@
 		<tbody>
 		<?php foreach ($items as $item): ?>
 			<tr>
-				<?php
-					$tr = array_keys($data_to_display);
-					foreach ($tr as $td):
-						echo '<td>' .$item[$td]. '</td>';
-					endforeach;
-				?>
 				<td>
 				<?php
 					$time_current = time();
@@ -93,9 +86,14 @@
 						echo '<i class="fa fa-fw fa-exclamation" aria-hidden=true></i>';
 				?>
 				</td>
-				<td><?php echo $item['time_edit'] ?></td>
+				<?php
+					$tr = array_keys($data_to_display);
+					foreach ($tr as $td):
+						echo '<td>' .$item[$td]. '</td>';
+					endforeach;
+				?>
 				<td>
-					<ul class=list-unstyled>
+					<ul class="list-unstyled horizontal">
 						<li><a title="查看" href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-eye"></i> 查看</a></li>
 						<?php
 						// 需要特定角色和权限进行该操作
