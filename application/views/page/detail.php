@@ -60,12 +60,12 @@
 	</dl>
 
 	<section>
-		<h3>主要视图元素</h3>
+		<h3>视图元素</h3>
 		<table class="table table-striped">
-			<caption>请求参数</caption>
+			<caption>主要视图元素</caption>
 			<thead>
 				<tr>
-					<th>ID</th><th>类型</th><th>内容</th><th>说明</th>
+					<td>名称</td><td>所属组件ID</td><td>类型</td><td>说明</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -82,13 +82,14 @@
 						$items_array = explode(' ', $item['url_design']);
 						foreach ($items_array as $item_to_show):
 			?>	
-				<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'page/'.$item_to_show ?>">
+				<img class="col-xs-12 col-sm-6 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'page/'.$item_to_show ?>">
 			<?php
 						endforeach;
 					else:
 			?>
 				<img class="col-xs-12 col-md-3" alt="<?php echo $item['name'] ?>" src="<?php echo IMAGES_URL.'page/'.$item['url_design'] ?>">
 			<?php 	endif ?>
+				<figcaption>设计师备注</figcaption>
 			</figure>
 			<?php endif ?>
 
@@ -98,9 +99,9 @@
 			</li>
 			<?php endif ?>
 		</ul>
-		
-		<?php if ( !empty($item['note_designer']) ) ?>
-		<p><?php echp $item['note_designer'] ?></p>
+
+		<?php if ( !empty($item['note_designer']) ): ?>
+		<p><?php echo $item['note_designer'] ?></p>
 		<?php endif ?>
 	</section>
 
@@ -126,7 +127,7 @@
 		<p>
 			<?php foreach ($apis as $api): ?>
 			<span class="label label-default">
-				<a href="<?php echo base_url('api/detail?id='.$api['api_id']) ?>" target=_blank><?php echo $api['name'] ?></a>
+				<a href="<?php echo base_url('api/detail?id='.$api['api_id']) ?>" target=_blank><?php echo $api['code'] ?></a>
 			</span>
 			<?php endforeach ?>
 		</p>
@@ -144,9 +145,10 @@
 	</section>
 	<?php endif ?>
 
-	<?php if ( !empty($item['note_developer']) ) ?>
+	<?php if ( !empty($item['note_developer']) ): ?>
 	<section>
-		<p><?php echp $item['note_developer'] ?></p>
+		<h3>开发者备注</h3>
+		<p><?php echo $item['note_developer'] ?></p>
 	</section>
 	<?php endif ?>
 

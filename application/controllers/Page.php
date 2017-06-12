@@ -88,7 +88,7 @@
 			
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
-			
+
 			// 筛选条件
 			if ( !empty($project_id) )
 				$condition['project_id'] = $project_id;
@@ -219,6 +219,7 @@
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
 			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
+			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('code_class', '类名', 'trim|alpha_dash');
@@ -238,6 +239,7 @@
 			$data_to_create = array(
 				'project_id' => $this->input->post('project_id'),
 				'category_id' => $this->input->post('category_id'),
+				'code' => strtoupper( $this->input->post('code') ),
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
 				'code_class' => $this->input->post('code_class'),
@@ -287,6 +289,7 @@
 
 			// 待验证的表单项
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
+			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('code_class', '类名', 'trim|alpha_dash');
@@ -312,6 +315,7 @@
 				// 需要编辑的信息
 				$data_to_edit = array(
 					'category_id' => $this->input->post('category_id'),
+					'code' => strtoupper( $this->input->post('code') ),
 					'name' => $this->input->post('name'),
 					'description' => $this->input->post('description'),
 					'code_class' => $this->input->post('code_class'),

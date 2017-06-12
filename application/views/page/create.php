@@ -120,8 +120,9 @@
 			<div class=form-group>
 				<label for=elements class="col-sm-2 control-label">主要视图元素（可选）</label>
 				<div class=col-sm-10>
+					<code class=help-block>常用制表符 ┣┗</code>
 					<code class=help-block>
-						&lt;tr&gt;&lt;td&gt;元素ID&lt;/td&gt;&lt;td&gt;所属组件ID&lt;/td&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
+						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;所属组件ID&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
 					<a class="add-html btn btn-info" data-textarea-name=elements>+</a>
 					<textarea class=form-control name=elements rows=10 placeholder="完成页面功能所必需的视图元素，包括但不限于文本、图片、视频、按钮、表单项等"><?php echo set_value('elements') ?></textarea>
@@ -175,8 +176,9 @@
 			<div class=form-group>
 				<label for=events class="col-sm-2 control-label">业务流程（可选）</label>
 				<div class=col-sm-10>
+					<code class=help-block>常用制表符 ┣┗</code>
 					<code class=help-block>
-						&lt;h4&gt;&lt;/h4&gt;&lt;ol&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ol&gt;
+						&lt;div class="panel panel-default"&gt;&lt;h4 class=panel-heading&gt;&lt;/h4&gt;&lt;ol class=panel-body&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;
 					</code>
 					<a class="add-html btn btn-info" data-textarea-name=events>+</a>
 					<textarea class=form-control name=events rows=10 placeholder="除载入事件外，页面内可以完成的功能"><?php echo set_value('events') ?></textarea>

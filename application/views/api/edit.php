@@ -145,6 +145,7 @@
 			<div class=form-group>
 				<label for=params_request class="col-sm-2 control-label">请求参数（可选）</label>
 				<div class=col-sm-10>
+					<code class=help-block>常用制表符 ┣┗</code>
 					<code class=help-block>
 						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;是否必要&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>
@@ -157,6 +158,7 @@
 			<div class=form-group>
 				<label for=params_respond class="col-sm-2 control-label">响应参数（可选）</label>
 				<div class=col-sm-10>
+					<code class=help-block>常用制表符 ┣┗</code>
 					<code class=help-block>
 						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;示例&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
 					</code>

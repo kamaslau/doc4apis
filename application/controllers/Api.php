@@ -230,8 +230,8 @@
 			$this->form_validation->set_rules('biz_id', '所属项目ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
-			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
+			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('url', 'URL', 'trim');
 			$this->form_validation->set_rules('url_full', '第三方URL', 'trim|valid_url');
 			$this->form_validation->set_rules('description', '说明', 'trim');
@@ -312,8 +312,8 @@
 				$this->form_validation->set_rules('biz_id', '所属企业', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
-			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
+			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('url', 'URL', 'trim');
 			$this->form_validation->set_rules('url_full', '第三方URL', 'trim|valid_url');
 			$this->form_validation->set_rules('description', '说明', 'trim');
@@ -333,8 +333,8 @@
 				$data_to_edit = array(
 					'project_id' => $this->input->post('project_id'),
 					'category_id' => $this->input->post('category_id'),
-					'name' => $this->input->post('name'),
 					'code' => strtoupper($this->input->post('code')),
+					'name' => $this->input->post('name'),
 					'url' => $this->input->post('url'),
 					'url_full' => $this->input->post('url_full'),
 					'description' => $this->input->post('description'),
