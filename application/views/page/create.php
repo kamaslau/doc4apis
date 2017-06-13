@@ -57,10 +57,50 @@
 			<legend>基本信息</legend>
 
 			<div class=form-group>
+				<label for=biz_id class="col-sm-2 control-label">所属企业</label>
+				<div class=col-sm-10>
+					<select class=form-control name=biz_id>
+						<option value="">个人项目</option>
+
+					<?php if ( isset($bizs) ):
+							$input_name = 'biz_id';
+							$text_name = 'brief_name';
+							$option_list = $bizs;
+							foreach ($option_list as $option):
+						?>
+						<option value="<?php echo $option[$input_name] ?>" <?php echo set_select($input_name, $option[$input_name]) ?>>
+							<?php echo $option[$text_name] ?>
+						</option>
+						<?php endforeach ?>
+
+					<?php elseif ( isset($biz) ): ?>
+							<option value="<?php echo $biz[$input_name] ?>" <?php echo set_select($input_name, $biz[$input_name], TRUE) ?>><?php echo $biz[$text_name] ?></option>
+					<?php endif ?>
+					</select>
+				</div>
+			</div>
+
+			<div class=form-group>
 				<label for=project_id class="col-sm-2 control-label">所属项目</label>
 				<div class=col-sm-10>
-					<p class="form-control-static"><?php echo $project['name'] ?></p>
-					<input name=project_id type=hidden value="<?php echo $project['project_id'] ?>">
+					<select class=form-control name=project_id>
+						<option value="">不限</option>
+
+					<?php if ( isset($projects) ):
+							$input_name = 'project_id';
+							$text_name = 'name';
+							$option_list = $projects;
+							foreach ($option_list as $option):
+						?>
+						<option value="<?php echo $option[$input_name] ?>" <?php echo set_select($input_name, $option[$input_name]) ?>>
+							<?php echo $option[$text_name] ?>
+						</option>
+						<?php endforeach ?>
+
+					<?php elseif ( isset($project) ): ?>
+							<option value="<?php echo $project[$input_name] ?>" <?php echo set_select($input_name, $project[$input_name], TRUE) ?>><?php echo $project[$text_name] ?></option>
+					<?php endif ?>
+					</select>
 				</div>
 			</div>
 

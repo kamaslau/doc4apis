@@ -85,7 +85,7 @@
 
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
-			
+
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
 
@@ -96,17 +96,17 @@
 			// 非系统级管理员仅可看到自己企业相关的信息
 			if ( ! empty($this->session->biz_id) ):
 				$condition['biz_id'] = $this->session->biz_id;
-			
+
 			// 系统级管理员可查看任意企业的相关信息
 			elseif ($this->session->role === '管理员'):
 				$biz_id = $this->input->get_post('biz_id')? $this->input->get_post('biz_id'): NULL;
 				if ( !empty($biz_id) )
 					$condition['biz_id'] = $biz_id;
 			endif;
-			
+
 			// 排序条件
 			$order_by[$this->id_name] = 'ASC';
-			
+
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);
 		}
@@ -215,8 +215,24 @@
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
 
+			// 管理员可获取所有企业、项目信息待选
+			if ($this->session->role === '管理员'):
+				$this->basic_model->table_name = 'biz';
+				$this->basic_model->id_name = 'biz_id';
+				$data['bizs'] = $this->basic_model->select(NULL, NULL);
+
+				$this->basic_model->table_name = 'project';
+				$this->basic_model->id_name = 'project_id';
+				$data['projects'] = $this->basic_model->select(NULL, NULL);
+
+				// 还原数据库相关类属性
+				$this->basic_model->table_name = $this->table_name;
+				$this->basic_model->id_name = $this->id_name;
+			endif;
+
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
+			$this->form_validation->set_rules('biz_id', '所属企业ID', 'trim|is_natural_no_zero|required');
 			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
@@ -237,6 +253,7 @@
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
+				'biz_id' => $this->input->post('biz_id'),
 				'project_id' => $this->input->post('project_id'),
 				'category_id' => $this->input->post('category_id'),
 				'code' => strtoupper( $this->input->post('code') ),
@@ -284,6 +301,21 @@
 			// 获取待编辑信息
 			$data['item'] = $this->basic_model->select_by_id($id);
 
+			// 管理员可获取所有企业、项目信息待选
+			if ($this->session->role === '管理员'):
+				$this->basic_model->table_name = 'biz';
+				$this->basic_model->id_name = 'biz_id';
+				$data['bizs'] = $this->basic_model->select(NULL, NULL);
+
+				$this->basic_model->table_name = 'project';
+				$this->basic_model->id_name = 'project_id';
+				$data['projects'] = $this->basic_model->select(NULL, NULL);
+
+				// 还原数据库相关类属性
+				$this->basic_model->table_name = $this->table_name;
+				$this->basic_model->id_name = $this->id_name;
+			endif;
+			
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($data['item'][$this->id_name], 'project', 'project_id');
 
@@ -380,7 +412,7 @@
 			// Go Basic!
 			$this->basic->bulk($data, $data_to_edit, $op_name, $op_view);
 		}
-		
+
 		/**
 		 * 恢复单行或多行项目
 		 */
@@ -399,7 +431,7 @@
 				'title' => $op_name. $this->class_name_cn,
 				'class' => $this->class_name.' '. $this->class_name.'-'. $op_view,
 			);
-			
+
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
