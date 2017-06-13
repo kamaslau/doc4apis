@@ -120,6 +120,13 @@
 		<?php echo $item['events'] ?>
 	</section>
 	<?php endif ?>
+	
+	<?php if ( !empty($item['note_developer']) ): ?>
+	<section>
+		<h3>开发者备注</h3>
+		<p><?php echo $item['note_developer'] ?></p>
+	</section>
+	<?php endif ?>
 
 	<?php if ( !empty($item['api_ids']) ): ?>
 	<section>
@@ -145,13 +152,6 @@
 			<a class="btn btn-default" href="<?php echo base_url('page/detail?id='.$page['page_id']) ?>" target=_blank><?php echo $page['name'] ?></a>
 			<?php endforeach ?>
 		</p>
-	</section>
-	<?php endif ?>
-
-	<?php if ( !empty($item['note_developer']) ): ?>
-	<section>
-		<h3>开发者备注</h3>
-		<p><?php echo $item['note_developer'] ?></p>
 	</section>
 	<?php endif ?>
 

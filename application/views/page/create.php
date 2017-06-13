@@ -208,7 +208,7 @@
 						&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;
 					</code>
 					<a class="add-html btn btn-info" data-textarea-name=onloads>+</a>
-					<textarea class=form-control name=onloads rows=10 placeholder="页面载入时需要完成的功能"><?php echo set_value('onloads') ?></textarea>
+					<textarea class=form-control name=onloads rows=8 placeholder="页面载入时需要完成的功能"><?php echo set_value('onloads') ?></textarea>
 				</div>
 				<?php echo form_error('onloads') ?>
 			</div>
@@ -221,7 +221,7 @@
 						&lt;div class="panel panel-default"&gt;&lt;h4 class=panel-heading&gt;&lt;/h4&gt;&lt;ol class=panel-body&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;
 					</code>
 					<a class="add-html btn btn-info" data-textarea-name=events>+</a>
-					<textarea class=form-control name=events rows=10 placeholder="除载入事件外，页面内可以完成的功能"><?php echo set_value('events') ?></textarea>
+					<textarea class=form-control name=events rows=20 placeholder="除载入事件外，页面内可以完成的功能"><?php echo set_value('events') ?></textarea>
 				</div>
 				<?php echo form_error('events') ?>
 			</div>
