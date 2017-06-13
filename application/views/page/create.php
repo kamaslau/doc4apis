@@ -148,10 +148,10 @@
 				<label for=private class="col-sm-2 control-label">需登录</label>
 				<div class=col-sm-10>
 					<label class=radio-inline>
-						<input type=radio name=private value="是" required <?php echo set_radio('private', '是', TRUE) ?>> 是
+						<input type=radio name=private value="1" required <?php echo set_radio('private', '1', TRUE) ?>> 是
 					</label>
 					<label class=radio-inline>
-						<input type=radio name=private value="否" required <?php echo set_radio('private', '否') ?>> 否
+						<input type=radio name=private value="0" required <?php echo set_radio('private', '0') ?>> 否
 					</label>
 					<?php echo form_error('private') ?>
 				</div>

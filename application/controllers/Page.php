@@ -46,8 +46,10 @@
 
 			// 设置需要自动在视图文件中生成显示的字段
 			$this->data_to_display = array(
+				'code' => '序号',
 				'name' => '名称',
-				'description' => '说明',
+				'biz_id' => '所属企业ID',
+				'project_id' => '所属项目ID',
 			);
 
 			// 设置并调用Basic核心库

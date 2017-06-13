@@ -126,9 +126,12 @@
 		<h3>相关API</h3>
 		<p>
 			<?php foreach ($apis as $api): ?>
+			<!--
 			<span class="label label-default">
 				<a href="<?php echo base_url('api/detail?id='.$api['api_id']) ?>" target=_blank><?php echo $api['code'] ?></a>
 			</span>
+			-->
+			<a class="btn btn-default" href="<?php echo base_url('api/detail?id='.$api['api_id']) ?>" target=_blank><?php echo $api['code'] ?></a>
 			<?php endforeach ?>
 		</p>
 	</section>
