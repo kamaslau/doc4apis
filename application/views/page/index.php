@@ -49,9 +49,16 @@
 	</blockquote>
 
 	<?php else: ?>
+	<dl class="well well-sm dl-horizontal">
+		<dt><i class="fa fa-fw fa-bolt" aria-hidden="true"></i></dt>
+		<dd>3天内新添加的API</dd>
+		<dt><i class="fa fa-fw fa-exclamation" aria-hidden="true"></i></dt>
+		<dd>3天内有更新的API</dd>
+	</dl>
 	<table class="table table-condensed table-responsive table-striped sortable">
 		<thead>
 			<tr>
+				<th>动态</th>
 				<?php
 					$thead = array_values($data_to_display);
 					foreach ($thead as $th):
@@ -65,6 +72,19 @@
 		<tbody>
 		<?php foreach ($items as $item): ?>
 			<tr>
+				<td>
+				<?php
+					$time_current = time();
+
+					// 若创建于3天内，则提示是新的API
+					if ( strtotime($item['time_create']) > ($time_current - 60*60*24*3) )
+						echo '<i class="fa fa-fw fa-bolt" aria-hidden=true></i>';
+
+					// 若修改于3天内，则提示是有更新的API
+					if ( strtotime($item['time_edit']) > ($time_current - 60*60*24*3) )
+						echo '<i class="fa fa-fw fa-exclamation" aria-hidden=true></i>';
+				?>
+				</td>
 				<?php
 					$tr = array_keys($data_to_display);
 					foreach ($tr as $td):
