@@ -117,8 +117,8 @@
 				$this->result['content']['count'] = $count;
 
 			else:
-				$this->result['status'] = 400;
-				$this->result['content'] = NULL;
+				$this->result['status'] = 414;
+				$this->result['content']['error']['message'] = '没有符合条件的数据';
 
 			endif;
 		} // end count
@@ -163,7 +163,7 @@
 
 			else:
 				$this->result['status'] = 414;
-				$this->result['content']['error']['message'] = NULL;
+				$this->result['content']['error']['message'] = '没有符合条件的数据';
 			
 			endif;
 		} // end index
@@ -192,7 +192,7 @@
 
 			else:
 				$this->result['status'] = 414;
-				$this->result['content']['error']['message'] = NULL;
+				$this->result['content']['error']['message'] = '没有符合条件的数据';
 
 			endif;
 		} // end detail
@@ -233,15 +233,17 @@
 			// 若表单提交不成功
 			if ($this->form_validation->run() === FALSE):
 				$this->result['status'] = 401;
-				$this->result['content']['error']['message'] = '请检查请求参数格式：'.validation_errors();
+				$this->result['content']['error']['message'] = validation_errors();
 
 			else:
 				// 需要创建的数据；逐一赋值需特别处理的字段
 				$data_to_create = array(
-					'url_name' => strtolower($this->input->post('url_name')),
+					//'name' => $this->input->post('name')),
 				);
 				// 自动生成无需特别处理的数据
-				$data_need_no_prepare = array('name', 'brief_name', 'slogan', 'description', 'notification', 'tel_public', 'tel_protected_biz', 'tel_protected_order', 'freight', 'freight_free_subtotal', 'min_order_subtotal', 'delivery_time_start', 'delivery_time_end', 'longitude', 'latitude');
+				$data_need_no_prepare = array(
+					[[names_list]]
+				);
 				foreach ($data_need_no_prepare as $name)
 					$data_to_create[$name] = $this->input->post($name);
 
@@ -297,7 +299,7 @@
 			// 若表单提交不成功
 			if ($this->form_validation->run() === FALSE):
 				$this->result['status'] = 401;
-				$this->result['content']['error']['message'] = '请检查请求参数格式：'.validation_errors();
+				$this->result['content']['error']['message'] = validation_errors();
 
 			else:
 				// 需要创建的数据；逐一赋值需特别处理的字段
@@ -379,7 +381,7 @@
 			// 若表单提交不成功
 			if ($this->form_validation->run() === FALSE):
 				$this->result['status'] = 401;
-				$this->result['content']['error']['message'] = '请检查请求参数格式：'.validation_errors();
+				$this->result['content']['error']['message'] = validation_errors();
 
 			else:
 				// 需要创建的数据；逐一赋值需特别处理的字段
@@ -437,7 +439,7 @@
 			// 验证表单值格式
 			if ($this->form_validation->run() === FALSE):
 				$this->result['status'] = 401;
-				$this->result['content']['error']['message'] = '请检查请求参数格式：'.validation_errors();
+				$this->result['content']['error']['message'] = validation_errors();
 				exit();
 
 			elseif ($this->operator_check() !== TRUE):

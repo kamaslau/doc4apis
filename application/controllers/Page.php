@@ -107,7 +107,9 @@
 			endif;
 
 			// 排序条件
-			$order_by[$this->id_name] = 'ASC';
+			$order_by['biz_id'] = 'ASC';
+			$order_by['project_id'] = 'ASC';
+			$order_by['code'] = 'ASC'; // 按序号字母顺序进行排序
 
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);

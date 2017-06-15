@@ -105,7 +105,7 @@
 
 			// 排序条件
 			$order_by['biz_id'] = 'ASC';
-			$order_by['project_id'] = 'ASC'; // 按API序号字母顺序进行排序
+			$order_by['project_id'] = 'ASC';
 			$order_by['code'] = 'ASC'; // 按API序号字母顺序进行排序
 
 			// Go Basic！
