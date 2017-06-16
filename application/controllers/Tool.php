@@ -120,13 +120,11 @@
 			$required_params = array('class_name', 'class_name_cn', 'table_name', 'id_name', 'names_csv');
 			foreach ($required_params as $param):
 				${$param} = $this->input->post($param);
-				/*
 				if ( empty( ${$param} ) ):
 					$this->result['status'] = 400;
 					$this->result['content']['error']['message'] = '必要的请求参数未全部传入';
 					exit();
 				endif;
-				*/
 			endforeach;
 
 			// 根据字段名生成相关类属性及验证规则
@@ -163,6 +161,10 @@
 				endforeach;
 
 				$file_content = str_replace('[[extra_functions]]', $extra_functions_text, $file_content);
+				
+			else:
+				$file_content = str_replace('[[extra_functions]]', NULL, $file_content);
+				
 			endif;
 
 			// 生成文件
