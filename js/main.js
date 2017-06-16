@@ -20,11 +20,14 @@ $(function(){
 		'sample_respond' : '{"status":200,"content":[{"":"","":""}]}', // 响应示例
 		'elements' : '<tr><td>名称</td><td>1</td><td>文本</td><td>说明</td></tr>', // 主要视图元素
 		'onloads' : '<li></li>'+  "\r" + '<li></li>'+  "\r" + '<li></li>', // 载入事件
+		'returns' : '<li></li>', // 返回事件
 		'events' :
 		'<div class="panel panel-default">'+ "\r"+
 		'	<h4 class=panel-heading></h4>'+ "\r"+
 		'	<ol class=panel-body>'+ "\r"+
-		'		<li></li>'+  "\r" + '<li></li>'+  "\r" + '<li></li>'+ "\r"+
+		'		<li></li>'+  "\r" +
+		'		<li></li>'+  "\r" +
+		'		<li></li>'+ "\r" +
 		'	</ol>'+ "\r"+
 		'</div>', // 业务流程（其它事件）
 		//'' : '',

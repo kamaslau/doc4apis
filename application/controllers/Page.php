@@ -245,11 +245,13 @@
 			$this->form_validation->set_rules('code_class', '类名', 'trim|alpha_dash');
 			$this->form_validation->set_rules('code_function', '方法名', 'trim|alpha_dash');
 			$this->form_validation->set_rules('private', '是否需登录', 'trim');
+			$this->form_validation->set_rules('return_allowed', '是否可返回', 'trim');
 			$this->form_validation->set_rules('elements', '主要视图元素', 'trim');
 			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
 			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim|valid_url');
 			$this->form_validation->set_rules('note_designer', '设计师备注', 'trim');
 			$this->form_validation->set_rules('onloads', '载入事件', 'trim');
+			$this->form_validation->set_rules('returns', '返回事件', 'trim');
 			$this->form_validation->set_rules('events', '业务流程', 'trim');
 			$this->form_validation->set_rules('api_ids', '相关API', 'trim');
 			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
@@ -266,11 +268,13 @@
 				'code_class' => $this->input->post('code_class'),
 				'code_function' => $this->input->post('code_function'),
 				'private' => $this->input->post('private'),
+				'return_allowed' => $this->input->post('return_allowed'),
 				'elements' => $this->input->post('elements'),
 				'url_design' => $this->input->post('url_design'),
 				'url_assets' => $this->input->post('url_assets'),
 				'note_designer' => $this->input->post('note_designer'),
 				'onloads' => $this->input->post('onloads'),
+				'returns' => $this->input->post('returns'),
 				'events' => $this->input->post('events'),
 				'api_ids' => $this->input->post('api_ids'),
 				'page_ids' => $this->input->post('page_ids'),
@@ -319,9 +323,15 @@
 				$this->basic_model->table_name = $this->table_name;
 				$this->basic_model->id_name = $this->id_name;
 			endif;
-			
+
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($data['item'][$this->id_name], 'project', 'project_id');
+
+			// 获取API列表作为“相关API”备选项
+			$data['apis'] = $this->get_apis($data['item']['biz_id']);
+
+			// 获取页面列表作为“相关页面”备选项
+			$data['pages'] = $this->get_pages($data['item']['project_id']);
 
 			// 待验证的表单项
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
@@ -331,11 +341,13 @@
 			$this->form_validation->set_rules('code_class', '类名', 'trim|alpha_dash');
 			$this->form_validation->set_rules('code_function', '方法名', 'trim|alpha_dash');
 			$this->form_validation->set_rules('private', '是否需登录', 'trim');
+			$this->form_validation->set_rules('return_allowed', '是否可返回', 'trim');
 			$this->form_validation->set_rules('elements', '视图元素', 'trim');
 			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
 			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim|valid_url');
 			$this->form_validation->set_rules('note_designer', '设计师备注', 'trim');
 			$this->form_validation->set_rules('onloads', '载入事件', 'trim');
+			$this->form_validation->set_rules('returns', '返回事件', 'trim');
 			$this->form_validation->set_rules('events', '业务流程', 'trim');
 			$this->form_validation->set_rules('api_ids', '相关API', 'trim');
 			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
@@ -357,11 +369,13 @@
 					'code_class' => $this->input->post('code_class'),
 					'code_function' => $this->input->post('code_function'),
 					'private' => $this->input->post('private'),
+					'return_allowed' => $this->input->post('return_allowed'),
 					'elements' => $this->input->post('elements'),
 					'url_design' => $this->input->post('url_design'),
 					'url_assets' => $this->input->post('url_assets'),
 					'note_designer' => $this->input->post('note_designer'),
 					'onloads' => $this->input->post('onloads'),
+					'returns' => $this->input->post('returns'),
 					'events' => $this->input->post('events'),
 					'api_ids' => $this->input->post('api_ids'),
 					'page_ids' => $this->input->post('page_ids'),
@@ -369,7 +383,6 @@
 				);
 
 				$result = $this->basic_model->edit($id, $data_to_edit);
-
 				if ($result !== FALSE):
 					$data['content'] = '<p class="alert alert-success">保存成功。</p>';
 				else:
@@ -381,6 +394,42 @@
 				$this->load->view('templates/footer', $data);
 
 			endif;
+		}
+		
+		// 根据企业ID获取API列表
+		private function get_apis($biz_id)
+		{
+			$this->basic_model->table_name = 'api';
+			$this->basic_model->id_name = 'api_id';
+			
+			$condition['biz_id'] = $biz_id;
+			$this->db->select('api_id, code, name');
+			$this->db->order_by('code', 'ASC');
+			$result = $this->basic_model->select($condition);
+
+			// 还原数据库相关类属性
+			$this->basic_model->table_name = $this->table_name;
+			$this->basic_model->id_name = $this->id_name;
+			
+			return $result;
+		}
+		
+		// 根据项目ID获取页面列表
+		private function get_pages($project_id)
+		{
+			$this->basic_model->table_name = 'page';
+			$this->basic_model->id_name = 'page_id';
+
+			$condition['project_id'] = $project_id;
+			$this->db->select('page_id, code, name');
+			$this->db->order_by('code', 'ASC');
+			$result = $this->basic_model->select($condition);
+
+			// 还原数据库相关类属性
+			$this->basic_model->table_name = $this->table_name;
+			$this->basic_model->id_name = $this->id_name;
+			
+			return $result;
 		}
 
 		/**

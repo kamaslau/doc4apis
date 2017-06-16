@@ -156,6 +156,20 @@
 					<?php echo form_error('private') ?>
 				</div>
 			</div>
+			
+			<div class=form-group>
+				<label for=return_allowed class="col-sm-2 control-label">可返回</label>
+				<div class=col-sm-10>
+					<p class=help-block>移动端“返回”按钮是否可用</p>
+					<label class=radio-inline>
+						<input type=radio name=return_allowed value="1" required <?php echo set_radio('return_allowed', '1', TRUE) ?>> 是
+					</label>
+					<label class=radio-inline>
+						<input type=radio name=return_allowed value="0" required <?php echo set_radio('return_allowed', '0') ?>> 否
+					</label>
+					<?php echo form_error('return_allowed') ?>
+				</div>
+			</div>
 
 			<div class=form-group>
 				<label for=elements class="col-sm-2 control-label">主要视图元素（可选）</label>
@@ -211,6 +225,18 @@
 					<textarea class=form-control name=onloads rows=8 placeholder="页面载入时需要完成的功能"><?php echo set_value('onloads') ?></textarea>
 				</div>
 				<?php echo form_error('onloads') ?>
+			</div>
+			
+			<div class=form-group>
+				<label for=returns class="col-sm-2 control-label">返回事件（可选）</label>
+				<div class=col-sm-10>
+					<code class=help-block>
+						&lt;li&gt;&lt;/li&gt;
+					</code>
+					<a class="add-html btn btn-info" data-textarea-name=returns>+</a>
+					<textarea class=form-control name=returns rows=8 placeholder="移动端点击“返回“后的流程"><?php echo set_value('returns') ?></textarea>
+				</div>
+				<?php echo form_error('returns') ?>
 			</div>
 
 			<div class=form-group>

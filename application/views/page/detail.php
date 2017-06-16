@@ -57,6 +57,8 @@
 
 		<dt>需登录</dt>
 		<dd><?php echo ($item['private'] === '1')? '<i class="fa fa-lock" aria-hidden=true></i> 是': '<i class="fa fa-unlock" aria-hidden=true></i> 否'; ?></dd>
+		<dt>可返回</dt>
+		<dd><?php echo ($item['return_allowed'] === '1')? '<i class="fa fa-check" aria-hidden=true></i> 是': '<i class="fa fa-times" aria-hidden=true></i> 否'; ?></dd>
 	</dl>
 
 	<section>
@@ -108,15 +110,26 @@
 	<?php if ( !empty($item['onloads']) ): ?>
 	<section>
 		<h3>载入事件</h3>
+		<p>页面载入时需要完成的功能</p>
 		<ol>
 		<?php echo $item['onloads'] ?>
+		</ol>
+	</section>
+	<?php endif ?>
+	
+	<?php if ( !empty($item['returns']) ): ?>
+	<section>
+		<h3>返回事件</h3>
+		<p>移动端点击“返回“后的流程</p>
+		<ol>
+		<?php echo $item['returns'] ?>
 		</ol>
 	</section>
 	<?php endif ?>
 
 	<?php if ( !empty($item['events']) ): ?>
 	<section>
-		<h3>业务流程</h3>
+		<h3>业务流程/其它事件</h3>
 		<?php echo $item['events'] ?>
 	</section>
 	<?php endif ?>

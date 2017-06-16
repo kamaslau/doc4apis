@@ -22,6 +22,29 @@
 
 <script defer src="/js/file-upload.js"></script>
 <script defer src="/js/main.js"></script>
+<script>
+	$(function(){
+		$('select>option').click(function(){
+			var value_to_append = $(this).val(); // 获取所选项值
+			var list_name = $(this).parent('select').attr('id');
+			var input = $('[data-list='+ list_name +']');
+			var input_origin = ' ' + input.val() + ' '; // 获取当前值，并在前后追加各一个空格，为后续操作进行准备
+			
+			// 若所选项值在当前值中不存在，则追加所选项值到当前值末尾，并去掉前后空格
+			if (input_origin.indexOf(value_to_append) == -1)
+			{
+				var input_current = (input_origin + ' ' + value_to_append).trim();
+				input.val(input_current);
+			}
+			else
+			{
+				alert('该项已被添加过，不可重复添加。');
+			}
+
+			return false;
+		});
+	});
+</script>
 
 <div id=breadcrumb>
 	<ol class="breadcrumb container">
@@ -155,6 +178,20 @@
 					<?php echo form_error('private') ?>
 				</div>
 			</div>
+			
+			<div class=form-group>
+				<label for=return_allowed class="col-sm-2 control-label">可返回</label>
+				<div class=col-sm-10>
+					<p class=help-block>移动端“返回”按钮是否可用</p>
+					<label class=radio-inline>
+						<input type=radio name=return_allowed value="1" required <?php if ($item['return_allowed'] === '1') echo 'checked'; ?>> 是
+					</label>
+					<label class=radio-inline>
+						<input type=radio name=return_allowed value="0" required <?php if ($item['return_allowed'] === '0') echo 'checked'; ?>> 否
+					</label>
+					<?php echo form_error('return_allowed') ?>
+				</div>
+			</div>
 
 			<div class=form-group>
 				<label for=elements class="col-sm-2 control-label">主要视图元素（可选）</label>
@@ -234,6 +271,18 @@
 			</div>
 
 			<div class=form-group>
+				<label for=returns class="col-sm-2 control-label">返回事件（可选）</label>
+				<div class=col-sm-10>
+					<code class=help-block>
+						&lt;li&gt;&lt;/li&gt;
+					</code>
+					<a class="add-html btn btn-info" data-textarea-name=returns>+</a>
+					<textarea class=form-control name=returns rows=8 placeholder="移动端点击“返回“后的流程"><?php echo $item['returns'] ?></textarea>
+					<?php echo form_error('returns') ?>
+				</div>
+			</div>
+
+			<div class=form-group>
 				<label for=events class="col-sm-2 control-label">业务流程（可选）</label>
 				<div class=col-sm-10>
 					<code class=help-block>常用制表符 ┣┗</code>
@@ -249,7 +298,12 @@
 			<div class=form-group>
 				<label for=api_ids class="col-sm-2 control-label">相关API（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=api_ids type=text value="<?php echo $item['api_ids'] ?>" placeholder="与当前页面有关的API的ID们，多个ID间用一个空格分隔">
+					<input class=form-control name=api_ids type=text data-list=apis value="<?php echo $item['api_ids'] ?>" placeholder="与当前页面有关的API的ID们，多个ID间用一个空格分隔">
+					<select id=apis>
+						<?php foreach($apis as $api): ?>
+						<option value="<?php echo $api['api_id'] ?>"><?php echo $api['code'].' '.$api['name'] ?></option>
+						<?php endforeach ?>
+					</select>
 					<?php echo form_error('api_ids') ?>
 				</div>
 			</div>
@@ -257,7 +311,12 @@
 			<div class=form-group>
 				<label for=page_ids class="col-sm-2 control-label">相关页面（可选）</label>
 				<div class=col-sm-10>
-					<input class=form-control name=page_ids type=text value="<?php echo $item['page_ids'] ?>" placeholder="与当前页面有关的其它页面的ID们，多个ID间用一个空格分隔">
+					<input class=form-control name=page_ids type=text data-list=pages value="<?php echo $item['page_ids'] ?>" placeholder="与当前页面有关的其它页面的ID们，多个ID间用一个空格分隔">
+					<select id=pages>
+						<?php foreach($pages as $page): ?>
+						<option value="<?php echo $page['page_id'] ?>"><?php echo $page['code'].' '.$page['name'] ?></option>
+						<?php endforeach ?>
+					</select>
 					<?php echo form_error('page_ids') ?>
 				</div>
 			</div>
