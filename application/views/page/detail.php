@@ -56,9 +56,22 @@
 		<?php endif ?>
 
 		<dt>需登录</dt>
-		<dd><?php echo ($item['private'] === '1')? '<i class="fa fa-lock" aria-hidden=true></i> 是': '<i class="fa fa-unlock" aria-hidden=true></i> 否'; ?></dd>
+		<dd>
+			<?php echo ($item['private'] === '1')? '<i class="fa fa-lock" aria-hidden=true></i> 是': '<i class="fa fa-unlock" aria-hidden=true></i> 否'; ?>
+			<?php if ($item['private'] === '1') echo ' <p class=help-block>获取本地time_expire_login值，若为空或小于当前时间戳则转到密码登录页</p>'; ?>
+		</dd>
+
 		<dt>可返回</dt>
-		<dd><?php echo ($item['return_allowed'] === '1')? '<i class="fa fa-check" aria-hidden=true></i> 是': '<i class="fa fa-times" aria-hidden=true></i> 否'; ?></dd>
+		<dd>
+			<?php echo ($item['return_allowed'] === '1')? '<i class="fa fa-check" aria-hidden=true></i> 是': '<i class="fa fa-times" aria-hidden=true></i> 否'; ?>
+			<?php if ($item['return_allowed'] === '0') echo ' <p class=help-block>移动端页面无返回按钮；有系统级返回按钮的设备上点击返回按钮无反应（或继承系统相关事件，例如再按一次返回按钮退出当前APP，及相关提示等）</p>'; ?>
+		</dd>
+
+		<dt>显示导航栏</dt>
+		<dd>
+			<?php echo ($item['nav_bottom'] === '1')? '<i class="fa fa-check" aria-hidden=true></i> 是': '<i class="fa fa-times" aria-hidden=true></i> 否'; ?>
+			<?php if ($item['nav_bottom'] === '1') echo ' <p class=help-block>显示下方导航栏；若当前页面为导航栏中的页面，则设置相应图标为激活状态</p>'; ?>
+		</dd>
 	</dl>
 
 	<section>

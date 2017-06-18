@@ -246,6 +246,7 @@
 			$this->form_validation->set_rules('code_function', '方法名', 'trim|alpha_dash');
 			$this->form_validation->set_rules('private', '是否需登录', 'trim');
 			$this->form_validation->set_rules('return_allowed', '是否可返回', 'trim');
+			$this->form_validation->set_rules('nav_bottom', '显示导航栏', 'trim');
 			$this->form_validation->set_rules('elements', '主要视图元素', 'trim');
 			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
 			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim|valid_url');
@@ -269,6 +270,7 @@
 				'code_function' => $this->input->post('code_function'),
 				'private' => $this->input->post('private'),
 				'return_allowed' => $this->input->post('return_allowed'),
+				'nav_bottom' => $this->input->post('nav_bottom'),
 				'elements' => $this->input->post('elements'),
 				'url_design' => $this->input->post('url_design'),
 				'url_assets' => $this->input->post('url_assets'),
@@ -342,6 +344,7 @@
 			$this->form_validation->set_rules('code_function', '方法名', 'trim|alpha_dash');
 			$this->form_validation->set_rules('private', '是否需登录', 'trim');
 			$this->form_validation->set_rules('return_allowed', '是否可返回', 'trim');
+			$this->form_validation->set_rules('nav_bottom', '显示导航栏', 'trim');
 			$this->form_validation->set_rules('elements', '视图元素', 'trim');
 			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
 			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim|valid_url');
@@ -370,6 +373,7 @@
 					'code_function' => $this->input->post('code_function'),
 					'private' => $this->input->post('private'),
 					'return_allowed' => $this->input->post('return_allowed'),
+					'nav_bottom' => $this->input->post('nav_bottom'),
 					'elements' => $this->input->post('elements'),
 					'url_design' => $this->input->post('url_design'),
 					'url_assets' => $this->input->post('url_assets'),
