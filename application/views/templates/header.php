@@ -74,7 +74,7 @@
 						<!--<li<?php if (strpos($class, 'task') !== FALSE) echo ' class=active' ?>><a title="任务" href="<?php echo base_url('task') ?>">任务</a></li>-->
 						<li<?php if (strpos($class, 'task') !== FALSE) echo ' class=active' ?>><a title="任务" href="https://www.teambition.com/project/59093c6f8752371d796bda6f" target=_blank>任务</a></li>
 						<li<?php if (strpos($class, 'project') !== FALSE) echo ' class=active' ?>><a title="项目" href="<?php echo base_url('project') ?>">项目</a></li>
-						<!--<li<?php if (strpos($class, 'flow') !== FALSE) echo ' class=active' ?>><a title="流程" href="<?php echo base_url('flow') ?>">流程</a></li>-->
+						<li<?php if (strpos($class, 'flow') !== FALSE) echo ' class=active' ?>><a title="流程" href="<?php echo base_url('flow') ?>">流程</a></li>
 						<li<?php if (strpos($class, 'page') !== FALSE) echo ' class=active' ?>><a title="页面" href="<?php echo base_url('page') ?>">页面</a></li>
 						<li<?php if (strpos($class, 'api') !== FALSE) echo ' class=active' ?>><a title="API" href="<?php echo base_url('api') ?>">API</a></li>
 

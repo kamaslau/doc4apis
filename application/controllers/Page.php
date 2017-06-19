@@ -113,7 +113,7 @@
 
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);
-		}
+		} // end index
 
 		/**
 		 * 详情页
@@ -153,7 +153,7 @@
 			$this->load->view('templates/header', $data);
 			$this->load->view($this->view_root.'/detail', $data);
 			$this->load->view('templates/footer', $data);
-		}
+		} // end detail
 
 		/**
 		 * 回收站
@@ -193,7 +193,7 @@
 
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
-		}
+		} // end trash
 
 		/**
 		 * 创建
@@ -218,6 +218,9 @@
 
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
+			
+			// 获取页面列表作为“相关页面”备选项
+			$data['pages'] = $this->get_pages($data['project']['project_id']);
 
 			// 管理员可获取所有企业、项目信息待选
 			if ($this->session->role === '管理员'):
@@ -285,7 +288,7 @@
 
 			// Go Basic!
 			$this->basic->create($data, $data_to_create);
-		}
+		} // end create
 
 		/**
 		 * 编辑单行
@@ -398,7 +401,7 @@
 				$this->load->view('templates/footer', $data);
 
 			endif;
-		}
+		} // end edit
 		
 		// 根据企业ID获取API列表
 		private function get_apis($biz_id)
@@ -416,7 +419,7 @@
 			$this->basic_model->id_name = $this->id_name;
 			
 			return $result;
-		}
+		} // end get_apis
 		
 		// 根据项目ID获取页面列表
 		private function get_pages($project_id)
@@ -434,7 +437,7 @@
 			$this->basic_model->id_name = $this->id_name;
 			
 			return $result;
-		}
+		} // end get_pages
 
 		/**
 		 * 删除单行或多行项目
@@ -468,7 +471,7 @@
 
 			// Go Basic!
 			$this->basic->bulk($data, $data_to_edit, $op_name, $op_view);
-		}
+		} // end delete
 
 		/**
 		 * 恢复单行或多行项目
@@ -502,7 +505,7 @@
 
 			// Go Basic!
 			$this->basic->bulk($data, $data_to_edit, $op_name, $op_view);
-		}
+		} // end restore
 	}
 
 /* End of file Page.php */

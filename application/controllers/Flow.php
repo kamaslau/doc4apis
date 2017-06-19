@@ -94,15 +94,15 @@
 			// 非系统级管理员尽可看到自己企业相关的用户
 			if ( ! empty($this->session->biz_id) )
 				$condition['biz_id'] = $this->session->biz_id;
-			
+
 			// 排序条件
 			$order_by[$this->id_name] = 'ASC';
-			
+
 			// Go Basic！
 			$this->basic_model->table_name = 'flow';
 			$this->basic_model->id_name = 'flow_id';
 			$this->basic->index($data, $condition, $order_by);
-		}
+		} // end index
 
 		/**
 		 * 详情页
@@ -136,7 +136,7 @@
 			$this->load->view('templates/header', $data);
 			$this->load->view($this->view_root.'/detail', $data);
 			$this->load->view('templates/footer', $data);
-		}
+		} // end detail
 
 		/**
 		 * 回收站
@@ -175,7 +175,7 @@
 			
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
-		}
+		} // end trash
 
 		/**
 		 * 创建
@@ -201,12 +201,15 @@
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
 
+			// 获取页面列表作为“相关页面”备选项
+			$data['pages'] = $this->get_pages($data['project']['project_id']);
+
 			// 待验证的表单项
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
 			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim|required');
-			$this->form_validation->set_rules('page_ids', '相关页面ID们', 'trim');
+			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
@@ -218,7 +221,7 @@
 
 			// Go Basic!
 			$this->basic->create($data, $data_to_create);
-		}
+		} // end create
 
 		/**
 		 * 编辑单行
@@ -246,11 +249,14 @@
 
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($data['item'][$this->id_name], 'project', 'project_id');
+			
+			// 获取页面列表作为“相关页面”备选项
+			$data['pages'] = $this->get_pages($data['item']['project_id']);
 
 			// 待验证的表单项
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim|required');
-			$this->form_validation->set_rules('page_ids', '相关页面ID们', 'trim');
+			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
 
 			// 验证表单值格式
 			if ($this->form_validation->run() === FALSE):
@@ -278,7 +284,25 @@
 				$this->load->view('templates/footer', $data);
 
 			endif;
-		}
+		} // end edit
+		
+		// 根据项目ID获取页面列表
+		private function get_pages($project_id)
+		{
+			$this->basic_model->table_name = 'page';
+			$this->basic_model->id_name = 'page_id';
+
+			$condition['project_id'] = $project_id;
+			$this->db->select('page_id, code, name');
+			$this->db->order_by('code', 'ASC');
+			$result = $this->basic_model->select($condition);
+
+			// 还原数据库相关类属性
+			$this->basic_model->table_name = $this->table_name;
+			$this->basic_model->id_name = $this->id_name;
+			
+			return $result;
+		} // end get_pages
 
 		/**
 		 * 删除单行或多行项目
@@ -312,8 +336,8 @@
 
 			// Go Basic!
 			$this->basic->bulk($data, $data_to_edit, $op_name, $op_view);
-		}
-		
+		} // end delete
+
 		/**
 		 * 恢复单行或多行项目
 		 */
@@ -346,7 +370,7 @@
 
 			// Go Basic!
 			$this->basic->bulk($data, $data_to_edit, $op_name, $op_view);
-		}
+		} // end restore
 	}
 
 /* End of file Flow.php */
