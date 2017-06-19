@@ -85,11 +85,11 @@
 	<?php endif ?>
 
 	<ul class="list-unstyled list-inline">
+		<li><a title="查看参数" href="<?php echo base_url('meta/detail?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-cogs" aria-hidden=true></i> 技术参数</a></li>
 		<!--
 		<li><a title="查看任务" href="<?php echo base_url('task?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-tasks" aria-hidden=true></i> 任务</a></li>
-		<li><a title="查看流程" href="<?php echo base_url('flow?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-code-fork" aria-hidden=true></i> 流程</a></li>
 		-->
-		<li><a title="查看参数" href="<?php echo base_url('meta/detail?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-cogs" aria-hidden=true></i> 技术参数</a></li>
+		<li><a title="查看流程" href="<?php echo base_url('flow?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-code-fork" aria-hidden=true></i> 流程</a></li>
 		<li><a title="查看页面" href="<?php echo base_url('page?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-html5" aria-hidden=true></i> 页面</a></li>
 		<li><a title="查看API" href="<?php echo base_url('api?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-arrows-v" aria-hidden=true></i> API</a></li>
 	</ul>

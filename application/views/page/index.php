@@ -83,13 +83,15 @@
 					// 若修改于3天内，则提示是有更新的API
 					if ( strtotime($item['time_edit']) > ($time_current - 60*60*24*3) )
 						echo '<i class="fa fa-fw fa-exclamation" aria-hidden=true></i>';
+
+					// 若为草稿状态，进行提示
+					if ($item['status'] === '0') echo ' 草稿<i class="fa fa-fw fa-spinner fa-pulse"></i>';
 				?>
 				</td>
 				<?php
 					$tr = array_keys($data_to_display);
-					foreach ($tr as $td):
+					foreach ($tr as $td)
 						echo '<td>' .$item[$td]. '</td>';
-					endforeach;
 				?>
 				<td>
 					<ul class="list-unstyled horizontal">

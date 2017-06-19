@@ -46,7 +46,7 @@
 	</div>
 	<?php endif ?>
 
-	<h2><?php echo $item['code'] ?> <?php echo $item['name'] ?></h2>
+	<h2><?php echo $item['code'] ?> <?php echo $item['name'] ?> <?php if ($item['status'] === '0') echo '<span class="btn btn-warning">草稿</span>' ?></h2>
 	<p><?php echo $item['description'] ?></p>
 
 	<dl class=dl-horizontal>

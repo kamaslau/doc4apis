@@ -195,6 +195,19 @@
 				</div>
 				<?php echo form_error('sample_respond') ?>
 			</div>
+			
+			<div class=form-group>
+				<label for=status class="col-sm-2 control-label">状态</label>
+				<div class=col-sm-10>
+					<label class=radio-inline>
+						<input type=radio name=status value="1" required <?php echo set_radio('status', '1', TRUE) ?>> 正常
+					</label>
+					<label class=radio-inline>
+						<input type=radio name=status value="0" required <?php echo set_radio('status', '0') ?>> 草稿
+					</label>
+					<?php echo form_error('status') ?>
+				</div>
+			</div>
 		</fieldset>
 
 		<div class=form-group>

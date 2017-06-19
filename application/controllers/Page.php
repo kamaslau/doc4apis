@@ -260,6 +260,7 @@
 			$this->form_validation->set_rules('api_ids', '相关API', 'trim');
 			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
 			$this->form_validation->set_rules('note_developer', '开发者备注', 'trim');
+			$this->form_validation->set_rules('status', '状态', 'trim|required');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
@@ -284,6 +285,7 @@
 				'api_ids' => $this->input->post('api_ids'),
 				'page_ids' => $this->input->post('page_ids'),
 				'note_developer' => $this->input->post('note_developer'),
+				'status' => $this->input->post('status'),
 			);
 
 			// Go Basic!
@@ -358,6 +360,7 @@
 			$this->form_validation->set_rules('api_ids', '相关API', 'trim');
 			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
 			$this->form_validation->set_rules('note_developer', '开发者备注', 'trim');
+			$this->form_validation->set_rules('status', '状态', 'trim|required');
 
 			// 验证表单值格式
 			if ($this->form_validation->run() === FALSE):
@@ -387,6 +390,7 @@
 					'api_ids' => $this->input->post('api_ids'),
 					'page_ids' => $this->input->post('page_ids'),
 					'note_developer' => $this->input->post('note_developer'),
+					'status' => $this->input->post('status'),
 				);
 
 				$result = $this->basic_model->edit($id, $data_to_edit);

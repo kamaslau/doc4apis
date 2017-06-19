@@ -33,8 +33,8 @@
 			// 若所选项值在当前值中不存在，则追加所选项值到当前值末尾，并去掉前后空格
 			if (input_origin.indexOf(value_to_append) == -1)
 			{
-				var input_current = $.trim(input_origin + ' ' + value_to_append);
-				input.val(input_current);
+				var input_current = $.trim(input_origin) + ' ' + value_to_append; // 清除多余空格
+				input.val( $.trim(input_current) ); // 清除原选项值为空时的多余空格
 			}
 			else
 			{
@@ -345,6 +345,19 @@
 					<textarea class=form-control name=note_developer rows=3 placeholder="对于技术开发的补充说明或解释；最多255个字符"><?php echo $item['note_developer'] ?></textarea>
 				</div>
 				<?php echo form_error('note_developer') ?>
+			</div>
+			
+			<div class=form-group>
+				<label for=status class="col-sm-2 control-label">状态</label>
+				<div class=col-sm-10>
+					<label class=radio-inline>
+						<input type=radio name=status value="1" required <?php if ($item['status'] === '1') echo 'checked'; ?>> 正常
+					</label>
+					<label class=radio-inline>
+						<input type=radio name=status value="0" required <?php if ($item['status'] === '0') echo 'checked'; ?>> 草稿
+					</label>
+					<?php echo form_error('status') ?>
+				</div>
 			</div>
 		</fieldset>
 

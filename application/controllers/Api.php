@@ -110,7 +110,7 @@
 
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);
-		}
+		} // end index
 
 		/**
 		 * 详情页
@@ -147,7 +147,7 @@
 			$this->load->view('templates/header', $data);
 			$this->load->view($this->view_root.'/detail', $data);
 			$this->load->view('templates/footer', $data);
-		}
+		} // end detail
 
 		/**
 		 * 回收站
@@ -186,7 +186,7 @@
 			
 			// Go Basic！
 			$this->basic->trash($data, $condition, $order_by);
-		}
+		} // end trash
 
 		/**
 		 * 创建
@@ -239,6 +239,7 @@
 			$this->form_validation->set_rules('params_respond', '响应参数', 'trim');
 			$this->form_validation->set_rules('sample_request', '请求示例', 'trim');
 			$this->form_validation->set_rules('sample_respond', '响应示例', 'trim');
+			$this->form_validation->set_rules('status', '状态', 'trim|required');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
@@ -253,6 +254,7 @@
 				'params_respond' => $this->input->post('params_respond'),
 				'sample_request' => $this->input->post('sample_request'),
 				'sample_respond' => $this->input->post('sample_respond'),
+				'status' => $this->input->post('status'),
 			);
 			// 非系统管理员的用户，企业ID默认为当前用户所属企业ID
 			if ($this->session->role !== '管理员'):
@@ -263,7 +265,7 @@
 
 			// Go Basic!
 			$this->basic->create($data, $data_to_create);
-		}
+		} // end create
 
 		/**
 		 * 编辑单行
@@ -321,6 +323,7 @@
 			$this->form_validation->set_rules('params_respond', '相应参数', 'trim');
 			$this->form_validation->set_rules('sample_request', '请求示例', 'trim');
 			$this->form_validation->set_rules('sample_respond', '响应示例', 'trim');
+			$this->form_validation->set_rules('status', '状态', 'trim|required');
 
 			// 验证表单值格式
 			if ($this->form_validation->run() === FALSE):
@@ -342,6 +345,7 @@
 					'params_respond' => $this->input->post('params_respond'),
 					'sample_request' => $this->input->post('sample_request'),
 					'sample_respond' => $this->input->post('sample_respond'),
+					'status' => $this->input->post('status'),
 				);
 				if ($this->session->role === '管理员'):
 					$data_to_edit['biz_id'] = $this->input->post('biz_id');
@@ -362,7 +366,7 @@
 				$this->load->view('templates/footer', $data);
 
 			endif;
-		}
+		} // end edit
 		
 		/**
 		 * 克隆单行
@@ -420,6 +424,7 @@
 			$this->form_validation->set_rules('params_respond', '相应参数', 'trim');
 			$this->form_validation->set_rules('sample_request', '请求示例', 'trim');
 			$this->form_validation->set_rules('sample_respond', '响应示例', 'trim');
+			$this->form_validation->set_rules('status', '状态', 'trim|required');
 
 			// 验证表单值格式
 			if ($this->form_validation->run() === FALSE):
@@ -441,6 +446,7 @@
 					'params_respond' => $this->input->post('params_respond'),
 					'sample_request' => $this->input->post('sample_request'),
 					'sample_respond' => $this->input->post('sample_respond'),
+					'status' => $this->input->post('status'),
 				);
 				if ($this->session->role === '管理员'):
 					$data_to_create['biz_id'] = $this->input->post('biz_id');
@@ -460,7 +466,7 @@
 				$this->load->view($this->view_root.'/result', $data);
 				$this->load->view('templates/footer', $data);
 			endif;
-		}
+		} // end duplicate
 
 		/**
 		 * 删除单行或多行项目
@@ -496,7 +502,7 @@
 
 			// Go Basic!
 			$this->basic->bulk($data, $data_to_edit, $op_name, $op_view);
-		}
+		} // end delete
 		
 		/**
 		 * 恢复单行或多行项目
@@ -532,7 +538,7 @@
 
 			// Go Basic!
 			$this->basic->bulk($data, $data_to_edit, $op_name, $op_view);
-		}
+		} // end restore
 	}
 
 /* End of file Api.php */

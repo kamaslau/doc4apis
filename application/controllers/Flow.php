@@ -210,6 +210,7 @@
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim|required');
 			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
+			$this->form_validation->set_rules('status', '状态', 'trim|required');
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
@@ -217,6 +218,7 @@
 				'name' => $this->input->post('name'),
 				'description' => $this->input->post('description'),
 				'page_ids' => $this->input->post('page_ids'),
+				'status' => $this->input->post('status'),
 			);
 
 			// Go Basic!
@@ -257,6 +259,7 @@
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim|required');
 			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
+			$this->form_validation->set_rules('status', '状态', 'trim|required');
 
 			// 验证表单值格式
 			if ($this->form_validation->run() === FALSE):
@@ -270,6 +273,7 @@
 					'name' => $this->input->post('name'),
 					'description' => $this->input->post('description'),
 					'page_ids' => $this->input->post('page_ids'),
+					'status' => $this->input->post('status'),
 				);
 				$result = $this->basic_model->edit($id, $data_to_edit);
 

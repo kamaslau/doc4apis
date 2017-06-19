@@ -106,8 +106,9 @@
 		public function detail()
 		{
 			// 检查是否已传入必要参数
-			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-			if ( empty($id) )
+			$id = $this->input->get_post('id');
+			$project_id = $this->input->get_post('project_id');
+			if ( empty($id) && empty($project_id) )
 				redirect(base_url('error/code_404'));
 
 			// 页面信息
@@ -117,11 +118,15 @@
 			);
 
 			// 获取页面数据
-			$data['item'] = $this->basic_model->select_by_id($id);
-			
+			if ( !empty($id) ):
+				$data['item'] = $this->basic_model->select_by_id($id);
+			else:
+				$data['item'] = $this->basic_model->find('project_id', $project_id);
+			endif;
+
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($data['item']['project_id'], 'project', 'project_id');
-			
+
 			// 生成页面标题
 			$data['title'] = $data['project']['name']. $this->class_name_cn;
 

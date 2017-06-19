@@ -30,8 +30,8 @@
 			// 若所选项值在当前值中不存在，则追加所选项值到当前值末尾，并去掉前后空格
 			if (input_origin.indexOf(value_to_append) == -1)
 			{
-				var input_current = $.trim(input_origin + ' ' + value_to_append);
-				input.val(input_current);
+				var input_current = $.trim(input_origin) + ' ' + value_to_append; // 清除多余空格
+				input.val( $.trim(input_current) ); // 清除原选项值为空时的多余空格
 			}
 			else
 			{
@@ -97,22 +97,35 @@
 				</div>
 				<?php echo form_error('description') ?>
 			</div>
-		</fieldset>
 
-		<div class=form-group>
-			<label for=page_ids class="col-sm-2 control-label">相关页面（可选）</label>
-			<div class=col-sm-10>
-				<code class=help-block>可多选</code>
-				<input class=form-control name=page_ids type=text data-list=pages value="<?php echo $item['page_ids'] ?>" placeholder="与当前页面有关的其它页面的ID们，多个ID间用一个空格分隔">
-				<select id=pages>
-					<option>请选择</option>
-					<?php foreach($pages as $page): ?>
-					<option value="<?php echo $page['page_id'] ?>"><?php echo $page['code'].' '.$page['name'] ?></option>
-					<?php endforeach ?>
-				</select>
-				<?php echo form_error('page_ids') ?>
+			<div class=form-group>
+				<label for=page_ids class="col-sm-2 control-label">相关页面（可选）</label>
+				<div class=col-sm-10>
+					<code class=help-block>可多选</code>
+					<input class=form-control name=page_ids type=text data-list=pages value="<?php echo $item['page_ids'] ?>" placeholder="与当前页面有关的其它页面的ID们，多个ID间用一个空格分隔">
+					<select id=pages>
+						<option>请选择</option>
+						<?php foreach($pages as $page): ?>
+						<option value="<?php echo $page['page_id'] ?>"><?php echo $page['code'].' '.$page['name'] ?></option>
+						<?php endforeach ?>
+					</select>
+					<?php echo form_error('page_ids') ?>
+				</div>
 			</div>
-		</div>
+			
+			<div class=form-group>
+				<label for=status class="col-sm-2 control-label">状态</label>
+				<div class=col-sm-10>
+					<label class=radio-inline>
+						<input type=radio name=status value="1" required <?php if ($item['status'] === '1') echo 'checked'; ?>> 正常
+					</label>
+					<label class=radio-inline>
+						<input type=radio name=status value="0" required <?php if ($item['status'] === '0') echo 'checked'; ?>> 草稿
+					</label>
+					<?php echo form_error('status') ?>
+				</div>
+			</div>
+		</fieldset>
 
 		<div class=form-group>
 		    <div class="col-xs-12 col-sm-offset-2 col-sm-2">
