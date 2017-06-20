@@ -18,8 +18,7 @@
 		 */
 		protected $names_to_sort = array(
 			[[names_list]]
-
-			'time_create', 'time_delete', 'time_edit',
+			'time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id',
 		);
 
 		/**
@@ -27,12 +26,14 @@
 		 */
 		protected $names_to_return = array(
 			[[names_list]]
+			'creator_id', 'operator_id',
 		);
 
 		/**
 		 * 创建时必要的字段名
 		 */
 		protected $names_create_required = array(
+			'user_id',
 			[[names_list]]
 		);
 
@@ -47,7 +48,7 @@
 		 * 完整编辑单行时必要的字段名
 		 */
 		protected $names_edit_required = array(
-			'id',
+			'user_id', 'id',
 			[[names_list]]
 		);
 
@@ -55,14 +56,16 @@
 		 * 编辑单行特定字段时必要的字段名
 		 */
 		protected $names_edit_certain_required = array(
-			'id', 'name', 'value',
+			'user_id', 'id',
+			'name', 'value',
 		);
 
 		/**
 		 * 编辑多行特定字段时必要的字段名
 		 */
 		protected $names_edit_bulk_required = array(
-			'ids', 'operation', 'operator_type', 'operator_id', 'password',
+			'user_id', 'ids',
+			'operation', 'password',
 		);
 
 		public function __construct()
@@ -238,6 +241,7 @@
 			else:
 				// 需要创建的数据；逐一赋值需特别处理的字段
 				$data_to_create = array(
+					'creator_id' => $user_id,
 					//'name' => $this->input->post('name')),
 				);
 				// 自动生成无需特别处理的数据
@@ -247,10 +251,11 @@
 				foreach ($data_need_no_prepare as $name)
 					$data_to_create[$name] = $this->input->post($name);
 
-				$result = $this->basic_model->create($data_to_create);
+				$result = $this->basic_model->create($data_to_create, TRUE);
 				if ($result !== FALSE):
 					$this->result['status'] = 200;
-					$this->result['content'] = '创建成功';
+					$this->result['content']['id'] = $result;
+					$this->result['content']['message'] = '创建成功';
 
 				else:
 					$this->result['status'] = 424;
@@ -302,8 +307,9 @@
 				$this->result['content']['error']['message'] = validation_errors();
 
 			else:
-				// 需要创建的数据；逐一赋值需特别处理的字段
+				// 需要编辑的数据；逐一赋值需特别处理的字段
 				$data_to_edit = array(
+					'operator_id' => $user_id,
 					//'name' => $this->input->post('name')),
 				);
 				// 自动生成无需特别处理的数据
@@ -324,7 +330,7 @@
 
 				if ($result !== FALSE):
 					$this->result['status'] = 200;
-					$this->result['content'] = '编辑成功';
+					$this->result['content']['message'] = '编辑成功';
 
 				else:
 					$this->result['status'] = 434;
@@ -384,7 +390,8 @@
 				$this->result['content']['error']['message'] = validation_errors();
 
 			else:
-				// 需要创建的数据；逐一赋值需特别处理的字段
+				// 需要编辑的数据
+				$data_to_edit['operator_id'] = $user_id;
 				$data_to_edit[$name] = $this->input->post($value);
 
 				// 获取ID
@@ -393,7 +400,7 @@
 
 				if ($result !== FALSE):
 					$this->result['status'] = 200;
-					$this->result['content'] = '编辑成功';
+					$this->result['content']['message'] = '编辑成功';
 
 				else:
 					$this->result['status'] = 434;
@@ -452,8 +459,8 @@
 				exit();
 
 			else:
-				// 需要创建的数据；逐一赋值需特别处理的字段
-				$data_to_edit = array();
+				// 需要编辑的数据；逐一赋值需特别处理的字段
+				$data_to_edit['operator_id'] = $user_id;
 				// 自动生成无需特别处理的数据
 				$data_need_no_prepare = array('operator_id');
 				foreach ($data_need_no_prepare as $name)
@@ -486,7 +493,7 @@
 
 				// 添加全部操作成功后的提示
 				if ($this->result['status'] = 200)
-					$this->result['content'] = '全部操作成功';
+					$this->result['content']['message'] = '全部操作成功';
 
 			endif;
 		} // end edit_bulk

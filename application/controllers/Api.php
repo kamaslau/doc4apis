@@ -245,8 +245,8 @@
 			$data_to_create = array(
 				'project_id' => $this->input->post('project_id'),
 				'category_id' => $this->input->post('category_id'),
-				'name' => $this->input->post('name'),
-				'code' => strtoupper($this->input->post('code')),
+				'name' => ucwords( $this->input->post('name') ),
+				'code' => strtoupper( $this->input->post('code') ),
 				'url' => $this->input->post('url'),
 				'url_full' => $this->input->post('url_full'),
 				'description' => $this->input->post('description'),
@@ -336,8 +336,8 @@
 				$data_to_edit = array(
 					'project_id' => $this->input->post('project_id'),
 					'category_id' => $this->input->post('category_id'),
-					'code' => strtoupper($this->input->post('code')),
-					'name' => $this->input->post('name'),
+					'name' => ucwords( $this->input->post('name') ),
+					'code' => strtoupper( $this->input->post('code') ),
 					'url' => $this->input->post('url'),
 					'url_full' => $this->input->post('url_full'),
 					'description' => $this->input->post('description'),

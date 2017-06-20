@@ -218,7 +218,7 @@
 
 			// 获取项目数据
 			$data['project'] = $this->basic->get_by_id($id, 'project', 'project_id');
-			
+
 			// 获取页面列表作为“相关页面”备选项
 			$data['pages'] = $this->get_pages($data['project']['project_id']);
 
