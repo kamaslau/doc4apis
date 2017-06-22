@@ -247,9 +247,10 @@
 			$this->form_validation->set_rules('description', '说明', 'trim');
 			$this->form_validation->set_rules('code_class', '类名', 'trim|alpha_dash');
 			$this->form_validation->set_rules('code_function', '方法名', 'trim|alpha_dash');
-			$this->form_validation->set_rules('private', '是否需登录', 'trim');
-			$this->form_validation->set_rules('return_allowed', '是否可返回', 'trim');
-			$this->form_validation->set_rules('nav_bottom', '显示导航栏', 'trim');
+			$this->form_validation->set_rules('private', '是否需登录', 'trim|in_list[0,1]');
+			$this->form_validation->set_rules('return_allowed', '是否可返回', 'trim|in_list[0,1]');
+			$this->form_validation->set_rules('nav_top', '显示标题栏', 'trim|in_list[0,1]');
+			$this->form_validation->set_rules('nav_bottom', '显示导航栏', 'trim|in_list[0,1]');
 			$this->form_validation->set_rules('elements', '主要视图元素', 'trim');
 			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
 			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim|valid_url');
@@ -274,6 +275,7 @@
 				'code_function' => $this->input->post('code_function'),
 				'private' => $this->input->post('private'),
 				'return_allowed' => $this->input->post('return_allowed'),
+				'nav_top' => $this->input->post('nav_top'),
 				'nav_bottom' => $this->input->post('nav_bottom'),
 				'elements' => $this->input->post('elements'),
 				'url_design' => $this->input->post('url_design'),
@@ -298,7 +300,7 @@
 		public function edit()
 		{
 			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
+			$role_allowed = array('管理员', '经理', '设计师'); // 角色要求
 			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
@@ -345,22 +347,25 @@
 			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
 			$this->form_validation->set_rules('description', '说明', 'trim');
-			$this->form_validation->set_rules('code_class', '类名', 'trim|alpha_dash');
-			$this->form_validation->set_rules('code_function', '方法名', 'trim|alpha_dash');
-			$this->form_validation->set_rules('private', '是否需登录', 'trim');
-			$this->form_validation->set_rules('return_allowed', '是否可返回', 'trim');
-			$this->form_validation->set_rules('nav_bottom', '显示导航栏', 'trim');
+			$this->form_validation->set_rules('private', '是否需登录', 'trim|in_list[0,1]');
+			$this->form_validation->set_rules('return_allowed', '是否可返回', 'trim|in_list[0,1]');
+			$this->form_validation->set_rules('nav_top', '显示标题栏', 'trim|in_list[0,1]');
+			$this->form_validation->set_rules('nav_bottom', '显示导航栏', 'trim|in_list[0,1]');
 			$this->form_validation->set_rules('elements', '视图元素', 'trim');
 			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
 			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim|valid_url');
 			$this->form_validation->set_rules('note_designer', '设计师备注', 'trim');
-			$this->form_validation->set_rules('onloads', '载入事件', 'trim');
-			$this->form_validation->set_rules('returns', '返回事件', 'trim');
-			$this->form_validation->set_rules('events', '业务流程', 'trim');
-			$this->form_validation->set_rules('api_ids', '相关API', 'trim');
-			$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
-			$this->form_validation->set_rules('note_developer', '开发者备注', 'trim');
-			$this->form_validation->set_rules('status', '状态', 'trim|required');
+			if ($this->session->role !== '设计师'):
+				$this->form_validation->set_rules('code_class', '类名', 'trim|alpha_dash');
+				$this->form_validation->set_rules('code_function', '方法名', 'trim|alpha_dash');
+				$this->form_validation->set_rules('onloads', '载入事件', 'trim');
+				$this->form_validation->set_rules('returns', '返回事件', 'trim');
+				$this->form_validation->set_rules('events', '业务流程', 'trim');
+				$this->form_validation->set_rules('api_ids', '相关API', 'trim');
+				$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
+				$this->form_validation->set_rules('note_developer', '开发者备注', 'trim');
+				$this->form_validation->set_rules('status', '状态', 'trim|required');
+			endif;
 
 			// 验证表单值格式
 			if ($this->form_validation->run() === FALSE):
@@ -375,23 +380,29 @@
 					'code' => strtoupper( $this->input->post('code') ),
 					'name' => $this->input->post('name'),
 					'description' => $this->input->post('description'),
-					'code_class' => $this->input->post('code_class'),
-					'code_function' => $this->input->post('code_function'),
 					'private' => $this->input->post('private'),
 					'return_allowed' => $this->input->post('return_allowed'),
+					'nav_top' => $this->input->post('nav_top'),
 					'nav_bottom' => $this->input->post('nav_bottom'),
 					'elements' => $this->input->post('elements'),
 					'url_design' => $this->input->post('url_design'),
 					'url_assets' => $this->input->post('url_assets'),
 					'note_designer' => $this->input->post('note_designer'),
-					'onloads' => $this->input->post('onloads'),
-					'returns' => $this->input->post('returns'),
-					'events' => $this->input->post('events'),
-					'api_ids' => $this->input->post('api_ids'),
-					'page_ids' => $this->input->post('page_ids'),
-					'note_developer' => $this->input->post('note_developer'),
-					'status' => $this->input->post('status'),
 				);
+				if ($this->session->role !== '设计师'):
+					$data_not_for_designer = array(
+						'code_class' => $this->input->post('code_class'),
+						'code_function' => $this->input->post('code_function'),
+						'onloads' => $this->input->post('onloads'),
+						'returns' => $this->input->post('returns'),
+						'events' => $this->input->post('events'),
+						'api_ids' => $this->input->post('api_ids'),
+						'page_ids' => $this->input->post('page_ids'),
+						'note_developer' => $this->input->post('note_developer'),
+						'status' => $this->input->post('status'),
+					);
+					$data_to_edit = array_merge($data_to_edit, $data_not_for_designer);
+				endif;
 
 				$result = $this->basic_model->edit($id, $data_to_edit);
 				if ($result !== FALSE):

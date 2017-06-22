@@ -258,14 +258,19 @@
 			$this->form_validation->set_rules('avatar', '头像URL', 'trim|valid_url');
 			$this->form_validation->set_rules('email', 'Email', 'trim|valid_email');
 
+			// 对生日做特别处理
+			$dob = $this->input->post('dob');
+			if ($dob === '0000-00-00' || empty($dob)) $dob = NULL;
+			
 			// 需要编辑的信息
 			$data_to_edit = array(
 				'nickname' => $this->input->post('nickname'),
 				'gender' => $this->input->post('gender'),
-				'dob' => $this->input->post('dob'),
+				'dob' => $dob,
 				'avatar' => $this->input->post('avatar'),
 				'email' => $this->input->post('email'),
 			);
+
 			if ($this->session->role === '管理员' || $this->session->role === '经理'):
 				$data_to_edit['mobile'] = $this->input->post('mobile');
 				$data_to_edit['lastname'] = $this->input->post('lastname');

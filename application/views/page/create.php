@@ -195,14 +195,28 @@
 			</div>
 			
 			<div class=form-group>
+				<label for=nav_top class="col-sm-2 control-label">显示标题栏</label>
+				<div class=col-sm-10>
+					<p class=help-block>是否显示上方标题栏</p>
+					<label class=radio-inline>
+						<input type=radio name=nav_top value="1" required <?php echo set_radio('nav_top', '1', TRUE) ?>> 是
+					</label>
+					<label class=radio-inline>
+						<input type=radio name=nav_top value="0" required <?php echo set_radio('nav_top', '0') ?>> 否
+					</label>
+					<?php echo form_error('nav_top') ?>
+				</div>
+			</div>
+			
+			<div class=form-group>
 				<label for=nav_bottom class="col-sm-2 control-label">显示导航栏</label>
 				<div class=col-sm-10>
 					<p class=help-block>是否显示下方导航栏</p>
 					<label class=radio-inline>
-						<input type=radio name=nav_bottom value="1" required <?php echo set_radio('nav_bottom', '1', TRUE) ?>> 是
+						<input type=radio name=nav_bottom value="1" required <?php echo set_radio('nav_bottom', '1') ?>> 是
 					</label>
 					<label class=radio-inline>
-						<input type=radio name=nav_bottom value="0" required <?php echo set_radio('nav_bottom', '0') ?>> 否
+						<input type=radio name=nav_bottom value="0" required <?php echo set_radio('nav_bottom', '0', TRUE) ?>> 否
 					</label>
 					<?php echo form_error('nav_bottom') ?>
 				</div>

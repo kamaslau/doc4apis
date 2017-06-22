@@ -194,6 +194,20 @@
 			</div>
 			
 			<div class=form-group>
+				<label for=nav_top class="col-sm-2 control-label">显示标题栏</label>
+				<div class=col-sm-10>
+					<p class=help-block>是否显示上方标题栏</p>
+					<label class=radio-inline>
+						<input type=radio name=nav_top value="1" required <?php if ($item['nav_top'] === '1') echo 'checked'; ?>> 是
+					</label>
+					<label class=radio-inline>
+						<input type=radio name=nav_top value="0" required <?php if ($item['nav_top'] === '0') echo 'checked'; ?>> 否
+					</label>
+					<?php echo form_error('nav_top') ?>
+				</div>
+			</div>
+			
+			<div class=form-group>
 				<label for=nav_bottom class="col-sm-2 control-label">显示导航栏</label>
 				<div class=col-sm-10>
 					<p class=help-block>是否显示下方导航栏</p>

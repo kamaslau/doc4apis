@@ -64,13 +64,19 @@
 		<dt>可返回</dt>
 		<dd>
 			<?php echo ($item['return_allowed'] === '1')? '<i class="fa fa-check" aria-hidden=true></i> 是': '<i class="fa fa-times" aria-hidden=true></i> 否'; ?>
-			<?php if ($item['return_allowed'] === '0') echo ' <p class=help-block>移动端页面无返回按钮；有系统级返回按钮的设备上点击返回按钮无反应（或继承系统相关事件，例如再按一次返回按钮退出当前APP，及相关提示等）</p>'; ?>
+			<?php if ($item['return_allowed'] === '0') echo ' <p class=help-block>移动端页面无返回按钮；有系统级返回按钮的设备上点击返回按钮无反应（或继承系统级事件，例如Android设备上再按一次返回按钮退出当前APP，及相关提示等）</p>'; ?>
 		</dd>
 
+		<dt>显示标题栏</dt>
+		<dd>
+			<?php echo ($item['nav_top'] === '1')? '<i class="fa fa-check" aria-hidden=true></i> 是': '<i class="fa fa-times" aria-hidden=true></i> 否'; ?>
+			<?php if ($item['nav_top'] === '1') echo ' <p class=help-block>显示上方标题栏，并设置标题为“'.$item['name'].'”</p>'; ?>
+		</dd>
+		
 		<dt>显示导航栏</dt>
 		<dd>
 			<?php echo ($item['nav_bottom'] === '1')? '<i class="fa fa-check" aria-hidden=true></i> 是': '<i class="fa fa-times" aria-hidden=true></i> 否'; ?>
-			<?php if ($item['nav_bottom'] === '1') echo ' <p class=help-block>显示下方导航栏；若当前页面为导航栏中的页面，则设置相应图标为激活状态</p>'; ?>
+			<?php if ($item['nav_bottom'] === '1') echo ' <p class=help-block>显示下方导航栏，并设置相应图标为激活状态</p>'; ?>
 		</dd>
 	</dl>
 
