@@ -180,15 +180,17 @@
 			endif;
 
 			// 赋值类属性，为后续生成文档做准备
+			$this->class_name = $class_name;
 			$this->class_name_cn = $class_name_cn;
 			$this->names = $names;
 			$this->params_request = $params_request;
 			$this->params_respond = $params_respond;
+			$this->elements = $elements;
 
 			// // 生成API文档
-			// $functions = array('计数', '列表', '详情', '创建', '修改', '单项修改', '批量操作'); // 需要生成文档的功能
-			// if ( !empty($extra_functions) ) $functions = array_merge($functions, $extra_functions);  // 其它附加功能
-			// for ($i=0; $i<count($functions); $i++):
+			// $apis = array('计数', '列表', '详情', '创建', '修改', '单项修改', '批量操作'); // 需要生成文档的常规功能API
+			// if ( !empty($extra_functions) ) $apis = array_merge($apis, $extra_functions);  // 其它附加功能
+			// for ($i=0; $i<count($apis); $i++):
 			// 	// 页面文档必要字段
 			// 	$doc_content_api = array(
 			// 		'biz_id' => $biz_id,
@@ -200,27 +202,41 @@
 			// 	);
 			//
 			// 	// 生成API文档
-			// 	$this->doc_api_generate($doc_content_api, $functions, $i);
+			// 	$this->doc_api_generate($doc_content_api, $apis, $i);
 			// endfor;
 
 			// 生成页面文档
-			$functions = array('操作结果', '列表', '详情', '创建', '修改', '删除', '找回'); // 需生成文档的常规功能
-			if ( !empty($extra_functions) ) $functions = array_merge($functions, $extra_functions); // 其它附加功能
-			for ($i=0; $i<count($functions); $i++):
+			$pages = array(
+				'result' => '操作结果',
+				'index' => '列表',
+				'detail' => '详情',
+				'create' => '创建',
+				'edit' => '修改',
+				'edit_certain' => '单项修改',
+				'delete' => '删除',
+				'restore' => '找回',
+			); // 需生成文档的常规功能页面
+			if ( !empty($extra_functions) ) $pages = array_merge($pages, $extra_functions);  // 其它附加功能
+			$i = 0; // 页面序号
+			foreach ($pages as $name => $title):
+				// 为特殊功能做特别处理
+				if ( is_numeric($name) ) $name = $title;
+
 				// 页面文档必要字段
 				$doc_content_page = array(
 					'biz_id' => $biz_id,
 					'project_id' => $project_id,
-					'name' => ucwords( $class_name_cn ). $functions[$i],
+					'name' => ucwords( $class_name_cn ). $title,
 					'code' => strtoupper( $code ).'P'. $i,
 					'code_class' => $class_name,
-					'code_function' => NULL,
+					'code_function' => $name,
 					'status' => '0', // 默认为草稿状态
 				);
+				$i++; // 更新序号
 
 				// 生成页面文档
-				$this->doc_page_generate($doc_content_page, $functions, $i);
-			endfor;
+				$this->doc_page_generate($doc_content_page, $pages, $title);
+			endforeach;
 
 			// 生成文件
 			$target_directory = 'api/';
@@ -229,7 +245,7 @@
 		} // end class_generate
 
 		// 生成API文档，不含需特别生成的类方法相关页面
-		private function doc_api_generate($data_to_create, $functions, $i)
+		private function doc_api_generate($data_to_create, $apis, $i)
 		{
 			$general_return_names =
 				'<tr><td>time_create</td><td>string</td><td>否</td><td>'.date('Y-m-d H:i:s').'</td><td>创建时间</td></tr>'. "\n".
@@ -340,22 +356,22 @@
 		} // end doc_api_generate
 
 		// TODO 生成页面文档，不含需特别生成的类方法相关页面
-		private function doc_page_generate($data_to_create, $functions, $i)
+		private function doc_page_generate($data_to_create, $pages, $title)
 		{
-			switch ($functions[$i]):
+			switch ($title):
 				case '操作结果':
+					$data_to_create['description'] = '显示单个'.$this->class_name_cn.'的操作结果';
 					$data_to_create['return_allowed'] = 0;
-					$data_to_create['code_function'] = 'result';
 					$data_to_create['elements'] =
 						'<tr><td>text_title</td><td>1</td><td>文本</td><td>“操作结果”</td></tr>'. "\n".
 						'<tr><td>button_home</td><td>1</td><td>按钮</td><td>“首页”</td></tr>'. "\n".
-						'<tr><td>button_mine</td><td>1</td><td>按钮</td><td>“个人中心”</td></tr>';
+						'<tr><td>button_mine</td><td>1</td><td>按钮</td><td>“'.$this->class_name_cn.'列表”</td></tr>';
 					$data_to_create['onloads'] = '<li>获取传入的title，赋值到text_title进行显示</li>';
 					$data_to_create['events'] =
 						'<div class="panel panel-default">'. "\n".
-						'	<h4 class=panel-heading>button_mine.click</h4>'. "\n".
+						'	<h4 class=panel-heading>button_'.$this->class_name.'.click</h4>'. "\n".
 						'	<ol class=panel-body>'. "\n".
-						'		<li>转到我的页</li>'. "\n".
+						'		<li>转到'.$this->class_name_cn.'列表页</li>'. "\n".
 						'	</ol>'. "\n".
 						'</div>'. "\n".
 						'<div class="panel panel-default">'. "\n".
@@ -367,35 +383,176 @@
 					break;
 
 				case '列表':
-					$data_to_create['code_function'] = 'index';
-					$data_to_create['elements'] = $this->params_respond;
+					$data_to_create['description'] = '显示符合给定条件（若有）的'.$this->class_name_cn.'摘要/详细信息';
+					$data_to_create['elements'] =
+						'<tr><td>button_create</td><td>1</td><td>按钮</td><td>“创建'.$this->class_name_cn.'”</td></tr>'."\n".
+						'<tr><td>list</td><td>1</td><td>列表</td><td>信息列表</td></tr>'. "\n".
+						'<tr><td>┗item</td><td>1</td><td>块级区域</td><td>单项信息</td></tr>'. "\n".
+						$this->elements;
+					$data_to_create['onloads'] =
+						'<li>调用'. substr($data_to_create['code'], 0, -2). '1，若为空或失败则结束并提示</li>'. "\n".
+						'<li>将返回值各项循环赋值为list中的item视图元素</li>';
+					$data_to_create['events'] =
+						'<div class="panel panel-default">'. "\n".
+						'	<h4 class=panel-heading>button_create.click</h4>'. "\n".
+						'	<ol class=panel-body>'. "\n".
+						'		<li>转到'.$this->class_name_cn.'创建页</li>'. "\n".
+						'	</ol>'. "\n".
+						'</div>'. "\n".
+						'<div class="panel panel-default">'. "\n".
+						'	<h4 class=panel-heading>item.click</h4>'. "\n".
+						'	<ol class=panel-body>'. "\n".
+						'		<li>传'.$this->class_name.'_id键值对到'.$this->class_name_cn.'详情页</li>'. "\n".
+						'	</ol>'. "\n".
+						'</div>';
 					break;
 
 				case '详情':
-					$data_to_create['code_function'] = 'detail';
-					$data_to_create['elements'] = $this->params_respond;
+					$data_to_create['description'] = '显示单个'.$this->class_name_cn.'详细信息';
+					$data_to_create['elements'] =
+						'<tr><td>item</td><td>1</td><td>块级区域</td><td>信息</td></tr>'. "\n".
+						$this->elements."\n".
+						'<tr><td>button_edit</td><td>1</td><td>按钮</td><td>“编辑'.$this->class_name_cn.'”</td></tr>';
+					$data_to_create['onloads'] =
+						'<li>调用'. substr($data_to_create['code'], 0, -2). '2，若为空或失败则结束并提示</li>'. "\n".
+						'<li>将返回值赋值到相应视图元素</li>';
+					$data_to_create['events'] =
+						'<div class="panel panel-default">'. "\n".
+						'	<h4 class=panel-heading>item.*.click（除button_edit外）</h4>'. "\n".
+						'	<ol class=panel-body>'. "\n".
+						'		<li>传id=相应'.$this->class_name.'_id、name=相应字段名、value=相应字段键值到'.$this->class_name_cn.'单项修改页</li>'. "\n".
+						'	</ol>'. "\n".
+						'</div>'. "\n".
+						'<div class="panel panel-default">'. "\n".
+						'	<h4 class=panel-heading>button_edit.click</h4>'. "\n".
+						'	<ol class=panel-body>'. "\n".
+						'		<li>传'.$this->class_name.'_id键值对到'.$this->class_name_cn.'修改页</li>'. "\n".
+						'	</ol>'. "\n".
+						'</div>';
 					break;
 
 				case '创建':
-					$data_to_create['code_function'] = 'create';
-					$data_to_create['elements'] = $this->params_respond;
+					$data_to_create['description'] = '创建单个'.$this->class_name_cn;
+					$data_to_create['elements'] =
+						'<tr><td>form_create</td><td>1</td><td>表单</td><td>创建表单</td></tr>'. "\n".
+						$this->elements. "\n".
+						'<tr><td>┗button_sumbit</td><td>1</td><td>按钮</td><td>“确定”，默认未激活</td></tr>';
+					$data_to_create['onloads'] =
+						'获取本地user.user_id、user.biz_id值并赋值到相应字段';
+					$data_to_create['events'] =
+						'<div class="panel panel-default">'. "\n".
+						'	<h4 class=panel-heading>form_create.*.click</h4>'. "\n".
+						'	<ol class=panel-body>'. "\n".
+						'		<li>若该元素之前有其它字段，则对相应字段进行格式验证，若失败则结束并进行提示</li>'. "\n".
+						'	</ol>'. "\n".
+						'</div>'. "\n".
+						'<div class="panel panel-default">'. "\n".
+						'	<h4 class=panel-heading>button_sumbit.click</h4>'. "\n".
+						'	<ol class=panel-body>'. "\n".
+						'		<li>'. substr($data_to_create['code'], 0, -2). '3，若失败则结束并进行提示</li>'. "\n".
+						'		<li>传title="成功创建'.$this->class_name_cn.'"到'.$this->class_name_cn.'操作结果页</li>'. "\n".
+						'	</ol>'. "\n".
+						'</div>';
 					break;
 
 				case '修改':
-					$data_to_create['code_function'] = 'edit';
-					$data_to_create['elements'] = $this->params_respond;
+					$data_to_create['description'] = '修改'.$this->class_name_cn.'完整信息';
+					$data_to_create['elements'] =
+						'<tr><td>form_edit</td><td>1</td><td>表单</td><td>编辑表单</td></tr>'. "\n".
+						$this->elements. "\n".
+						'<tr><td>┗button_sumbit</td><td>1</td><td>按钮</td><td>“确定”，默认未激活</td></tr>';
+					$data_to_create['onloads'] =
+						'<li>调用'. substr($data_to_create['code'], 0, -2). '2，若为空或失败则结束并提示</li>'. "\n".
+						'<li>将返回值赋值到相应视图元素</li>';
+					$data_to_create['events'] =
+						'<div class="panel panel-default">'. "\n".
+						'	<h4 class=panel-heading>form_edit.*.click</h4>'. "\n".
+						'	<ol class=panel-body>'. "\n".
+						'		<li>若该元素之前有其它字段，则对相应字段进行格式验证，若失败则结束并进行提示</li>'. "\n".
+						'	</ol>'. "\n".
+						'</div>'. "\n".
+						'<div class="panel panel-default">'. "\n".
+						'	<h4 class=panel-heading>button_sumbit.click</h4>'. "\n".
+						'	<ol class=panel-body>'. "\n".
+						'		<li>'. substr($data_to_create['code'], 0, -2). '4，若失败则结束并进行提示</li>'. "\n".
+						'		<li>传title="成功修改'.$this->class_name_cn.'"到'.$this->class_name_cn.'操作结果页</li>'. "\n".
+						'	</ol>'. "\n".
+						'</div>';
+					break;
+
+				case '单项修改':
+					$data_to_create['description'] = '修改'.$this->class_name_cn.'单项信息';
+					$data_to_create['elements'] =
+						'<tr><td>form_edit_certain</td><td>1</td><td>表单</td><td>单项编辑表单</td></tr>'. "\n".
+						'<tr><td>┣value_to_update</td><td>1</td><td>字段</td><td>待修改字段值及相应控件，例如文本输入框、单选组、多选组、图片选择器、文件选择器等</td></tr>'. "\n".
+						'<tr><td>┗button_sumbit</td><td>1</td><td>按钮</td><td>“确定”，默认未激活</td></tr>';
+					$data_to_create['onloads'] =
+						'<li>获取传入的id、name、value值</li>'. "\n".
+						'<li>赋值name为页面标题</li>'. "\n".
+						'<li>调用'. substr($data_to_create['code'], 0, -2). '2，若为空或失败则结束并提示</li>'. "\n".
+						'<li>查看是否存在与name值匹配的返回值（可为空），若不存在则结束并提示</li>'. "\n".
+						'<li>将与name值匹配的值赋值到value_to_update作为字段值</li>';
+					$data_to_create['events'] =
+						'<div class="panel panel-default">'. "\n".
+						'	<h4 class=panel-heading>button_sumbit.click</h4>'. "\n".
+						'	<ol class=panel-body>'. "\n".
+						'		<li>对value_to_update字段值进行格式验证，若失败则结束并进行提示</li>'. "\n".
+						'		<li>调用'. substr($data_to_create['code'], 0, -2). '4，若失败则结束并进行提示</li>'. "\n".
+						'		<li>传title="成功修改'.$this->class_name_cn.'信息"到'.$this->class_name_cn.'操作结果页</li>'. "\n".
+						'	</ol>'. "\n".
+						'</div>';
 					break;
 
 				case '删除':
-					$data_to_create['code_function'] = 'delete';
-					$data_to_create['elements'] = $this->params_respond;
+					$data_to_create['description'] = '删除单个/多个'.$this->class_name_cn;
+					$data_to_create['elements'] =
+						'<tr><td>form_delete</td><td>1</td><td>表单</td><td>删除表单</td></tr>'. "\n".
+						'<tr><td>┣table_items</td><td>1</td><td>表格</td><td>待操作项主要信息表</td></tr>'. "\n".
+						$this->elements. "\n".
+						'<tr><td>┣password</td><td>1</td><td>字段</td><td>密码</td></tr>'. "\n".
+						'<tr><td>┣warning</td><td>1</td><td>文本</td><td>“确定要删除上述'.$this->class_name_cn.'？”</td></tr>'. "\n".
+						'<tr><td>┗button_sumbit</td><td>1</td><td>按钮</td><td>“确定”，默认未激活</td></tr>';
+					$data_to_create['onloads'] =
+						'<li>获取传入的ids值，若为空或失败则返回上一页面并提示</li>'. "\n".
+						'<li>调用'. substr($data_to_create['code'], 0, -2). '2，若为空或失败则结束并提示</li>'. "\n".
+						'<li>将返回值赋值到相应视图元素</li>';
+					$data_to_create['events'] =
+						'<div class="panel panel-default">'. "\n".
+						'	<h4 class=panel-heading>button_sumbit.click</h4>'. "\n".
+						'	<ol class=panel-body>'. "\n".
+						'		<li>对password字段值进行格式验证，若失败则结束并进行提示</li>'. "\n".
+						'		<li>调用'. substr($data_to_create['code'], 0, -2). '5，若失败则结束并进行提示</li>'. "\n".
+						'		<li>传title="成功删除'.$this->class_name_cn.'"到'.$this->class_name_cn.'操作结果页</li>'. "\n".
+						'	</ol>'. "\n".
+						'</div>';
 					break;
 
 				case '找回':
-					$data_to_create['code_function'] = 'restore';
-					$data_to_create['elements'] = $this->params_respond;
+					$data_to_create['description'] = '找回单个/多个已删除'.$this->class_name_cn;
+					$data_to_create['elements'] =
+						'<tr><td>form_restore</td><td>1</td><td>表单</td><td>删除表单</td></tr>'. "\n".
+						'<tr><td>┣table_items</td><td>1</td><td>表格</td><td>待操作项主要信息表</td></tr>'. "\n".
+						$this->elements. "\n".
+						'<tr><td>┣password</td><td>1</td><td>字段</td><td>密码</td></tr>'. "\n".
+						'<tr><td>┣warning</td><td>1</td><td>文本</td><td>“确定要找回上述'.$this->class_name_cn.'？”</td></tr>'. "\n".
+						'<tr><td>┗button_sumbit</td><td>1</td><td>按钮</td><td>“确定”，默认未激活</td></tr>';
+					$data_to_create['onloads'] =
+						'<li>获取传入的ids值，若为空或失败则返回上一页面并提示</li>'. "\n".
+						'<li>调用'. substr($data_to_create['code'], 0, -2). '2，若为空或失败则结束并提示</li>'. "\n".
+						'<li>将返回值赋值到相应视图元素</li>';
+					$data_to_create['events'] =
+						'<div class="panel panel-default">'. "\n".
+						'	<h4 class=panel-heading>button_sumbit.click</h4>'. "\n".
+						'	<ol class=panel-body>'. "\n".
+						'		<li>对password字段值进行格式验证，若失败则结束并进行提示</li>'. "\n".
+						'		<li>调用'. substr($data_to_create['code'], 0, -2). '5，若失败则结束并进行提示</li>'. "\n".
+						'		<li>传title="成功找回'.$this->class_name_cn.'"到'.$this->class_name_cn.'操作结果页</li>'. "\n".
+						'	</ol>'. "\n".
+						'</div>';
 					break;
 
+				default:
+					$data_to_create['elements'] = $this->elements;
 			endswitch;
 
 			// 向数据库添加数据
@@ -409,7 +566,7 @@
 				$data['content']['error']['message'] = '页面文档创建失败';
 			endif;
 		} // end doc_page_generate
-		
+
 		/**
 		 * 生成文件
 		 */
