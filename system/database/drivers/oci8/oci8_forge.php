@@ -32,19 +32,19 @@
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
- * @since	Version 3.0.0
+ * @since	Version 1.4.1
  * @filesource
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * PDO Oracle Forge Class
+ * Oracle Forge Class
  *
  * @category	Database
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_pdo_oci_forge extends CI_DB_pdo_forge {
+class CI_DB_oci8_forge extends CI_DB_forge {
 
 	/**
 	 * CREATE DATABASE statement
@@ -66,6 +66,13 @@ class CI_DB_pdo_oci_forge extends CI_DB_pdo_forge {
 	 * @var	string
 	 */
 	protected $_drop_database	= FALSE;
+
+	/**
+	 * DROP TABLE IF statement
+	 *
+	 * @var	string
+	 */
+	protected $_drop_table_if	= FALSE;
 
 	/**
 	 * UNSIGNED support
@@ -119,6 +126,8 @@ class CI_DB_pdo_oci_forge extends CI_DB_pdo_forge {
 					$sqls[] = $sql.' RENAME COLUMN '.$this->db->escape_identifiers($field[$i]['name'])
 						.' TO '.$this->db->escape_identifiers($field[$i]['new_name']);
 				}
+
+				$field[$i] = "\n\t".$field[$i]['_literal'];
 			}
 		}
 
@@ -129,7 +138,7 @@ class CI_DB_pdo_oci_forge extends CI_DB_pdo_forge {
 
 		// RENAME COLUMN must be executed after MODIFY
 		array_unshift($sqls, $sql);
-		return $sql;
+		return $sqls;
 	}
 
 	// --------------------------------------------------------------------
@@ -145,6 +154,8 @@ class CI_DB_pdo_oci_forge extends CI_DB_pdo_forge {
 	{
 		// Not supported - sequences and triggers must be used instead
 	}
+
+	// --------------------------------------------------------------------
 
 	/**
 	 * Field attribute TYPE
