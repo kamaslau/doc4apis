@@ -420,7 +420,7 @@
 						'<div class="panel panel-default">'. "\n".
 						'	<h4 class=panel-heading>item.*.click（除button_edit外）</h4>'. "\n".
 						'	<ol class=panel-body>'. "\n".
-						'		<li>传id=相应'.$this->class_name.'_id、name=相应字段名、value=相应字段键值到'.$this->class_name_cn.'单项修改页</li>'. "\n".
+						'		<li>传id=相应'.$this->class_name.'_id、name=相应字段名、value=相应字段值到'.$this->class_name_cn.'单项修改页</li>'. "\n".
 						'	</ol>'. "\n".
 						'</div>'. "\n".
 						'<div class="panel panel-default">'. "\n".
@@ -491,8 +491,14 @@
 						'<li>赋值name为页面标题</li>'. "\n".
 						'<li>调用'. substr($data_to_create['code'], 0, -2). '2，若为空或失败则结束并提示</li>'. "\n".
 						'<li>查看是否存在与name值匹配的返回值（可为空），若不存在则结束并提示</li>'. "\n".
-						'<li>将与name值匹配的值赋值到value_to_update作为字段值</li>';
+						'<li>将与name值匹配的值赋值到value_to_update作为初始字段值</li>';
 					$data_to_create['events'] =
+						'<div class="panel panel-default">'. "\n".
+						'	<h4 class=panel-heading>value_to_update.click</h4>'. "\n".
+						'	<ol class=panel-body>'. "\n".
+						'		<li>监控该控件，若被输入值，且被输入后的值与初始值不同，则设置button_sumbit为激活状态</li>'. "\n".
+						'	</ol>'. "\n".
+						'</div>'. "\n".
 						'<div class="panel panel-default">'. "\n".
 						'	<h4 class=panel-heading>button_sumbit.click</h4>'. "\n".
 						'	<ol class=panel-body>'. "\n".

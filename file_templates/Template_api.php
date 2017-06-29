@@ -375,6 +375,18 @@
 				$this->result['content']['error']['message'] = '该字段不可被修改';
 				exit();
 			endif;
+
+			// 根据客户端类型检查是否可编辑
+			/*
+			$names_limited = array(
+				'biz' => array('name1', 'name2', 'name3', 'name4')
+			);
+			if ( in_array($name, $names_limited[$this->app_type]) ):
+				$this->result['status'] = 432;
+				$this->result['content']['error']['message'] = '该字段不可被当前类型的客户端修改';
+				exit();
+			endif;
+			*/
 			
 			// 初始化并配置表单验证库
 			$this->load->library('form_validation');
