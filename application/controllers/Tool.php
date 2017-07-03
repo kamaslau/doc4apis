@@ -497,8 +497,8 @@
 						'	<h4 class=panel-heading>button_sumbit.click</h4>'. "\n".
 						'	<ol class=panel-body>'. "\n".
 						'		<li>对value_to_update字段值进行格式验证，若失败则结束并进行提示</li>'. "\n".
-						'		<li>调用'. substr($data_to_create['code'], 0, -2). '4，若失败则结束并进行提示</li>'. "\n".
-						'		<li>传title="成功修改'.$this->class_name_cn.'信息"到'.$this->class_name_cn.'操作结果页</li>'. "\n".
+						'		<li>调用'. substr($data_to_create['code'], 0, -2). '5，若失败则结束并进行提示</li>'. "\n".
+						'		<li>传'.$this->class_name.'_id=当前id”到'.$this->class_name_cn.'详情页</li>'. "\n".
 						'	</ol>'. "\n".
 						'</div>';
 					break;
@@ -521,7 +521,7 @@
 						'	<h4 class=panel-heading>button_sumbit.click</h4>'. "\n".
 						'	<ol class=panel-body>'. "\n".
 						'		<li>对password字段值进行格式验证，若失败则结束并进行提示</li>'. "\n".
-						'		<li>调用'. substr($data_to_create['code'], 0, -2). '5，若失败则结束并进行提示</li>'. "\n".
+						'		<li>调用'. substr($data_to_create['code'], 0, -2). '6，若失败则结束并进行提示</li>'. "\n".
 						'		<li>传title="成功删除'.$this->class_name_cn.'"到'.$this->class_name_cn.'操作结果页</li>'. "\n".
 						'	</ol>'. "\n".
 						'</div>';
@@ -545,7 +545,7 @@
 						'	<h4 class=panel-heading>button_sumbit.click</h4>'. "\n".
 						'	<ol class=panel-body>'. "\n".
 						'		<li>对password字段值进行格式验证，若失败则结束并进行提示</li>'. "\n".
-						'		<li>调用'. substr($data_to_create['code'], 0, -2). '5，若失败则结束并进行提示</li>'. "\n".
+						'		<li>调用'. substr($data_to_create['code'], 0, -2). '6，若失败则结束并进行提示</li>'. "\n".
 						'		<li>传title="成功找回'.$this->class_name_cn.'"到'.$this->class_name_cn.'操作结果页</li>'. "\n".
 						'	</ol>'. "\n".
 						'</div>';

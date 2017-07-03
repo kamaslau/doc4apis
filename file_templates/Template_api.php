@@ -362,20 +362,33 @@
 			$required_params = $this->names_edit_certain_required;
 			foreach ($required_params as $param):
 				${$param} = $this->input->post($param);
-				if ( empty( ${$param} ) ):
+				if ( $param !== 'value' && empty( ${$param} ) ): // value 可以为空；必要字段会在字段验证中另行检查
 					$this->result['status'] = 400;
 					$this->result['content']['error']['message'] = '必要的请求参数未全部传入';
 					exit();
 				endif;
 			endforeach;
-			
+
 			// 检查目标字段是否可编辑
 			if ( ! in_array($name, $this->names_edit_allowed) ):
 				$this->result['status'] = 431;
 				$this->result['content']['error']['message'] = '该字段不可被修改';
 				exit();
 			endif;
-			
+
+			// 根据客户端类型检查是否可编辑
+			/*
+			$names_limited = array(
+				'biz' => array('name1', 'name2', 'name3', 'name4'),
+				'admin' => array('name1', 'name2', 'name3', 'name4'),
+			);
+			if ( in_array($name, $names_limited[$this->app_type]) ):
+				$this->result['status'] = 432;
+				$this->result['content']['error']['message'] = '该字段不可被当前类型的客户端修改';
+				exit();
+			endif;
+			*/
+
 			// 初始化并配置表单验证库
 			$this->load->library('form_validation');
 			$this->form_validation->set_error_delimiters('', '');
@@ -383,7 +396,7 @@
 			$data_to_validate["{$name}"] = $value;
 			$this->form_validation->set_data($data_to_validate);
 			[[rules]]
-			
+
 			// 若表单提交不成功
 			if ($this->form_validation->run() === FALSE):
 				$this->result['status'] = 401;
@@ -392,7 +405,7 @@
 			else:
 				// 需要编辑的数据
 				$data_to_edit['operator_id'] = $user_id;
-				$data_to_edit[$name] = $this->input->post($value);
+				$data_to_edit[$name] = $value;
 
 				// 获取ID
 				$id = $this->input->post('id');
