@@ -118,7 +118,7 @@
 		public function class_generate()
 		{
 			// 检查必要参数是否已传入
-			$required_params = array('biz_id', 'project_id', 'class_name', 'class_name_cn', 'code', 'table_name', 'id_name', 'names_csv');
+			$required_params = array('biz_id', 'project_id', 'class_name', 'class_name_cn', 'code', 'table_name', 'id_name', 'api_url');
 			foreach ($required_params as $param):
 				${$param} = $this->input->post($param);
 				if ( empty( ${$param} ) ):
@@ -127,23 +127,26 @@
 					exit();
 				endif;
 			endforeach;
-
-			// 根据字段名生成相关类属性及验证规则
-			$names = explode(',', $names_csv);
-			$form_data = ''; // 用于接口测试的key-value值，可用于Postman等工具
-			$names_list = ''; // 字段列表
-			$rules = "\n"; // 验证规则
-			$params_request = ''; // 请求参数（生成文档用）
-			$params_respond = '<tr><td>'.$id_name.'</td><td>string</td><td>详见“返回示例”，下同</td><td>'.$class_name_cn.'ID</td></tr>'. "\n"; // 响应参数（生成文档用）
-			$elements = ''; // 主要视图元素（生成文档用）
-			foreach ($names as $name):
-				$form_data .= $name. ':'. "\n";
-				$names_list .= "'$name', ";
-				$rules .= "\t\t\t". '$this->form_validation->set_rules('. "'$name', '名称', 'trim|required');". "\n";
-				$params_request .= '<tr><td>'. $name. '</td><td>string</td><td>否</td><td>示例</td><td>说明</td></tr>'. "\n";
-				$params_respond .= '<tr><td>'. $name. '</td><td>string</td><td>详见返回示例</td><td>说明</td></tr>'. "\n";
-				$elements .= '<tr><td>┣'. $name. '</td><td>1</td><td>文本</td><td>说明</td></tr>'. "\n";
-			endforeach;
+			
+			// 从API服务器获取相应列表信息
+			$params = array(
+				'class_name' => $class_name,
+				'class_name_cn' => $class_name_cn,
+				'table_name' => $table_name,
+				'id_name' => $id_name,
+				'skip_sign' => 'please',
+			);
+			$url = api_url($api_url);
+			$result = $this->curl->go($url, $params, 'array');
+			if ($result['status'] === 200):
+				$info_to_parse = array('form_data', 'names_list', 'rules', 'params_request', 'params_respond', 'elements');
+				foreach ($info_to_parse as $info_item):
+					$$info_item = $result['content'][$info_item];
+				endforeach;
+			else:
+				echo 'API失败';
+				exit();
+			endif;
 
 			// 获取模板文件
 			$file_content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/file_templates/Template_api.php');
@@ -182,28 +185,27 @@
 			// 赋值类属性，为后续生成文档做准备
 			$this->class_name = $class_name;
 			$this->class_name_cn = $class_name_cn;
-			$this->names = $names;
 			$this->params_request = $params_request;
 			$this->params_respond = $params_respond;
 			$this->elements = $elements;
 
-			// // 生成API文档
-			// $apis = array('计数', '列表', '详情', '创建', '修改', '单项修改', '批量操作'); // 需要生成文档的常规功能API
-			// if ( !empty($extra_functions) ) $apis = array_merge($apis, $extra_functions);  // 其它附加功能
-			// for ($i=0; $i<count($apis); $i++):
-			// 	// 页面文档必要字段
-			// 	$doc_content_api = array(
-			// 		'biz_id' => $biz_id,
-			// 		'name' => ucwords( $class_name_cn ). $functions[$i],
-			// 		'code' => strtoupper( $code ). $i,
-			// 		'url' => $class_name.'/',
-			// 		'sample_respond' => $form_data,
-			// 		'status' => '0', // 默认为草稿状态
-			// 	);
-			//
-			// 	// 生成API文档
-			// 	$this->doc_api_generate($doc_content_api, $apis, $i);
-			// endfor;
+			// 生成API文档
+			$apis = array('计数', '列表', '详情', '创建', '修改', '单项修改', '批量操作'); // 需要生成文档的常规功能API
+			if ( !empty($extra_functions) ) $apis = array_merge($apis, $extra_functions);  // 其它附加功能
+			for ($i=0; $i<count($apis); $i++):
+				// 页面文档必要字段
+				$doc_content_api = array(
+					'biz_id' => $biz_id,
+					'name' => ucwords( $class_name_cn ). $apis[$i],
+					'code' => strtoupper( $code ). $i,
+					'url' => $class_name.'/',
+					'sample_request' => $form_data,
+					'status' => '0', // 默认为草稿状态
+				);
+
+				// 生成API文档
+				$this->doc_api_generate($doc_content_api, $apis, $i);
+			endfor;
 
 			// 生成页面文档
 			$pages = array(
@@ -254,14 +256,14 @@
 				'<tr><td>creator_id</td><td>string</td><td>否</td><td>20</td><td>创建者用户ID</td></tr>'. "\n".
 				'<tr><td>operator_id</td><td>sring</td><td>否</td><td>17</td><td>最后操作者用户ID</td></tr>'. "\n";
 			
-			switch ($functions[$i]):
+			switch ($apis[$i]):
 				case '计数':
 					$data_to_create['url'] .= 'count';
 					$data_to_create['params_request'] = $general_return_names. $this->params_request;
 					$data_to_create['params_respond'] = '<tr><td>count</td><td>int</td><td>是</td><td>1</td><td>符合筛选条件（若有）的商家数量</td></tr>';
 
 					$extra_request = array('time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id');
-					foreach ($extra_request as $extra) $data_to_create['sample_respond'] .= $extra.":\n";
+					foreach ($extra_request as $extra) $data_to_create['sample_request'] .= $extra.":\n"; // 请求参数，后同
 					break;
 
 				case '列表':
@@ -273,7 +275,7 @@
 					$data_to_create['params_respond'] = $this->params_respond;
 
 					$extra_request = array('limit', 'offset');
-					foreach ($extra_request as $extra) $data_to_create['sample_respond'] .= $extra.":\n";
+					foreach ($extra_request as $extra) $data_to_create['sample_request'] .= $extra.":\n";
 					break;
 
 				case '详情':
@@ -281,19 +283,19 @@
 					$data_to_create['params_request'] = '<tr><td>id</td><td>string</td><td>是</td><td>1</td><td>'.$this->class_name_cn.'ID</td></tr>';
 					$data_to_create['params_respond'] = $this->params_respond;
 
-					$data_to_create['sample_respond'] .= "id:\n";
+					$data_to_create['sample_request'] .= "id:\n";
 					break;
 
 				case '创建':
 					$data_to_create['url'] .= 'create';
 					$data_to_create['params_request'] =
-						'<tr><td>user_id</td><td>string</td><td>是</td><td>1</td><td>修改者用户ID</td></tr>'. "\n".
+						'<tr><td>user_id</td><td>string</td><td>是</td><td>1</td><td>创建者用户ID</td></tr>'. "\n".
 						$this->params_request;
 					$data_to_create['params_respond'] =
 						'<tr><td>id</td><td>string</td><td>1</td><td>创建的'.$this->class_name_cn.'ID</td></tr>'. "\n".
 						'<tr><td>message</td><td>string</td><td>详见“返回示例”</td><td>需要显示的提示信息</td></tr>';
 					
-					$data_to_create['sample_respond'] .= "user_id:\n";
+					$data_to_create['sample_request'] .= "user_id:\n";
 					break;
 
 				case '修改':
@@ -306,7 +308,7 @@
 						'<tr><td>message</td><td>string</td><td>详见“返回示例”</td><td>需要显示的提示信息</td></tr>';
 					
 					$extra_request = array('user_id', 'id');
-					foreach ($extra_request as $extra) $data_to_create['sample_respond'] .= $extra.":\n";
+					foreach ($extra_request as $extra) $data_to_create['sample_request'] .= $extra.":\n";
 					break;
 
 				case '单项修改':
@@ -314,32 +316,36 @@
 					$data_to_create['params_request'] =
 						'<tr><td>user_id</td><td>string</td><td>是</td><td>1</td><td>修改者用户ID</td></tr>'. "\n".
 						'<tr><td>id</td><td>string</td><td>是</td><td>1</td><td>待修改'.$this->class_name_cn.'ID</td></tr>'. "\n".
-						'<tr><td>name</td><td>string</td><td>是</td><td>'.$this->names[0].'</td><td>字段名</td></tr>'. "\n".
-						'<tr><td>value</td><td>string</td><td>是</td><td>详见“返回示例”</td><td>字段值</td></tr>'. "\n".
+						'<tr><td>name</td><td>string</td><td>是</td><td>详见“返回示例”，下同</td><td>字段名</td></tr>'. "\n".
+						'<tr><td>value</td><td>string</td><td>是</td><td></td><td>字段值</td></tr>'. "\n".
 						'<tr><td colspan=5>字段值需符合相应格式</td></tr>';
 					$data_to_create['params_respond'] =
 						'<tr><td>message</td><td>string</td><td>详见“返回示例”</td><td>需要显示的提示信息</td></tr>';
 
+					// 重置请求示例
+					$data_to_create['sample_request'] = '';
 					$extra_request = array('user_id', 'id', 'name', 'value');
-					foreach ($extra_request as $extra) $data_to_create['sample_respond'] .= $extra.":\n";
+					foreach ($extra_request as $extra) $data_to_create['sample_request'] .= $extra.":\n";
 					break;
 
 				case '批量操作':
 					$data_to_create['url'] .= 'edit_bulk';
 					$data_to_create['params_request'] =
-						'<tr><td>user_id</td><td>string</td><td>是</td><td>1</td><td>修改者用户ID</td></tr>'. "\n".
-						'<tr><td>ids</td><td>string</td><td>是</td><td>1,2,3</td><td>待修改'.$this->class_name_cn.'ID们，多个ID间以一个半角逗号分隔</td></tr>'. "\n".
+						'<tr><td>user_id</td><td>string</td><td>是</td><td>1</td><td>操作者用户ID</td></tr>'. "\n".
+						'<tr><td>ids</td><td>string</td><td>是</td><td>1,2,3</td><td>待操作'.$this->class_name_cn.'ID们，多个ID间以一个半角逗号分隔</td></tr>'. "\n".
 						'<tr><td>operation</td><td>string</td><td>是</td><td>delete</td><td>待执行操作<br>删除delete,找回restore</td></tr>'. "\n".
-						'<tr><td>password</td><td>string</td><td>是</td><td>略</td><td>修改者用户密码</td></tr>';
+						'<tr><td>password</td><td>string</td><td>是</td><td>略</td><td>操作者用户密码</td></tr>';
 					$data_to_create['params_respond'] =
 						'<tr><td>message</td><td>string</td><td>详见“返回示例”</td><td>需要显示的提示信息</td></tr>';
 
+					// 重置请求示例
+					$data_to_create['sample_request'] = '';
 					$extra_request = array('user_id', 'ids', 'operation', 'password');
-					foreach ($extra_request as $extra) $data_to_create['sample_respond'] .= $extra.":\n";
+					foreach ($extra_request as $extra) $data_to_create['sample_request'] .= $extra.":\n";
 					break;
 
 				default:
-					$data_to_create['url'] .= $functions[$i];
+					$data_to_create['url'] .= $apis[$i];
 
 			endswitch;
 			
@@ -355,12 +361,12 @@
 			endif;
 		} // end doc_api_generate
 
-		// TODO 生成页面文档，不含需特别生成的类方法相关页面
+		// 生成页面文档，不含需特别生成的类方法相关页面
 		private function doc_page_generate($data_to_create, $pages, $title)
 		{
 			switch ($title):
 				case '操作结果':
-					$data_to_create['description'] = '显示单个'.$this->class_name_cn.'的操作结果';
+					$data_to_create['description'] = '显示'.$this->class_name_cn.'的操作结果';
 					$data_to_create['return_allowed'] = 0;
 					$data_to_create['elements'] =
 						'<tr><td>text_title</td><td>1</td><td>文本</td><td>“操作结果”</td></tr>'. "\n".
@@ -385,10 +391,10 @@
 				case '列表':
 					$data_to_create['description'] = '显示符合给定条件（若有）的'.$this->class_name_cn.'摘要/详细信息';
 					$data_to_create['elements'] =
-						'<tr><td>button_create</td><td>1</td><td>按钮</td><td>“创建'.$this->class_name_cn.'”</td></tr>'."\n".
 						'<tr><td>list</td><td>1</td><td>列表</td><td>信息列表</td></tr>'. "\n".
 						'<tr><td>┗item</td><td>1</td><td>块级区域</td><td>单项信息</td></tr>'. "\n".
-						$this->elements;
+						$this->elements."\n".
+						'<tr><td>button_create</td><td>1</td><td>按钮</td><td>“创建'.$this->class_name_cn.'”</td></tr>';
 					$data_to_create['onloads'] =
 						'<li>调用'. substr($data_to_create['code'], 0, -2). '1，若为空或失败则结束并提示</li>'. "\n".
 						'<li>将返回值各项循环赋值为list中的item视图元素</li>';
@@ -412,7 +418,7 @@
 					$data_to_create['elements'] =
 						'<tr><td>item</td><td>1</td><td>块级区域</td><td>信息</td></tr>'. "\n".
 						$this->elements."\n".
-						'<tr><td>button_edit</td><td>1</td><td>按钮</td><td>“编辑'.$this->class_name_cn.'”</td></tr>';
+						'<tr><td>button_edit</td><td>1</td><td>按钮</td><td>“编辑”</td></tr>';
 					$data_to_create['onloads'] =
 						'<li>调用'. substr($data_to_create['code'], 0, -2). '2，若为空或失败则结束并提示</li>'. "\n".
 						'<li>将返回值赋值到相应视图元素</li>';
@@ -449,10 +455,11 @@
 						'<div class="panel panel-default">'. "\n".
 						'	<h4 class=panel-heading>button_sumbit.click</h4>'. "\n".
 						'	<ol class=panel-body>'. "\n".
-						'		<li>'. substr($data_to_create['code'], 0, -2). '3，若失败则结束并进行提示</li>'. "\n".
+						'		<li>调用'. substr($data_to_create['code'], 0, -2). '3，若失败则结束并进行提示</li>'. "\n".
 						'		<li>传title="成功创建'.$this->class_name_cn.'"到'.$this->class_name_cn.'操作结果页</li>'. "\n".
 						'	</ol>'. "\n".
 						'</div>';
+					$data_to_create['note_developer'] = '各字段格式参考相应API文档；需为各输入型字段激活适当类型的键盘';
 					break;
 
 				case '修改':
@@ -478,6 +485,7 @@
 						'		<li>传title="成功修改'.$this->class_name_cn.'"到'.$this->class_name_cn.'操作结果页</li>'. "\n".
 						'	</ol>'. "\n".
 						'</div>';
+					$data_to_create['note_developer'] = '各字段格式参考相应API文档；需为各输入型字段激活适当类型的键盘';
 					break;
 
 				case '单项修改':
@@ -507,20 +515,21 @@
 						'		<li>传'.$this->class_name.'_id=当前id”到'.$this->class_name_cn.'详情页</li>'. "\n".
 						'	</ol>'. "\n".
 						'</div>';
+					$data_to_create['note_developer'] = '各字段格式参考相应API文档；需为各输入型字段激活适当类型的键盘';
 					break;
 
 				case '删除':
 					$data_to_create['description'] = '删除单个/多个'.$this->class_name_cn;
 					$data_to_create['elements'] =
-						'<tr><td>form_delete</td><td>1</td><td>表单</td><td>删除表单</td></tr>'. "\n".
-						'<tr><td>┣table_items</td><td>1</td><td>表格</td><td>待操作项主要信息表</td></tr>'. "\n".
+						'<tr><td>table_items</td><td>1</td><td>表格</td><td>待操作项主要信息表</td></tr>'. "\n".
 						$this->elements. "\n".
-						'<tr><td>┣password</td><td>1</td><td>字段</td><td>密码</td></tr>'. "\n".
+						'<tr><td>form_delete</td><td>1</td><td>表单</td><td>删除表单</td></tr>'. "\n".
 						'<tr><td>┣warning</td><td>1</td><td>文本</td><td>“确定要删除上述'.$this->class_name_cn.'？”</td></tr>'. "\n".
+						'<tr><td>┣password</td><td>1</td><td>字段</td><td>密码</td></tr>'. "\n".
 						'<tr><td>┗button_sumbit</td><td>1</td><td>按钮</td><td>“确定”，默认未激活</td></tr>';
 					$data_to_create['onloads'] =
 						'<li>获取传入的ids值，若为空或失败则返回上一页面并提示</li>'. "\n".
-						'<li>调用'. substr($data_to_create['code'], 0, -2). '2，若为空或失败则结束并提示</li>'. "\n".
+						'<li>依次调用'. substr($data_to_create['code'], 0, -2). '2，将返回值赋值到相应视图元素，若为空或失败则结束并提示</li>'. "\n".
 						'<li>将返回值赋值到相应视图元素</li>';
 					$data_to_create['events'] =
 						'<div class="panel panel-default">'. "\n".
@@ -531,20 +540,21 @@
 						'		<li>传title="成功删除'.$this->class_name_cn.'"到'.$this->class_name_cn.'操作结果页</li>'. "\n".
 						'	</ol>'. "\n".
 						'</div>';
+					$data_to_create['note_developer'] = '各字段格式参考相应API文档；需为各输入型字段激活适当类型的键盘';
 					break;
 
 				case '找回':
 					$data_to_create['description'] = '找回单个/多个已删除'.$this->class_name_cn;
 					$data_to_create['elements'] =
-						'<tr><td>form_restore</td><td>1</td><td>表单</td><td>删除表单</td></tr>'. "\n".
-						'<tr><td>┣table_items</td><td>1</td><td>表格</td><td>待操作项主要信息表</td></tr>'. "\n".
+						'<tr><td>table_items</td><td>1</td><td>表格</td><td>待操作项主要信息表</td></tr>'. "\n".
 						$this->elements. "\n".
-						'<tr><td>┣password</td><td>1</td><td>字段</td><td>密码</td></tr>'. "\n".
+						'<tr><td>form_restore</td><td>1</td><td>表单</td><td>找回表单</td></tr>'. "\n".
 						'<tr><td>┣warning</td><td>1</td><td>文本</td><td>“确定要找回上述'.$this->class_name_cn.'？”</td></tr>'. "\n".
+						'<tr><td>┣password</td><td>1</td><td>字段</td><td>密码</td></tr>'. "\n".
 						'<tr><td>┗button_sumbit</td><td>1</td><td>按钮</td><td>“确定”，默认未激活</td></tr>';
 					$data_to_create['onloads'] =
 						'<li>获取传入的ids值，若为空或失败则返回上一页面并提示</li>'. "\n".
-						'<li>调用'. substr($data_to_create['code'], 0, -2). '2，若为空或失败则结束并提示</li>'. "\n".
+						'<li>依次调用'. substr($data_to_create['code'], 0, -2). '2，将返回值赋值到相应视图元素，若为空或失败则结束并提示</li>'. "\n".
 						'<li>将返回值赋值到相应视图元素</li>';
 					$data_to_create['events'] =
 						'<div class="panel panel-default">'. "\n".
@@ -555,6 +565,7 @@
 						'		<li>传title="成功找回'.$this->class_name_cn.'"到'.$this->class_name_cn.'操作结果页</li>'. "\n".
 						'	</ol>'. "\n".
 						'</div>';
+					$data_to_create['note_developer'] = '各字段格式参考相应API文档；需为各输入型字段激活适当类型的键盘';
 					break;
 
 				default:

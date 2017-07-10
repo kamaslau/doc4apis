@@ -17,15 +17,13 @@ define('SESSION_PERIOD', 2592000); // session有效期秒数，此处设为30天
 define('ENCRYPTION_KEY', ''); // 秘钥用于加密相关功能，可为空
 
 // RESTful API
-/*
 define('API_TOKEN', '7C4l7JLaM3Fq5biQurtmk9nFS');
-define('API_URL', 'https://api.domain.com/');
+define('API_URL', NULL);
 function api_url($api_name)
 {
 	$api_url = API_URL. $api_name;
 	return $api_url;
 }
-*/
 
 /* 以下是为下一个版本将要增加的功能预留的参数 */
 // 微信公众平台参数
