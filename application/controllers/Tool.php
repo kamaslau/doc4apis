@@ -139,7 +139,7 @@
 			$url = api_url($api_url);
 			$result = $this->curl->go($url, $params, 'array');
 			if ($result['status'] === 200):
-				$info_to_parse = array('form_data', 'names_list', 'rules', 'params_request', 'params_respond', 'elements');
+				$info_to_parse = array('form_data', 'names_list', 'rules', 'params_request', 'params_respond', 'elements', 'create', 'edit', 'detail',);
 				foreach ($info_to_parse as $info_item):
 					$$info_item = $result['content'][$info_item];
 				endforeach;
@@ -148,7 +148,7 @@
 				exit();
 			endif;
 
-			// 获取模板文件
+			// 获取模板文件并生成待生成API文件内容
 			$file_content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/file_templates/Template_api.php');
 			$file_content = str_replace('[[class_name]]', ucfirst( strtolower($class_name) ), $file_content); // 类名需首字母大写
 			$file_content = str_replace('[[class_name_cn]]', $class_name_cn, $file_content);
@@ -204,7 +204,7 @@
 				);
 
 				// 生成API文档
-				$this->doc_api_generate($doc_content_api, $apis, $i);
+				//$this->doc_api_generate($doc_content_api, $apis, $i);
 			endfor;
 
 			// 生成页面文档
@@ -237,13 +237,20 @@
 				$i++; // 更新序号
 
 				// 生成页面文档
-				$this->doc_page_generate($doc_content_page, $pages, $title);
+				//$this->doc_page_generate($doc_content_page, $pages, $title);
+				// 对部分页面，生成视图文件
+				$pages_to_generate = array('create', 'edit', 'detail',);
+				if ( in_array($name, $pages_to_generate) ):
+					$target_directory = 'views/'.$class_name.'/';
+					$file_name = $name. '.php';
+					$this->view_file_generate($target_directory, $file_name, $$name);
+				endif;
 			endforeach;
 
-			// 生成文件
+			// 生成API文件
 			$target_directory = 'api/';
 			$file_name = ucfirst($class_name). '.php';
-			$this->file_generate($target_directory, $file_name, $file_content);
+			//$this->api_file_generate($target_directory, $file_name, $file_content);
 		} // end class_generate
 
 		// 生成API文档，不含需特别生成的类方法相关页面
@@ -302,7 +309,7 @@
 					$data_to_create['url'] .= 'edit';
 					$data_to_create['params_request'] =
 						'<tr><td>user_id</td><td>string</td><td>是</td><td>1</td><td>修改者用户ID</td></tr>'. "\n".
-						'<tr><td>id</td><td>string</td><td>是</td><td>21</td><td>待修改'.$this->class_name_cn.'ID</td></tr>'. "\n".
+						'<tr><td>id</td><td>string</td><td>是</td><td>21</td><td>待修改项ID</td></tr>'. "\n".
 						$this->params_request;
 					$data_to_create['params_respond'] =
 						'<tr><td>message</td><td>string</td><td>详见“返回示例”</td><td>需要显示的提示信息</td></tr>';
@@ -314,8 +321,8 @@
 				case '单项修改':
 					$data_to_create['url'] .= 'edit_certain';
 					$data_to_create['params_request'] =
-						'<tr><td>user_id</td><td>string</td><td>是</td><td>1</td><td>修改者用户ID</td></tr>'. "\n".
-						'<tr><td>id</td><td>string</td><td>是</td><td>1</td><td>待修改'.$this->class_name_cn.'ID</td></tr>'. "\n".
+						'<tr><td>user_id</td><td>string</td><td>是</td><td>1</td><td>操作者用户ID</td></tr>'. "\n".
+						'<tr><td>id</td><td>string</td><td>是</td><td>1</td><td>待修改项ID</td></tr>'. "\n".
 						'<tr><td>name</td><td>string</td><td>是</td><td>详见“返回示例”，下同</td><td>字段名</td></tr>'. "\n".
 						'<tr><td>value</td><td>string</td><td>是</td><td></td><td>字段值</td></tr>'. "\n".
 						'<tr><td colspan=5>字段值需符合相应格式</td></tr>';
@@ -332,7 +339,7 @@
 					$data_to_create['url'] .= 'edit_bulk';
 					$data_to_create['params_request'] =
 						'<tr><td>user_id</td><td>string</td><td>是</td><td>1</td><td>操作者用户ID</td></tr>'. "\n".
-						'<tr><td>ids</td><td>string</td><td>是</td><td>1,2,3</td><td>待操作'.$this->class_name_cn.'ID们，多个ID间以一个半角逗号分隔</td></tr>'. "\n".
+						'<tr><td>ids</td><td>string</td><td>是</td><td>1,2,3</td><td>待操作项ID们，多个ID间以一个半角逗号分隔</td></tr>'. "\n".
 						'<tr><td>operation</td><td>string</td><td>是</td><td>delete</td><td>待执行操作<br>删除delete,找回restore</td></tr>'. "\n".
 						'<tr><td>password</td><td>string</td><td>是</td><td>略</td><td>操作者用户密码</td></tr>';
 					$data_to_create['params_respond'] =
@@ -585,9 +592,9 @@
 		} // end doc_page_generate
 
 		/**
-		 * 生成文件
+		 * 生成API文件
 		 */
-		private function file_generate($target_directory, $file_name, $file_content)
+		private function api_file_generate($target_directory, $file_name, $file_content)
 		{
 			// 生成完整的文件所在目录
 			$target_directory = 'generated/'. $target_directory;
@@ -604,13 +611,45 @@
 			$result = file_put_contents($target_url, $file_content);
 			if ( $result !== FALSE ):
 				$this->result['status'] = 200;
-				$this->result['content']['file_name'] = $target_url;
+				$this->result['content']['api']['file_name'] = $target_url;
 				$this->result['content']['file_size'] = round($result / 1024, 2). ' kb';
 			else:
 				$this->result['status'] = 400;
 				$this->result['error']['message'] = ucfirst( strtolower($class_name) ). '类文件创建失败';
 			endif;
-		} // file_generate
+		} // end api_file_generate
+
+		/**
+		 * 生成视图文件
+		 */
+		private function view_file_generate($target_directory, $file_name, $content_to_insert)
+		{
+			// 获取模板文件并生成待生成API文件内容
+			$file_content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/file_templates/template_view/'. $file_name);
+			$file_content = str_replace('[[content]]', $content_to_insert, $file_content);
+
+			// 生成完整的文件所在目录
+			$target_directory = 'generated/'. $target_directory;
+
+			// 检查目标路径是否存在
+			if ( ! file_exists($target_directory) )
+				mkdir($target_directory, 0777, TRUE); // 若不存在则新建，且允许新建多级子目录
+
+			// 设置目标路径（含文件名）
+			chmod($target_directory, 0777); // 设置权限为可写
+			$target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $target_directory. $file_name;
+
+			// 创建新文件并写入内容
+			$result = file_put_contents($target_url, $file_content);
+			if ( $result !== FALSE ):
+				$this->result['status'] = 200;
+				$this->result['content']['views']['file_name'][] = $target_url;
+				$this->result['content']['file_size'] = round($result / 1024, 2). ' kb';
+			else:
+				$this->result['status'] = 400;
+				$this->result['error']['message'] = '视图文件创建失败';
+			endif;
+		} // end view_file_generate
 
 	}
 

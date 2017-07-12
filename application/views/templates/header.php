@@ -23,7 +23,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20170703">
+		<meta name=version content="revision20170712">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -94,7 +94,6 @@
 						<?php if ($this->session->logged_in !== TRUE): ?>
 						<li><a title="登录" href="<?php echo base_url('login') ?>">登录</a></li>
 						<!--<li><a title="注册" href="<?php echo base_url('register') ?>">注册</a></li>-->
-
 						<?php
 							else:
 							$display_name = !empty($this->session->nickname)? $this->session->nickname: $this->session->lastname.$this->session->firstname;
@@ -109,3 +108,12 @@
 <?php endif ?>
 
 		<main id=maincontainer role=main>
+			<script>
+				document.ready = function(){
+					// 每隔五分钟刷新页面
+					setTimeout(function(){location.reload();}, 1000*60*5);
+				}
+			</script>
+			<div class=bg-info style="overflow:hidden;">
+				<p class="text-info text-center">页面最后刷新于 <em><?php echo date('H:i:s') ?></em></p>
+			</div>
