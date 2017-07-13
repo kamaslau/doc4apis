@@ -149,15 +149,26 @@
 			endif;
 
 			// 获取模板文件并生成待生成API文件内容
-			$file_content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/file_templates/Template_api.php');
-			$file_content = str_replace('[[class_name]]', ucfirst( strtolower($class_name) ), $file_content); // 类名需首字母大写
-			$file_content = str_replace('[[class_name_cn]]', $class_name_cn, $file_content);
-			$file_content = str_replace('[[table_name]]', $table_name, $file_content);
-			$file_content = str_replace('[[id_name]]', $id_name, $file_content);
-			$file_content = str_replace('[[rules]]', trim($rules), $file_content);
-			$file_content = str_replace('[[names_list]]', trim($names_list), $file_content);
-			$file_content = str_replace('[[params_request]]', trim($params_request), $file_content);
-			$file_content = str_replace('[[params_respond]]', trim($params_respond), $file_content);
+			$api_file_content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/file_templates/Template_api.php');
+			$api_file_content = str_replace('[[class_name]]', ucfirst( strtolower($class_name) ), $api_file_content); // 类名需首字母大写
+			$api_file_content = str_replace('[[class_name_cn]]', $class_name_cn, $api_file_content);
+			$api_file_content = str_replace('[[table_name]]', $table_name, $api_file_content);
+			$api_file_content = str_replace('[[id_name]]', $id_name, $api_file_content);
+			$api_file_content = str_replace('[[rules]]', trim($rules), $api_file_content);
+			$api_file_content = str_replace('[[names_list]]', trim($names_list), $api_file_content);
+			$api_file_content = str_replace('[[params_request]]', trim($params_request), $api_file_content);
+			$api_file_content = str_replace('[[params_respond]]', trim($params_respond), $api_file_content);
+			
+			// 获取模板文件并生成待生成控制器文件内容
+			$controller_file_content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/file_templates/Template_app.php');
+			$controller_file_content = str_replace('[[class_name]]', ucfirst( strtolower($class_name) ), $controller_file_content); // 类名需首字母大写
+			$controller_file_content = str_replace('[[class_name_cn]]', $class_name_cn, $controller_file_content);
+			$controller_file_content = str_replace('[[table_name]]', $table_name, $controller_file_content);
+			$controller_file_content = str_replace('[[id_name]]', $id_name, $controller_file_content);
+			$controller_file_content = str_replace('[[rules]]', trim($rules), $controller_file_content);
+			$controller_file_content = str_replace('[[names_list]]', trim($names_list), $controller_file_content);
+			$controller_file_content = str_replace('[[params_request]]', trim($params_request), $controller_file_content);
+			$controller_file_content = str_replace('[[params_respond]]', trim($params_respond), $controller_file_content);
 
 			// 若有需要特别生成的类方法，进行生成
 			$extra_functions = $this->input->post('extra_functions');
@@ -174,11 +185,13 @@
 					"\t\t". '} // end '. $function_name;
 				endforeach;
 
-				$file_content = str_replace('[[extra_functions]]', $extra_functions_text, $file_content);
+				$api_file_content = str_replace('[[extra_functions]]', $extra_functions_text, $api_file_content);
+				$controller_file_content = str_replace('[[extra_functions]]', $extra_functions_text, $controller_file_content);
 
 			else:
 				// 若没有需要特别生成的类方法，清除模板文件中的模板标记
-				$file_content = str_replace('[[extra_functions]]', NULL, $file_content);
+				$api_file_content = str_replace('[[extra_functions]]', NULL, $api_file_content);
+				$controller_file_content = str_replace('[[extra_functions]]', NULL, $controller_file_content);
 
 			endif;
 
@@ -247,10 +260,16 @@
 				endif;
 			endforeach;
 
+			// 待生成的API及控制器文件名
+			$file_name = ucfirst($class_name). '.php';
+			
 			// 生成API文件
 			$target_directory = 'api/';
-			$file_name = ucfirst($class_name). '.php';
-			//$this->api_file_generate($target_directory, $file_name, $file_content);
+			$this->api_file_generate($target_directory, $file_name, $api_file_content);
+			
+			// 生成控制器文件
+			$target_directory = 'controllers/';
+			$this->controller_file_generate($target_directory, $file_name, $controller_file_content);
 		} // end class_generate
 
 		// 生成API文档，不含需特别生成的类方法相关页面
@@ -615,9 +634,37 @@
 				$this->result['content']['file_size'] = round($result / 1024, 2). ' kb';
 			else:
 				$this->result['status'] = 400;
-				$this->result['error']['message'] = ucfirst( strtolower($class_name) ). '类文件创建失败';
+				$this->result['error']['message'] = ucfirst( strtolower($class_name) ). '类API文件创建失败';
 			endif;
 		} // end api_file_generate
+		
+		/**
+		 * 生成控制器文件
+		 */
+		private function controller_file_generate($target_directory, $file_name, $file_content)
+		{
+			// 生成完整的文件所在目录
+			$target_directory = 'generated/'. $target_directory;
+
+			// 检查目标路径是否存在
+			if ( ! file_exists($target_directory) )
+				mkdir($target_directory, 0777, TRUE); // 若不存在则新建，且允许新建多级子目录
+
+			// 设置目标路径（含文件名）
+			chmod($target_directory, 0777); // 设置权限为可写
+			$target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $target_directory. $file_name;
+
+			// 创建新文件并写入内容
+			$result = file_put_contents($target_url, $file_content);
+			if ( $result !== FALSE ):
+				$this->result['status'] = 200;
+				$this->result['content']['controllers']['file_name'] = $target_url;
+				$this->result['content']['file_size'] = round($result / 1024, 2). ' kb';
+			else:
+				$this->result['status'] = 400;
+				$this->result['error']['message'] = ucfirst( strtolower($class_name) ). '类控制器文件创建失败';
+			endif;
+		} // end controller_file_generate
 
 		/**
 		 * 生成视图文件

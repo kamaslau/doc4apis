@@ -52,6 +52,8 @@
 		<fieldset>
 			<legend>基本信息</legend>
 			
+			<input name=id type=hidden value="<?php echo $item[$this->id_name] ?>">
+
 			[[content]]
 		</fieldset>
 

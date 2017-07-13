@@ -324,10 +324,8 @@
 					//unset($data_to_edit['name']);
 				endif;
 
-				// 获取ID
-				$id = $this->input->post('id');
+				// 进行修改
 				$result = $this->basic_model->edit($id, $data_to_edit);
-
 				if ($result !== FALSE):
 					$this->result['status'] = 200;
 					$this->result['content']['message'] = '编辑成功';
@@ -474,13 +472,9 @@
 			else:
 				// 需要编辑的数据；逐一赋值需特别处理的字段
 				$data_to_edit['operator_id'] = $user_id;
-				// 自动生成无需特别处理的数据
-				$data_need_no_prepare = array('operator_id');
-				foreach ($data_need_no_prepare as $name)
-					$data_to_edit[$name] = $this->input->post($name);
 
 				// 根据待执行的操作赋值待编辑数据
-				switch ( $this->input->post('operation') ):
+				switch ( $operation ):
 					case 'delete':
 						$data_to_edit['time_delete'] = date('Y-m-d H:i:s');
 						break;
