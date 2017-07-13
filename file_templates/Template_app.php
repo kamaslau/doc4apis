@@ -142,11 +142,8 @@
 			if ($result['status'] === 200):
 				$data['items'] = $result['content'];
 			else:
-				redirect( base_url('error/code_404') ); // 若未成功获取信息，则转到错误页
+				$data['error'] = $result['content']['error']['message'];
 			endif;
-
-			// 将需要显示的数据传到视图以备使用
-			$data['data_to_display'] = $this->data_to_display;
 
 			// 输出视图
 			$this->load->view('templates/header', $data);
@@ -185,7 +182,7 @@
 			if ($result['status'] === 200):
 				$data['items'] = $result['content'];
 			else:
-				redirect( base_url('error/code_404') ); // 若未成功获取信息，则转到错误页
+				$data['error'] = $result['content']['error']['message'];
 			endif;
 
 			// 将需要显示的数据传到视图以备使用
@@ -204,7 +201,7 @@
 		{
 			// 检查是否已传入必要参数
 			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-			if ( empty($id) ):
+			if ( !empty($id) ):
 				$params['id'] = $id;
 			else:
 				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
@@ -216,7 +213,7 @@
 			if ($result['status'] === 200):
 				$data['item'] = $result['content'];
 			else:
-				redirect( base_url('error/code_404') ); // 若未成功获取信息，则转到错误页
+				$data['error'] = $result['content']['error']['message'];
 			endif;
 
 			// 页面信息
@@ -269,7 +266,7 @@
 			if ($result['status'] === 200):
 				$data['items'] = $result['content'];
 			else:
-				redirect( base_url('error/code_404') ); // 若未成功获取信息，则转到错误页
+				$data['error'] = $result['content']['error']['message'];
 			endif;
 
 			// 将需要显示的数据传到视图以备使用
@@ -311,17 +308,9 @@
 				$this->load->view('templates/footer', $data);
 
 			else:
-				// 检查必要参数是否已传入
-				$required_params = $this->names_create_required;
-				foreach ($required_params as $param):
-					${$param} = $this->input->post($param);
-					if ( empty( ${$param} ) )
-						redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
-				endforeach;
-				
 				// 需要创建的数据；逐一赋值需特别处理的字段
 				$data_to_create = array(
-					'creator_id' => $this->session->user_id,
+					'user_id' => $this->session->user_id,
 					//'name' => $this->input->post('name')),
 				);
 				// 自动生成无需特别处理的数据
@@ -338,7 +327,7 @@
 				if ($result['status'] === 200):
 					$data['title'] = $this->class_name_cn. '创建成功';
 					$data['class'] = 'success';
-					$data['message'] = $result['content']['message'];
+					$data['content'] = $result['content']['message'];
 					$data['id'] = $result['content'][$this->id_name]; // 创建后的信息ID
 
 					$this->load->view('templates/header', $data);
@@ -383,7 +372,7 @@
 				$data['error'] = validation_errors();
 
 				// 从API服务器获取相应详情信息
-				$params['id'] = $this->input->get('id');
+				$params['id'] = $this->input->get_post('id');
 				$url = api_url($this->class_name. '/detail');
 				$result = $this->curl->go($url, $params, 'array');
 				if ($result['status'] === 200):
@@ -397,17 +386,9 @@
 				$this->load->view('templates/footer', $data);
 
 			else:
-				// 检查必要参数是否已传入
-				$required_params = $this->names_edit_required;
-				foreach ($required_params as $param):
-					${$param} = $this->input->post($param);
-					if ( empty( ${$param} ) )
-						redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
-				endforeach;
-
 				// 需要编辑的数据；逐一赋值需特别处理的字段
 				$data_to_edit = array(
-					'id' => $id,
+					'id' => $this->input->post('id'),
 					'operator_id' => $this->session->user_id,
 					//'name' => $this->input->post('name')),
 				);
@@ -425,7 +406,7 @@
 				if ($result['status'] === 200):
 					$data['title'] = $this->class_name_cn. '修改成功';
 					$data['class'] = 'success';
-					$data['message'] = $result['content']['message'];
+					$data['content'] = $result['content']['message'];
 					$data['id'] = $result['content'][$this->id_name]; // 创建后的信息ID
 
 					$this->load->view('templates/header', $data);
@@ -434,7 +415,7 @@
 
 				else:
 					// 若创建失败，则进行提示
-					$data['message'] = $result['content']['error']['message'];
+					$data['error'] = $result['content']['error']['message'];
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/edit', $data);
@@ -474,13 +455,13 @@
 				$data['error'] = validation_errors();
 
 				// 从API服务器获取相应详情信息
-				$params['id'] = $this->input->get('id');
+				$params['id'] = $this->input->get_post('id');
 				$url = api_url($this->class_name. '/detail');
 				$result = $this->curl->go($url, $params, 'array');
 				if ($result['status'] === 200):
 					$data['item'] = $result['content'];
 				else:
-					redirect( base_url('error/code_404') ); // 若未成功获取信息，则转到错误页
+					$data['error'] .= $result['content']['error']['message']; // 若未成功获取信息，则转到错误页
 				endif;
 
 				$this->load->view('templates/header', $data);
@@ -493,8 +474,10 @@
 				foreach ($required_params as $param):
 					${$param} = $this->input->post($param);
 					if ( $param !== 'value' && empty( ${$param} ) ): // value 可以为空；必要字段会在字段验证中另行检查
-						$this->result['status'] = 400;
-						$this->result['content']['error']['message'] = '必要的请求参数未全部传入';
+						$data['error'] = '必要的请求参数未全部传入';
+						$this->load->view('templates/header', $data);
+						$this->load->view($this->view_root.'/'.$op_view, $data);
+						$this->load->view('templates/footer', $data);
 						exit();
 					endif;
 				endforeach;
@@ -514,7 +497,7 @@
 				if ($result['status'] === 200):
 					$data['title'] = $this->class_name_cn. '修改成功';
 					$data['class'] = 'success';
-					$data['message'] = $result['content']['message'];
+					$data['content'] = $result['content']['message'];
 					$data['id'] = $result['content'][$this->id_name]; // 创建后的信息ID
 
 					$this->load->view('templates/header', $data);
@@ -582,8 +565,10 @@
 				foreach ($required_params as $param):
 					${$param} = $this->input->post($param);
 					if ( empty( ${$param} ) ):
-						$this->result['status'] = 400;
-						$this->result['content']['error']['message'] = '必要的请求参数未全部传入';
+						$data['error'] = '必要的请求参数未全部传入';
+						$this->load->view('templates/header', $data);
+						$this->load->view($this->view_root.'/'.$op_view, $data);
+						$this->load->view('templates/footer', $data);
 						exit();
 					endif;
 				endforeach;
@@ -603,7 +588,7 @@
 				if ($result['status'] === 200):
 					$data['title'] = $this->class_name_cn.$op_name. '成功';
 					$data['class'] = 'success';
-					$data['message'] = $result['content']['message'];
+					$data['content'] = $result['content']['message'];
 					$data['id'] = $result['content'][$this->id_name]; // 创建后的信息ID
 
 					$this->load->view('templates/header', $data);
@@ -612,7 +597,7 @@
 
 				else:
 					// 若创建失败，则进行提示
-					$data['message'] = $result['content']['error']['message'];
+					$data['error'] = $result['content']['error']['message'];
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/'.$op_view, $data);
@@ -670,8 +655,10 @@
 				foreach ($required_params as $param):
 					${$param} = $this->input->post($param);
 					if ( empty( ${$param} ) ):
-						$this->result['status'] = 400;
-						$this->result['content']['error']['message'] = '必要的请求参数未全部传入';
+						$data['error'] = '必要的请求参数未全部传入';
+						$this->load->view('templates/header', $data);
+						$this->load->view($this->view_root.'/'.$op_view, $data);
+						$this->load->view('templates/footer', $data);
 						exit();
 					endif;
 				endforeach;
@@ -691,7 +678,7 @@
 				if ($result['status'] === 200):
 					$data['title'] = $this->class_name_cn.$op_name. '成功';
 					$data['class'] = 'success';
-					$data['message'] = $result['content']['message'];
+					$data['content'] = $result['content']['message'];
 					$data['id'] = $result['content'][$this->id_name]; // 创建后的信息ID
 
 					$this->load->view('templates/header', $data);
@@ -700,7 +687,7 @@
 
 				else:
 					// 若创建失败，则进行提示
-					$data['message'] = $result['content']['error']['message'];
+					$data['error'] = $result['content']['error']['message'];
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/'.$op_view, $data);
