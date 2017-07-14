@@ -112,7 +112,7 @@
 				endif;
 			endforeach;
 
-			// 获取列表；默认不获取已删除项
+			// 获取列表；默认可获取已删除项
 			$count = $this->basic_model->count($condition);
 
 			if ($count !== FALSE):
@@ -158,8 +158,8 @@
 			// 限制可返回的字段
 			$this->db->select( implode(',', $this->names_to_return) );
 
-			// 获取列表；默认不获取已删除项
-			$items = $this->basic_model->select($condition, $order_by, FALSE, FALSE);
+			// 获取列表；默认可获取已删除项
+			$items = $this->basic_model->select($condition, $order_by);
 			if ( !empty($items) ):
 				$this->result['status'] = 200;
 				$this->result['content'] = $items;
@@ -455,7 +455,7 @@
 			$this->form_validation->set_error_delimiters('', '');
 			$this->form_validation->set_rules('ids', '待操作数据ID们', 'trim|required|regex_match[/^(\d|\d,?)+$/]'); // 仅允许非零整数和半角逗号
 			$this->form_validation->set_rules('operation', '待执行操作', 'trim|required|in_list[delete,restore]');
-			$this->form_validation->set_rules('operator_id', '操作者ID', 'trim|required|is_natural_no_zero');
+			$this->form_validation->set_rules('user_id', '操作者ID', 'trim|required|is_natural_no_zero');
 			$this->form_validation->set_rules('password', '密码', 'trim|required|min_length[6]|max_length[20]');
 
 			// 验证表单值格式

@@ -11,39 +11,14 @@
 	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
 	 * @copyright ICBG <www.bingshankeji.com>
 	 */
-	class [[class_name]] extends CI_Controller
-	{
-		/* 类名称小写，应用于多处动态生成内容 */
-		public $class_name;
-
-		/* 类名称中文，应用于多处动态生成内容 */
-		public $class_name_cn;
-
-		/* 主要相关表名 */
-		public $table_name;
-
-		/* 主要相关表的主键名*/
-		public $id_name;
-
-		/* 视图文件所在目录名 */
-		public $view_root;
-		
-		/* 需要显示的字段 */
-		public $data_to_display;
-		
+	class [[class_name]] extends MY_Controller
+	{	
 		/**
 		 * 可作为列表筛选条件的字段名；可在具体方法中根据需要删除不需要的字段并转换为字符串进行应用，下同
 		 */
 		protected $names_to_sort = array(
 			[[names_list]]
 			'time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id',
-		);
-		
-		/**
-		 * 创建时必要的字段名
-		 */
-		protected $names_create_required = array(
-			[[names_list]]
 		);
 
 		/**
@@ -72,7 +47,7 @@
 		 * 编辑多行特定字段时必要的字段名
 		 */
 		protected $names_edit_bulk_required = array(
-			'ids', 'operation', 'password',
+			'ids', 'password',
 		);
 
 		public function __construct()
@@ -172,7 +147,8 @@
 			endforeach;
 
 			// 排序条件
-			$order_by = NULL;
+			$condition['biz_id'] = $this->session->biz_id;
+			$condition['time_delete'] = NULL;
 			//$order_by['name'] = 'value';
 
 			// 从API服务器获取相应列表信息
@@ -221,9 +197,6 @@
 			$data['class'] = $this->class_name.' detail';
 			//$data['keywords'] = $this->class_name.','. $data['item']['name'];
 
-			// 将需要显示的数据传到视图以备使用
-			$data['data_to_display'] = $this->data_to_display;
-
 			// 输出视图
 			$this->load->view('templates/header', $data);
 			$this->load->view($this->view_root.'/detail', $data);
@@ -238,7 +211,7 @@
 			// 操作可能需要检查操作权限
 			$role_allowed = array('管理员', '经理'); // 角色要求
 			$min_level = 30; // 级别要求
-			$this->basic->permission_check($role_allowed, $min_level);
+			$this->permission_check($role_allowed, $min_level);
 
 			// 页面信息
 			$data = array(
@@ -247,8 +220,8 @@
 			);
 
 			// 筛选条件
+			$condition['biz_id'] = $this->session->biz_id;
 			$condition['time_delete'] = 'IS NOT NULL';
-			//$condition['name'] = 'value';
 			// （可选）遍历筛选条件
 			foreach ($this->names_to_sort as $sorter):
 				if ( !empty($this->input->post($sorter)) )
@@ -295,7 +268,7 @@
 			);
 
 			// 待验证的表单项
-			$this->form_validation->set_error_delimiters('', '');
+			$this->form_validation->set_error_delimiters('', '；');
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
 			[[rules]]
 
@@ -311,6 +284,7 @@
 				// 需要创建的数据；逐一赋值需特别处理的字段
 				$data_to_create = array(
 					'user_id' => $this->session->user_id,
+					'biz_id' => $this->session->biz_id,
 					//'name' => $this->input->post('name')),
 				);
 				// 自动生成无需特别处理的数据
@@ -328,7 +302,7 @@
 					$data['title'] = $this->class_name_cn. '创建成功';
 					$data['class'] = 'success';
 					$data['content'] = $result['content']['message'];
-					$data['id'] = $result['content'][$this->id_name]; // 创建后的信息ID
+					$data['id'] = $result['content']['id']; // 创建后的信息ID
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/result', $data);
@@ -359,12 +333,12 @@
 
 			// 页面信息
 			$data = array(
-				'title' => '编辑'.$this->class_name_cn,
+				'title' => '修改'.$this->class_name_cn,
 				'class' => $this->class_name.' edit',
 			);
 
 			// 待验证的表单项
-			$this->form_validation->set_error_delimiters('', '');
+			$this->form_validation->set_error_delimiters('', '；');
 			[[rules]]
 
 			// 若表单提交不成功
@@ -388,8 +362,8 @@
 			else:
 				// 需要编辑的数据；逐一赋值需特别处理的字段
 				$data_to_edit = array(
+					'user_id' => $this->session->user_id,
 					'id' => $this->input->post('id'),
-					'operator_id' => $this->session->user_id,
 					//'name' => $this->input->post('name')),
 				);
 				// 自动生成无需特别处理的数据
@@ -407,7 +381,6 @@
 					$data['title'] = $this->class_name_cn. '修改成功';
 					$data['class'] = 'success';
 					$data['content'] = $result['content']['message'];
-					$data['id'] = $result['content'][$this->id_name]; // 创建后的信息ID
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/result', $data);
@@ -427,7 +400,7 @@
 		} // end edit
 
 		/**
-		 * 编辑单项
+		 * 修改单项
 		 */
 		public function edit_certain()
 		{
@@ -443,7 +416,7 @@
 			);
 
 			// 待验证的表单项
-			$this->form_validation->set_error_delimiters('', '');
+			$this->form_validation->set_error_delimiters('', '；');
 			// 动态设置待验证字段名及字段值
 			$data_to_validate["{$name}"] = $value;
 			$this->form_validation->set_data($data_to_validate);
@@ -498,7 +471,6 @@
 					$data['title'] = $this->class_name_cn. '修改成功';
 					$data['class'] = 'success';
 					$data['content'] = $result['content']['message'];
-					$data['id'] = $result['content'][$this->id_name]; // 创建后的信息ID
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/result', $data);
@@ -536,24 +508,43 @@
 			$data = array(
 				'title' => $op_name. $this->class_name_cn,
 				'class' => $this->class_name. ' '. $op_view,
+				'error' => '', // 预设错误提示
 			);
+
+			// 检查是否已传入必要参数
+			$ids = $this->input->get_post('ids')? $this->input->get_post('ids'): NULL;
+			if ( !empty($ids) ):
+				$ids = explode(',', $ids);
+				$data['ids'] = $ids;
+			else:
+				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
+			endif;
+			
+			// 获取待操作项数据
+			$data['items'] = array();
+			foreach ($ids as $id):
+				// 从API服务器获取相应详情信息
+				$params['id'] = $id;
+				$url = api_url($this->class_name. '/detail');
+				$result = $this->curl->go($url, $params, 'array');
+				if ($result['status'] === 200):
+					$data['items'][] = $result['content'];
+				else:
+					$data['error'] .= 'ID'.$id.'项不可操作，“'.$result['content']['error']['message'].'”';
+				endif;
+			endforeach;
 
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
 			// 待验证的表单项
-			$this->form_validation->set_error_delimiters('', '');
+			$this->form_validation->set_error_delimiters('', '；');
 			$this->form_validation->set_rules('ids', '待操作数据ID们', 'trim|required|regex_match[/^(\d|\d,?)+$/]'); // 仅允许非零整数和半角逗号
-			$this->form_validation->set_rules('operation', '待执行操作', 'trim|required|in_list[delete,restore]');
 			$this->form_validation->set_rules('password', '密码', 'trim|required|min_length[6]|max_length[20]');
-			$this->form_validation->set_rules('user_id', '操作者ID', 'trim|required|is_natural_no_zero');
 
 			// 若表单提交不成功
 			if ($this->form_validation->run() === FALSE):
-				$data['error'] = validation_errors();
-
-				$ids = $this->input->get('ids')? $this->input->get('ids'): implode(',', $this->input->post('ids'));
-				$item['ids'] = $ids;
+				$data['error'] .= validation_errors();
 
 				$this->load->view('templates/header', $data);
 				$this->load->view($this->view_root.'/'.$op_view, $data);
@@ -575,8 +566,8 @@
 
 				// 需要存入数据库的信息
 				$data_to_edit = array(
-					'ids' => $ids,
 					'user_id' => $this->session->user_id,
+					'ids' => $ids,
 					'password' => $password,
 					'operation' => $op_view, // 操作名称
 				);
@@ -589,7 +580,6 @@
 					$data['title'] = $this->class_name_cn.$op_name. '成功';
 					$data['class'] = 'success';
 					$data['content'] = $result['content']['message'];
-					$data['id'] = $result['content'][$this->id_name]; // 创建后的信息ID
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/result', $data);
@@ -597,7 +587,7 @@
 
 				else:
 					// 若创建失败，则进行提示
-					$data['error'] = $result['content']['error']['message'];
+					$data['error'] .= $result['content']['error']['message'];
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/'.$op_view, $data);
@@ -626,24 +616,43 @@
 			$data = array(
 				'title' => $op_name. $this->class_name_cn,
 				'class' => $this->class_name. ' '. $op_view,
+				'error' => '', // 预设错误提示
 			);
+
+			// 检查是否已传入必要参数
+			$ids = $this->input->get_post('ids')? $this->input->get_post('ids'): NULL;
+			if ( !empty($ids) ):
+				$ids = explode(',', $ids);
+				$data['ids'] = $ids;
+			else:
+				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
+			endif;
+			
+			// 获取待操作项数据
+			$data['items'] = array();
+			foreach ($ids as $id):
+				// 从API服务器获取相应详情信息
+				$params['id'] = $id;
+				$url = api_url($this->class_name. '/detail');
+				$result = $this->curl->go($url, $params, 'array');
+				if ($result['status'] === 200):
+					$data['items'][] = $result['content'];
+				else:
+					$data['error'] .= 'ID'.$id.'项不可操作，“'.$result['content']['error']['message'].'”';
+				endif;
+			endforeach;
 
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
 			// 待验证的表单项
-			$this->form_validation->set_error_delimiters('', '');
+			$this->form_validation->set_error_delimiters('', '；');
 			$this->form_validation->set_rules('ids', '待操作数据ID们', 'trim|required|regex_match[/^(\d|\d,?)+$/]'); // 仅允许非零整数和半角逗号
-			$this->form_validation->set_rules('operation', '待执行操作', 'trim|required|in_list[delete,restore]');
 			$this->form_validation->set_rules('password', '密码', 'trim|required|min_length[6]|max_length[20]');
-			$this->form_validation->set_rules('user_id', '操作者ID', 'trim|required|is_natural_no_zero');
 
 			// 若表单提交不成功
 			if ($this->form_validation->run() === FALSE):
-				$data['error'] = validation_errors();
-				
-				$ids = $this->input->get('ids')? $this->input->get('ids'): implode(',', $this->input->post('ids'));
-				$item['ids'] = $ids;
+				$data['error'] .= validation_errors();
 
 				$this->load->view('templates/header', $data);
 				$this->load->view($this->view_root.'/'.$op_view, $data);
@@ -665,8 +674,8 @@
 
 				// 需要存入数据库的信息
 				$data_to_edit = array(
-					'ids' => $ids,
 					'user_id' => $this->session->user_id,
+					'ids' => $ids,
 					'password' => $password,
 					'operation' => $op_view, // 操作名称
 				);
@@ -679,7 +688,6 @@
 					$data['title'] = $this->class_name_cn.$op_name. '成功';
 					$data['class'] = 'success';
 					$data['content'] = $result['content']['message'];
-					$data['id'] = $result['content'][$this->id_name]; // 创建后的信息ID
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/result', $data);
@@ -687,7 +695,7 @@
 
 				else:
 					// 若创建失败，则进行提示
-					$data['error'] = $result['content']['error']['message'];
+					$data['error'] .= $result['content']['error']['message'];
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/'.$op_view, $data);
