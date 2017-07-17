@@ -138,7 +138,8 @@
 			);
 
 			// 筛选条件
-			$condition = NULL;
+			$condition['biz_id'] = $this->session->biz_id;
+			$condition['time_delete'] = 'NULL';
 			//$condition['name'] = 'value';
 			// （可选）遍历筛选条件
 			foreach ($this->names_to_sort as $sorter):
@@ -147,8 +148,7 @@
 			endforeach;
 
 			// 排序条件
-			$condition['biz_id'] = $this->session->biz_id;
-			$condition['time_delete'] = NULL;
+			$order_by = NULL;
 			//$order_by['name'] = 'value';
 
 			// 从API服务器获取相应列表信息
@@ -285,7 +285,6 @@
 				$data_to_create = array(
 					'user_id' => $this->session->user_id,
 					'biz_id' => $this->session->biz_id,
-					//'name' => $this->input->post('name')),
 				);
 				// 自动生成无需特别处理的数据
 				$data_need_no_prepare = array(
@@ -512,13 +511,24 @@
 			);
 
 			// 检查是否已传入必要参数
-			$ids = $this->input->get_post('ids')? $this->input->get_post('ids'): NULL;
-			if ( !empty($ids) ):
-				$ids = explode(',', $ids);
-				$data['ids'] = $ids;
+			if ( !empty($this->input->get_post('ids')) ):
+				$ids = $this->input->get_post('ids');
+
+				// 将字符串格式转换为数组格式
+				if ( !is_array($ids) ):
+					$ids = explode(',', $ids);
+				endif;
+
+			elseif ( !empty($this->input->post('ids[]')) ):
+				$ids = $this->input->post('ids[]');
+
 			else:
 				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
+
 			endif;
+			
+			// 赋值视图中需要用到的待操作项数据
+			$data['ids'] = $ids;
 			
 			// 获取待操作项数据
 			$data['items'] = array();
@@ -620,13 +630,24 @@
 			);
 
 			// 检查是否已传入必要参数
-			$ids = $this->input->get_post('ids')? $this->input->get_post('ids'): NULL;
-			if ( !empty($ids) ):
-				$ids = explode(',', $ids);
-				$data['ids'] = $ids;
+			if ( !empty($this->input->get_post('ids')) ):
+				$ids = $this->input->get_post('ids');
+
+				// 将字符串格式转换为数组格式
+				if ( !is_array($ids) ):
+					$ids = explode(',', $ids);
+				endif;
+
+			elseif ( !empty($this->input->post('ids[]')) ):
+				$ids = $this->input->post('ids[]');
+
 			else:
 				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
+
 			endif;
+			
+			// 赋值视图中需要用到的待操作项数据
+			$data['ids'] = $ids;
 			
 			// 获取待操作项数据
 			$data['items'] = array();
