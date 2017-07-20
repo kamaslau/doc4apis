@@ -18,7 +18,6 @@
 		 */
 		protected $names_to_sort = array(
 			[[names_list]]
-			'time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id',
 		);
 
 		/**
@@ -265,6 +264,7 @@
 			$data = array(
 				'title' => '创建'.$this->class_name_cn,
 				'class' => $this->class_name.' create',
+				'error' => '', // 预设错误提示
 			);
 
 			// 待验证的表单项
@@ -301,6 +301,7 @@
 					$data['title'] = $this->class_name_cn. '创建成功';
 					$data['class'] = 'success';
 					$data['content'] = $result['content']['message'];
+					$data['operation'] = 'create';
 					$data['id'] = $result['content']['id']; // 创建后的信息ID
 
 					$this->load->view('templates/header', $data);
@@ -334,7 +335,18 @@
 			$data = array(
 				'title' => '修改'.$this->class_name_cn,
 				'class' => $this->class_name.' edit',
+				'error' => '', // 预设错误提示
 			);
+			
+			// 从API服务器获取相应详情信息
+			$params['id'] = $this->input->get_post('id');
+			$url = api_url($this->class_name. '/detail');
+			$result = $this->curl->go($url, $params, 'array');
+			if ($result['status'] === 200):
+				$data['item'] = $result['content'];
+			else:
+				$data['error'] .= $result['content']['error']['message']; // 若未成功获取信息，则转到错误页
+			endif;
 
 			// 待验证的表单项
 			$this->form_validation->set_error_delimiters('', '；');
@@ -342,17 +354,7 @@
 
 			// 若表单提交不成功
 			if ($this->form_validation->run() === FALSE):
-				$data['error'] = validation_errors();
-
-				// 从API服务器获取相应详情信息
-				$params['id'] = $this->input->get_post('id');
-				$url = api_url($this->class_name. '/detail');
-				$result = $this->curl->go($url, $params, 'array');
-				if ($result['status'] === 200):
-					$data['item'] = $result['content'];
-				else:
-					$data['error'] .= $result['content']['error']['message']; // 若未成功获取信息，则转到错误页
-				endif;
+				$data['error'] .= validation_errors();
 
 				$this->load->view('templates/header', $data);
 				$this->load->view($this->view_root.'/edit', $data);
@@ -380,6 +382,8 @@
 					$data['title'] = $this->class_name_cn. '修改成功';
 					$data['class'] = 'success';
 					$data['content'] = $result['content']['message'];
+					$data['operation'] = 'edit';
+					$data['id'] = $this->input->post('id');
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/result', $data);
@@ -412,7 +416,18 @@
 			$data = array(
 				'title' => '修改'.$this->class_name_cn. $name,
 				'class' => $this->class_name.' edit-certain',
+				'error' => '', // 预设错误提示
 			);
+			
+			// 从API服务器获取相应详情信息
+			$params['id'] = $this->input->get_post('id');
+			$url = api_url($this->class_name. '/detail');
+			$result = $this->curl->go($url, $params, 'array');
+			if ($result['status'] === 200):
+				$data['item'] = $result['content'];
+			else:
+				$data['error'] .= $result['content']['error']['message']; // 若未成功获取信息，则转到错误页
+			endif;
 
 			// 待验证的表单项
 			$this->form_validation->set_error_delimiters('', '；');
@@ -424,17 +439,7 @@
 
 			// 若表单提交不成功
 			if ($this->form_validation->run() === FALSE):
-				$data['error'] = validation_errors();
-
-				// 从API服务器获取相应详情信息
-				$params['id'] = $this->input->get_post('id');
-				$url = api_url($this->class_name. '/detail');
-				$result = $this->curl->go($url, $params, 'array');
-				if ($result['status'] === 200):
-					$data['item'] = $result['content'];
-				else:
-					$data['error'] .= $result['content']['error']['message']; // 若未成功获取信息，则转到错误页
-				endif;
+				$data['error'] .= validation_errors();
 
 				$this->load->view('templates/header', $data);
 				$this->load->view($this->view_root.'/edit_certain', $data);
@@ -470,6 +475,8 @@
 					$data['title'] = $this->class_name_cn. '修改成功';
 					$data['class'] = 'success';
 					$data['content'] = $result['content']['message'];
+					$data['operation'] = 'edit_certain';
+					$data['id'] = $this->input->post('id');
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/result', $data);
@@ -590,6 +597,8 @@
 					$data['title'] = $this->class_name_cn.$op_name. '成功';
 					$data['class'] = 'success';
 					$data['content'] = $result['content']['message'];
+					$data['operation'] = 'bulk';
+					$data['ids'] = $ids;
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/result', $data);

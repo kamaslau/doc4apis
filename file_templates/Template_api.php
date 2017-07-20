@@ -18,7 +18,6 @@
 		 */
 		protected $names_to_sort = array(
 			[[names_list]]
-			'time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id',
 		);
 
 		/**
@@ -26,7 +25,6 @@
 		 */
 		protected $names_to_return = array(
 			[[names_list]]
-			'creator_id', 'operator_id',
 		);
 
 		/**
