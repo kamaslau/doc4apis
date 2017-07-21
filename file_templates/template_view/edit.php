@@ -49,6 +49,8 @@
 		$attributes = array('class' => 'form-'.$this->class_name.'-edit form-horizontal', 'role' => 'form');
 		echo form_open_multipart($this->class_name.'/edit?id='.$item[$this->id_name], $attributes);
 	?>
+		<p class="bg-info text-info text-center">必填项以“※”符号表示</p>
+
 		<fieldset>
 			<legend>基本信息</legend>
 			
