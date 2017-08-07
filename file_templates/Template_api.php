@@ -504,7 +504,7 @@
 		} // end edit_bulk
 		[[extra_functions]]
 
-	}
+	} // end class [[class_name]]
 
 /* End of file [[class_name]].php */
 /* Location: ./application/controllers/[[class_name]].php */
