@@ -192,7 +192,7 @@
 			endif;
 
 			// 页面信息
-			$data['title'] = $data['item']['name'];
+			$data['title'] = isset($data['item'])? $data['item']['name']: $this->class_name_cn. '详情';
 			$data['class'] = $this->class_name.' detail';
 			//$data['keywords'] = $this->class_name.','. $data['item']['name'];
 
