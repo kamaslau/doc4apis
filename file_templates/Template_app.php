@@ -327,6 +327,14 @@
 		 */
 		public function edit()
 		{
+			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			if ( !empty($id) ):
+				$params['id'] = $id;
+			else:
+				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
+			endif;
+
 			// 操作可能需要检查操作权限
 			// $role_allowed = array('管理员', '经理'); // 角色要求
 // 			$min_level = 30; // 级别要求
@@ -338,13 +346,19 @@
 				'class' => $this->class_name.' edit',
 				'error' => '', // 预设错误提示
 			);
-			
+
 			// 从API服务器获取相应详情信息
 			$params['id'] = $this->input->get_post('id');
 			$url = api_url($this->class_name. '/detail');
 			$result = $this->curl->go($url, $params, 'array');
 			if ($result['status'] === 200):
-				$data['item'] = $result['content'];
+				//$data['item'] = $result['content'];
+
+				if ( $result['content']['biz_id'] === $this->session->biz_id ):
+					$data['item'] = $result['content'];
+				else:
+					redirect( base_url('error/not_yours') ); // 若不是当前商家所属，转到相应提示页
+				endif;
 			else:
 				$data['error'] .= $result['content']['error']['message']; // 若未成功获取信息，则转到错误页
 			endif;
@@ -408,6 +422,14 @@
 		 */
 		public function edit_certain()
 		{
+			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			if ( !empty($id) ):
+				$params['id'] = $id;
+			else:
+				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
+			endif;
+			
 			// 操作可能需要检查操作权限
 			// $role_allowed = array('管理员', '经理'); // 角色要求
 // 			$min_level = 30; // 级别要求
@@ -425,7 +447,13 @@
 			$url = api_url($this->class_name. '/detail');
 			$result = $this->curl->go($url, $params, 'array');
 			if ($result['status'] === 200):
-				$data['item'] = $result['content'];
+				//$data['item'] = $result['content'];
+				
+				if ( $result['content']['biz_id'] === $this->session->biz_id ):
+					$data['item'] = $result['content'];
+				else:
+					redirect( base_url('error/not_yours') ); // 若不是当前商家所属，转到相应提示页
+				endif;
 			else:
 				$data['error'] .= $result['content']['error']['message']; // 若未成功获取信息，则转到错误页
 			endif;
