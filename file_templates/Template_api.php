@@ -404,7 +404,6 @@
 				$data_to_edit[$name] = $value;
 
 				// 获取ID
-				$id = $this->input->post('id');
 				$result = $this->basic_model->edit($id, $data_to_edit);
 
 				if ($result !== FALSE):
