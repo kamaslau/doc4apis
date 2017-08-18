@@ -179,6 +179,8 @@
 			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
 			if ( !empty($id) ):
 				$params['id'] = $id;
+				$condition['biz_id'] = $this->session->biz_id;
+				$condition['user_id'] = $this->session->user_id;
 			else:
 				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
 			endif;
@@ -331,6 +333,8 @@
 			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
 			if ( !empty($id) ):
 				$params['id'] = $id;
+				$params['user_id'] = $this->session->user_id;
+				$params['biz_id'] = $this->session->biz_id;
 			else:
 				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
 			endif;
@@ -348,17 +352,10 @@
 			);
 
 			// 从API服务器获取相应详情信息
-			$params['id'] = $id;
 			$url = api_url($this->class_name. '/detail');
 			$result = $this->curl->go($url, $params, 'array');
 			if ($result['status'] === 200):
-				//$data['item'] = $result['content'];
-
-				if ( $result['content']['biz_id'] === $this->session->biz_id ):
-					$data['item'] = $result['content'];
-				else:
-					redirect( base_url('error/not_yours') ); // 若不是当前商家所属，转到相应提示页
-				endif;
+				$data['item'] = $result['content'];
 			else:
 				redirect( base_url('error/code_404') ); // 若未成功获取信息，则转到错误页
 			endif;
@@ -449,16 +446,12 @@
 			
 			// 从API服务器获取相应详情信息
 			$params['id'] = $id;
+			$params['user_id'] = $this->session->user_id;
+			$params['biz_id'] = $this->session->biz_id;
 			$url = api_url($this->class_name. '/detail');
 			$result = $this->curl->go($url, $params, 'array');
 			if ($result['status'] === 200):
-				//$data['item'] = $result['content'];
-				
-				if ( $result['content']['biz_id'] === $this->session->biz_id ):
-					$data['item'] = $result['content'];
-				else:
-					redirect( base_url('error/not_yours') ); // 若不是当前商家所属，转到相应提示页
-				endif;
+				$data['item'] = $result['content'];
 			else:
 				redirect( base_url('error/code_404') ); // 若未成功获取信息，则转到错误页
 			endif;
@@ -563,6 +556,8 @@
 			foreach ($ids as $id):
 				// 从API服务器获取相应详情信息
 				$params['id'] = $id;
+				$params['user_id'] = $this->session->user_id;
+				$params['biz_id'] = $this->session->biz_id;
 				$url = api_url($this->class_name. '/detail');
 				$result = $this->curl->go($url, $params, 'array');
 				if ($result['status'] === 200):
@@ -684,6 +679,8 @@
 			foreach ($ids as $id):
 				// 从API服务器获取相应详情信息
 				$params['id'] = $id;
+				$params['user_id'] = $this->session->user_id;
+				$params['biz_id'] = $this->session->biz_id;
 				$url = api_url($this->class_name. '/detail');
 				$result = $this->curl->go($url, $params, 'array');
 				if ($result['status'] === 200):
