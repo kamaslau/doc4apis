@@ -383,6 +383,7 @@
 		{
 			// 若表单提交不成功
 			if ($this->CI->form_validation->run() === FALSE):
+				$data['error'] = validation_errors();
 				$this->CI->load->view('templates/header', $data);
 				$this->CI->load->view($this->view_root.'create', $data);
 				$this->CI->load->view('templates/footer', $data);
@@ -391,6 +392,8 @@
 				$result = $this->CI->basic_model->create($data_to_create);
 				if ($result !== FALSE):
 					$data['content'] = '<p class="alert alert-success">创建成功。</p>';
+					$data['operation'] = 'create';
+					$data['id'] = $result; // 创建后的信息ID
 				else:
 					$data['content'] = '<p class="alert alert-warning">创建失败。</p>';
 				endif;
@@ -424,6 +427,7 @@
 
 			// 验证表单值格式
 			if ($this->CI->form_validation->run() === FALSE):
+				$data['error'] = validation_errors();
 				$this->CI->load->view('templates/header', $data);
 				if ($view_file_name === NULL):
 					$this->CI->load->view($this->view_root.'edit', $data);
@@ -435,6 +439,8 @@
 				$result = $this->CI->basic_model->edit($id, $data_to_edit);
 				if ($result !== FALSE):
 					$data['content'] = '<p class="alert alert-success">保存成功。</p>';
+					$data['operation'] = 'edit';
+					$data['id'] = $id;
 				else:
 					$data['content'] = '<p class="alert alert-warning">保存失败。</p>';
 				endif;
@@ -470,6 +476,7 @@
 
 			// 验证表单值格式
 			if ($this->CI->form_validation->run() === FALSE):
+				$data['error'] = validation_errors();
 				$data['ids'] = $ids;
 				foreach ($ids as $id):
 					$data['items'][] = $this->CI->basic_model->select_by_id($id);

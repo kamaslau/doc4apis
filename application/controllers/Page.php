@@ -343,6 +343,9 @@
 			$data['pages'] = $this->get_pages($data['item']['project_id']);
 
 			// 待验证的表单项
+			if ($this->session->role === '管理员')
+				$this->form_validation->set_rules('biz_id', '所属企业', 'trim|is_natural_no_zero');
+			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
@@ -369,6 +372,7 @@
 
 			// 验证表单值格式
 			if ($this->form_validation->run() === FALSE):
+				$data['error'] = validation_errors();
 				$this->load->view('templates/header', $data);
 				$this->load->view($this->view_root.'/edit', $data);
 				$this->load->view('templates/footer', $data);
@@ -376,6 +380,7 @@
 			else:
 				// 需要编辑的信息
 				$data_to_edit = array(
+					'project_id' => $this->input->post('project_id'),
 					'category_id' => $this->input->post('category_id'),
 					'code' => strtoupper( $this->input->post('code') ),
 					'name' => $this->input->post('name'),
@@ -403,10 +408,18 @@
 					);
 					$data_to_edit = array_merge($data_to_edit, $data_not_for_designer);
 				endif;
+				
+				if ($this->session->role === '管理员'):
+					$data_to_edit['biz_id'] = $this->input->post('biz_id');
+				else:
+					$data_to_edit['biz_id'] = $this->session->biz_id;
+				endif;
 
 				$result = $this->basic_model->edit($id, $data_to_edit);
 				if ($result !== FALSE):
 					$data['content'] = '<p class="alert alert-success">保存成功。</p>';
+					$data['operation'] = 'edit';
+					$data['id'] = $id;
 				else:
 					$data['content'] = '<p class="alert alert-warning">保存失败。</p>';
 				endif;
@@ -418,6 +431,144 @@
 			endif;
 		} // end edit
 		
+		/**
+		 * 克隆单行
+		 */
+		public function duplicate()
+		{
+			// 操作可能需要检查操作权限
+			$role_allowed = array('管理员', '经理'); // 角色要求
+			$min_level = 30; // 级别要求
+			$this->basic->permission_check($role_allowed, $min_level);
+			
+			// 检查是否已传入必要参数
+			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			if ( empty($id) )
+				redirect(base_url('error/code_404'));
+
+			// 页面信息
+			$data = array(
+				'title' => '克隆'.$this->class_name_cn,
+				'class' => $this->class_name.' '. $this->class_name.'-edit',
+			);
+
+			// 获取待克隆信息
+			$data['item'] = $this->basic_model->select_by_id($id);
+
+			// 管理员可获取所有企业、项目信息待选
+			if ($this->session->role === '管理员'):
+				$this->basic_model->table_name = 'biz';
+				$this->basic_model->id_name = 'biz_id';
+				$data['bizs'] = $this->basic_model->select(NULL, NULL);
+
+				$this->basic_model->table_name = 'project';
+				$this->basic_model->id_name = 'project_id';
+				$data['projects'] = $this->basic_model->select(NULL, NULL);
+
+				// 还原数据库相关类属性
+				$this->basic_model->table_name = $this->table_name;
+				$this->basic_model->id_name = $this->id_name;
+			endif;
+
+			// 获取项目数据
+			$data['project'] = $this->basic->get_by_id($data['item'][$this->id_name], 'project', 'project_id');
+
+			// 获取API列表作为“相关API”备选项
+			$data['apis'] = $this->get_apis($data['item']['biz_id']);
+
+			// 获取页面列表作为“相关页面”备选项
+			$data['pages'] = $this->get_pages($data['item']['project_id']);
+
+			// 待验证的表单项
+			if ($this->session->role === '管理员')
+				$this->form_validation->set_rules('biz_id', '所属企业', 'trim|is_natural_no_zero');
+			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero|required');
+			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
+			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
+			$this->form_validation->set_rules('name', '名称', 'trim|required');
+			$this->form_validation->set_rules('description', '说明', 'trim');
+			$this->form_validation->set_rules('private', '是否需登录', 'trim|in_list[0,1]');
+			$this->form_validation->set_rules('return_allowed', '是否可返回', 'trim|in_list[0,1]');
+			$this->form_validation->set_rules('nav_top', '显示标题栏', 'trim|in_list[0,1]');
+			$this->form_validation->set_rules('nav_bottom', '显示导航栏', 'trim|in_list[0,1]');
+			$this->form_validation->set_rules('elements', '视图元素', 'trim');
+			$this->form_validation->set_rules('url_design', '设计图URL', 'trim');
+			$this->form_validation->set_rules('url_assets', '美术素材URL', 'trim|valid_url');
+			$this->form_validation->set_rules('note_designer', '设计师备注', 'trim');
+			if ($this->session->role !== '设计师'):
+				$this->form_validation->set_rules('code_class', '类名', 'trim|alpha_dash');
+				$this->form_validation->set_rules('code_function', '方法名', 'trim|alpha_dash');
+				$this->form_validation->set_rules('onloads', '载入事件', 'trim');
+				$this->form_validation->set_rules('returns', '返回事件', 'trim');
+				$this->form_validation->set_rules('events', '业务流程', 'trim');
+				$this->form_validation->set_rules('api_ids', '相关API', 'trim');
+				$this->form_validation->set_rules('page_ids', '相关页面', 'trim');
+				$this->form_validation->set_rules('note_developer', '开发者备注', 'trim');
+				$this->form_validation->set_rules('status', '状态', 'trim|required');
+			endif;
+
+			// 验证表单值格式
+			if ($this->form_validation->run() === FALSE):
+				$data['error'] = validation_errors();
+
+				$this->load->view('templates/header', $data);
+				$this->load->view($this->view_root.'/duplicate', $data);
+				$this->load->view('templates/footer', $data);
+
+			else:
+				// 需要编辑的信息
+				$data_to_create = array(
+					'project_id' => $this->input->post('project_id'),
+					'category_id' => $this->input->post('category_id'),
+					'code' => strtoupper( $this->input->post('code') ),
+					'name' => $this->input->post('name'),
+					'description' => $this->input->post('description'),
+					'private' => $this->input->post('private'),
+					'return_allowed' => $this->input->post('return_allowed'),
+					'nav_top' => $this->input->post('nav_top'),
+					'nav_bottom' => $this->input->post('nav_bottom'),
+					'elements' => $this->input->post('elements'),
+					'url_design' => $this->input->post('url_design'),
+					'url_assets' => $this->input->post('url_assets'),
+					'note_designer' => $this->input->post('note_designer'),
+				);
+				if ($this->session->role !== '设计师'):
+					$data_not_for_designer = array(
+						'code_class' => $this->input->post('code_class'),
+						'code_function' => $this->input->post('code_function'),
+						'onloads' => $this->input->post('onloads'),
+						'returns' => $this->input->post('returns'),
+						'events' => $this->input->post('events'),
+						'api_ids' => $this->input->post('api_ids'),
+						'page_ids' => $this->input->post('page_ids'),
+						'note_developer' => $this->input->post('note_developer'),
+						'status' => $this->input->post('status'),
+					);
+					$data_to_create = array_merge($data_to_create, $data_not_for_designer);
+				endif;
+				
+				if ($this->session->role === '管理员'):
+					$data_to_create['biz_id'] = $this->input->post('biz_id');
+				else:
+					$data_to_create['biz_id'] = $this->session->biz_id;
+				endif;
+
+				// 向数据库中写入记录
+				$result = $this->basic_model->create($data_to_create, TRUE);
+				if ($result !== FALSE):
+					$data['content'] = '<p class="alert alert-success">克隆成功。</p>';
+					$data['operation'] = 'duplicate';
+					$data['id'] = $result;
+				else:
+					$data['content'] = '<p class="alert alert-warning">克隆失败。</p>';
+				endif;
+
+				$this->load->view('templates/header', $data);
+				$this->load->view($this->view_root.'/result', $data);
+				$this->load->view('templates/footer', $data);
+			endif;
+		} // end duplicate
+
 		// 根据企业ID获取API列表
 		private function get_apis($biz_id)
 		{

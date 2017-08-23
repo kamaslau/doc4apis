@@ -139,6 +139,7 @@
 
 			// 筛选条件
 			$condition['biz_id'] = $this->session->biz_id;
+			$condition['user_id'] = $this->session->user_id;
 			$condition['time_delete'] = 'NULL';
 			//$condition['name'] = 'value';
 			// （可选）遍历筛选条件
@@ -179,8 +180,8 @@
 			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
 			if ( !empty($id) ):
 				$params['id'] = $id;
-				$condition['biz_id'] = $this->session->biz_id;
-				$condition['user_id'] = $this->session->user_id;
+				$params['biz_id'] = $this->session->biz_id;
+				$params['user_id'] = $this->session->user_id;
 			else:
 				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
 			endif;
@@ -223,6 +224,7 @@
 
 			// 筛选条件
 			$condition['biz_id'] = $this->session->biz_id;
+			$condition['user_id'] = $this->session->user_id;
 			$condition['time_delete'] = 'IS NOT NULL';
 			// （可选）遍历筛选条件
 			foreach ($this->names_to_sort as $sorter):
@@ -376,6 +378,7 @@
 				// 需要编辑的数据；逐一赋值需特别处理的字段
 				$data_to_edit = array(
 					'user_id' => $this->session->user_id,
+					'biz_id' => $this->session->biz_id,
 					'id' => $id,
 					//'name' => $this->input->post('name')),
 				);
@@ -443,11 +446,11 @@
 				'class' => $this->class_name.' edit-certain',
 				'error' => '', // 预设错误提示
 			);
-			
+
 			// 从API服务器获取相应详情信息
 			$params['id'] = $id;
-			$params['user_id'] = $this->session->user_id;
 			$params['biz_id'] = $this->session->biz_id;
+			$params['user_id'] = $this->session->user_id;
 			$url = api_url($this->class_name. '/detail');
 			$result = $this->curl->go($url, $params, 'array');
 			if ($result['status'] === 200):
@@ -556,8 +559,8 @@
 			foreach ($ids as $id):
 				// 从API服务器获取相应详情信息
 				$params['id'] = $id;
-				$params['user_id'] = $this->session->user_id;
 				$params['biz_id'] = $this->session->biz_id;
+				$params['user_id'] = $this->session->user_id;
 				$url = api_url($this->class_name. '/detail');
 				$result = $this->curl->go($url, $params, 'array');
 				if ($result['status'] === 200):

@@ -247,8 +247,8 @@
 				'category_id' => $this->input->post('category_id'),
 				'name' => ucwords( $this->input->post('name') ),
 				'code' => strtoupper( $this->input->post('code') ),
-				'url' => $this->input->post('url'),
-				'url_full' => $this->input->post('url_full'),
+				'url' => strtolower($this->input->post('url')),
+				'url_full' => strtolower($this->input->post('url_full')),
 				'description' => $this->input->post('description'),
 				'params_request' => $this->input->post('params_request'),
 				'params_respond' => $this->input->post('params_respond'),
@@ -327,6 +327,8 @@
 
 			// 验证表单值格式
 			if ($this->form_validation->run() === FALSE):
+				$data['error'] = validation_errors();
+
 				$this->load->view('templates/header', $data);
 				$this->load->view($this->view_root.'/edit', $data);
 				$this->load->view('templates/footer', $data);
@@ -338,8 +340,8 @@
 					'category_id' => $this->input->post('category_id'),
 					'name' => ucwords( $this->input->post('name') ),
 					'code' => strtoupper( $this->input->post('code') ),
-					'url' => $this->input->post('url'),
-					'url_full' => $this->input->post('url_full'),
+					'url' => strtolower($this->input->post('url')),
+					'url_full' => strtolower($this->input->post('url_full')),
 					'description' => $this->input->post('description'),
 					'params_request' => $this->input->post('params_request'),
 					'params_respond' => $this->input->post('params_respond'),
@@ -357,6 +359,8 @@
 
 				if ($result !== FALSE):
 					$data['content'] = '<p class="alert alert-success">保存成功。</p>';
+					$data['operation'] = 'edit';
+					$data['id'] = $id;
 				else:
 					$data['content'] = '<p class="alert alert-warning">保存失败。</p>';
 				endif;
@@ -416,7 +420,7 @@
 			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
+			$this->form_validation->set_rules('code', '序号', 'trim|required|alpha_numeric');
 			$this->form_validation->set_rules('url', 'URL', 'trim');
 			$this->form_validation->set_rules('url_full', '第三方URL', 'trim|valid_url');
 			$this->form_validation->set_rules('description', '说明', 'trim');
@@ -428,6 +432,8 @@
 
 			// 验证表单值格式
 			if ($this->form_validation->run() === FALSE):
+				$data['error'] = validation_errors();
+
 				$this->load->view('templates/header', $data);
 				$this->load->view($this->view_root.'/duplicate', $data);
 				$this->load->view('templates/footer', $data);
@@ -439,8 +445,8 @@
 					'category_id' => $this->input->post('category_id'),
 					'name' => $this->input->post('name'),
 					'code' => strtoupper($this->input->post('code')),
-					'url' => $this->input->post('url'),
-					'url_full' => $this->input->post('url_full'),
+					'url' => strtolower($this->input->post('url')),
+					'url_full' => strtolower($this->input->post('url_full')),
 					'description' => $this->input->post('description'),
 					'params_request' => $this->input->post('params_request'),
 					'params_respond' => $this->input->post('params_respond'),
@@ -455,9 +461,11 @@
 				endif;
 
 				// 向数据库中写入记录
-				$result = $this->basic_model->create($data_to_create);
+				$result = $this->basic_model->create($data_to_create, TRUE);
 				if ($result !== FALSE):
 					$data['content'] = '<p class="alert alert-success">克隆成功。</p>';
+					$data['operation'] = 'duplicate';
+					$data['id'] = $result;
 				else:
 					$data['content'] = '<p class="alert alert-warning">克隆失败。</p>';
 				endif;

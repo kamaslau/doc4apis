@@ -47,7 +47,7 @@
 	<?php endif ?>
 
 	<?php
-		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
+		if ( !empty($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
 		$attributes = array('class' => 'form-'.$this->class_name.'-duplicate form-horizontal', 'role' => 'form');
 		echo form_open($this->class_name.'/duplicate?id='.$item[$this->id_name], $attributes);
 	?>
@@ -184,6 +184,19 @@
 					<textarea class=form-control name=sample_respond rows=10 placeholder="返回示例"><?php echo $item['sample_respond'] ?></textarea>
 				</div>
 				<?php echo form_error('sample_respond') ?>
+			</div>
+			
+			<div class=form-group>
+				<label for=status class="col-sm-2 control-label">状态</label>
+				<div class=col-sm-10>
+					<label class=radio-inline>
+						<input type=radio name=status value="1" required <?php if ($item['status'] === '1') echo 'checked'; ?>> 正常
+					</label>
+					<label class=radio-inline>
+						<input type=radio name=status value="0" required <?php if ($item['status'] === '0') echo 'checked'; ?>> 草稿
+					</label>
+					<?php echo form_error('status') ?>
+				</div>
 			</div>
 		</fieldset>
 
