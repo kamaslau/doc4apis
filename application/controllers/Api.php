@@ -159,9 +159,11 @@
 			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
 
-			// 检查是否已传入必要参数
-			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( empty($project_id) ) redirect(base_url('project'));
+			// 对于非系统级管理员之外的角色，需检查是否已传入必要参数
+			if ($this->session->role !== '管理员'):
+				$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+				if ( empty($project_id) ) redirect(base_url('project'));
+			endif;
 
 			// 页面信息
 			$data = array(

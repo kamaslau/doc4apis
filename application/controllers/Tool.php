@@ -4,9 +4,6 @@
 	/**
 	 * Tool 类
 	 *
-	 * 以API服务形式返回数据列表、详情、创建、单行编辑、单/多行编辑（删除、恢复）等功能提供了常见功能的示例代码
-	 * CodeIgniter官方网站 https://www.codeigniter.com/user_guide/
-	 *
 	 * @version 1.0.0
 	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
 	 * @copyright ICBG <www.bingshankeji.com>
@@ -118,7 +115,7 @@
 		public function class_generate()
 		{
 			// 检查必要参数是否已传入
-			$required_params = array('biz_id', 'project_id', 'class_name', 'class_name_cn', 'code', 'table_name', 'id_name', 'api_url');
+			$required_params = array('biz_id', 'project_id', 'code', 'class_name', 'class_name_cn', 'table_name', 'id_name', 'api_url', 'doc_api', 'doc_page', 'file_api', 'file_code');
 			foreach ($required_params as $param):
 				${$param} = $this->input->post($param);
 				if ( empty( ${$param} ) ):
@@ -127,7 +124,7 @@
 					exit();
 				endif;
 			endforeach;
-			
+
 			// 从API服务器获取相应列表信息
 			$params = array(
 				'class_name' => $class_name,
@@ -217,7 +214,8 @@
 				);
 
 				// 生成API文档
-				//$this->doc_api_generate($doc_content_api, $apis, $i);
+				if ($doc_api === 'yes')
+					$this->doc_api_generate($doc_content_api, $apis, $i);
 			endfor;
 
 			// 生成页面文档
@@ -250,26 +248,34 @@
 				$i++; // 更新序号
 
 				// 生成页面文档
-				//$this->doc_page_generate($doc_content_page, $pages, $title);
+				if ($doc_page === 'yes')
+					$this->doc_page_generate($doc_content_page, $pages, $title);
+
 				// 对部分页面，生成视图文件
-				$pages_to_generate = array('create', 'edit', 'detail',);
-				if ( in_array($name, $pages_to_generate) ):
-					$target_directory = 'views/'.$class_name.'/';
-					$file_name = $name. '.php';
-					$this->view_file_generate($target_directory, $file_name, $$name);
+				if ($file_code === 'yes'):
+					$pages_to_generate = array('create', 'edit', 'detail',);
+					if ( in_array($name, $pages_to_generate) ):
+						$target_directory = 'views/'.$class_name.'/';
+						$file_name = $name. '.php';
+						$this->view_file_generate($target_directory, $file_name, $$name);
+					endif;
 				endif;
 			endforeach;
 
 			// 待生成的API及控制器文件名
 			$file_name = ucfirst($class_name). '.php';
-			
+
 			// 生成API文件
-			$target_directory = 'api/';
-			$this->api_file_generate($target_directory, $file_name, $api_file_content);
-			
+			if ($file_api === 'yes'):
+				$target_directory = 'api/';
+				$this->api_file_generate($target_directory, $file_name, $api_file_content);
+			endif;
+
 			// 生成控制器文件
-			$target_directory = 'controllers/';
-			$this->controller_file_generate($target_directory, $file_name, $controller_file_content);
+			if ($file_code === 'yes'):
+				$target_directory = 'controllers/';
+				$this->controller_file_generate($target_directory, $file_name, $controller_file_content);
+			endif;
 		} // end class_generate
 
 		// 生成API文档，不含需特别生成的类方法相关页面
