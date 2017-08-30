@@ -281,21 +281,11 @@
 		// 生成API文档，不含需特别生成的类方法相关页面
 		private function doc_api_generate($data_to_create, $apis, $i)
 		{
-			$general_return_names =
-				'<tr><td>time_create</td><td>string</td><td>否</td><td>'.date('Y-m-d H:i:s').'</td><td>创建时间</td></tr>'. "\n".
-				'<tr><td>time_delete</td><td>string</td><td>否</td><td>'.date('Y-m-d H:i:s').'</td><td>删除时间</td></tr>'. "\n".
-				'<tr><td>time_edit</td><td>string</td><td>否</td><td>'.date('Y-m-d H:i:s').'</td><td>最后操作时间</td></tr>'. "\n".
-				'<tr><td>creator_id</td><td>string</td><td>否</td><td>20</td><td>创建者用户ID</td></tr>'. "\n".
-				'<tr><td>operator_id</td><td>sring</td><td>否</td><td>17</td><td>最后操作者用户ID</td></tr>'. "\n";
-			
 			switch ($apis[$i]):
 				case '计数':
 					$data_to_create['url'] .= 'count';
-					$data_to_create['params_request'] = $general_return_names. $this->params_request;
+					$data_to_create['params_request'] = $this->params_request;
 					$data_to_create['params_respond'] = '<tr><td>count</td><td>int</td><td>是</td><td>1</td><td>符合筛选条件（若有）的商家数量</td></tr>';
-
-					$extra_request = array('time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id');
-					foreach ($extra_request as $extra) $data_to_create['sample_request'] .= $extra.":\n"; // 请求参数，后同
 					break;
 
 				case '列表':
@@ -303,7 +293,7 @@
 					$data_to_create['params_request'] =
 						'<tr><td>limit</td><td>int</td><td>否</td><td>10</td><td>需要获取多少行数据<br>默认获取所有数据</td></tr>'. "\n".
 						'<tr><td>offset</td><td>int</td><td>否</td><td>20</td><td>需要跳过多少行数据<br>默认“0”</td></tr>'. "\n".
-						$general_return_names. $this->params_request;
+						$this->params_request;
 					$data_to_create['params_respond'] = $this->params_respond;
 
 					$extra_request = array('limit', 'offset');
@@ -315,7 +305,7 @@
 					$data_to_create['params_request'] = '<tr><td>id</td><td>string</td><td>是</td><td>1</td><td>'.$this->class_name_cn.'ID</td></tr>';
 					$data_to_create['params_respond'] = $this->params_respond;
 
-					$data_to_create['sample_request'] .= "id:\n";
+					$data_to_create['sample_request'] = "id:\n";
 					break;
 
 				case '创建':
@@ -338,7 +328,7 @@
 						$this->params_request;
 					$data_to_create['params_respond'] =
 						'<tr><td>message</td><td>string</td><td>详见“返回示例”</td><td>需要显示的提示信息</td></tr>';
-					
+
 					$extra_request = array('user_id', 'id');
 					foreach ($extra_request as $extra) $data_to_create['sample_request'] .= $extra.":\n";
 					break;

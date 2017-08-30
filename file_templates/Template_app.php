@@ -526,6 +526,19 @@
 
 			$op_name = '删除'; // 操作的名称
 			$op_view = 'delete'; // 视图文件名
+			
+			// 检查必要参数是否已传入
+			$required_params = $this->names_edit_bulk_required;
+			foreach ($required_params as $param):
+				${$param} = $this->input->post($param);
+				if ( empty( ${$param} ) ):
+					$data['error'] = '必要的请求参数未全部传入';
+					$this->load->view('templates/header', $data);
+					$this->load->view($this->view_root.'/'.$op_view, $data);
+					$this->load->view('templates/footer', $data);
+					exit();
+				endif;
+			endforeach;
 
 			// 页面信息
 			$data = array(
@@ -587,19 +600,6 @@
 				$this->load->view('templates/footer', $data);
 
 			else:
-				// 检查必要参数是否已传入
-				$required_params = $this->names_edit_bulk_required;
-				foreach ($required_params as $param):
-					${$param} = $this->input->post($param);
-					if ( empty( ${$param} ) ):
-						$data['error'] = '必要的请求参数未全部传入';
-						$this->load->view('templates/header', $data);
-						$this->load->view($this->view_root.'/'.$op_view, $data);
-						$this->load->view('templates/footer', $data);
-						exit();
-					endif;
-				endforeach;
-
 				// 需要存入数据库的信息
 				$data_to_edit = array(
 					'user_id' => $this->session->user_id,
@@ -608,7 +608,7 @@
 					'operation' => $op_view, // 操作名称
 				);
 
-				// 向API服务器发送待创建数据
+				// 向API服务器发送待修改数据
 				$params = $data_to_edit;
 				$url = api_url($this->class_name. '/edit_bulk');
 				$result = $this->curl->go($url, $params, 'array');
@@ -649,7 +649,20 @@
 
 			$op_name = '恢复'; // 操作的名称
 			$op_view = 'restore'; // 视图文件名
-
+			
+			// 检查必要参数是否已传入
+			$required_params = $this->names_edit_bulk_required;
+			foreach ($required_params as $param):
+				${$param} = $this->input->post($param);
+				if ( empty( ${$param} ) ):
+					$data['error'] = '必要的请求参数未全部传入';
+					$this->load->view('templates/header', $data);
+					$this->load->view($this->view_root.'/'.$op_view, $data);
+					$this->load->view('templates/footer', $data);
+					exit();
+				endif;
+			endforeach;
+			
 			// 页面信息
 			$data = array(
 				'title' => $op_name. $this->class_name_cn,
@@ -710,19 +723,6 @@
 				$this->load->view('templates/footer', $data);
 
 			else:
-				// 检查必要参数是否已传入
-				$required_params = $this->names_edit_bulk_required;
-				foreach ($required_params as $param):
-					${$param} = $this->input->post($param);
-					if ( empty( ${$param} ) ):
-						$data['error'] = '必要的请求参数未全部传入';
-						$this->load->view('templates/header', $data);
-						$this->load->view($this->view_root.'/'.$op_view, $data);
-						$this->load->view('templates/footer', $data);
-						exit();
-					endif;
-				endforeach;
-
 				// 需要存入数据库的信息
 				$data_to_edit = array(
 					'user_id' => $this->session->user_id,
@@ -731,7 +731,7 @@
 					'operation' => $op_view, // 操作名称
 				);
 
-				// 向API服务器发送待创建数据
+				// 向API服务器发送待修改数据
 				$params = $data_to_edit;
 				$url = api_url($this->class_name. '/edit_bulk');
 				$result = $this->curl->go($url, $params, 'array');
