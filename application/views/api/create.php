@@ -59,7 +59,7 @@
 	<?php
 		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
 		$attributes = array('class' => 'form-'.$this->class_name.'-create form-horizontal', 'role' => 'form');
-		echo form_open($this->class_name.'/create', $attributes);
+		echo form_open_multipart($this->class_name.'/create', $attributes);
 	?>
 		<fieldset>
 			<legend>基本信息</legend>

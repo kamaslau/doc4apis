@@ -4,8 +4,6 @@
 	/**
 	 * Error 类
 	 *
-	 * CodeIgniter官方网站 https://www.codeigniter.com/user_guide/
-	 *
 	 * @version 1.0.0
 	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
 	 * @copyright ICBG <www.bingshankeji.com>
@@ -26,14 +24,11 @@
 
 		/* 视图文件所在目录名 */
 		public $view_root;
-		
-		/* 需要显示的字段 */
-		public $data_to_display;
 
 		public function __construct()
 		{
 			parent::__construct();
-			
+
 			// 向类属性赋值
 			$this->class_name = strtolower(__CLASS__);
 			$this->class_name_cn = '类名'; // 改这里……
@@ -70,6 +65,23 @@
 		/**
 		 * 404
 		 */
+		public function code_400()
+		{
+			// 页面信息
+			$data = array(
+				'title' => '400',
+				'class' => 'error error-400',
+				'content' => '必要的请求参数未全部传入。',
+			);
+
+			$this->load->view('templates/header', $data);
+			$this->load->view($this->view_root.'/400', $data);
+			$this->load->view('templates/footer', $data);
+		}
+		
+		/**
+		 * 404
+		 */
 		public function code_404()
 		{
 			// 页面信息
@@ -81,6 +93,23 @@
 
 			$this->load->view('templates/header', $data);
 			$this->load->view($this->view_root.'/404', $data);
+			$this->load->view('templates/footer', $data);
+		}
+
+		/**
+		 * 权限 所有权不符
+		 */
+		public function not_yours()
+		{
+			// 页面信息
+			$data = array(
+				'title' => '权限问题 - 所有权不符',
+				'class' => 'error error-role',
+				'content' => '您无法操作该项。',
+			);
+
+			$this->load->view('templates/header', $data);
+			$this->load->view($this->view_root.'/not_yours', $data);
 			$this->load->view('templates/footer', $data);
 		}
 		
@@ -117,7 +146,7 @@
 			$this->load->view($this->view_root.'/permission', $data);
 			$this->load->view('templates/footer', $data);
 		}
-	}
+	} // end class Error
 
 /* End of file Error.php */
 /* Location: ./application/controllers/Error.php */
