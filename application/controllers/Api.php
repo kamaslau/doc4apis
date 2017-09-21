@@ -278,7 +278,7 @@
 			$role_allowed = array('管理员', '经理'); // 角色要求
 			$min_level = 30; // 级别要求
 			$this->basic->permission_check($role_allowed, $min_level);
-			
+
 			// 检查是否已传入必要参数
 			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
 			if ( empty($id) )

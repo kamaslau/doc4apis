@@ -93,20 +93,17 @@
 		{
 			// 筛选条件
 			$condition = NULL;
-			//$condition['name'] = 'value';
-
-			// （可选）遍历筛选条件
+			// 遍历筛选条件
 			foreach ($this->names_to_sort as $sorter):
-				if ( !empty($this->input->post_get($sorter)) ):
+				if ( !empty($this->input->post($sorter)) ):
 					// 对时间范围做限制
-					if ($sorter === 'start_time'):
-						$condition['time_create >='] = $this->input->post_get($sorter);
-					elseif ($sorter === 'end_time'):
-						$condition['time_create <='] = $this->input->post_get($sorter);
+					if ($sorter === 'time_create'):
+						$condition['time_create >'] = $this->input->post($sorter);
+					elseif ($sorter === 'time_create_end'):
+						$condition['time_create <'] = $this->input->post($sorter);
 					else:
-						$condition[$sorter] = $this->input->post_get($sorter);
+						$condition[$sorter] = $this->input->post($sorter);
 					endif;
-
 				endif;
 			endforeach;
 
@@ -142,13 +139,20 @@
 
 			// 筛选条件
 			$condition = NULL;
-			//$condition['name'] = 'value';
-			// （可选）遍历筛选条件
+			// 遍历筛选条件
 			foreach ($this->names_to_sort as $sorter):
-				if ( !empty($this->input->post($sorter)) )
-					$condition[$sorter] = $this->input->post($sorter);
+				if ( !empty($this->input->post($sorter)) ):
+					// 对时间范围做限制
+					if ($sorter === 'time_create'):
+						$condition['time_create >'] = $this->input->post($sorter);
+					elseif ($sorter === 'time_create_end'):
+						$condition['time_create <'] = $this->input->post($sorter);
+					else:
+						$condition[$sorter] = $this->input->post($sorter);
+					endif;
+				endif;
 			endforeach;
-			
+
 			// 排序条件
 			$order_by = NULL;
 			//$order_by['name'] = 'value';

@@ -547,25 +547,8 @@
 				'error' => '', // 预设错误提示
 			);
 
-			// 检查是否已传入必要参数
-			if ( !empty($this->input->get_post('ids')) ):
-				$ids = $this->input->get_post('ids');
-
-				// 将字符串格式转换为数组格式
-				if ( !is_array($ids) ):
-					$ids = explode(',', $ids);
-				endif;
-
-			elseif ( !empty($this->input->post('ids[]')) ):
-				$ids = $this->input->post('ids[]');
-
-			else:
-				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
-
-			endif;
-			
 			// 赋值视图中需要用到的待操作项数据
-			$data['ids'] = $ids;
+			$data['ids'] = $this->parse_ids_array();
 			
 			// 获取待操作项数据
 			$data['items'] = array();
@@ -670,25 +653,8 @@
 				'error' => '', // 预设错误提示
 			);
 
-			// 检查是否已传入必要参数
-			if ( !empty($this->input->get_post('ids')) ):
-				$ids = $this->input->get_post('ids');
-
-				// 将字符串格式转换为数组格式
-				if ( !is_array($ids) ):
-					$ids = explode(',', $ids);
-				endif;
-
-			elseif ( !empty($this->input->post('ids[]')) ):
-				$ids = $this->input->post('ids[]');
-
-			else:
-				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
-
-			endif;
-			
 			// 赋值视图中需要用到的待操作项数据
-			$data['ids'] = $ids;
+			$data['ids'] = $this->parse_ids_array();
 			
 			// 获取待操作项数据
 			$data['items'] = array();
