@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'godaddy';
 $query_builder = TRUE;
 
-/* 适用于生产环境的数据库参数，仅有读权限 */
+/* 适用于生产环境的数据库参数 */
 $db['godaddy'] = array(
 	'dsn' => 'mysqli://rest_apis:Everything!728@166.62.28.98/rest_apis',
 	'hostname' => '166.62.28.98', // 数据库URL
@@ -26,6 +26,29 @@ $db['godaddy'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE,
 );
+
+$db['netcn'] = array(
+	'dsn' => 'mysqli://hdm325607678:everything728@hdm325607678.my3w.com/hdm325607678_db',
+	'hostname' => 'hdm325607678.my3w.com', // 数据库URL
+	'username' => 'hdm325607678', // 数据库用户名
+	'password' => 'everything728', // 数据库密码
+	'database' => 'hdm325607678_db', //数据库名
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE,
+);
+
 
 $db['aliyun'] = array(
 	'dsn' => 'mysqli://liuyajie728:027889@sensestrong.mysql.rds.aliyuncs.com/rest_apis',
