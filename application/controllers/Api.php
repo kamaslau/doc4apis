@@ -292,6 +292,7 @@
 
 			// 获取待编辑信息
 			$data['item'] = $this->basic_model->select_by_id($id);
+			$data['title'] .= $data['item']['name']; // 更新页面标题
 
 			// 管理员可获取所有企业、项目信息待选
 			if ($this->session->role === '管理员'):
@@ -397,6 +398,7 @@
 
 			// 获取待克隆信息
 			$data['item'] = $this->basic_model->select_by_id($id);
+			$data['title'] .= $data['item']['name']; // 更新页面标题
 
 			// 管理员可获取所有企业、项目信息待选
 			if ($this->session->role === '管理员'):

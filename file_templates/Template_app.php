@@ -398,7 +398,7 @@
 					$data['class'] = 'success';
 					$data['content'] = $result['content']['message'];
 					$data['operation'] = 'edit';
-					$data['id'] = $id;
+					$data['id'] = $result['content']['id']; // 修改后的信息ID
 
 					$this->load->view('templates/header', $data);
 					$this->load->view($this->view_root.'/result', $data);

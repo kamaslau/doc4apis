@@ -23,7 +23,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20170922">
+		<meta name=version content="revision20171119">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -48,20 +48,37 @@
 		<link rel=canonical href="<?php echo current_url() ?>">
 
 		<meta name=format-detection content="telephone=yes, address=no, email=no">
+		<script>
+            var user_agent = new Object();
+            user_agent.is_wechat = <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>;
+            user_agent.is_ios = <?php echo ($is_ios === TRUE)? 'true': 'false' ?>;
+            user_agent.is_android = <?php echo ($is_android === TRUE)? 'true': 'false' ?>;
+        </script>
 	</head>
 <?php
 	// 将head内容立即输出，让用户浏览器立即开始请求head中各项资源，提高页面加载速度
 	ob_flush();flush();
+
+    // 生成body的class
+	$body_class = ( isset($class) )? $class: NULL;
+    $body_class .= ($is_wechat === TRUE)? ' is_wechat': NULL;
+    $body_class .= ($is_ios === TRUE)? ' is_ios': NULL;
+    $body_class .= ($is_android === TRUE)? ' is_android': NULL;
 ?>
+
 <!-- 内容开始 -->
-<?php
+	<body<?php echo ( !empty($body_class) )? ' class="'.$body_class.'"': NULL ?>>
+	<?php
 	/**
-	 * APP中调用webview时配合URL按需显示相应部分
-	 * 此处以在APP中以WebView打开页面时不显示页面header部分为例
-	 */
-	if ($this->input->get('from') != 'app'):
-?>
-	<body<?php echo (isset($class))? ' class="'.$class.'"': NULL; ?>>
+		 * APP中调用webview时配合URL按需显示相应部分
+		 * 此处以在APP中以WebView打开页面时不显示页面header部分为例
+		 */
+		if ($this->input->get('from') != 'app'):
+	?>
+		<noscript>
+			<p>您的浏览器功能加载出现问题，请刷新浏览器重试；如果仍然出现此提示，请考虑更换浏览器。</p>
+		</noscript>
+		
 		<header id=header role=banner>
 			<div class=container>
 				<h1>
