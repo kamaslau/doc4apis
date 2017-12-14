@@ -23,7 +23,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20171119">
+		<meta name=version content="revision20171214">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -42,8 +42,8 @@
 		<link rel=stylesheet media=all href="https://cdn.key2all.com/font-awesome/css/font-awesome.min.css">
 		<link rel=stylesheet media=all href="/css/style.css">
 
-		<link rel="shortcut icon" href="//www.bandaodian.com/logos/logo_32x32.png">
-		<link rel=apple-touch-icon href="//www.bandaodian.com/logos/logo_120x120.png">
+		<link rel="shortcut icon" href="/media/logos/logo_32x32.png">
+		<link rel=apple-touch-icon href="/media/logos/logo_120x120.png">
 
 		<link rel=canonical href="<?php echo current_url() ?>">
 

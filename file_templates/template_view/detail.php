@@ -21,6 +21,8 @@
 	}
 </style>
 
+<script defer src="/js/detail.js"></script>
+
 <base href="<?php echo $this->media_root ?>">
 
 <div id=breadcrumb>
@@ -32,28 +34,56 @@
 </div>
 
 <div id=content class=container>
-	<?php
-		if ( !empty($error) ):
-			echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
+	<?php if ( empty($item) ): ?>
+	<p><?php echo $error ?></p>
 
+	<?php
 		else:
-            // 需要特定角色和权限进行该操作
-            $current_role = $this->session->role; // 当前用户角色
-            $current_level = $this->session->level; // 当前用户级别
-            $role_allowed = array('管理员', '经理');
-            $level_allowed = 30;
-        ?>
-	
-	<ul id=item-actions class=list-unstyled>
-		<?php
-		// 需要特定角色和权限进行该操作
-		if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
-		?>
-		<li><a title="编辑" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-edit"></i> 编辑</a></li>
-		<?php endif ?>
-	</ul>
+			// 需要特定角色和权限进行该操作
+			$current_role = $this->session->role; // 当前用户角色
+			$current_level = $this->session->level; // 当前用户级别
+			$role_allowed = array('管理员', '经理');
+			$level_allowed = 30;
+			if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
+			?>
+		    <ul id=item-actions class=list-unstyled>
+				<li><a title="编辑" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>">编辑</a></li>
+		    </ul>
+	<?php endif ?>
 
 	<dl id=list-info class=dl-horizontal>
+		<dt><?php echo $this->class_name_cn ?>ID</dt>
+		<dd><?php echo $item[$this->id_name] ?></dd>
+		
+		<dt>主图</dt>
+		<dd class=row>
+			<?php if ( empty($item['url_image_main']) ): ?>
+			<p>未上传</p>
+			<?php else: ?>
+			<figure class="col-xs-12 col-sm-6 col-md-4">
+				<img src="<?php echo $item['url_image_main'] ?>">
+			</figure>
+			<?php endif ?>
+		</dd>
+		
+		<dt>形象图</dt>
+		<dd>
+			<?php if ( empty($item['figure_image_urls']) ): ?>
+			<p>未上传</p>
+			<?php else: ?>
+			<ul class=row>
+				<?php
+					$figure_image_urls = explode(',', $item['figure_image_urls']);
+					foreach($figure_image_urls as $url):
+				?>
+				<li class="col-xs-6 col-sm-4 col-md-3">
+					<img src="<?php echo $url ?>">
+				</li>
+				<?php endforeach ?>
+			</ul>
+			<?php endif ?>
+		</dd>
+		
 		[[content]]
 	</dl>
 

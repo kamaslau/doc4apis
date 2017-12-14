@@ -53,9 +53,9 @@
 	<?php else: ?>
 	<dl class="well well-sm dl-horizontal">
 		<dt><i class="fa fa-fw fa-bolt" aria-hidden="true"></i></dt>
-		<dd>3天内新添加的API</dd>
+		<dd>3天内添加的API</dd>
 		<dt><i class="fa fa-fw fa-exclamation" aria-hidden="true"></i></dt>
-		<dd>3天内有更新的API</dd>
+		<dd>3天内更新的API</dd>
 	</dl>
 	<table class="table table-condensed table-responsive table-striped sortable">
 		<thead>
@@ -97,16 +97,16 @@
 				?>
 				<td>
 					<ul class="list-unstyled horizontal">
-						<li><a title="查看" href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-eye"></i> 查看</a></li>
+						<li><a title="查看" href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-eye"></i></a></li>
 						<?php
 						// 需要特定角色和权限进行该操作
 						$role_allowed = array('管理员', '经理');
 						$level_allowed = 30;
 						if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 						?>
-						<li><a title="编辑" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-edit"></i> 编辑</a></li>
-						<li><a title="克隆" href="<?php echo base_url($this->class_name.'/duplicate?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-files-o"></i> 克隆</a></li>
-						<li><a title="删除" href="<?php echo base_url($this->class_name.'/delete?ids='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-trash"></i> 删除</a></li>
+						<li><a title="编辑" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-edit"></i></a></li>
+						<li><a title="克隆" href="<?php echo base_url($this->class_name.'/duplicate?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-files-o"></i></a></li>
+						<li><a title="删除" href="<?php echo base_url($this->class_name.'/delete?ids='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-trash"></i></a></li>
 						<?php endif ?>
 					</ul>
 				</td>
