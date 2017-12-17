@@ -19,6 +19,13 @@
 		protected $names_to_sort = array(
 			[[names_list]]
 		);
+		
+		/**
+		 * 可作为排序条件的字段名
+		 */
+		protected $names_to_order = array(
+			[[names_list]]
+		);
 
 		/**
 		 * 可作为查询结果返回的字段名
@@ -155,7 +162,10 @@
 
 			// 排序条件
 			$order_by = NULL;
-			//$order_by['name'] = 'value';
+			foreach ($this->names_to_order as $sorter):
+				if ( !empty($this->input->post('orderby_'.$sorter)) )
+					$order_by[$sorter] = $this->input->post('orderby_'.$sorter);
+			endforeach;
 
 			// 限制可返回的字段
 			$this->db->select( implode(',', $this->names_to_return) );
