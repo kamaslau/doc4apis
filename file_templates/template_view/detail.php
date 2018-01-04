@@ -57,24 +57,30 @@
 		
 		<dt>主图</dt>
 		<dd class=row>
-			<?php if ( empty($item['url_image_main']) ): ?>
+			<?php
+				$column_image = 'url_image_main';
+				if ( empty($item[$column_image]) ):
+			?>
 			<p>未上传</p>
 			<?php else: ?>
 			<figure class="col-xs-12 col-sm-6 col-md-4">
-				<img src="<?php echo $item['url_image_main'] ?>">
+				<img src="<?php echo $item[$column_image] ?>">
 			</figure>
 			<?php endif ?>
 		</dd>
 		
 		<dt>形象图</dt>
 		<dd>
-			<?php if ( empty($item['figure_image_urls']) ): ?>
+			<?php
+				$column_images = 'url_image_main';
+				if ( empty($item[$column_images]) ):
+			?>
 			<p>未上传</p>
 			<?php else: ?>
 			<ul class=row>
 				<?php
-					$figure_image_urls = explode(',', $item['figure_image_urls']);
-					foreach($figure_image_urls as $url):
+					$image_urls = explode(',', $item[$column_images]);
+					foreach($image_urls as $url):
 				?>
 				<li class="col-xs-6 col-sm-4 col-md-3">
 					<img src="<?php echo $url ?>">

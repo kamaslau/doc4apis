@@ -34,20 +34,6 @@
 			'id',
 			[[names_list]]
 		);
-		
-		/**
-		 * 编辑单行特定字段时必要的字段名
-		 */
-		protected $names_edit_certain_required = array(
-			'id', 'name', 'value',
-		);
-
-		/**
-		 * 编辑多行特定字段时必要的字段名
-		 */
-		protected $names_edit_bulk_required = array(
-			'ids', 'password',
-		);
 
 		public function __construct()
 		{
@@ -69,22 +55,7 @@
 				'name' => '名称',
 				'description' => '描述',
 			);
-
-			// （可选）某些用于此类的自定义函数
-		    function function_name($parameter)
-			{
-				//...
-		    }
-		}
-
-		/**
-		 * 截止3.1.3为止，CI_Controller类无析构函数，所以无需继承相应方法
-		 */
-		public function __destruct()
-		{
-			// 调试信息输出开关
-			// $this->output->enable_profiler(TRUE);
-		}
+		} // end __construct
 
 		/**
 		 * 我的
@@ -501,6 +472,26 @@
 
 			endif;
 		} // end edit_certain
+		
+		/**
+         * 删除
+         *
+         * 商家不可删除
+         */
+        public function delete()
+        {
+            exit('不可删除'.$this->class_name_cn);
+        } // end delete
+
+        /**
+         * 找回
+         *
+         * 商家不可找回
+         */
+        public function restore()
+        {
+            exit('不可恢复'.$this->class_name_cn);
+        } // end restore
 
 	} // end class [[class_name]]
 
