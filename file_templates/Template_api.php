@@ -2,7 +2,7 @@
 	defined('BASEPATH') OR exit('此文件不可被直接访问');
 
 	/**
-	 * [[class_name]] [[class_name_cn]]类
+	 * [[class_name]]/[[code]] [[class_name_cn]]类
 	 *
 	 * 以API服务形式返回数据列表、详情、创建、单行编辑、单/多行编辑（删除、恢复）等功能提供了常见功能的示例代码
 	 * CodeIgniter官方网站 https://www.codeigniter.com/user_guide/
@@ -52,8 +52,7 @@
 		 * 创建时必要的字段名
 		 */
 		protected $names_create_required = array(
-			'user_id',
-			[[names_list]]
+			'user_id', [[names_list]]
 		);
 
 		/**
@@ -67,24 +66,21 @@
 		 * 完整编辑单行时必要的字段名
 		 */
 		protected $names_edit_required = array(
-			'user_id', 'id',
-			[[names_list]]
+			'user_id', 'id', [[names_list]]
 		);
 
 		/**
 		 * 编辑单行特定字段时必要的字段名
 		 */
 		protected $names_edit_certain_required = array(
-			'user_id', 'id',
-			'name', 'value',
+			'user_id', 'id', 'name', 'value',
 		);
 
 		/**
 		 * 编辑多行特定字段时必要的字段名
 		 */
 		protected $names_edit_bulk_required = array(
-			'user_id', 'ids',
-			'operation', 'password',
+			'user_id', 'ids', 'operation', 'password',
 		);
 
 		public function __construct()
@@ -94,18 +90,11 @@
 			// 设置主要数据库信息
 			$this->table_name = '[[table_name]]'; // 这里……
 			$this->id_name = '[[id_name]]'; // 这里……
-			//$this->names_to_return[] = '[[id_name]]'; // 还有这里，OK，这就可以了
 
 			// 主要数据库信息到基础模型类
 			$this->basic_model->table_name = $this->table_name;
 			$this->basic_model->id_name = $this->id_name;
-
-			// （可选）某些用于此类的自定义函数
-		    function function_name($parameter)
-			{
-				//...
-		    }
-		}
+		} // end __construct
 
 		/**
 		 * 0 计数
@@ -114,6 +103,11 @@
 		{
 			// 生成筛选条件
 			$condition = $this->condition_generate();
+            // 类特有筛选项
+            $condition = $this->advanced_sorter($condition);
+
+            // 商家仅可操作自己的数据
+            if ($this->app_type === 'biz') $condition['biz_id'] = $this->input->post('biz_id');
 
 			// 获取列表；默认可获取已删除项
 			$count = $this->basic_model->count($condition);
@@ -147,6 +141,11 @@
 
 			// 生成筛选条件
 			$condition = $this->condition_generate();
+            // 类特有筛选项
+            $condition = $this->advanced_sorter($condition);
+
+            // 用户仅可查看未删除商品数据
+            if ($this->app_type === 'client') $condition['time_delete'] = 'NULL';
 
 			// 排序条件
 			$order_by = NULL;
@@ -155,11 +154,16 @@
 					$order_by[$sorter] = $this->input->post('orderby_'.$sorter);
 			endforeach;
 
-			// 限制可返回的字段
-			$this->db->select( implode(',', $this->names_to_return) );
-
 			// 获取列表；默认可获取已删除项
-			$items = $this->basic_model->select($condition, $order_by);
+            $ids = $this->input->post('ids'); // 可以CSV格式指定需要获取的信息ID们
+            if ( empty($ids) ):
+                $items = $this->basic_model->select($condition, $order_by);
+            else:
+                // 限制可返回的字段
+                $this->db->select( implode(',', $this->names_to_return) );
+                $items = $this->basic_model->select_by_ids($ids);
+            endif;
+
 			if ( !empty($items) ):
 				$this->result['status'] = 200;
 				$this->result['content'] = $items;
@@ -183,6 +187,8 @@
 				$this->result['content']['error']['message'] = '必要的请求参数未传入';
 				exit();
 			endif;
+
+            if ($this->app_type === 'client') $condition['time_delete'] = 'NULL';
 
 			// 限制可返回的字段
 			$this->db->select( implode(',', $this->names_to_return) );
@@ -242,6 +248,7 @@
 				// 需要创建的数据；逐一赋值需特别处理的字段
 				$data_to_create = array(
 					'creator_id' => $user_id,
+
 					//'name' => $this->input->post('name'),
 				);
 				// 自动生成无需特别处理的数据
@@ -310,6 +317,7 @@
 				// 需要编辑的数据；逐一赋值需特别处理的字段
 				$data_to_edit = array(
 					'operator_id' => $user_id,
+
 					//'name' => $this->input->post('name'),
 				);
 				// 自动生成无需特别处理的数据
@@ -361,7 +369,9 @@
 			$required_params = $this->names_edit_certain_required;
 			foreach ($required_params as $param):
 				${$param} = $this->input->post($param);
-				if ( $param !== 'value' && !isset( ${$param} ) ): // value 可以为空；必要字段会在字段验证中另行检查
+
+                // value 可以为空；必要字段会在字段验证中另行检查
+				if ( $param !== 'value' && !isset( ${$param} ) ):
 					$this->result['status'] = 400;
 					$this->result['content']['error']['message'] = '必要的请求参数未全部传入';
 					exit();
@@ -506,6 +516,10 @@
 			endif;
 		} // end edit_bulk
 		[[extra_functions]]
+			
+		/**
+		 * 以下为工具类方法
+		 */
 
 	} // end class [[class_name]]
 
