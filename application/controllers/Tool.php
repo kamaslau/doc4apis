@@ -16,7 +16,7 @@
 
 			// 统计业务逻辑运行时间起点
 			$this->benchmark->mark('start');
-		}
+		} // end __construct
 
 		/**
 		 * 析构时将待输出的内容以json格式返回
@@ -41,7 +41,7 @@
 			header("Content-type:application/json;charset=utf-8");
 			$output_json = json_encode($this->result);
 			echo $output_json;
-		}
+		} // end __destruct
 
 		// 签名生成工具
 		public function sign_generate()
@@ -127,11 +127,11 @@
 
 			// 从API服务器获取相应列表信息
 			$params = array(
+				//'skip_sign' => 'please', // 默认添加用于测试环境的跳过签名检查的设置参数，若在环境变量中已设置，则可注释掉这行代码
 				'class_name' => $class_name,
 				'class_name_cn' => $class_name_cn,
 				'table_name' => $table_name,
 				'id_name' => $id_name,
-				'skip_sign' => 'please',
 			);
 			$url = api_url($api_url);
 			$result = $this->curl->go($url, $params, 'array');
@@ -694,7 +694,7 @@
 			endif;
 		} // end view_file_generate
 
-	}
+	} // end class Tool
 
 /* End of file Tool.php */
 /* Location: ./application/controllers/Tool.php */
