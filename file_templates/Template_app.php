@@ -2,7 +2,7 @@
 	defined('BASEPATH') OR exit('此文件不可被直接访问');
 
 	/**
-	 * [[class_name]] [[class_name_cn]]类
+	 * [[class_name]]/[[code]] [[class_name_cn]]类
 	 *
 	 * 以我的XX列表、列表、详情、创建、单行编辑、单/多行编辑（删除、恢复）等功能提供了常见功能的APP示例代码
 	 * CodeIgniter官方网站 https://www.codeigniter.com/user_guide/
@@ -17,7 +17,7 @@
 		 * 可作为列表筛选条件的字段名；可在具体方法中根据需要删除不需要的字段并转换为字符串进行应用，下同
 		 */
 		protected $names_to_sort = array(
-			[[names_list]], 'sth_min', 'sth_max',
+			[[names_list]] 'sth_min', 'sth_max',
 		);
 
 		/**
@@ -163,16 +163,16 @@
 				// 页面信息
                 $data['title'] = $this->class_name_cn. $data['item'][$this->id_name];
                 $data['class'] = $this->class_name.' detail';
+				
+				// 输出视图
+				$this->load->view('templates/header', $data);
+				$this->load->view($this->view_root.'/detail', $data);
+				$this->load->view('templates/footer', $data);
 
 			else:
                 redirect( base_url('error/code_404') ); // 若缺少参数，转到错误提示页
 
 			endif;
-
-			// 输出视图
-			$this->load->view('templates/header', $data);
-			$this->load->view($this->view_root.'/detail', $data);
-			$this->load->view('templates/footer', $data);
 		} // end detail
 
 		/**
@@ -492,6 +492,10 @@
         {
             exit('不可恢复'.$this->class_name_cn);
         } // end restore
+		
+		/**
+		 * 以下为工具类方法
+		 */
 
 	} // end class [[class_name]]
 
