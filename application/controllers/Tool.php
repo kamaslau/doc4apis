@@ -117,13 +117,17 @@
 			// 检查必要参数是否已传入
 			$required_params = array('biz_id', 'project_id', 'code', 'class_name', 'class_name_cn', 'table_name', 'id_name', 'api_url', 'doc_api', 'doc_page', 'file_api', 'file_code');
 			foreach ($required_params as $param):
-				${$param} = $this->input->post($param);
+				${$param} = trim($this->input->post($param));
 				if ( empty( ${$param} ) ):
 					$this->result['status'] = 400;
 					$this->result['content']['error']['message'] = '必要的请求参数未全部传入';
 					exit();
 				endif;
 			endforeach;
+
+			// 预处理部分参数字符串格式
+			$code = strtoupper( $code );
+            $class_name = ucfirst( strtolower($class_name) );
 
 			// 从API服务器获取相应列表信息
 			$params = array(
@@ -145,27 +149,18 @@
 				exit();
 			endif;
 
-			// 获取模板文件并生成待生成API文件内容
-			$api_file_content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/file_templates/Template_api.php');
-			$api_file_content = str_replace('[[class_name]]', ucfirst( strtolower($class_name) ), $api_file_content); // 类名需首字母大写
-			$api_file_content = str_replace('[[class_name_cn]]', $class_name_cn, $api_file_content);
-			$api_file_content = str_replace('[[table_name]]', $table_name, $api_file_content);
-			$api_file_content = str_replace('[[id_name]]', $id_name, $api_file_content);
-			$api_file_content = str_replace('[[rules]]', trim($rules), $api_file_content);
-			$api_file_content = str_replace('[[names_list]]', trim($names_list), $api_file_content);
-			$api_file_content = str_replace('[[params_request]]', trim($params_request), $api_file_content);
-			$api_file_content = str_replace('[[params_respond]]', trim($params_respond), $api_file_content);
-			
-			// 获取模板文件并生成待生成控制器文件内容
-			$controller_file_content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/file_templates/Template_app.php');
-			$controller_file_content = str_replace('[[class_name]]', ucfirst( strtolower($class_name) ), $controller_file_content); // 类名需首字母大写
-			$controller_file_content = str_replace('[[class_name_cn]]', $class_name_cn, $controller_file_content);
-			$controller_file_content = str_replace('[[table_name]]', $table_name, $controller_file_content);
-			$controller_file_content = str_replace('[[id_name]]', $id_name, $controller_file_content);
-			$controller_file_content = str_replace('[[rules]]', trim($rules), $controller_file_content);
-			$controller_file_content = str_replace('[[names_list]]', trim($names_list), $controller_file_content);
-			$controller_file_content = str_replace('[[params_request]]', trim($params_request), $controller_file_content);
-			$controller_file_content = str_replace('[[params_respond]]', trim($params_respond), $controller_file_content);
+			// 待替换的内容
+            $real_contents = array(
+                'code', 'class_name', 'class_name_cn', 'table_name', 'id_name', 'rules', 'names_list', 'params_request', 'params_respond'
+            );
+            // 获取模板文件并生成待生成API文件内容
+            $template_url = $_SERVER['DOCUMENT_ROOT']. '/file_templates/';
+            $api_file_content = file_get_contents($template_url.'/Template_api.php');
+            $controller_file_content = file_get_contents($template_url.'Template_app.php');
+            foreach ($real_contents as $real_content):
+                $api_file_content = str_replace('[['.$real_content.']]', ${$real_content}, $api_file_content);
+                $controller_file_content = str_replace('[['.$real_content.']]', ${$real_content}, $controller_file_content);
+            endforeach;
 
 			// 若有需要特别生成的类方法，进行生成
 			$extra_functions = $this->input->post('extra_functions');
@@ -255,7 +250,7 @@
 				if ($file_code === 'yes'):
 					$pages_to_generate = array('create', 'edit', 'detail',);
 					if ( in_array($name, $pages_to_generate) ):
-						$target_directory = 'views/'.$class_name.'/';
+						$target_directory = 'views/'.strtolower($class_name).'/';
 						$file_name = $name. '.php';
 						$this->view_file_generate($target_directory, $file_name, $$name);
 					endif;

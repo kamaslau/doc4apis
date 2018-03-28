@@ -476,7 +476,7 @@
 		/**
          * 删除
          *
-         * 商家不可删除
+         * 不可删除
          */
         public function delete()
         {
@@ -486,7 +486,7 @@
         /**
          * 找回
          *
-         * 商家不可找回
+         * 不可找回
          */
         public function restore()
         {
