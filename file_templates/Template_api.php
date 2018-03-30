@@ -43,6 +43,8 @@
 
 		/**
 		 * 可作为查询结果返回的字段名
+         *
+         * 应删除time_create等需在MY_Controller通过names_return_for_admin等类属性声明的字段名
 		 */
 		protected $names_to_return = array(
 			[[names_list]]
@@ -144,15 +146,20 @@
             // 类特有筛选项
             $condition = $this->advanced_sorter($condition);
 
-            // 用户仅可查看未删除商品数据
-            if ($this->app_type === 'client') $condition['time_delete'] = 'NULL';
-
 			// 排序条件
 			$order_by = NULL;
 			foreach ($this->names_to_order as $sorter):
 				if ( !empty($this->input->post('orderby_'.$sorter)) )
 					$order_by[$sorter] = $this->input->post('orderby_'.$sorter);
 			endforeach;
+
+            // 限制可返回的字段
+            if ($this->app_type === 'client'):
+                $condition['time_delete'] = 'NULL'; // 客户端仅可查看未删除项
+            else:
+                $this->names_to_return = array_merge($this->names_to_return, $this->names_return_for_admin);
+            endif;
+            $this->db->select( implode(',', $this->names_to_return) );
 
 			// 获取列表；默认可获取已删除项
             $ids = $this->input->post('ids'); // 可以CSV格式指定需要获取的信息ID们
