@@ -7,6 +7,12 @@
 	$is_ios = strpos($user_agent, 'iPhone')? TRUE: FALSE;
 	$is_android = strpos($user_agent, 'Android')? TRUE: FALSE;
 
+    // 生成body的class
+    $body_class = ( isset($class) )? $class: NULL;
+    $body_class .= ($is_wechat === TRUE)? ' is_wechat': NULL;
+    $body_class .= ($is_ios === TRUE)? ' is_ios': NULL;
+    $body_class .= ($is_android === TRUE)? ' is_android': NULL;
+
 	// 生成SEO相关变量，一般为页面特定信息与在config/config.php中设置的站点通用信息拼接
 	$title = isset($title)? $title.' - '.SITE_NAME: SITE_NAME.' - '.SITE_SLOGAN;
     $keywords = (isset($keywords)? $keywords.',': NULL). SITE_KEYWORDS;
@@ -21,7 +27,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20180330">
+		<meta name=version content="revision20180417">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -33,6 +39,12 @@
 		<script src="https://cdn.key2all.com/js/jquery/new.js"></script>
 		<script defer src="<?php echo base_url('js/jquery-qrcode.js') ?>"></script>
 		<script defer src="https://cdn.key2all.com/bootstrap/js/bootstrap-3_3_7.min.js"></script>
+        <script>
+            var user_agent = new Object();
+            user_agent.is_wechat = <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>;
+            user_agent.is_ios = <?php echo ($is_ios === TRUE)? 'true': 'false' ?>;
+            user_agent.is_android = <?php echo ($is_android === TRUE)? 'true': 'false' ?>;
+        </script>
 
 		<link rel=stylesheet media=all href="https://cdn.key2all.com/css/reset.css">
 		<link rel=stylesheet media=all href="https://cdn.key2all.com/bootstrap/css/bootstrap-3_3_7.min.css">
@@ -46,22 +58,10 @@
 		<link rel=canonical href="<?php echo current_url() ?>">
 
 		<meta name=format-detection content="telephone=yes, address=no, email=no">
-		<script>
-            var user_agent = new Object();
-            user_agent.is_wechat = <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>;
-            user_agent.is_ios = <?php echo ($is_ios === TRUE)? 'true': 'false' ?>;
-            user_agent.is_android = <?php echo ($is_android === TRUE)? 'true': 'false' ?>;
-        </script>
 	</head>
 <?php
 	// 将head内容立即输出，让用户浏览器立即开始请求head中各项资源，提高页面加载速度
 	ob_flush();flush();
-
-    // 生成body的class
-	$body_class = ( isset($class) )? $class: NULL;
-    $body_class .= ($is_wechat === TRUE)? ' is_wechat': NULL;
-    $body_class .= ($is_ios === TRUE)? ' is_ios': NULL;
-    $body_class .= ($is_android === TRUE)? ' is_android': NULL;
 ?>
 
 <!-- 内容开始 -->
