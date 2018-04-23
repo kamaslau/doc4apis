@@ -54,6 +54,9 @@
 	<dl id=list-info class=dl-horizontal>
 		<dt><?php echo $this->class_name_cn ?>ID</dt>
 		<dd><?php echo $item[$this->id_name] ?></dd>
+
+        <dt>描述</dt>
+        <dd><?php echo empty($item['description'])? 'N/A': $item['description'] ?></dd>
 		
 		<dt>主图</dt>
 		<dd class=row>

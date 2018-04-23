@@ -68,7 +68,7 @@
 			<div class=form-group>
 				<label for=description class="col-sm-2 control-label">详情</label>
 				<div class=col-sm-10>
-					<textarea class=form-control name=description rows=10 placeholder="详情" required><?php echo $item['description'] ?></textarea>
+                    <textarea class=form-control name=description rows=5 placeholder="详情" required><?php echo empty(set_value('description'))? $item['description']: set_value('description') ?></textarea>
 				</div>
 			</div>
 			
@@ -109,13 +109,13 @@
             </div>
 
             <div class=form-group>
-				<?php $input_name = 'home_m1_ids[]' ?>
-                <label for=home_m1_ids class="col-sm-2 control-label">模块一陈列商品</label>
+                <?php $input_name = 'home_m1_ids' ?>
+                <label for=<?php echo $input_name.'[]' ?> class="col-sm-2 control-label">模块一陈列商品</label>
                 <div class=col-sm-10>
-                    <select class=form-control name="<?php echo $input_name ?>" multiple>
+                    <select class=form-control name="<?php echo $input_name.'[]' ?>" multiple>
                         <?php
                         $options = $comodities;
-                        $current_array = explode(',', $item['home_m1_ids']);
+                        $current_array = explode(',', $item[$input_name]);
                         foreach ($options as $option):
                             if ( empty($option['time_delete']) ):
                                 ?>
