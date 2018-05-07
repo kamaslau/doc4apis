@@ -201,9 +201,9 @@
 				// 页面文档必要字段
 				$doc_content_api = array(
 					'biz_id' => $biz_id,
-					'name' => ucwords( $class_name_cn ). $apis[$i],
+					'name' => $class_name_cn. $apis[$i],
 					'code' => strtoupper( $code ). $i,
-					'url' => $class_name.'/',
+					'url' => strtolower( $class_name ).'/',
 					'sample_request' => $form_data,
 					'status' => '0', // 默认为草稿状态
 				);
@@ -234,9 +234,9 @@
 				$doc_content_page = array(
 					'biz_id' => $biz_id,
 					'project_id' => $project_id,
-					'name' => ucwords( $class_name_cn ). $title,
+					'name' => $class_name_cn. $title,
 					'code' => strtoupper( $code ).'P'. $i,
-					'code_class' => $class_name,
+					'code_class' => strtolower( $class_name ),
 					'code_function' => $name,
 					'status' => '0', // 默认为草稿状态
 				);
@@ -250,7 +250,7 @@
 				if ($file_code === 'yes'):
 					$pages_to_generate = array('create', 'edit', 'detail',);
 					if ( in_array($name, $pages_to_generate) ):
-						$target_directory = 'views/'.strtolower($class_name).'/';
+						$target_directory = 'views/'.strtolower( $class_name ).'/';
 						$file_name = $name. '.php';
 						$this->view_file_generate($target_directory, $file_name, $$name);
 					endif;
@@ -280,7 +280,7 @@
 				case '计数':
 					$data_to_create['url'] .= 'count';
 					$data_to_create['params_request'] = $this->params_request;
-					$data_to_create['params_respond'] = '<tr><td>count</td><td>int</td><td>是</td><td>1</td><td>符合筛选条件（若有）的商家数量</td></tr>';
+					$data_to_create['params_respond'] = '<tr><td>count</td><td>int</td><td>1</td><td>符合筛选条件（若有）的数据项数量</td></tr>';
 					break;
 
 				case '列表':

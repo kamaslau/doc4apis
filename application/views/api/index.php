@@ -39,9 +39,9 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
-		<a class="btn btn-primary" href="<?php echo base_url($this->class_name) ?>"><i class="fa fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
-	  	<a class="btn btn-default" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fa fa-trash fa-fw" aria-hidden=true></i> 回收站</a>
-		<a class="btn btn-default" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-primary" href="<?php echo base_url($this->class_name) ?>"><i class="fal fa-list"></i> 所有<?php echo $this->class_name_cn ?></a>
+	  	<a class="btn btn-default" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fal fa-trash"></i> 回收站</a>
+		<a class="btn btn-default" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="fal fa-plus"></i> 创建<?php echo $this->class_name_cn ?></a>
 	</div>
 	<?php endif ?>
 
@@ -52,9 +52,13 @@
 
 	<?php else: ?>
 	<dl class="well well-sm dl-horizontal">
-		<dt><i class="fa fa-fw fa-bolt" aria-hidden="true"></i></dt>
+        <dt><i class="fal fa-fw fa-hourglass-half"></i></dt>
+        <dd>草稿</dd>
+
+		<dt><i class="fal fa-fw fa-bolt"></i></dt>
 		<dd>3天内添加的API</dd>
-		<dt><i class="fa fa-fw fa-exclamation" aria-hidden="true"></i></dt>
+
+		<dt><i class="fal fa-fw fa-exclamation"></i></dt>
 		<dd>3天内更新的API</dd>
 	</dl>
 	<table class="table table-condensed table-responsive table-striped sortable">
@@ -76,18 +80,19 @@
 			<tr>
 				<td>
 				<?php
+                    // 若为草稿状态，进行提示
+                    if ($item['status'] === '0') echo '<i class="fal fa-fw fa-hourglass-half"></i>';
+
 					$time_current = time();
 
 					// 若创建于3天内，则提示是新的API
 					if ( strtotime($item['time_create']) > ($time_current - 60*60*24*3) )
-						echo '<i class="fa fa-fw fa-bolt" aria-hidden=true></i>';
+						echo '<i class="fal fa-fw fa-bolt"></i>';
 
 					// 若修改于3天内，则提示是有更新的API
 					if ( strtotime($item['time_edit']) > ($time_current - 60*60*24*3) )
-						echo '<i class="fa fa-fw fa-exclamation" aria-hidden=true></i>';
+						echo '<i class="fal fa-fw fa-exclamation"></i>';
 
-					// 若为草稿状态，进行提示
-					if ($item['status'] === '0') echo ' 草稿<i class="fal fa-spinner fa-pulse"></i>';
 				?>
 				</td>
 				<?php
@@ -97,16 +102,16 @@
 				?>
 				<td>
 					<ul class="list-unstyled horizontal">
-						<li><a title="查看" href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-eye"></i></a></li>
+						<li><a href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-eye"></i></a></li>
 						<?php
 						// 需要特定角色和权限进行该操作
 						$role_allowed = array('管理员', '经理');
 						$level_allowed = 30;
 						if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 						?>
-						<li><a title="编辑" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-edit"></i></a></li>
-						<li><a title="克隆" href="<?php echo base_url($this->class_name.'/duplicate?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-files-o"></i></a></li>
-						<li><a title="删除" href="<?php echo base_url($this->class_name.'/delete?ids='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-trash"></i></a></li>
+						<li><a href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-edit"></i></a></li>
+						<li><a href="<?php echo base_url($this->class_name.'/duplicate?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-copy"></i></a></li>
+						<li><a href="<?php echo base_url($this->class_name.'/delete?ids='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-trash"></i></a></li>
 						<?php endif ?>
 					</ul>
 				</td>
