@@ -256,6 +256,8 @@
 				// 需要创建的数据；逐一赋值需特别处理的字段
 				$data_to_create = array(
 					'user_id' => $this->session->user_id,
+
+                    //'name' => empty($this->input->post('name'))? NULL: $this->input->post('name'),
 				);
 				// 自动生成无需特别处理的数据
 				$data_need_no_prepare = array(
@@ -343,7 +345,8 @@
 				$data_to_edit = array(
 					'user_id' => $this->session->user_id,
 					'id' => $id,
-					//'name' => $this->input->post('name')),
+
+                    //'name' => empty($this->input->post('name'))? NULL: $this->input->post('name'),
 				);
 				// 自动生成无需特别处理的数据
 				$data_need_no_prepare = array(

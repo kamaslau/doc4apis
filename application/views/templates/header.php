@@ -23,11 +23,11 @@
 	<head>
 		<meta charset=utf-8>
 		<meta http-equiv=x-dns-prefetch-control content=on>
-		<link rel=dns-prefetch href="http://cdn.key2all.com">
+		<link rel=dns-prefetch href="<?php echo CDN_URL ?>">
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20180423">
+		<meta name=version content="revision20180507">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -36,9 +36,9 @@
 		<meta name=viewport content="width=device-width">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-		<script src="https://cdn.key2all.com/js/jquery/new.js"></script>
+		<script src="<?php echo CDN_URL ?>js/jquery-3.3.1.min.js"></script>
 		<script defer src="<?php echo base_url('js/jquery-qrcode.js') ?>"></script>
-		<script defer src="https://cdn.key2all.com/bootstrap/js/bootstrap-3_3_7.min.js"></script>
+        <script defer src="<?php echo CDN_URL ?>bootstrap/v3.3.7/bootstrap.min.js"></script>
         <script>
             var user_agent = new Object();
             user_agent.is_wechat = <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>;
@@ -46,10 +46,11 @@
             user_agent.is_android = <?php echo ($is_android === TRUE)? 'true': 'false' ?>;
         </script>
 
-		<link rel=stylesheet media=all href="https://cdn.key2all.com/css/reset.css">
-		<link rel=stylesheet media=all href="https://cdn.key2all.com/bootstrap/css/bootstrap-3_3_7.min.css">
-		<link rel=stylesheet media=all href="https://cdn.key2all.com/flat-ui/css/flat-ui.min.css">
-		<link rel=stylesheet media=all href="https://cdn.key2all.com/font-awesome/css/font-awesome.min.css">
+		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/reset.css">
+        <link rel=stylesheet media=all href="<?php echo CDN_URL ?>bootstrap/v3.3.7/bootstrap.min.css">
+		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/flat-ui.min.css">
+        <script defer src="<?php echo CDN_URL ?>font-awesome/v5.0.12/fontawesome-all.min.js"></script>
+        <script defer src="<?php echo CDN_URL ?>font-awesome/v5.0.12/fa-v4-shims.min.js"></script>
 		<link rel=stylesheet media=all href="/css/style.css">
 
 		<link rel="shortcut icon" href="/media/logos/logo_32x32.png">
@@ -85,36 +86,36 @@
 
 				<nav id=nav-header role=navigation>
 					<ul id=main-nav class=horizontal>
-						<li<?php if (strpos($class, 'home') !== FALSE) echo ' class=active' ?>><a title="首页" href="<?php echo base_url() ?>">首页</a></li>
+						<li<?php if (strpos($class, 'home') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url() ?>">首页</a></li>
 						<!--<li<?php if (strpos($class, 'task') !== FALSE) echo ' class=active' ?>><a title="任务" href="<?php echo base_url('task') ?>">任务</a></li>-->
-						<li<?php if (strpos($class, 'task') !== FALSE) echo ' class=active' ?>><a title="任务" href="https://www.teambition.com/project/59093c6f8752371d796bda6f" target=_blank>任务</a></li>
-						<li<?php if (strpos($class, 'project') !== FALSE) echo ' class=active' ?>><a title="项目" href="<?php echo base_url('project') ?>">项目</a></li>
-						<li<?php if (strpos($class, 'flow') !== FALSE) echo ' class=active' ?>><a title="流程" href="<?php echo base_url('flow') ?>">流程</a></li>
-						<li<?php if (strpos($class, 'page') !== FALSE) echo ' class=active' ?>><a title="页面" href="<?php echo base_url('page') ?>">页面</a></li>
-						<li<?php if (strpos($class, 'api') !== FALSE) echo ' class=active' ?>><a title="API" href="<?php echo base_url('api') ?>">API</a></li>
+						<li<?php if (strpos($class, 'task') !== FALSE) echo ' class=active' ?>><a href="https://www.teambition.com/project/59093c6f8752371d796bda6f" target=_blank>任务</a></li>
+						<li<?php if (strpos($class, 'project') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('project') ?>">项目</a></li>
+						<li<?php if (strpos($class, 'flow') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('flow') ?>">流程</a></li>
+						<li<?php if (strpos($class, 'page') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('page') ?>">页面</a></li>
+						<li<?php if (strpos($class, 'api') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('api') ?>">API</a></li>
 
 						<?php if ($this->session->role === '管理员'): ?>
-						<li<?php if (strpos($class, 'biz') !== FALSE) echo ' class=active' ?>><a title="企业" href="<?php echo base_url('biz') ?>">企业</a></li>
-						<li<?php if (strpos($class, 'team') !== FALSE) echo ' class=active' ?>><a title="团队" href="<?php echo base_url('team') ?>">团队</a></li>
+						<li<?php if (strpos($class, 'biz') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('biz') ?>">企业</a></li>
+						<li<?php if (strpos($class, 'team') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('team') ?>">团队</a></li>
 						<?php endif ?>
 
-						<li<?php if (strpos($class, 'user') !== FALSE) echo ' class=active' ?>><a title="成员" href="<?php echo base_url('user') ?>">成员</a></li>
+						<li<?php if (strpos($class, 'user') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('user') ?>">成员</a></li>
 
-						<li<?php if (strpos($class, 'faq') !== FALSE) echo ' class=active' ?>><a title="FAQ" href="<?php echo base_url('faq') ?>">FAQ</a></li>
+						<li<?php if (strpos($class, 'faq') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('faq') ?>">FAQ</a></li>
 					</ul>
 				</nav>
 
 				<div id=account-panel>
 					<ul id=user-actions class=horizontal>
 						<?php if ($this->session->logged_in !== TRUE): ?>
-						<li><a title="登录" href="<?php echo base_url('login') ?>">登录</a></li>
-						<!--<li><a title="注册" href="<?php echo base_url('register') ?>">注册</a></li>-->
+						<li><a href="<?php echo base_url('login') ?>">登录</a></li>
+						<!--<li><a href="<?php echo base_url('register') ?>">注册</a></li>-->
 						<?php
 							else:
 							$display_name = !empty($this->session->nickname)? $this->session->nickname: $this->session->lastname.$this->session->firstname;
 						?>
-						<li><a title="<?php echo $display_name ?>" href="<?php echo base_url('user/detail?id='.$this->session->user_id) ?>"><?php echo $display_name ?> [<?php echo $this->session->role ?>]</a></li>
-						<li><a title="退出" href="<?php echo base_url('logout') ?>">退出</a></li>
+						<li><a href="<?php echo base_url('user/detail?id='.$this->session->user_id) ?>"><?php echo $display_name ?> [<?php echo $this->session->role ?>]</a></li>
+						<li><a href="<?php echo base_url('logout') ?>">退出</a></li>
 						<?php endif ?>
 					</ul>
 				</div>

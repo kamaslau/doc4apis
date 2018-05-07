@@ -3,7 +3,7 @@
 				<ul>
 					<?php foreach ($aside_items as $item): ?>
 					<li>
-						<a title="<?php echo $item['name'] ?>" href="<?php echo base_url($aside_class.'/detail?id=').$api[$aside_id] ?>"><?php echo $item['name'] ?></a>
+						<a href="<?php echo base_url($aside_class.'/detail?id=').$api[$aside_id] ?>"><?php echo $item['name'] ?></a>
 					</li>
 					<?php endforeach ?>
 				</ul>
@@ -20,7 +20,7 @@
 			if ( ! $is_wechat):
 		?>
 			<div class=container>
-				<p><em><?php echo SITE_NAME ?></em>主要基于桌面端设备使用场景而设计开发</p>
+				<p><em><?php echo SITE_NAME ?></em> 主要基于桌面端设备使用而开发</p>
 			</div>
 		<?php endif ?>
 
