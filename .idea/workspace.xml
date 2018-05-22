@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="597620d4-3fb9-404b-b7c5-5e4d3b5dc38a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/application/views/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/project/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/project/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/detail.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,7 +28,26 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file leaf-file-name="detail.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/views/project/detail.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="107" column="35" selection-start-line="107" selection-start-column="35" selection-end-line="107" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/views/project/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="249">
+              <caret line="87" column="145" lean-forward="true" selection-start-line="87" selection-start-column="145" selection-end-line="87" selection-end-column="145" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -71,7 +90,6 @@
         <option value="$PROJECT_DIR$/application/views/page/create.php" />
         <option value="$PROJECT_DIR$/application/views/project/edit.php" />
         <option value="$PROJECT_DIR$/application/views/project/create.php" />
-        <option value="$PROJECT_DIR$/application/views/project/detail.php" />
         <option value="$PROJECT_DIR$/application/views/meta/detail.php" />
         <option value="$PROJECT_DIR$/application/views/team/edit.php" />
         <option value="$PROJECT_DIR$/application/views/team/create.php" />
@@ -90,9 +108,11 @@
         <option value="$PROJECT_DIR$/application/views/api/delete.php" />
         <option value="$PROJECT_DIR$/application/views/api/restore.php" />
         <option value="$PROJECT_DIR$/application/views/biz/detail.php" />
-        <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/application/views/templates/header.php" />
         <option value="$PROJECT_DIR$/file_templates/template_view/detail.php" />
+        <option value="$PROJECT_DIR$/css/style.css" />
+        <option value="$PROJECT_DIR$/application/views/project/detail.php" />
+        <option value="$PROJECT_DIR$/application/views/project/index.php" />
       </list>
     </option>
   </component>
@@ -122,6 +142,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -137,6 +158,19 @@
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
               <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -148,7 +182,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -198,14 +231,16 @@
       <workItem from="1526973953924" duration="221000" />
       <workItem from="1526974291665" duration="2808000" />
       <workItem from="1526977373495" duration="270000" />
+      <workItem from="1526978755325" duration="390000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25886000" />
+    <option name="totallyTimeSpent" value="26276000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-111" y="-1058" width="1187" height="855" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32984293" />
@@ -215,7 +250,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32984293" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="right" id="Remote Host" order="4" weight="0.22495896" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.63228697" visible="true" weight="0.21135372" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.63228697" visible="true" weight="0.21484716" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.32922825" />
       <window_info id="Structure" order="1" sideWeight="0.367713" side_tool="true" weight="0.20786026" />
@@ -241,13 +276,6 @@
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/file_templates/Template_app.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7005">
-          <caret line="467" column="32" selection-start-line="467" selection-start-column="32" selection-end-line="467" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3765">
@@ -364,13 +392,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/meta/create.php">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/project/detail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/team/edit.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -547,13 +568,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="66" column="32" selection-start-line="66" selection-start-column="32" selection-end-line="66" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/file_templates/template_view/edit.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2137">
@@ -565,6 +579,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="24" lean-forward="true" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="81" selection-start-line="17" selection-start-column="81" selection-end-line="17" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/project/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="87" column="145" lean-forward="true" selection-start-line="87" selection-start-column="145" selection-end-line="87" selection-end-column="145" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/project/detail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="107" column="35" selection-start-line="107" selection-start-column="35" selection-end-line="107" selection-end-column="35" />
         </state>
       </provider>
     </entry>

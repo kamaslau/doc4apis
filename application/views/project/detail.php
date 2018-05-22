@@ -89,9 +89,9 @@
 		<!--
 		<li><a href="<?php echo base_url('task?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-tasks" aria-hidden=true></i> 任务</a></li>
 		-->
-		<li><a href="<?php echo base_url('flow?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-code-fork" aria-hidden=true></i> 流程</a></li>
-		<li><a href="<?php echo base_url('page?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-html5" aria-hidden=true></i> 页面</a></li>
-		<li><a href="<?php echo base_url('api?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-arrows-v" aria-hidden=true></i> API</a></li>
+		<li><a href="<?php echo base_url('flow?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-code-branch" aria-hidden=true></i> 流程</a></li>
+		<li><a href="<?php echo base_url('page?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fab fa-html5"></i> 页面</a></li>
+		<li><a href="<?php echo base_url('api?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-plug" aria-hidden=true></i> API</a></li>
 	</ul>
 
 	<?php
