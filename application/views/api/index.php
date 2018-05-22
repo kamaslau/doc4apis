@@ -51,20 +51,17 @@
 	</blockquote>
 
 	<?php else: ?>
-	<dl class="well well-sm dl-horizontal">
-        <dt><i class="fal fa-fw fa-hourglass-half"></i></dt>
-        <dd>草稿</dd>
+	<li class="well well-sm dl-horizontal">
+        <li><i class="fal fa-fw fa-hourglass-half"></i> 草稿/修改中</li>
 
-		<dt><i class="fal fa-fw fa-bolt"></i></dt>
-		<dd>3天内添加的API</dd>
+		<li><i class="fal fa-fw fa-bolt"></i> 3天内添加</li>
 
-		<dt><i class="fal fa-fw fa-exclamation"></i></dt>
-		<dd>3天内更新的API</dd>
-	</dl>
+		<li><i class="fal fa-fw fa-exclamation"></i> 3天内更新</li>
+	</li>
 	<table class="table table-condensed table-responsive table-striped sortable">
 		<thead>
 			<tr>
-				<th>动态</th>
+				<th>状态</th>
 				<?php
 					$thead = array_values($data_to_display);
 					foreach ($thead as $th):
@@ -85,11 +82,11 @@
 
 					$time_current = time();
 
-					// 若创建于3天内，则提示是新的API
+					// 若创建于3天内，则提示
 					if ( strtotime($item['time_create']) > ($time_current - 60*60*24*3) )
 						echo '<i class="fal fa-fw fa-bolt"></i>';
 
-					// 若修改于3天内，则提示是有更新的API
+					// 若修改于3天内，则提示
 					if ( strtotime($item['time_edit']) > ($time_current - 60*60*24*3) )
 						echo '<i class="fal fa-fw fa-exclamation"></i>';
 

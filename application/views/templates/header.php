@@ -49,8 +49,8 @@
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/reset.css">
         <link rel=stylesheet media=all href="<?php echo CDN_URL ?>bootstrap/v3.3.7/bootstrap.min.css">
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/flat-ui.min.css">
-        <script defer src="<?php echo CDN_URL ?>font-awesome/v5.0.12/fontawesome-all.min.js"></script>
-        <script defer src="<?php echo CDN_URL ?>font-awesome/v5.0.12/fa-v4-shims.min.js"></script>
+        <script defer src="<?php echo CDN_URL ?>font-awesome/v5.0.13/fontawesome-all.min.js"></script>
+        <script defer src="<?php echo CDN_URL ?>font-awesome/v5.0.13/fa-v4-shims.min.js"></script>
 		<link rel=stylesheet media=all href="/css/style.css">
 
 		<link rel="shortcut icon" href="/media/logos/logo_32x32.png">
@@ -114,8 +114,14 @@
 							else:
 							$display_name = !empty($this->session->nickname)? $this->session->nickname: $this->session->lastname.$this->session->firstname;
 						?>
-						<li><a href="<?php echo base_url('user/detail?id='.$this->session->user_id) ?>"><?php echo $display_name ?> [<?php echo $this->session->role ?>]</a></li>
-						<li><a href="<?php echo base_url('logout') ?>">退出</a></li>
+						<li>
+                            <a href="<?php echo base_url('user/detail?id='.$this->session->user_id) ?>">
+                                <i class="far fa-user-circle"></i>
+                                <?php echo $display_name ?>
+                                <?php echo $this->session->role. 'lv.'. $this->session->level ?>
+                            </a>
+                        </li>
+						<li><a href="<?php echo base_url('logout') ?>"><i class="far fa-sign-out"></i></a></li>
 						<?php endif ?>
 					</ul>
 				</div>

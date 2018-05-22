@@ -13,7 +13,7 @@
 		<a class="btn btn-primary" href="#">短信登录</a>
 	</div>
 	<?php
-		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>'; // 若有错误提示信息则显示
+		if ( !empty($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>'; // 若有错误提示信息则显示
 		$attributes = array('class' => 'form-login-sms', 'role' => 'form');
 		echo form_open('login_sms', $attributes);
 	?>
@@ -46,8 +46,8 @@
 		<button class="btn btn-primary btn-lg btn-block" type=submit role=button>登录</button>
 	</form>
 
-	<a class="btn btn-vice btn-lg btn-block" title="注册" href="<?php echo base_url('register') ?>">注册</a>
+	<a class="btn btn-vice btn-lg btn-block" href="<?php echo base_url('register') ?>">注册</a>
 	<ul class="list-unstyled hide">
-		<li><a title="找回密码" href="<?php echo base_url('password_reset') ?>">找回密码</a></li>
+		<li><a href="<?php echo base_url('password_reset') ?>">找回密码</a></li>
 	</ul>
 </div>

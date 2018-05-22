@@ -15,6 +15,20 @@ a {color:#333;text-decoration:none;/* 清理BootStrap样式 */}
 	ol>li {list-style-type:decimal-leading-zero;}
 
 /* 修复BootStrap样式 */
+    .container, .container-fluid {width:100%;padding:0;/* 去掉BootStrap默认的左右内边距 */}
+    p {font-size:26px;}
+    ul,ol {margin-bottom:0;}
+    .row {margin-left:0;margin-right:0;}
+        .row>* {padding-left:0;padding-right:0;}
+    .label {margin-right:1rem;}
+        .label>a {color:#fff;}
+    .panel-body {padding:15px 45px;}
+
+    .alert-warning {text-align:center;}
+    .btn-group {border-radius:12px;margin:20px 0;}
+
+    .input-group[class*="col-"] {padding-left:15px;padding-right:15px;}
+
 	.label {margin-right:1rem;}
 		.label>a {color:#fff;}
 	.panel-body {padding:15px 45px;}
@@ -25,10 +39,10 @@ h3 {color:#333;font-size:20px;line-height:20px;margin-top:25px;padding-top:12px;
 h4 {margin:0;}
 	
 #header {font-size:14px;background-color:#373942;}
-	#header h1 {width:100%;margin:0;}
+	#header h1 {width:100%;line-height:64px;margin:0;}
 	#header a {color:#e5e9ee;display:block;width:100%;height:100%;text-align:center;padding:0 20px;}
 		#header a:hover, #header .active a {background-color:#2b2d34;}
-	#header>.container>* {height:44px;line-height:44px;}
+	#header>.container>*:not(h1) {line-height:44px;overflow:hidden;}
 	
 #breadcrumb {color:#4cb5ff;font-size:12px;background-color:#0089cd;height:80px;line-height:80px;overflow:hidden;}
 	#breadcrumb a {color:#4cb5ff;}
@@ -44,12 +58,15 @@ h4 {margin:0;}
 	#footer a {color:#999;}
 		#footer a:hover,#footer a:active {color:#4cb5ff;}
 
+#totop {color:#fff;background-color:rgba(0,0,0,.6);position:fixed;bottom:22px;right:22px;width:66px;height:66px;line-height:66px;display:block;text-align:center;}
+	#totop:hover {background-color:#333;}
+
 /* 宽度在768像素以上的设备 */
 @media only screen and (min-width:769px)
 {
 	#header>.container>* {height:64px;line-height:64px;}
 	#header h1 {width:auto;float:left;}
-	#nav-header {margin-left:40px;float:left;}
+	#nav-header {float:left;}
 	#account-panel {float:right;}
 	
 	#footer {padding:40px 0 50px;}

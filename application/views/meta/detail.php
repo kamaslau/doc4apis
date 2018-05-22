@@ -38,8 +38,8 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
-		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fa fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
-		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create?project_id='.$project['project_id']) ?>"><i class="fa fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="far fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create?project_id='.$project['project_id']) ?>"><i class="far fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
 	</div>
 	<?php endif ?>
 
@@ -49,11 +49,11 @@
 
 	<p>
 		<?php if ( !empty($item['sdk_ios']) ): ?>
-		<span><i class="fa fa-apple" aria-hidden="true"></i> ≥<?php echo $item['sdk_ios'] ?></span>
+		<span><i class="fab fa-apple"></i> ≥<?php echo $item['sdk_ios'] ?></span>
 		<?php endif ?>
 
 		<?php if ( !empty($item['sdk_android']) ): ?>
-		<span><i class="fa fa-android" aria-hidden="true"></i> ≥<?php echo $item['sdk_android'] ?></span>
+		<span><i class="fab fa-android"></i> ≥<?php echo $item['sdk_android'] ?></span>
 		<?php endif ?>
 	</p>
 
@@ -61,7 +61,7 @@
 		<h3>测试/开发环境</h3>
 		<dl class=dl-horizontal>
 			<?php if ( !empty($item['sandbox_url_web']) ): ?>
-			<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB</dt>
+			<dt><i class="fab fa-safari"></i> WEB</dt>
 			<dd id=sandbox_url_web>
 				<?php echo $item['sandbox_url_web'] ?>
 				<script>
@@ -71,7 +71,7 @@
 			<?php endif ?>
 
 			<?php if ( !empty($item['sandbox_url_api']) ): ?>
-			<dt><i class="fa fa-plug" aria-hidden="true"></i> API</dt>
+			<dt><i class="far fa-plug" aria-hidden="true"></i> API</dt>
 			<dd><?php echo $item['sandbox_url_api'] ?></dd>
 			<?php endif ?>
 		</dl>
@@ -81,7 +81,7 @@
 		<h3>正式/生产环境</h3>
 		<dl class=dl-horizontal>
 			<?php if ( !empty($item['url_web']) ): ?>
-			<dt><i class="fa fa-safari" aria-hidden="true"></i> WEB</dt>
+			<dt><i class="far fa-safari" aria-hidden="true"></i> WEB</dt>
 			<dd id=url_web>
 				<?php echo $item['url_web'] ?>
 				<script>
@@ -91,7 +91,7 @@
 			<?php endif ?>
 
 			<?php if ( !empty($item['url_wechat']) ): ?>
-			<dt><i class="fa fa-safari" aria-hidden="true"></i> 微信公众号二维码</dt>
+			<dt><i class="far fa-safari" aria-hidden="true"></i> 微信公众号二维码</dt>
 			<dd id=url_wechat>
 				<?php echo $item['url_wechat'] ?>
 				<script>
@@ -101,12 +101,12 @@
 			<?php endif ?>
 
 			<?php if ( !empty($item['url_api']) ): ?>
-			<dt><i class="fa fa-safari" aria-hidden="true"></i> API</dt>
+			<dt><i class="far fa-safari" aria-hidden="true"></i> API</dt>
 			<dd><?php echo $item['url_api'] ?></dd>
 			<?php endif ?>
 
 			<?php if ( !empty($item['url_ios']) ): ?>
-			<dt><i class="fa fa-apple" aria-hidden="true"></i> iOS</dt>
+			<dt><i class="far fa-apple" aria-hidden="true"></i> iOS</dt>
 			<dd id=url_ios>
 				<?php echo $item['url_ios'] ?>
 				<script>
@@ -116,7 +116,7 @@
 			<?php endif ?>
 
 			<?php if ( !empty($item['url_android']) ): ?>
-			<dt><i class="fa fa-android" aria-hidden="true"></i> Android</dt>
+			<dt><i class="far fa-android" aria-hidden="true"></i> Android</dt>
 			<dd id=url_android>
 				<?php echo $item['url_android'] ?>
 				<script>
@@ -129,6 +129,7 @@
 
 	<section>
 		<h3>API规范</h3>
+
 		<dl class=dl-horizontal>
 			<dt>字符编码</dt>
 			<dd><?php echo $item['encode'] ?></dd>
@@ -142,7 +143,7 @@
 			<dt>请求格式</dt>
 			<dd><?php echo $item['request_format'] ?></dd>
 
-			<dt>响应返回格式</dt>
+			<dt>响应格式</dt>
 			<dd><?php echo $item['respond_format'] ?></dd>
 		</dl>
 	</section>
@@ -160,7 +161,7 @@
 		<h3>公共参数</h3>
 
 		<table class="table table-striped">
-			<caption>请求参数</caption>
+			<caption>请求</caption>
 			<thead>
 				<tr>
 					<th>名称</th><th>类型</th><th>是否必要</th><th>示例</th><th>说明</th>
@@ -172,7 +173,7 @@
 		</table>
 
 		<table class="table table-striped">
-			<caption>响应参数</caption>
+			<caption>响应</caption>
 			<thead>
 				<tr>
 					<th>名称</th><th>类型</th><th>示例</th><th>说明</th>
@@ -214,7 +215,7 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<ul class="list-unstyled horizontal">
-		<li><a title="编辑" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-edit"></i> 编辑</a></li>
+		<li><a href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-edit"></i> 编辑</a></li>
 	</ul>
 	<?php endif ?>
 </div>

@@ -40,9 +40,9 @@
 				驱动
 				</p>
 			</div>
-
-			<a id=totop title="回到页首" href="#"><i class="fa fa-chevron-up" aria-hidden=true></i></a>
 		</footer>
+
+        <a id=totop title="回到页首" href="#"><i class="far fa-chevron-up" aria-hidden=true></i></a>
 
 		<script>
 			$(function(){
