@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="597620d4-3fb9-404b-b7c5-5e4d3b5dc38a" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/application/views/user/mine.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/api/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/api/detail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/api/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/api/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/page/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/page/detail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/page/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/page/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/user/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/user/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/edit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Api.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/Template_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/Template_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/Template_app.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/Template_app.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,92 +30,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/api/index.php">
+      <file leaf-file-name="Api.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/controllers/Api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="83" column="37" lean-forward="true" selection-start-line="83" selection-start-column="37" selection-end-line="83" selection-end-column="37" />
+            <state relative-caret-position="423">
+              <caret line="260" column="16" lean-forward="true" selection-start-line="260" selection-start-column="16" selection-end-line="260" selection-end-column="107" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detail.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/api/detail.php">
+      <file leaf-file-name="Template_api.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="139" column="118" lean-forward="true" selection-start-line="139" selection-start-column="118" selection-end-line="139" selection-end-column="118" />
+            <state relative-caret-position="345">
+              <caret line="334" column="109" lean-forward="true" selection-start-line="334" selection-start-column="20" selection-end-line="334" selection-end-column="109" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/page/index.php">
+      <file leaf-file-name="Template_app.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/file_templates/Template_app.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="103" column="26" lean-forward="true" selection-start-line="103" selection-start-column="26" selection-end-line="103" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="detail.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/page/detail.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="90" column="20" lean-forward="true" selection-start-line="90" selection-start-column="20" selection-end-line="90" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="header.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="118" column="74" selection-start-line="118" selection-start-column="74" selection-end-line="118" selection-end-column="74" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/controllers/User.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="145" column="19" lean-forward="true" selection-start-line="145" selection-start-column="19" selection-end-line="145" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mine.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/user/mine.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="edit.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/user/edit.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="152" column="20" lean-forward="true" selection-start-line="152" selection-start-column="20" selection-end-line="152" selection-end-column="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="create.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/views/user/create.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="122" lean-forward="true" selection-start-line="122" selection-end-line="122" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/css/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+            <state relative-caret-position="184">
+              <caret line="255" column="30" selection-start-line="255" selection-start-column="30" selection-end-line="255" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -155,8 +85,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/file_templates/template_view/edit.php" />
-        <option value="$PROJECT_DIR$/file_templates/Template_api.php" />
-        <option value="$PROJECT_DIR$/file_templates/Template_app.php" />
         <option value="$PROJECT_DIR$/application/controllers/Tool.php" />
         <option value="$PROJECT_DIR$/generated/api/Message.php" />
         <option value="$PROJECT_DIR$/generated/controllers/Message.php" />
@@ -200,6 +128,10 @@
         <option value="$PROJECT_DIR$/application/views/user/mine.php" />
         <option value="$PROJECT_DIR$/application/views/user/edit.php" />
         <option value="$PROJECT_DIR$/application/views/user/create.php" />
+        <option value="$PROJECT_DIR$/application/models/Basic_model.php" />
+        <option value="$PROJECT_DIR$/application/controllers/Api.php" />
+        <option value="$PROJECT_DIR$/file_templates/Template_api.php" />
+        <option value="$PROJECT_DIR$/file_templates/Template_app.php" />
       </list>
     </option>
   </component>
@@ -216,7 +148,7 @@
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-111" />
+    <option name="x" value="-1" />
     <option name="y" value="-1058" />
     <option name="width" value="1187" />
     <option name="height" value="855" />
@@ -229,7 +161,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -245,37 +176,13 @@
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
               <item name="file_templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -334,14 +241,16 @@
       <workItem from="1526980866957" duration="1021000" />
       <workItem from="1526982217914" duration="139000" />
       <workItem from="1526988711107" duration="2776000" />
+      <workItem from="1526992270442" duration="1780000" />
+      <workItem from="1526994107436" duration="392000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30212000" />
+    <option name="totallyTimeSpent" value="32384000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-111" y="-1058" width="1187" height="855" extended-state="0" />
+    <frame x="-1" y="-1058" width="1187" height="855" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -352,11 +261,10 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32984293" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="right" id="Remote Host" order="4" weight="0.22495896" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.63228697" visible="true" weight="0.2253275" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.62929744" visible="true" weight="0.23231441" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.32922825" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info id="Structure" order="1" sideWeight="0.367713" side_tool="true" weight="0.20786026" />
+      <window_info id="Structure" order="1" sideWeight="0.37070253" side_tool="true" visible="true" weight="0.23231441" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -366,6 +274,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="REST Client" order="10" weight="0.32984293" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -378,32 +287,10 @@
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../jinlai_api/application/controllers/Message.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="57" lean-forward="true" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../jinlai_biz_web/application/controllers/Message.php" />
-    <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="191" column="50" lean-forward="true" selection-start-line="191" selection-start-column="50" selection-end-line="191" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../jinlai_biz_web/application/views/message/detail.php" />
     <entry file="file://$PROJECT_DIR$/../jinlai_biz_web/application/views/message/create.php" />
     <entry file="file://$PROJECT_DIR$/application/views/templates/sidebar.php">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/libraries/Basic.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="399" column="44" lean-forward="true" selection-start-line="399" selection-start-column="44" selection-end-line="399" selection-end-column="44" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/user/result.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -628,13 +515,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/Api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="51" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -644,56 +524,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/api/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="83" column="37" lean-forward="true" selection-start-line="83" selection-start-column="37" selection-end-line="83" selection-end-column="37" />
+        <state relative-caret-position="1245">
+          <caret line="83" column="37" selection-start-line="83" selection-start-column="37" selection-end-line="83" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/api/detail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
+        <state relative-caret-position="2085">
           <caret line="139" column="118" lean-forward="true" selection-start-line="139" selection-start-column="118" selection-end-line="139" selection-end-column="118" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/page/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
+        <state relative-caret-position="1545">
           <caret line="103" column="26" lean-forward="true" selection-start-line="103" selection-start-column="26" selection-end-line="103" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/page/detail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
+        <state relative-caret-position="1350">
           <caret line="90" column="20" lean-forward="true" selection-start-line="90" selection-start-column="20" selection-end-line="90" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
+        <state relative-caret-position="1770">
           <caret line="118" column="74" selection-start-line="118" selection-start-column="74" selection-end-line="118" selection-end-column="74" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
+        <state relative-caret-position="2175">
           <caret line="145" column="19" lean-forward="true" selection-start-line="145" selection-start-column="19" selection-end-line="145" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/user/mine.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
+        <state relative-caret-position="1125">
           <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/user/edit.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
+        <state relative-caret-position="2280">
           <caret line="152" column="20" lean-forward="true" selection-start-line="152" selection-start-column="20" selection-end-line="152" selection-end-column="51" />
         </state>
       </provider>
@@ -702,6 +582,41 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
           <caret line="122" lean-forward="true" selection-start-line="122" selection-end-line="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/libraries/Basic.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="313" column="59" lean-forward="true" selection-start-line="313" selection-start-column="59" selection-end-line="313" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/Basic_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-368">
+          <caret line="211" column="62" lean-forward="true" selection-start-line="211" selection-start-column="62" selection-end-line="211" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/Api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="260" column="16" lean-forward="true" selection-start-line="260" selection-start-column="16" selection-end-line="260" selection-end-column="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="334" column="109" lean-forward="true" selection-start-line="334" selection-start-column="20" selection-end-line="334" selection-end-column="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/Template_app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="255" column="30" selection-start-line="255" selection-start-column="30" selection-end-line="255" selection-end-column="30" />
         </state>
       </provider>
     </entry>

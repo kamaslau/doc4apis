@@ -34,7 +34,10 @@
 		{
 			parent::__construct();
 
-			// （可选）未登录用户转到登录页
+            // 检查是否已打开测试模式
+            if ($this->input->post_get('test_mode') === 'on') $this->output->enable_profiler(TRUE); // 输出调试信息
+
+			// 未登录用户转到登录页
 			if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
 			
 			// 向类属性赋值
@@ -48,8 +51,8 @@
 			$this->data_to_display = array(
 				'code' => '序号',
 				'name' => '名称',
-				'biz_id' => '所属企业ID',
-				'project_id' => '所属项目ID',
+				'biz_id' => '所属企业',
+				'project_id' => '所属项目',
 			);
 
 			// 设置并调用Basic核心库
@@ -93,14 +96,14 @@
 			$condition = NULL;
 
 			// 非系统级管理员仅可看到自己企业相关的信息
-			if ( ! empty($this->session->biz_id) ):
-				$condition['biz_id'] = $this->session->biz_id;
+			if ( !empty($this->session->biz_id) ):
+                $condition['biz_id'] = $this->session->biz_id;
 
 			// 系统级管理员可查看任意企业的相关信息
 			elseif ($this->session->role === '管理员'):
 				$biz_id = $this->input->get_post('biz_id')? $this->input->get_post('biz_id'): NULL;
-				if ( !empty($biz_id) )
-					$condition['biz_id'] = $biz_id;
+
+				if ( !empty($biz_id) ) $condition['biz_id'] = $biz_id;
 			endif;
 
 			// 排序条件
@@ -245,19 +248,18 @@
 
 			// 需要存入数据库的信息
 			$data_to_create = array(
-				'project_id' => $this->input->post('project_id'),
-				'category_id' => $this->input->post('category_id'),
 				'name' => ucwords( $this->input->post('name') ),
 				'code' => strtoupper( $this->input->post('code') ),
 				'url' => strtolower($this->input->post('url')),
 				'url_full' => strtolower($this->input->post('url_full')),
-				'description' => $this->input->post('description'),
-				'params_request' => $this->input->post('params_request'),
-				'params_respond' => $this->input->post('params_respond'),
-				'sample_request' => $this->input->post('sample_request'),
-				'sample_respond' => $this->input->post('sample_respond'),
-				'status' => $this->input->post('status'),
 			);
+            // 自动生成无需特别处理的数据
+            $data_need_no_prepare = array(
+                'project_id', 'category_id', 'description', 'params_request', 'params_respond', 'sample_request', 'sample_respond', 'status',
+            );
+            foreach ($data_need_no_prepare as $name)
+                $data_to_create[$name] = empty($this->input->post($name))? NULL: $this->input->post($name);
+
 			// 非系统管理员的用户，企业ID默认为当前用户所属企业ID
 			if ($this->session->role !== '管理员'):
 				$data_to_create['biz_id'] = $this->session->biz_id;
@@ -339,19 +341,18 @@
 			else:
 				// 需要编辑的信息
 				$data_to_edit = array(
-					'project_id' => $this->input->post('project_id'),
-					'category_id' => $this->input->post('category_id'),
 					'name' => ucwords( $this->input->post('name') ),
 					'code' => strtoupper( $this->input->post('code') ),
 					'url' => strtolower($this->input->post('url')),
 					'url_full' => strtolower($this->input->post('url_full')),
-					'description' => $this->input->post('description'),
-					'params_request' => $this->input->post('params_request'),
-					'params_respond' => $this->input->post('params_respond'),
-					'sample_request' => $this->input->post('sample_request'),
-					'sample_respond' => $this->input->post('sample_respond'),
-					'status' => $this->input->post('status'),
 				);
+                // 自动生成无需特别处理的数据
+                $data_need_no_prepare = array(
+                    'project_id', 'category_id', 'description', 'params_request', 'params_respond', 'sample_request', 'sample_respond', 'status',
+                );
+                foreach ($data_need_no_prepare as $name)
+                    $data_to_edit[$name] = empty($this->input->post($name))? NULL: $this->input->post($name);
+
 				if ($this->session->role === '管理员'):
 					$data_to_edit['biz_id'] = $this->input->post('biz_id');
 				else:

@@ -264,7 +264,7 @@
 					[[names_list]]
 				);
 				foreach ($data_need_no_prepare as $name)
-					$data_to_create[$name] = $this->input->post($name);
+                    $data_to_create[$name] = empty($this->input->post($name))? NULL: $this->input->post($name);
 
 				// 向API服务器发送待创建数据
 				$params = $data_to_create;
@@ -353,7 +353,7 @@
 					[[names_list]]
 				);
 				foreach ($data_need_no_prepare as $name)
-					$data_to_edit[$name] = $this->input->post($name);
+                    $data_to_edit[$name] = empty($this->input->post($name))? NULL: $this->input->post($name);
 
 				// 向API服务器发送待创建数据
 				$params = $data_to_edit;
