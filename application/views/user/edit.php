@@ -141,14 +141,16 @@
 			</div>
 
 			<div class=form-group>
-				<label for=gender class="col-sm-2 control-label">性别（以自我认同为准）</label>
+				<label for=gender class="col-sm-2 control-label">性别</label>
 				<div class=col-sm-10>
 					<label class=radio-inline>
-						<input type=radio name=gender value="女" required <?php if ($item['gender'] === '女') echo 'checked'; ?>> 女
+						<input type=radio name=gender value="女" required <?php if ($item['gender'] === '女') echo 'checked' ?>> <i class="fal fa-venus"></i> 女
 					</label>
 					<label class=radio-inline>
-						<input type=radio name=gender value="男" required <?php if ($item['gender'] === '男') echo 'checked'; ?>> 男
+						<input type=radio name=gender value="男" required <?php if ($item['gender'] === '男') echo 'checked' ?>> <i class="fal fa-mars"></i> 男
 					</label>
+
+                    <p class=help-block>以自我认同为准</p>
 					<?php echo form_error('gender') ?>
 				</div>
 			</div>

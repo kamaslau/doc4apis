@@ -14,6 +14,8 @@ a {color:#333;text-decoration:none;/* 清理BootStrap样式 */}
 
 	ol>li {list-style-type:decimal-leading-zero;}
 
+    td {text-align:left;}
+
 /* 修复BootStrap样式 */
     .container, .container-fluid {width:100%;padding:0;/* 去掉BootStrap默认的左右内边距 */}
     ul,ol {margin-bottom:0;}

@@ -128,11 +128,13 @@
 				<label for=gender class="col-sm-2 control-label">性别（以自我认同为准）</label>
 				<div class=col-sm-10>
 					<label class=radio-inline>
-						<input type=radio name=gender value="女" required <?php echo set_radio('gender', '女', TRUE) ?>> 女
+						<input type=radio name=gender value="女" required <?php echo set_radio('gender', '女', TRUE) ?>> <i class="fal fa-venus"></i> 女
 					</label>
 					<label class=radio-inline>
-						<input type=radio name=gender value="男" required <?php echo set_radio('gender', '男') ?>> 男
+						<input type=radio name=gender value="男" required <?php echo set_radio('gender', '男') ?>> <i class="fal fa-mars"></i> 男
 					</label>
+
+                    <p class=help-block>以自我认同为准</p>
 					<?php echo form_error('gender') ?>
 				</div>
 			</div>

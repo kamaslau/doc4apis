@@ -110,12 +110,13 @@
 						<?php if ($this->session->logged_in !== TRUE): ?>
 						<li><a href="<?php echo base_url('login') ?>"><i class="far fa-sign-in"> 登录</i></a></li>
 						<!--<li><a href="<?php echo base_url('register') ?>"><i class="far fa-user-plus"></i> 注册</a></li>-->
+
 						<?php
 							else:
 							$display_name = !empty($this->session->nickname)? $this->session->nickname: $this->session->lastname.$this->session->firstname;
 						?>
 						<li>
-                            <a href="<?php echo base_url('user/detail?id='.$this->session->user_id) ?>">
+                            <a href="<?php echo base_url('user/mine') ?>">
                                 <i class="far fa-user-circle"></i>
                                 <?php echo $display_name ?>
                                 <?php echo $this->session->role. 'lv.'. $this->session->level ?>

@@ -133,6 +133,35 @@
 			$this->load->view('templates/footer', $data);
 		}
 
+        /**
+         * 个人主页（详情页）
+         */
+        public function mine()
+        {
+            // 检查是否已传入必要参数
+            $id = empty($this->session->user_id)? NULL: $this->session->user_id;
+            if ($id === NULL)
+                redirect(base_url('error/code_404'));
+
+            // 页面信息
+            $data = array(
+                'title' => '我的主页',
+                'class' => $this->class_name.' '. $this->class_name.'-mine',
+            );
+
+            // 获取页面数据
+            $data['item'] = $this->basic_model->select_by_id($id);
+
+            // 若存在所属企业，则获取企业信息
+            if ( !empty($data['item']['biz_id']) ):
+                $data['biz'] = $this->basic->get_by_id($data['item']['biz_id'], 'biz', 'biz_id');
+            endif;
+
+            $this->load->view('templates/header', $data);
+            $this->load->view($this->view_root.'/mine', $data);
+            $this->load->view('templates/footer', $data);
+        }
+
 		/**
 		 * 回收站
 		 */

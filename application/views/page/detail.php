@@ -217,7 +217,7 @@
 		if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 		?>
 		<li><a href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-edit"></i> 编辑</a></li>
-		<li><a title="克隆" href="<?php echo base_url($this->class_name.'/duplicate?id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-files-o"></i> 克隆</a></li>
+		<li><a href="<?php echo base_url($this->class_name.'/duplicate?id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-copy"></i> 克隆</a></li>
 		<?php endif ?>
 	</ul>
 </div>
