@@ -64,7 +64,7 @@ h4 {margin:0;}
 /* 宽度在768像素以上的设备 */
 @media only screen and (min-width:769px)
 {
-	#header>.container>* {height:64px;line-height:64px;}
+    #header>.container>*:not(h1) {height:64px;line-height:64px;}
 	#header h1 {width:auto;float:left;}
 	#nav-header {float:left;}
 	#account-panel {float:right;}
