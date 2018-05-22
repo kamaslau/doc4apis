@@ -7,7 +7,7 @@ define('ROOT_URL', ROOT_DOMAIN.'/');
 
 // 需要自定义的常量
 define('SITE_NAME', 'doc4apis'); // 站点名称
-define('SITE_SLOGAN', '基于API的WEB项目协作平台'); // 站点广告语
+define('SITE_SLOGAN', '创造本该如此愉悦'); // 站点广告语
 define('SITE_KEYWORDS', 'API,RESTful,开发文档,项目管理,开发管理,敏捷开发'); // 站点关键词
 define('SITE_DESCRIPTION', 'doc4apis是一个基于API的WEB项目协作平台，基于BasicCodeIgniter框架'); // 站点描述
 define('ICP_NUMBER', NULL); // ICP备案号码，没有请留空

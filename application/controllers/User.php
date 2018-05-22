@@ -34,7 +34,7 @@
 		{
 			parent::__construct();
 
-			// （可选）未登录用户转到登录页
+			// 未登录用户转到登录页
 			if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
 
 			// 向类属性赋值

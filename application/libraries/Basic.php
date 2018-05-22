@@ -389,12 +389,15 @@
 				$this->CI->load->view('templates/footer', $data);
 
 			else:
+                $data['operation'] = 'create';
+
 				$result = $this->CI->basic_model->create($data_to_create);
 				if ($result !== FALSE):
 					$data['content'] = '<p class="alert alert-success">创建成功。</p>';
-					$data['operation'] = 'create';
+                    $data['class'] = 'success';
 					$data['id'] = $result; // 创建后的信息ID
 				else:
+                    $data['class'] = 'fail';
 					$data['content'] = '<p class="alert alert-warning">创建失败。</p>';
 				endif;
 

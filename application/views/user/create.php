@@ -44,7 +44,7 @@
 	<?php endif ?>
 
 	<?php
-		if ( isset($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
+		if ( !empty($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
 		$attributes = array('class' => 'form-'.$this->class_name.'-create form-horizontal', 'role' => 'form');
 		echo form_open_multipart($this->class_name.'/create', $attributes);
 	?>
@@ -66,6 +66,8 @@
 				<div class=col-sm-10>
 					<input class=form-control name=mobile type=tel size=11 pattern="\d{11}" value="<?php echo set_value('mobile') ?>" placeholder="手机号" required>
 					<?php echo form_error('mobile') ?>
+
+                    <p class=help-block>新建的成员可使用上述手机号和初始密码（该手机号的最后6位）登录（后附网址），登录后首页会提示修改初始密码。</p>
 				</div>
 			</div>
 
@@ -113,7 +115,7 @@
 			<div class=form-group>
 				<label for=level class="col-sm-2 control-label">等级</label>
 				<div class=col-sm-10>
-					<input class=form-control name=level type=number min=0 step=1 max="<?php echo $this->session->level ?>" value="<?php echo set_value('level') ?>" placeholder="等级" required>
+					<input class=form-control name=level type=number min=0 step=1 max="<?php echo $this->session->level ?>" value="<?php echo empty(set_value('level'))? 10: set_value('level') ?>" placeholder="等级" required>
 					<?php echo form_error('level') ?>
 				</div>
 			</div>
@@ -145,7 +147,7 @@
 		</fieldset>
 
 		<div class="well well-sm text-center">
-			<p>新建的成员可使用上述手机号和初始密码（该手机号的最后6位）登录（后附网址），登录后首页会提示修改初始密码；</p>
+			<p>登录网址（登录后首页会提示修改初始密码）</p>
 			<p><strong><?php echo base_url('login') ?></strong></p>
 		</div>
 

@@ -45,4 +45,27 @@
 	<?php endif ?>
 
 	<?php echo $content ?>
+
+    <ul class=row>
+        <li class="col-xs-12 col-sm-6 col-sm-3"><a class="btn btn-default btn-lg" title="<?php echo $this->class_name_cn ?>列表" href="<?php echo base_url($this->class_name) ?>">返回<?php echo $this->class_name_cn ?>列表</a></li>
+
+        <?php if ( !empty($operation) ): ?>
+
+            <?php if ($operation === 'create'): ?>
+                <li class="col-xs-12 col-sm-6 col-sm-3"><a class="btn btn-primary btn-lg" title="继续创建" href="<?php echo base_url($this->class_name.'/create') ?>">继续创建</a></li>
+            <?php
+                endif;
+                if ( in_array($operation, array('create', 'create_quick', 'edit',)) ):
+            ?>
+                <li class="col-xs-12 col-sm-6 col-sm-3"><a class="btn btn-primary btn-lg" title="查看<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/detail?id='.$id) ?>">确认一下</a></li>
+            <?php endif ?>
+
+        <?php endif ?>
+    </ul>
+
+    <?php if ($operation === 'create' && $class === 'success'): ?>
+    <div class="well well-sm text-center">
+        <p>登录网址（登录后首页会提示修改初始密码）<br><strong><?php echo base_url('login') ?></strong></p>
+    </div>
+    <?php endif ?>
 </div>
