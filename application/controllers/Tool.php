@@ -115,7 +115,7 @@
 		public function class_generate()
 		{
 			// 检查必要参数是否已传入
-			$required_params = array('biz_id', 'project_id', 'code', 'class_name', 'class_name_cn', 'table_name', 'id_name', 'api_url', 'doc_api', 'doc_page', 'file_api', 'file_code');
+			$required_params = array('biz_id', 'code', 'class_name', 'class_name_cn', 'api_url');
 			foreach ($required_params as $param):
 				${$param} = trim($this->input->post($param));
 				if ( empty( ${$param} ) ):
@@ -124,6 +124,15 @@
 					exit();
 				endif;
 			endforeach;
+
+            // 生成非必要参数值
+            $table_name = empty($this->input->post('table_name'))? $class_name: $this->input->post('table_name');
+            $id_name = empty($this->input->post('id_name'))? $class_name.'_id': $this->input->post('id_name');
+            $data_need_no_prepare = array(
+                'project_id', 'doc_api', 'doc_page', 'file_api', 'file_code'
+            );
+            foreach ($data_need_no_prepare as $name)
+                ${$name} = empty($this->input->post($name))? NULL: trim($this->input->post($name));
 
 			// 预处理部分参数字符串格式
 			$code = strtoupper( $code );
@@ -162,9 +171,12 @@
                 $controller_file_content = str_replace('[['.$real_content.']]', ${$real_content}, $controller_file_content);
             endforeach;
 
+            // 检查是否需包含"单项修改"方法
+            $allow_edit_certain = empty($this->input->post('allow_edit_certain'))? NULL: $this->input->post('allow_edit_certain');
+
 			// 若有需要特别生成的类方法，进行生成
-			$extra_functions = $this->input->post('extra_functions');
-			if ( !empty($extra_functions) ):
+			$extra_functions = empty($this->input->post('extra_functions'))? NULL: $this->input->post('extra_functions');
+			if ($extra_functions !== NULL):
 				$extra_functions = explode(',', $extra_functions);
 				$extra_functions_text = '';
 				foreach ($extra_functions as $function_name):
@@ -196,7 +208,8 @@
 
 			// 生成API文档
 			$apis = array('计数', '列表', '详情', '创建', '修改', '单项修改', '批量操作'); // 需要生成文档的常规功能API
-			if ( !empty($extra_functions) ) $apis = array_merge($apis, $extra_functions);  // 其它附加功能
+            if ($allow_edit_certain === NULL) $apis = array_splice($apis,5,1); // 若不允许修改单项，则不生成相应文档
+			if ($extra_functions !== NULL) $apis = array_merge($apis, $extra_functions);  // 其它附加功能
 			for ($i=0; $i<count($apis); $i++):
 				// 页面文档必要字段
 				$doc_content_api = array(
@@ -224,7 +237,8 @@
 				'delete' => '删除',
 				'restore' => '找回',
 			); // 需生成文档的常规功能页面
-			if ( !empty($extra_functions) ) $pages = array_merge($pages, $extra_functions);  // 其它附加功能
+            if ($allow_edit_certain === NULL) $pages = array_splice($pages,5,1); // 若不允许修改单项，则不生成相应文档
+			if ($extra_functions !== NULL) $pages = array_merge($pages, $extra_functions);  // 其它附加功能
 			$i = 0; // 页面序号
 			foreach ($pages as $name => $title):
 				// 为特殊功能做特别处理
@@ -625,7 +639,7 @@
 				$this->result['content']['file_size'] = round($result / 1024, 2). ' kb';
 			else:
 				$this->result['status'] = 400;
-				$this->result['error']['message'] = ucfirst( strtolower($class_name) ). '类API文件创建失败';
+				$this->result['error']['message'] = '类API文件创建失败';
 			endif;
 		} // end api_file_generate
 		
@@ -653,7 +667,7 @@
 				$this->result['content']['file_size'] = round($result / 1024, 2). ' kb';
 			else:
 				$this->result['status'] = 400;
-				$this->result['error']['message'] = ucfirst( strtolower($class_name) ). '类控制器文件创建失败';
+				$this->result['error']['message'] = '类控制器文件创建失败';
 			endif;
 		} // end controller_file_generate
 

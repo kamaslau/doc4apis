@@ -235,11 +235,11 @@
 			$this->form_validation->set_rules('biz_id', '所属项目ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
-			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
-			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('url', 'URL', 'trim');
-			$this->form_validation->set_rules('url_full', '第三方URL', 'trim|valid_url');
-			$this->form_validation->set_rules('description', '说明', 'trim');
+            $this->form_validation->set_rules('name', '名称', 'trim|required|max_length[20]');
+            $this->form_validation->set_rules('code', '序号', 'trim|required|max_length[10]|alpha_numeric');
+            $this->form_validation->set_rules('url', 'URL', 'trim|max_length[30]');
+            $this->form_validation->set_rules('url_full', '第三方URL', 'trim|max_length[255]|valid_url');
+            $this->form_validation->set_rules('description', '说明', 'trim|max_length[255]');
 			$this->form_validation->set_rules('params_request', '请求参数', 'trim');
 			$this->form_validation->set_rules('params_respond', '响应参数', 'trim');
 			$this->form_validation->set_rules('sample_request', '请求示例', 'trim');
@@ -251,7 +251,7 @@
 				'name' => ucwords( $this->input->post('name') ),
 				'code' => strtoupper( $this->input->post('code') ),
 				'url' => strtolower($this->input->post('url')),
-				'url_full' => strtolower($this->input->post('url_full')),
+                'url_full' => empty($this->input->post('url_full'))? NULL: strtolower($this->input->post('url_full')),
 			);
             // 自动生成无需特别处理的数据
             $data_need_no_prepare = array(
@@ -319,11 +319,11 @@
 				$this->form_validation->set_rules('biz_id', '所属企业', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
-			$this->form_validation->set_rules('code', '序号', 'trim|alpha_numeric|required');
-			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('url', 'URL', 'trim');
-			$this->form_validation->set_rules('url_full', '第三方URL', 'trim|valid_url');
-			$this->form_validation->set_rules('description', '说明', 'trim');
+            $this->form_validation->set_rules('name', '名称', 'trim|required|max_length[20]');
+			$this->form_validation->set_rules('code', '序号', 'trim|required|max_length[10]|alpha_numeric');
+			$this->form_validation->set_rules('url', 'URL', 'trim|max_length[30]');
+			$this->form_validation->set_rules('url_full', '第三方URL', 'trim|max_length[255]|valid_url');
+			$this->form_validation->set_rules('description', '说明', 'trim|max_length[255]');
 			$this->form_validation->set_rules('params_request', '请求参数', 'trim');
 			$this->form_validation->set_rules('params_respond', '相应参数', 'trim');
 			$this->form_validation->set_rules('sample_request', '请求示例', 'trim');
@@ -343,8 +343,8 @@
 				$data_to_edit = array(
 					'name' => ucwords( $this->input->post('name') ),
 					'code' => strtoupper( $this->input->post('code') ),
-					'url' => strtolower($this->input->post('url')),
-					'url_full' => strtolower($this->input->post('url_full')),
+                    'url' => $this->input->post('url'),
+					'url_full' => empty($this->input->post('url_full'))? NULL: strtolower($this->input->post('url_full')),
 				);
                 // 自动生成无需特别处理的数据
                 $data_need_no_prepare = array(
@@ -394,7 +394,7 @@
 			// 页面信息
 			$data = array(
 				'title' => '克隆'.$this->class_name_cn,
-				'class' => $this->class_name.' '. $this->class_name.'-edit',
+				'class' => $this->class_name.' '. $this->class_name.'-duplicate',
 			);
 
 			// 获取待克隆信息
@@ -424,11 +424,11 @@
 				$this->form_validation->set_rules('biz_id', '所属企业', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('project_id', '所属项目ID', 'trim|is_natural_no_zero');
 			$this->form_validation->set_rules('category_id', '所属分类ID', 'trim|is_natural_no_zero');
-			$this->form_validation->set_rules('name', '名称', 'trim|required');
-			$this->form_validation->set_rules('code', '序号', 'trim|required|alpha_numeric');
-			$this->form_validation->set_rules('url', 'URL', 'trim');
-			$this->form_validation->set_rules('url_full', '第三方URL', 'trim|valid_url');
-			$this->form_validation->set_rules('description', '说明', 'trim');
+            $this->form_validation->set_rules('name', '名称', 'trim|required|max_length[20]');
+            $this->form_validation->set_rules('code', '序号', 'trim|required|max_length[10]|alpha_numeric');
+            $this->form_validation->set_rules('url', 'URL', 'trim|max_length[30]');
+            $this->form_validation->set_rules('url_full', '第三方URL', 'trim|max_length[255]|valid_url');
+            $this->form_validation->set_rules('description', '说明', 'trim|max_length[255]');
 			$this->form_validation->set_rules('params_request', '请求参数', 'trim');
 			$this->form_validation->set_rules('params_respond', '相应参数', 'trim');
 			$this->form_validation->set_rules('sample_request', '请求示例', 'trim');
@@ -444,21 +444,20 @@
 				$this->load->view('templates/footer', $data);
 
 			else:
-				// 需要编辑的信息
-				$data_to_create = array(
-					'project_id' => $this->input->post('project_id'),
-					'category_id' => $this->input->post('category_id'),
-					'name' => $this->input->post('name'),
-					'code' => strtoupper($this->input->post('code')),
-					'url' => strtolower($this->input->post('url')),
-					'url_full' => strtolower($this->input->post('url_full')),
-					'description' => $this->input->post('description'),
-					'params_request' => $this->input->post('params_request'),
-					'params_respond' => $this->input->post('params_respond'),
-					'sample_request' => $this->input->post('sample_request'),
-					'sample_respond' => $this->input->post('sample_respond'),
-					'status' => $this->input->post('status'),
-				);
+                // 需要存入数据库的信息
+                $data_to_create = array(
+                    'name' => ucwords( $this->input->post('name') ),
+                    'code' => strtoupper( $this->input->post('code') ),
+                    'url' => strtolower($this->input->post('url')),
+                    'url_full' => empty($this->input->post('url_full'))? NULL: strtolower($this->input->post('url_full')),
+                );
+                // 自动生成无需特别处理的数据
+                $data_need_no_prepare = array(
+                    'project_id', 'category_id', 'description', 'params_request', 'params_respond', 'sample_request', 'sample_respond', 'status',
+                );
+                foreach ($data_need_no_prepare as $name)
+                    $data_to_create[$name] = empty($this->input->post($name))? NULL: $this->input->post($name);
+
 				if ($this->session->role === '管理员'):
 					$data_to_create['biz_id'] = $this->input->post('biz_id');
 				else:
