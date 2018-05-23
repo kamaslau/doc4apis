@@ -300,13 +300,15 @@
 				case '列表':
 					$data_to_create['url'] .= 'index';
 					$data_to_create['params_request'] =
-						'<tr><td>limit</td><td>int</td><td>否</td><td>10</td><td>需要获取多少行数据<br>默认获取所有数据</td></tr>'. "\n".
-						'<tr><td>offset</td><td>int</td><td>否</td><td>20</td><td>需要跳过多少行数据<br>默认“0”</td></tr>'. "\n".
+						'<tr><td>limit</td><td>int</td><td>否</td><td>10</td><td>需要获取多少行数据；默认获取所有数据</td></tr>'. "\n".
+						'<tr><td>offset</td><td>int</td><td>否</td><td>20</td><td>需要跳过多少行数据；默认“0”</td></tr>'. "\n".
+                        '<tr><td>ids</td><td>string</td><td>否</td><td>1,3,45,179,332</td><td>需获取的数据主键值清单；CSV，此值不为空时，limit、offset将被忽略</td></tr>'. "\n".
 						$this->params_request;
 					$data_to_create['params_respond'] = $this->params_respond;
 
 					$extra_request = array('limit', 'offset');
-					foreach ($extra_request as $extra) $data_to_create['sample_request'] .= $extra.":\n";
+					foreach ($extra_request as $extra)
+					    $data_to_create['sample_request'] = $extra.":\n". $data_to_create['sample_request'];
 					break;
 
 				case '详情':
@@ -326,7 +328,7 @@
 						'<tr><td>id</td><td>string</td><td>1</td><td>创建的'.$this->class_name_cn.'ID</td></tr>'. "\n".
 						'<tr><td>message</td><td>string</td><td>详见“返回示例”</td><td>需要显示的提示信息</td></tr>';
 					
-					$data_to_create['sample_request'] .= "user_id:\n";
+					$data_to_create['sample_request'] = "user_id:\n". $data_to_create['sample_request'];
 					break;
 
 				case '修改':
@@ -339,7 +341,8 @@
 						'<tr><td>message</td><td>string</td><td>详见“返回示例”</td><td>需要显示的提示信息</td></tr>';
 
 					$extra_request = array('user_id', 'id');
-					foreach ($extra_request as $extra) $data_to_create['sample_request'] .= $extra.":\n";
+					foreach ($extra_request as $extra)
+					    $data_to_create['sample_request'] = $extra.":\n". $data_to_create['sample_request'];
 					break;
 
 				case '单项修改':
@@ -356,15 +359,16 @@
 					// 重置请求示例
 					$data_to_create['sample_request'] = '';
 					$extra_request = array('user_id', 'id', 'name', 'value');
-					foreach ($extra_request as $extra) $data_to_create['sample_request'] .= $extra.":\n";
+					foreach ($extra_request as $extra)
+					    $data_to_create['sample_request'] = $extra.":\n". $data_to_create['sample_request'];
 					break;
 
 				case '批量操作':
 					$data_to_create['url'] .= 'edit_bulk';
 					$data_to_create['params_request'] =
 						'<tr><td>user_id</td><td>string</td><td>是</td><td>1</td><td>操作者用户ID</td></tr>'. "\n".
-						'<tr><td>ids</td><td>string</td><td>是</td><td>1,2,3</td><td>待操作项ID们，多个ID间以一个半角逗号分隔</td></tr>'. "\n".
-						'<tr><td>operation</td><td>string</td><td>是</td><td>delete</td><td>待执行操作<br>删除delete,找回restore</td></tr>'. "\n".
+						'<tr><td>ids</td><td>string</td><td>是</td><td>1,2,3</td><td>待操作项ID们；CSV</td></tr>'. "\n".
+						'<tr><td>operation</td><td>string</td><td>是</td><td>delete</td><td>待执行操作；删除delete,找回restore</td></tr>'. "\n".
 						'<tr><td>password</td><td>string</td><td>是</td><td>略</td><td>操作者用户密码</td></tr>';
 					$data_to_create['params_respond'] =
 						'<tr><td>message</td><td>string</td><td>详见“返回示例”</td><td>需要显示的提示信息</td></tr>';
@@ -372,7 +376,8 @@
 					// 重置请求示例
 					$data_to_create['sample_request'] = '';
 					$extra_request = array('user_id', 'ids', 'operation', 'password');
-					foreach ($extra_request as $extra) $data_to_create['sample_request'] .= $extra.":\n";
+					foreach ($extra_request as $extra)
+					    $data_to_create['sample_request'] = $extra.":\n". $data_to_create['sample_request'];
 					break;
 
 				default:
