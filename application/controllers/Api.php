@@ -260,12 +260,11 @@
             foreach ($data_need_no_prepare as $name)
                 $data_to_create[$name] = empty($this->input->post($name))? NULL: $this->input->post($name);
 
-			// 非系统管理员的用户，企业ID默认为当前用户所属企业ID
-			if ($this->session->role !== '管理员'):
-				$data_to_create['biz_id'] = $this->session->biz_id;
-			else:
-				$data_to_create['biz_id'] = $this->input->post('biz_id');
-			endif;
+            if ($this->session->role === '管理员'):
+                $data_to_create['biz_id'] = empty($this->input->post('biz_id'))? NULL: $this->input->post('biz_id');
+            else:
+                $data_to_create['biz_id'] = $this->session->biz_id;
+            endif;
 
 			// Go Basic!
 			$this->basic->create($data, $data_to_create);
@@ -353,11 +352,11 @@
                 foreach ($data_need_no_prepare as $name)
                     $data_to_edit[$name] = empty($this->input->post($name))? NULL: $this->input->post($name);
 
-				if ($this->session->role === '管理员'):
-					$data_to_edit['biz_id'] = $this->input->post('biz_id');
-				else:
-					$data_to_edit['biz_id'] = $this->session->biz_id;
-				endif;
+                if ($this->session->role === '管理员'):
+                    $data_to_create['biz_id'] = empty($this->input->post('biz_id'))? NULL: $this->input->post('biz_id');
+                else:
+                    $data_to_create['biz_id'] = $this->session->biz_id;
+                endif;
 
 				$result = $this->basic_model->edit($id, $data_to_edit);
 
@@ -459,7 +458,7 @@
                     $data_to_create[$name] = empty($this->input->post($name))? NULL: $this->input->post($name);
 
 				if ($this->session->role === '管理员'):
-					$data_to_create['biz_id'] = $this->input->post('biz_id');
+					$data_to_create['biz_id'] = empty($this->input->post('biz_id'))? NULL: $this->input->post('biz_id');
 				else:
 					$data_to_create['biz_id'] = $this->session->biz_id;
 				endif;

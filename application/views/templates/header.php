@@ -108,7 +108,7 @@
 				<div id=account-panel>
 					<ul id=user-actions class=horizontal>
 						<?php if ($this->session->logged_in !== TRUE): ?>
-						<li><a href="<?php echo base_url('login') ?>"><i class="far fa-sign-in"> 登录</i></a></li>
+						<li><a href="<?php echo base_url('login') ?>"><i class="far fa-sign-in"></i> 登录</a></li>
 						<!--<li><a href="<?php echo base_url('register') ?>"><i class="far fa-user-plus"></i> 注册</a></li>-->
 
 						<?php
