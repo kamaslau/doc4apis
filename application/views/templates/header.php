@@ -9,9 +9,9 @@
 
     // 生成body的class
     $body_class = ( isset($class) )? $class: NULL;
-    $body_class .= ($is_wechat === TRUE)? ' is_wechat': NULL;
-    $body_class .= ($is_ios === TRUE)? ' is_ios': NULL;
-    $body_class .= ($is_android === TRUE)? ' is_android': NULL;
+    $body_class .= ($is_wechat)? ' is_wechat': NULL;
+    $body_class .= ($is_ios)? ' is_ios': NULL;
+    $body_class .= ($is_android)? ' is_android': NULL;
 
 	// 生成SEO相关变量，一般为页面特定信息与在config/config.php中设置的站点通用信息拼接
 	$title = isset($title)? $title.' - '.SITE_NAME: SITE_NAME.' - '.SITE_SLOGAN;
@@ -27,7 +27,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20180523">
+		<meta name=version content="revision20180629">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">

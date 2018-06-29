@@ -16,6 +16,13 @@
 
 			// 统计业务逻辑运行时间起点
 			$this->benchmark->mark('start');
+
+            // 检查是否已打开测试模式，
+            if ($this->input->post('test_mode') === 'on'):
+                $this->output->enable_profiler(TRUE); // 输出调试信息
+
+                $this->result['user_agent'] = $_SERVER['HTTP_USER_AGENT']; // 获取当前设备信息
+            endif;
 		} // end __construct
 
 		/**
@@ -237,7 +244,7 @@
 				'delete' => '删除',
 				'restore' => '找回',
 			); // 需生成文档的常规功能页面
-            if ($allow_edit_certain === NULL) $pages = array_splice($pages,5,1); // 若不允许修改单项，则不生成相应文档
+            if ($allow_edit_certain !== 'yes') unset($pages['edit_certain']); // 若不允许修改单项，则不生成相应文档
 			if ($extra_functions !== NULL) $pages = array_merge($pages, $extra_functions);  // 其它附加功能
 			$i = 0; // 页面序号
 			foreach ($pages as $name => $title):

@@ -512,6 +512,17 @@
 		 * 以下为工具类方法
 		 */
 
+		/**
+         * 类特有筛选器
+         *
+         * @param array $condition 当前筛选条件数组
+         * @return array 生成的筛选条件数组
+         */
+        protected function advanced_sorter($condition = array())
+        {
+            return $condition;
+        } // end advanced_sorter
+
 	} // end class [[class_name]]
 
 /* End of file [[class_name]].php */
