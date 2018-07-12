@@ -481,9 +481,8 @@
 			if ($this->CI->form_validation->run() === FALSE):
 				$data['error'] = validation_errors();
 				$data['ids'] = $ids;
-				foreach ($ids as $id):
-					$data['items'][] = $this->CI->basic_model->select_by_id($id);
-				endforeach;
+				foreach ($ids as $id)
+				    $data['items'][] = $this->CI->basic_model->select_by_id($id);
 
 				$this->CI->load->view('templates/header', $data);
 				$this->CI->load->view($this->view_root. $op_view, $data);
@@ -510,8 +509,10 @@
 
 				if ($result === FALSE):
 					$data['content'] = '<p class="alert alert-warning">'.$data['title'].'失败，请重试。</p>';
+				    $data['result'] = 'succeed';
 				else:
 					$data['content'] = '<p class="alert alert-success">'.$data['title'].'成功。</p>';
+                    $data['result'] = 'failed';
 				endif;
 
 				$this->CI->load->view('templates/header', $data);
