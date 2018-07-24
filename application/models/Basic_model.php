@@ -23,15 +23,15 @@
 		 */
 		public $id_name;
 
-		/**
-		 * 初始化类
-		 * @param void
-		 * @return void
-		 */
-		public function __construct()
-		{
-			parent::__construct();
-		}
+        /**
+         * 构造函数
+         *
+         * @param void
+         */
+        public function __construct()
+        {
+            // CI_Model类无构造函数，无需继承
+        } // end __construct
 
 		/**
 		 * 返回符合单一条件的数据（单行）
