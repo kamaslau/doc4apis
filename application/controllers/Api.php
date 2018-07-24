@@ -246,6 +246,9 @@
 			$this->form_validation->set_rules('sample_respond', '响应示例', 'trim');
 			$this->form_validation->set_rules('status', '状态', 'trim|required');
 
+			// TODO 同一个企业不允许有重复的API序号，后端完成后需在前端也实现
+            //api_check_code_unique( $this->input->post('code') ) OR exit('同一个企业不允许有重复的API序号');
+
 			// 需要存入数据库的信息
 			$data_to_create = array(
 				'name' => ucwords( $this->input->post('name') ),

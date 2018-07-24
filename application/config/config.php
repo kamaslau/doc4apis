@@ -1,18 +1,25 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// 当前版本号，仅适用于生产环境
+define('CURRENT_VERSION', '0.0.1');
+define('CURRENT_VERSION_MAJOR', 0); // 主版本号
+define('CURRENT_VERSION_UPDATE', 0); // 副版本号，功能新增
+define('CURRENT_VERSION_SUPPORT', 1); // 支持版本号，功能调整
+
 // 根域名及URL
 define('ROOT_DOMAIN', '.doc4apis.com');
 define('ROOT_URL', ROOT_DOMAIN.'/');
 
 // 需要自定义的常量
-define('SITE_NAME', 'doc4apis'); // 站点名称
+define('SITE_NAME', 'doc4APIs'); // 站点名称
 define('SITE_SLOGAN', '创造本该如此敏捷'); // 站点广告语
 define('SITE_KEYWORDS', 'API,RESTful,开发文档,项目管理,开发管理,敏捷开发'); // 站点关键词
 define('SITE_DESCRIPTION', 'doc4apis是一个基于API的WEB项目协作平台，基于BasicCodeIgniter框架'); // 站点描述
 define('ICP_NUMBER', NULL); // ICP备案号码，没有请留空
 
-define('BASE_URL', 'http://'. $_SERVER['SERVER_NAME']); // 可对外使用的站点URL, 自动判断协议（HTTP/HTTPS等等）；在本地测试时须替换为类似“localhost/BasicCodeigniter”形式
+define('BASE_URL', 'http://'. $_SERVER['SERVER_NAME'].'/'); // 可对外使用的站点URL；在本地测试时须替换为类似“localhost/BasicCodeigniter”形式
+define('CURRENT_URL', 'https://'. $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 define('IMAGES_URL', '//'. $_SERVER['SERVER_NAME'].'/uploads/'); // （可选）非样式图片存储的根目录所在URL，可用于配合又拍云等第三方存储
 define('COOKIE_DOMAIN', ROOT_DOMAIN); // cookie存储路径；方便起见可让所有子域共享，若需分离可自行配置
 define('SESSION_COOKIE_NAME', 'ci_sessions_web'); // 用于cookie存储的session名（设置此值后，前后台session互不影响）
@@ -28,6 +35,7 @@ function api_url($api_name)
 	$api_url = API_URL. $api_name;
 	return $api_url;
 }
+define('VIEWS_PATH', APPPATH.'views/'); // 视图文件夹路径
 
 // （可选）JS、CSS等非当前站点特有资源所在URL，可用于配合又拍云等第三方存储
 define('CDN_URL', 'https://cdn-remote.517ybang.com/'); // 生产环境

@@ -17,7 +17,7 @@ $(function(){
 		'params_respond' : '<tr><td>名称</td><td>string</td><td>示例</td><td>说明</td></tr>', // 响应参数
 		'sign' : '<li></li>'+  "\r" + '<li></li>'+  "\r" + '<li></li>', // 签名方式
 		'sample_request' : '{"":"","":""}', // 请求示例
-		'sample_respond' : '{"status":200,"content":[{"":"","":""}]}', // 响应示例
+		'sample_respond' : '{'+  "\r" + '"status":200,'+  "\r" + '"content":[{"":"","":""}]'+  "\r" + '}', // 响应示例
 		'elements' : '<tr><td>名称</td><td>1</td><td>文本</td><td>说明</td></tr>', // 主要视图元素
 		'onloads' : '<li></li>'+  "\r" + '<li></li>'+  "\r" + '<li></li>', // 载入事件
 		'returns' : '<li></li>', // 返回事件

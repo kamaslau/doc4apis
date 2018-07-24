@@ -27,7 +27,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20180712">
+		<meta name=version content="revision20180725">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -44,6 +44,26 @@
             user_agent.is_wechat = <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>;
             user_agent.is_ios = <?php echo ($is_ios === TRUE)? 'true': 'false' ?>;
             user_agent.is_android = <?php echo ($is_android === TRUE)? 'true': 'false' ?>;
+
+            // 全局参数
+            //var api_url = '<?php //echo API_URL ?>'; // API根URL
+            var base_url = '<?php echo BASE_URL ?>'; // 页面根URL
+            var current_url = '<?php echo current_url() ?>';
+            var cdn_url = '<?php echo CDN_URL ?>'; // CDN根URL
+            //var media_url = '<?php //echo MEDIA_URL ?>'; // 媒体文件根URL
+            var class_name = '<?php echo $this->class_name ?>';
+            var class_name_cn = '<?php echo $this->class_name_cn ?>';
+
+            // 当前用户信息
+            var user_id = '<?php echo $this->session->user_id ?>';
+
+            var common_params = new Object()
+            common_params.app_type = 'client' // 默认为客户端请求
+            common_params.user_id = user_id
+            $.ajaxSetup({
+                type: 'post',
+                dataType: 'json',
+            });
         </script>
 
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/reset.css">
