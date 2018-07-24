@@ -96,6 +96,8 @@
 
 			// 排序条件
 			$order_by['biz_id'] = 'DESC';
+            $order_by['role'] = 'DESC';
+            $order_by['level'] = 'DESC';
 
 			// Go Basic！
 			$this->basic->index($data, $condition, $order_by);

@@ -35,7 +35,8 @@ function api_url($api_name)
 	$api_url = API_URL. $api_name;
 	return $api_url;
 }
-define('VIEWS_PATH', APPPATH.'views/'); // 视图文件夹路径
+define('VIEWS_PATH', BASE_URL); // 视图文件夹路径
+//define('VIEWS_PATH', APPPATH.'views/'); // 视图文件夹路径
 
 // （可选）JS、CSS等非当前站点特有资源所在URL，可用于配合又拍云等第三方存储
 define('CDN_URL', 'https://cdn-remote.517ybang.com/'); // 生产环境

@@ -1,3 +1,4 @@
+<link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/index.css">
 <style>
 
 
@@ -37,9 +38,9 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
-		<a class="btn btn-primary" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="far fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-primary" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="far fa-list fa-fw" aria-hidden=true></i> 所有</a>
 	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="far fa-trash fa-fw" aria-hidden=true></i> 回收站</a>
-		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="far fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="far fa-plus fa-fw" aria-hidden=true></i> 创建</a>
 	</div>
 	<?php endif ?>
 
@@ -59,7 +60,7 @@
 						echo '<th>' .$th. '</th>';
 					endforeach;
 				?>
-				<th>用户</th>
+				<th>成员</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -77,22 +78,22 @@
 				<td>
 					<ul class=list-unstyled>
 						<li>
-							<a class="btn btn-default" title="用户列表" href="<?php echo base_url('user/index?biz_id='.$item['biz_id']) ?>"><i class="far fa-users fa-fw" aria-hidden=true></i> 查看成员</a>
+							<a class="btn btn-default" href="<?php echo base_url('user/index?biz_id='.$item['biz_id']) ?>"><i class="far fa-users fa-fw" aria-hidden=true></i> 查看</a>
 						</li>
 						<li>
-							<a class="btn btn-default" title="创建用户" href="<?php echo base_url('user/create?biz_id='.$item['biz_id']) ?>" target=_blank><i class="far fa-plus fa-fw" aria-hidden=true></i> 创建成员</a>
+							<a class="btn btn-default" href="<?php echo base_url('user/create?biz_id='.$item['biz_id']) ?>" target=_blank><i class="far fa-plus fa-fw" aria-hidden=true></i> 创建</a>
 						</li>
 					</ul>
 				</td>
 				<td>
-					<ul class=list-unstyled>
-						<li><a title="查看" href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-eye"></i> 查看</a></li>
+                    <ul class="list-actions list-unstyled horizontal">
+						<li><a href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-eye"></i></a></li>
 						<?php
 						// 需要特定角色和权限进行该操作
 						if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 						?>
-						<li><a href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-edit"></i> 编辑</a></li>
-						<li><a title="删除" href="<?php echo base_url($this->class_name.'/delete?ids='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-trash"></i> 删除</a></li>
+						<li><a href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-edit"></i></a></li>
+						<li><a href="<?php echo base_url($this->class_name.'/delete?ids='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-trash"></i></a></li>
 						<?php endif ?>
 					</ul>
 				</td>

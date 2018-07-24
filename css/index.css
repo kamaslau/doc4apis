@@ -1,10 +1,12 @@
 /**
- * home.css
+ * index.css
  *
- * 适用于首页的样式规则
+ * 适用于列表页的样式规则
  */
 @charset "utf-8";
 @viewport{width:device-width;}
+
+.list-actions>li:not(:first-child) {margin-left:1em;}
 
 /* 宽度在750像素以上的设备 */
 @media only screen and (min-width:751px)

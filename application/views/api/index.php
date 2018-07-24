@@ -1,8 +1,7 @@
+<link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/index.css">
 <style>
     td.api-code {font-weight:bold;}
         .api-status {float:right;text-align:right;}
-
-    .list-actions>li:not(:first-child) {margin-left:1em;}
 
 	/* 宽度在768像素以上的设备 */
 	@media only screen and (min-width:769px)
@@ -73,7 +72,6 @@
 		</thead>
 
 		<tbody id=dom_container></tbody>
-
 	</table>
 	<?php endif ?>
 </div>
@@ -159,8 +157,8 @@
                     '               <li><a title=复制 href="'+ url_duplicate+item.api_id +'" target=_blank><i class="fal fa-copy"></i></a></li>' +
                     '               <li><a title=删除 href="'+ url_delete+item.api_id +'" target=_blank><i class="fal fa-trash"></i></a></li>' +
                     '           </ul>' +
-                    '       </td>' +
-                    '   </tr>';
+                    '       </td>';
+                items_dom += '</tr>';
             }
 
             //console.log(item_dom);

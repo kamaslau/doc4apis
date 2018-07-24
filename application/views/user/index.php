@@ -1,3 +1,4 @@
+<link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/index.css">
 <style>
 
 	/* 宽度在768像素以上的设备 */
@@ -36,9 +37,9 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
-		<a class="btn btn-primary" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="far fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-primary" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="far fa-list fa-fw" aria-hidden=true></i> 所有</a>
 	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="far fa-trash fa-fw" aria-hidden=true></i> 回收站</a>
-		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="far fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="far fa-plus fa-fw" aria-hidden=true></i> 创建</a>
 	</div>
 	<?php endif ?>
 
@@ -48,46 +49,85 @@
 	</blockquote>
 
 	<?php else: ?>
-	<table class="table table-condensed table-responsive table-striped sortable">
+    <table class="table table-condensed table-responsive table-striped sortable">
 		<thead>
-			<tr>
-				<?php
-					$thead = array_values($data_to_display);
-					foreach ($thead as $th):
-						echo '<th>' .$th. '</th>';
-					endforeach;
-				?>
-				<th>操作</th>
-			</tr>
+            <tr>
+                <th>姓名</th>
+                <th>手机号</th>
+                <th>角色</th>
+                <th>级别</th>
+                <th>操作</th>
+            </tr>
 		</thead>
 
-		<tbody>
-		<?php foreach ($items as $item): ?>
-			<tr>
-				<?php
-					$tr = array_keys($data_to_display);
-					foreach ($tr as $td):
-						echo '<td>' .$item[$td]. '</td>';
-					endforeach;
-				?>
-				<td>
-					<ul class="list-unstyled horizontal">
-						<li><a href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-eye"></i> 查看</a></li>
-						<?php
-						// 需要特定角色和权限进行该操作
-						$role_allowed = array('经理', '管理员');
-						$level_allowed = 1;
-						if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
-						?>
-						<li><a href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-edit"></i> 编辑</a></li>
-						<li><a href="<?php echo base_url($this->class_name.'/delete?ids='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-trash"></i> 删除</a></li>
-						<?php endif ?>
-					</ul>
-				</td>
-			</tr>
-		<?php endforeach ?>
-		</tbody>
+        <tbody id=dom_container></tbody>
 	</table>
-
 	<?php endif ?>
 </div>
+
+<script>
+    var items = <?php echo json_encode($items) ?>;
+    //console.log(items);
+
+    $(function(){
+        // 若无数据项，不继续其它逻辑
+        if (items.length == 0) return false;
+
+        var url_item = base_url + class_name + '/detail?id=';
+        var url_edit = base_url + class_name + '/edit?id=';
+        var url_delete = base_url + class_name + '/delete?ids=';
+
+        // 将相关数据输出为DOM
+        generate_items_dom(items);
+
+        /**
+         * 输出数据集为DOM的外围方法，可通用
+         * @param object items 待生成DOM的内容
+         * @param string dom_container 外围容器的唯一属性
+         */
+        function generate_items_dom(items, dom_container)
+        {
+            var container = dom_container || '#dom_container'; // 父容器DOM的ID
+
+            var dom = generate_item_doms(items);
+            //console.log(dom);
+
+            $(container).append(dom);
+        } // end generate_items_dom
+
+        /**
+         * 输出DOM的实际方法，可根据需求修改适应实际场景
+         * @param object items
+         * @returns string
+         */
+        function generate_item_doms(items)
+        {
+            var items_dom = ''; // 待生成DOM
+
+            for (var index in items)
+            {
+                var item = items[index]
+                //console.log(item);
+                var url_item_current = url_item + item.user_id
+
+                items_dom += '<tr>';
+                items_dom +=
+                    '       <td>'+ item.lastname+' '+item.firstname +'</td>' +
+                    '       <td>'+ item.mobile +'</td>' +
+                    '       <td>'+ item.role +'</td>' +
+                    '       <td>'+ item.level +'</td>' +
+                    '       <td>' +
+                    '           <ul class="list-actions list-unstyled horizontal">' +
+                    '               <li><a title=查看 href="'+ url_item_current +'" target=_blank><i class="fal fa-eye"></i></a></li>' +
+                    '               <li><a title=编辑 href="'+ url_edit+item.user_id +'" target=_blank><i class="fal fa-edit"></i></a></li>' +
+                    '               <li><a title=删除 href="'+ url_delete+item.user_id +'" target=_blank><i class="fal fa-trash"></i></a></li>' +
+                    '           </ul>' +
+                    '       </td>';
+                items_dom += '</tr>';
+            }
+
+            //console.log(item_dom);
+            return items_dom;
+        } // end generate_item_doms
+    });
+</script>

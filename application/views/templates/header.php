@@ -71,7 +71,7 @@
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/flat-ui.min.css">
         <script defer src="<?php echo CDN_URL ?>font-awesome/v5.0.13/fontawesome-all.min.js"></script>
         <script defer src="<?php echo CDN_URL ?>font-awesome/v5.0.13/fa-v4-shims.min.js"></script>
-		<link rel=stylesheet media=all href="/css/style.css">
+		<link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/style.css">
 
 		<link rel="shortcut icon" href="/media/logos/logo_32x32.png">
 		<link rel=apple-touch-icon href="/media/logos/logo_120x120.png">
