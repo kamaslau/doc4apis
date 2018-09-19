@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset=utf-8>
+        <meta http-equiv=x-dns-prefetch-control content=on>
+        <link rel=dns-prefetch href="https://cdn.bandaodian.com/">
+        <title>AutoLayouter</title>
+        <meta name=description content="">
+        <meta name=keywords content="">
+        <meta name=version content="revision20180919">
+        <meta name=author content="KamasLau">
+        <meta name=copyright content="KamasLau,GNU GPLv3.0">
+        <meta name=contact content="kamaslau@dingtalk.com">
+
+        <meta name=viewport content="width=device-width">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel=stylesheet media=all href="https://cdn.bandaodian.com/bootstrap/v4.1.3/bootstrap.min.css">
+
+        <script src="https://cdn.bandaodian.com/jquery/jquery-3.3.1.min.js"></script>
+        <!--<script defer src="https://cdn.bandaodian.com/fontawesome/v5.2.0/fontawesome.min.js"></script>-->
+        <script defer src="https://cdn.bandaodian.com/bootstrap/v4.1.3/bootstrap.min.js"></script>
+        <script>
+            $(function(){
+                // 生成可用的input类型选项值
+                var input_types = 'text,color,email,file,hidden,number,password,range,tel,search,url,date,month,week,time,datetime,datetime-local'.split(',');
+                //console.log(input_types)
+                var option_html = '';
+                for (var i=0; i<input_types.length; i++)
+                {
+                    option_html += '<option value="'+ input_types[i] +'">input - '+ input_types[i] +'</option>'
+                }
+                //console.log(option_html)
+                $('[name=type]').html(option_html);
+
+                // 为必要字段添加标识
+                $('[required]').closest('.form-group').children('label').append(' *');
+
+                // 新增自定义属性
+                var more_attr_html = '<div class="custom-attr form-row">\n' +
+                    '                            <div class="form-group col-md-6">\n' +
+                    '                                <label>属性名</label>\n' +
+                    '                                <input type=text class="attr-name form-control" placeholder="例如：data-tag">\n' +
+                    '                            </div>\n' +
+                    '                            <div class="form-group col-md-6">\n' +
+                    '                                <label>属性值</label>\n' +
+                    '                                <input type=text class="attr-value form-control" placeholder="例如：female">\n' +
+                    '                            </div>\n' +
+                    '                        </div>';
+                $('#add-attr').click(function(){
+                    $(this).before(more_attr_html);
+
+                    return false;
+                });
+
+                // 若自定义属性名为autofocus、disabled、readonly，则无需填写属性值
+                $('body').on('change', 'input.attr-name', function(){
+                    var attr_name = $(this).val();
+
+                    if (['autofocus', 'disabled', 'readonly'].indexOf(attr_name) > -1)
+                    {
+                        var attr_value = $(this).closest('.custom-attr').find('.attr-value');
+                        attr_value.attr('value', attr_name);
+                    }
+                });
+
+                // 表单字段值有变化时生成DOM
+                $('form [name]').change(function(){
+                    generate_dom()
+
+                    return false;
+                });
+
+                // 提交表单时生成DOM
+                $('form').submit(function(){
+                    generate_dom()
+
+                    return false;
+                });
+
+                // 生成DOM
+                function generate_dom()
+                {
+                    var label = $('[name=label]').val() || '字段label';
+
+                    var type = $('[name=type]').val();
+                    var name = $('[name=name]').val() || type;
+                    var placeholder = $('[name=placeholder]').val();
+                    var is_required = $('[name=is_required]:checked').val();
+                    console.log(is_required)
+
+                    // 生成自定义属性HTML
+                    var custom_attr_html = grab_custom_attr();
+
+                    // 生成所有HTML;
+                    var dom =
+                        '<div class=form-group>' +"\r"+
+                        "\t"+ '<label>' + label + '</label>' +"\r"+
+                        "\t"+ '<div class="input-group">' +"\r"+
+                        "\t\t"+ '<input name='+name + ' type='+type +
+                        (type != 'hidden'? ' class=form-control': '') +
+                        (placeholder.length != 0? ' placeholder="'+placeholder+'"': '') +
+                        (is_required == 1? ' required': '') +
+                        custom_attr_html +
+                        '>' +"\r"+
+                        "\t"+ '</div>' +"\r"+
+                        '</div>';
+
+                    // 将生成的HTML加入DOM
+                    $('#dom-content').val('').val(dom);
+                    $('#previewer').empty().append(dom);
+                } // end generate_dom
+
+                // 生成自定义属性HTML
+                function grab_custom_attr()
+                {
+                    var html = '';
+
+                    // 获取所有自定义属性字段
+                    var attrs = $('.custom-attr');
+                    //console.log(attrs);
+
+                    // 若存在自定义属性字段，生成HTML
+                    if (attrs.length > 0)
+                    {
+                        for (var i=0; i<attrs.length; i++)
+                        {
+                            var item = $(attrs[i]) // 原生JS对象转为jQuery对象，以使用jQuery的方法
+                            var attr_name = item.find('.attr-name').val()
+                            var attr_value = item.find('.attr-value').val()
+
+                            if (attr_name.length != 0)
+                            {
+                                html += ' '+attr_name+ (attr_value != ''? '='+attr_value: '')
+                            }
+                        }
+                    }
+
+                    return html;
+                } // end grab_custom_attr
+            });
+        </script>
+    </head>
+
+    <body>
+        <header>
+            <div class=container>
+                <h1>AutoLayouter</h1>
+                <p>生成<a href="https://getbootstrap.com/docs/4.1/">Bootstrap v4.x</a>样式的表单项HTML代码</p>
+            </div>
+        </header>
+
+        <main>
+            <div class=container>
+                <form>
+                    <fieldset>
+                        <legend>通用属性</legend>
+
+                        <div class=form-group>
+                            <label>表单项类型</label>
+                            <select name=type class=form-control required></select>
+                        </div>
+
+                        <div class=form-group>
+                            <label>label</label>
+                            <input name=label type=text class=form-control placeholder="例如：手机号">
+                            <small class="form-text text-muted">将生成为<code>&lt;label&gt;xxx&lt;/label&gt;</code></small>
+                        </div>
+
+                        <div class=form-group>
+                            <label>name</label>
+                            <input name=name type=text class=form-control placeholder="例如：mobile" required>
+                        </div>
+
+                        <div class=form-group>
+                            <label>placeholder</label>
+                            <input name=placeholder type=text class=form-control placeholder="例如：请输入手机号">
+                        </div>
+
+                        <div class=form-group>
+                            <label>必填</label>
+                            <div class=input-group>
+                                <div class="form-check form-check-inline">
+                                    <input class=form-check-input type=radio name=is_required value=1 required checked>
+                                    <label class=form-check-label>是</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class=form-check-input type=radio name=is_required value=0 required>
+                                    <label class=form-check-label>否</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>自定义属性</legend>
+
+                        <button type=button title="新增自定义属性" id=add-attr class="btn btn-default">&plus; 1</button>
+                    </fieldset>
+
+                    <button type=submit class="btn btn-primary">生成</button>
+                </form>
+
+                <hr>
+
+                <div id=output class=row>
+                    <div id=dom-html class=col-md-6>
+                        <h2>HTML</h2>
+                        <textarea id=dom-content class=form-control rows=10 readonly placeholder="生成的HTML"></textarea>
+                    </div>
+
+                    <div id=dom-preview class=col-md-6>
+                        <h2>预览</h2>
+                        <div id=previewer></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class=container>
+                <p>&copy;2018 KamasLau</p>
+            </div>
+        </footer>
+
+    </body>
+</html>
