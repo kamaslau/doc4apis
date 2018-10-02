@@ -1,4 +1,4 @@
-<link rel=stylesheet media=all href="/css/create.css">
+<link rel=stylesheet media=all href="<?php echo CSS_URL ?>create.css">
 <style>
 
 
@@ -7,21 +7,14 @@
     {
 
     }
-
-    /* 宽度在960像素以上的设备 */
-    @media only screen and (min-width:961px)
-    {
-
-    }
-
-    /* 宽度在1280像素以上的设备 */
-    @media only screen and (min-width:1281px)
-    {
-
-    }
 </style>
 
-<script defer src="/js/create.js"></script>
+<script defer src="<?php echo JS_URL ?>create.js"></script>
+<script>
+    $(function(){
+		
+    });
+</script>
 
 <base href="<?php echo $this->media_root ?>">
 
@@ -33,13 +26,15 @@
 	</ol>
 </div>
 
-<div id=content class=container>
+<div id=content>
+    <div class=container>
+		
 	<?php
-		if ( !empty($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
+		if ( ! empty($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
 		$attributes = array('class' => 'form-'.$this->class_name.'-create form-horizontal', 'role' => 'form');
 		echo form_open_multipart($this->class_name.'/create', $attributes);
 	?>
-		<p class=help-block>必填项以“※”符号标示</p>
+		<p class=help-block>必填项以“*”符号标示</p>
 		
 		<fieldset>
 			<legend>常用字段类型</legend>
@@ -55,7 +50,7 @@
 				<label for=url_image_main class="col-sm-2 control-label">主图</label>
 				<div class=col-sm-10>
                     <?php
-                    require_once(APPPATH. 'views/templates/file-uploader.php');
+                    require_once(VIEWPATH. 'templates/file-uploader.php');
                     $name_to_upload = 'url_image_main';
                     generate_html($name_to_upload, $this->class_name);
                     ?>
@@ -66,7 +61,7 @@
 				<label for=figure_image_urls class="col-sm-2 control-label">形象图</label>
 				<div class=col-sm-10>
                     <?php
-                    require_once(APPPATH. 'views/templates/file-uploader.php');
+                    require_once(VIEWPATH. 'templates/file-uploader.php');
                     $name_to_upload = 'url_image_main';
                     generate_html($name_to_upload, $this->class_name, FALSE, 4);
                     ?>
@@ -158,4 +153,5 @@
 		</div>
 	</form>
 
+    </div><!-- end #content.container-->
 </div>

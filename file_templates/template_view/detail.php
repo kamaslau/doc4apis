@@ -1,4 +1,4 @@
-<link rel=stylesheet media=all href="/css/detail.css">
+<link rel=stylesheet media=all href="<?php echo CSS_URL ?>detail.css">
 <style>
 
 
@@ -7,21 +7,14 @@
 	{
 		
 	}
-	
-	/* 宽度在960像素以上的设备 */
-	@media only screen and (min-width:961px)
-	{
-
-	}
-
-	/* 宽度在1280像素以上的设备 */
-	@media only screen and (min-width:1281px)
-	{
-
-	}
 </style>
 
-<script defer src="/js/detail.js"></script>
+<script defer src="<?php echo JS_URL ?>detail.js"></script>
+<script>
+    $(function(){
+		
+    });
+</script>
 
 <base href="<?php echo $this->media_root ?>">
 
@@ -33,7 +26,8 @@
 	</ol>
 </div>
 
-<div id=content class=container>
+<div id=content>
+    <div class=container>
 	<?php if ( empty($item) ): ?>
 	<p><?php echo $error ?></p>
 
@@ -117,4 +111,6 @@
 		<?php endif ?>
 	</dl>
 	<?php endif ?>
+	
+    </div><!-- end #content.container-->
 </div>
