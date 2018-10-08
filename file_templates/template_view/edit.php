@@ -1,7 +1,6 @@
 <link rel=stylesheet media=all href="<?php echo CSS_URL ?>edit.css">
 <style>
 
-
     /* 宽度在750像素以上的设备 */
     @media only screen and (min-width:751px)
     {
@@ -30,7 +29,7 @@
     <div class=container>
 		
 	<?php
-		if ( !empty($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
+		if ( ! empty($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
 		$attributes = array('class' => 'form-'.$this->class_name.'-edit form-horizontal', 'role' => 'form');
 		echo form_open_multipart($this->class_name.'/edit?id='.$item[$this->id_name], $attributes);
 	?>

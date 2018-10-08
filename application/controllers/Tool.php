@@ -267,9 +267,9 @@
 				if ($doc_page === 'yes')
 					$this->doc_page_generate($doc_content_page, $pages, $title);
 
-				// 对部分页面，生成视图文件
+				// 生成视图文件；部分页面需插入具体生成的内容
 				if ($file_code === 'yes'):
-					$pages_to_generate = array('create', 'edit', 'detail',);
+					$pages_to_generate = array('create', 'detail', 'edit');
 					if ( in_array($name, $pages_to_generate) ):
 						$target_directory = 'views/'.strtolower( $class_name ).'/';
 						$file_name = $name. '.php';
@@ -278,19 +278,29 @@
 				endif;
 			endforeach;
 
+			// 生成通用视图文件
+            if ($file_code === 'yes'):
+                $common_pages = array('delete', 'edit_certain', 'index', 'restore', 'result', 'trash',);
+                foreach ($common_pages as $name):
+                    $target_directory = 'views/'.strtolower( $class_name ).'/';
+                    $file_name = $name. '.php';
+                    $this->view_file_generate($target_directory, $file_name);
+                endforeach;
+            endif;
+
 			// 待生成的API及控制器文件名
 			$file_name = ucfirst($class_name). '.php';
+
+            // 生成控制器文件
+            if ($file_code === 'yes'):
+                $target_directory = 'controllers/';
+                $this->controller_file_generate($target_directory, $file_name, $controller_file_content);
+            endif;
 
 			// 生成API文件
 			if ($file_api === 'yes'):
 				$target_directory = 'api/';
 				$this->api_file_generate($target_directory, $file_name, $api_file_content);
-			endif;
-
-			// 生成控制器文件
-			if ($file_code === 'yes'):
-				$target_directory = 'controllers/';
-				$this->controller_file_generate($target_directory, $file_name, $controller_file_content);
 			endif;
 		} // end class_generate
 
@@ -685,12 +695,15 @@
 
 		/**
 		 * 生成视图文件
+         *
+         * 部分文件需插入相关字段相关内容
 		 */
-		private function view_file_generate($target_directory, $file_name, $content_to_insert)
+		private function view_file_generate($target_directory, $file_name, $content_to_insert = NULL)
 		{
 			// 获取模板文件并生成待生成API文件内容
 			$file_content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/file_templates/template_view/'. $file_name);
-			$file_content = str_replace('[[content]]', $content_to_insert, $file_content);
+			if ($content_to_insert != NULL)
+			    $file_content = str_replace('[[content]]', $content_to_insert, $file_content);
 
 			// 生成完整的文件所在目录
 			$target_directory = 'generated/'. $target_directory;
