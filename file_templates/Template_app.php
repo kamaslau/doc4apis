@@ -40,7 +40,7 @@
 			parent::__construct();
 
 			// 未登录用户转到登录页
-			//($this->session->time_expire_login > time()) OR redirect( base_url('login') );
+			($this->session->time_expire_login > time()) OR redirect( base_url('login') );
 
 			// 向类属性赋值
 			$this->class_name = strtolower(__CLASS__);
