@@ -9,10 +9,55 @@
 	}
 </style>
 
-<script defer src="<?php echo JS_URL ?>detail.js"></script>
+<!--<script defer src="<?php //echo JS_URL ?>detail.js"></script>-->
 <script>
+    // 页面主要数据
+    let item = <?php echo json_encode($item) ?>;
+    console.log(item);
+
+    let item_id = <?php echo $item[$this->id_name] ?>;
+    console.log(item_id);
+
     $(function(){
-		
+        // 点击触发异步请求
+        $('#dom_id').on('click',function(){
+            // 取值各字段，并请求API
+            var params = common_params; // 初始化异步请求公共参数
+            var params_needed = 'name1,name2'.split(',');
+            for (let item of params_needed)
+            {
+                params[item] = $('[name='+ item +']').val();
+            }
+            console.log(params);
+
+            $.post(
+                api_url + class_name + '/function',
+                params,
+                function(result)
+                {
+                    console.log(result); // 输出回调数据到控制台
+
+                    if (result.status == 200)
+                    {
+                        // 操作成功后业务逻辑
+                        alert('succeed')
+
+                    } else {
+                        // 操作失败后业务逻辑
+                        alert(result.content.error.message)
+                    }
+                }
+            ).fail(
+                // 请求失败回调
+                function()
+                {
+                    alert("error")
+                }
+            );
+
+            return false
+        });
+
     });
 </script>
 

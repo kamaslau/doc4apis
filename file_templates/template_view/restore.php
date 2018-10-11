@@ -9,6 +9,10 @@
 </style>
 
 <script>
+    // 页面主要数据
+    let item = <?php echo json_encode($item) ?>;
+    console.log(item);
+
     $(function(){
 		
     });

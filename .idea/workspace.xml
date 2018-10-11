@@ -2,16 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="597620d4-3fb9-404b-b7c5-5e4d3b5dc38a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Tool.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Tool.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/Template_app.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/Template_app.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file_templates/template_view/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/create.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file_templates/template_view/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/delete.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file_templates/template_view/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/detail.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file_templates/template_view/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/template_view/edit_certain.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/edit_certain.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file_templates/template_view/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file_templates/template_view/restore.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/restore.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/result.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/result.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file_templates/template_view/trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/trash.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,33 +37,33 @@
     <session id="-623508888">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.0" value="3" />
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.0" value="4" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gitignore" value="1" />
-          <entry key="php" value="31" />
+          <entry key="php" value="52" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="PHP" value="31" />
+          <entry key="PHP" value="52" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="1" />
-          <entry key="php" value="246" />
+          <entry key="php" value="309" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PHP" value="246" />
+          <entry key="PHP" value="309" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
@@ -78,12 +77,12 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
+        <entry file="file://$PROJECT_DIR$/file_templates/template_view/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
+            <state relative-caret-position="443">
+              <caret line="93" column="26" lean-forward="true" selection-start-line="93" selection-start-column="26" selection-end-line="93" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -119,7 +118,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/application/views/project/create.php" />
         <option value="$PROJECT_DIR$/application/views/meta/detail.php" />
         <option value="$PROJECT_DIR$/application/views/team/edit.php" />
         <option value="$PROJECT_DIR$/application/views/team/create.php" />
@@ -159,17 +157,18 @@
         <option value="$PROJECT_DIR$/application/views/biz/index.php" />
         <option value="$PROJECT_DIR$/application/models/Basic_model.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/application/controllers/Tool.php" />
         <option value="$PROJECT_DIR$/file_templates/Template_app.php" />
-        <option value="$PROJECT_DIR$/file_templates/template_view/index.php" />
-        <option value="$PROJECT_DIR$/file_templates/template_view/trash.php" />
         <option value="$PROJECT_DIR$/file_templates/template_view/result.php" />
-        <option value="$PROJECT_DIR$/file_templates/template_view/detail.php" />
-        <option value="$PROJECT_DIR$/file_templates/template_view/create.php" />
-        <option value="$PROJECT_DIR$/file_templates/template_view/edit.php" />
+        <option value="$PROJECT_DIR$/application/controllers/Tool.php" />
+        <option value="$PROJECT_DIR$/application/views/templates/header.php" />
         <option value="$PROJECT_DIR$/file_templates/template_view/delete.php" />
         <option value="$PROJECT_DIR$/file_templates/template_view/restore.php" />
-        <option value="$PROJECT_DIR$/application/views/templates/header.php" />
+        <option value="$PROJECT_DIR$/file_templates/template_view/edit_certain.php" />
+        <option value="$PROJECT_DIR$/file_templates/template_view/create.php" />
+        <option value="$PROJECT_DIR$/file_templates/template_view/detail.php" />
+        <option value="$PROJECT_DIR$/file_templates/template_view/edit.php" />
+        <option value="$PROJECT_DIR$/file_templates/template_view/trash.php" />
+        <option value="$PROJECT_DIR$/file_templates/template_view/index.php" />
       </list>
     </option>
   </component>
@@ -183,8 +182,8 @@
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="186" />
-    <option name="y" value="23" />
+    <option name="x" value="908" />
+    <option name="y" value="413" />
     <option name="width" value="1491" />
     <option name="height" value="1027" />
   </component>
@@ -213,19 +212,24 @@
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
               <item name="file_templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
+              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
+              <item name="template_view" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -318,18 +322,19 @@
       <workItem from="1538842048014" duration="21000" />
       <workItem from="1539011983152" duration="6990000" />
       <workItem from="1539250281794" duration="3694000" />
+      <workItem from="1539276512723" duration="3032000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72614000" />
+    <option name="totallyTimeSpent" value="75646000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="186" y="23" width="1491" height="1027" extended-state="0" />
+    <frame x="908" y="413" width="1491" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6035294" visible="true" weight="0.24292615" />
-      <window_info id="Structure" order="1" sideWeight="0.39647058" side_tool="true" visible="true" weight="0.24292615" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6023529" visible="true" weight="0.24637681" />
+      <window_info id="Structure" order="1" sideWeight="0.39764705" side_tool="true" visible="true" weight="0.24637681" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -620,13 +625,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="264" lean-forward="true" selection-start-line="264" selection-end-line="264" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/file_templates/Template_app.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -634,73 +632,80 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/template_view/trash.php">
+    <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="32" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/template_view/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/template_view/result.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/template_view/edit_certain.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/template_view/detail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/template_view/delete.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1110">
-          <caret line="71" selection-start-line="69" selection-end-line="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/template_view/restore.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/template_view/edit.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/template_view/create.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="42" column="43" selection-start-line="42" selection-start-column="43" selection-end-line="42" selection-end-column="43" />
+        <state relative-caret-position="155">
+          <caret line="122" column="9" lean-forward="true" selection-start-line="122" selection-start-column="9" selection-end-line="122" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
+        <state relative-caret-position="315">
+          <caret line="21" column="17" lean-forward="true" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/template_view/delete.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/template_view/restore.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/template_view/edit_certain.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="14" selection-start-line="11" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/template_view/result.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="8" lean-forward="true" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/template_view/create.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1125">
+          <caret line="73" column="47" lean-forward="true" selection-start-line="73" selection-start-column="47" selection-end-line="73" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/template_view/detail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="622">
+          <caret line="48" column="17" lean-forward="true" selection-start-line="48" selection-start-column="17" selection-end-line="48" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/template_view/edit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="46" column="30" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/template_view/trash.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/template_view/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="93" column="26" lean-forward="true" selection-start-line="93" selection-start-column="26" selection-end-line="93" selection-end-column="26" />
         </state>
       </provider>
     </entry>

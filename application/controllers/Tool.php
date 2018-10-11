@@ -122,7 +122,7 @@
 		public function class_generate()
 		{
 			// 检查必要参数是否已传入
-			$required_params = array('biz_id', 'code', 'class_name', 'class_name_cn', 'api_url');
+			$required_params = array('biz_id', 'code', 'class_name_cn', 'api_url');
 			foreach ($required_params as $param):
 				${$param} = trim($this->input->post($param));
 				if ( empty( ${$param} ) ):
@@ -133,6 +133,7 @@
 			endforeach;
 
             // 生成非必要参数值
+            $class_name = empty($this->input->post('class_name'))? $code: $this->input->post('class_name');
             $table_name = empty($this->input->post('table_name'))? $class_name: $this->input->post('table_name');
             $id_name = empty($this->input->post('id_name'))? $class_name.'_id': $this->input->post('id_name');
             $data_need_no_prepare = array(

@@ -9,8 +9,50 @@
 </style>
 
 <script>
+    // 页面主要数据
+    let items = <?php echo json_encode($items) ?>;
+    console.log(items);
+
     $(function(){
-		
+        // 点击触发异步请求
+        $('#dom_id').on('click',function(){
+            // 取值各字段，并请求API
+            var params = common_params; // 初始化异步请求公共参数
+            var params_needed = 'name1,name2'.split(',');
+            for (let item of params_needed)
+            {
+                params[item] = $('[name='+ item +']').val();
+            }
+            console.log(params);
+
+            $.post(
+                api_url + class_name + '/function',
+                params,
+                function(result)
+                {
+                    console.log(result); // 输出回调数据到控制台
+
+                    if (result.status == 200)
+                    {
+                        // 操作成功后业务逻辑
+                        alert('succeed')
+
+                    } else {
+                        // 操作失败后业务逻辑
+                        alert(result.content.error.message)
+                    }
+                }
+            ).fail(
+                // 请求失败回调
+                function()
+                {
+                    alert("error")
+                }
+            );
+
+            return false
+        });
+
     });
 </script>
 
@@ -42,23 +84,22 @@
 		<ul id=item-list class=row>
 		<?php foreach ($items as $item): ?>
 
-			<li class="item col-xs-6 col-sm-4 col-md-3" data-item-id="<?php echo $item[$this->id_name] ?>">
-				<?php if ( strpos(DEVELOPER_MOBILES, ','.$this->session->mobile.',') !== FALSE ): ?>
-				<span>ID <?php echo $item[$this->id_name] ?></span>
-				<?php endif ?>
+            <li class=item data-item-id=<?php echo $item[$this->id_name] ?>>
+                <span>ID <?php echo $item[$this->id_name] ?></span>
 
-				<section class=row>
-					<a title="<?php echo $item['name'] ?>" href="<?php echo base_url($this->class_name. '/detail?id='.$item[$this->id_name]) ?>">
-						<h2 class=biz-name><?php echo $item['name'] ?></h2>
-					</a>
-				</section>
+                <section class=row>
+                    <a title="<?php echo $item['name'] ?>" href="<?php echo base_url($this->class_name. '/detail?id='.$item[$this->id_name]) ?>">
+                        <h2><?php echo $item['brief_name'] ?></h2>
+                    </a>
+                </section>
 
-				<ul class=row>
-					<li class="col-xs-6">
-						<a class=delete data-op-class=<?php echo $this->class_name ?> data-op-name=delete data-id="<?php echo $item[$this->id_name] ?>" href="<?php echo base_url($this->class_name.'/delete?ids='.$item[$this->id_name]) ?>" target=_blank><i class="fa fa-trash"></i> 删除</a>
-					</li>
-				</ul>
-			</li>
+                <ul>
+                    <li>
+                        <a class=edit data-id="<?php echo $item[$this->id_name] ?>" href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-edit"></i> 修改</a>
+                        <a class=delete data-op-class=<?php echo $this->class_name ?> data-op-name=delete data-id="<?php echo $item[$this->id_name] ?>" href="<?php echo base_url($this->class_name.'/delete?ids='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-trash"></i> 删除</a>
+                    </li>
+                </ul>
+            </li>
 
 		<?php endforeach ?>
 		</ul>
