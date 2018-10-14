@@ -87,7 +87,7 @@
             <li class=item data-item-id=<?php echo $item[$this->id_name] ?>>
                 <span>ID <?php echo $item[$this->id_name] ?></span>
 
-                <section class=row>
+                <section>
                     <a title="<?php echo $item['name'] ?>" href="<?php echo base_url($this->class_name. '/detail?id='.$item[$this->id_name]) ?>">
                         <h2><?php echo $item['brief_name'] ?></h2>
                     </a>

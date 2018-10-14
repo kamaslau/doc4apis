@@ -157,7 +157,7 @@
 			$url = api_url($api_url);
 			$result = $this->curl->go($url, $params, 'array');
 			if ($result['status'] === 200):
-				$info_to_parse = array('form_data', 'names_list', 'rules', 'params_request', 'params_respond', 'elements', 'create', 'edit', 'detail',);
+				$info_to_parse = array('form_data', 'names_csv', 'names_list', 'rules', 'params_request', 'params_respond', 'elements', 'create', 'edit', 'detail',);
 				foreach ($info_to_parse as $info_item):
 					$$info_item = $result['content'][$info_item];
 				endforeach;
@@ -168,7 +168,7 @@
 
 			// 待替换的内容
             $real_contents = array(
-                'code', 'class_name', 'class_name_cn', 'table_name', 'id_name', 'rules', 'names_list', 'params_request', 'params_respond'
+                'code', 'class_name', 'class_name_cn', 'table_name', 'id_name', 'rules', 'names_csv', 'names_list', 'params_request', 'params_respond'
             );
             // 获取模板文件并生成待生成API文件内容
             $template_url = $_SERVER['DOCUMENT_ROOT']. '/file_templates/';
