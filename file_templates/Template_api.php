@@ -57,7 +57,7 @@
 		 * 创建时必要的字段名
 		 */
 		protected $names_create_required = array(
-			'user_id',
+			'operator_id',
             [[names_list]]
 		);
 
@@ -72,23 +72,25 @@
 		 * 完整编辑单行时必要的字段名
 		 */
 		protected $names_edit_required = array(
-			'user_id', 'id',
+			'operator_id', 'id',
             [[names_list]]
 		);
 
 		/**
 		 * 编辑单行特定字段时必要的字段名；若与MY_Controller声明的同名类属性相同，可删除此处
 		 */
-		protected $names_edit_certain_required = array(
-			'user_id', 'id', 'name', 'value',
-		);
+//		protected $names_edit_certain_required = array(
+//			'operator_id', 'id',
+//          'name', 'value',
+//		);
 
 		/**
 		 * 编辑多行特定字段时必要的字段名；若与MY_Controller声明的同名类属性相同，可删除此处
 		 */
-		protected $names_edit_bulk_required = array(
-			'user_id', 'ids', 'operation', 'password',
-		);
+//		protected $names_edit_bulk_required = array(
+//			'operator_id', 'ids',
+//          'operation', 'password',
+//		);
 
 		public function __construct()
 		{
@@ -365,16 +367,16 @@
 		 */
 		public function edit_certain()
 		{
-			// 操作可能需要检查客户端及设备信息
-			$type_allowed = array('admin', 'biz', 'client'); // 客户端类型
-			$platform_allowed = array('ios', 'android', 'weapp', 'web'); // 客户端平台
-			$min_version = '0.0.1'; // 最低版本要求
-			$this->client_check($type_allowed, $platform_allowed, $min_version);
+            // 操作可能需要检查客户端及设备信息
+            $type_allowed = array('admin', 'biz', 'client'); // 客户端类型
+            $platform_allowed = array('ios', 'android', 'weapp', 'web'); // 客户端平台
+            $min_version = '0.0.1'; // 最低版本要求
+            $this->client_check($type_allowed, $platform_allowed, $min_version);
 
-			// 管理类客户端操作可能需要检查操作权限
-			//$role_allowed = array('管理员', '经理'); // 角色要求
-			//$min_level = 10; // 级别要求
-			//$this->permission_check($role_allowed, $min_level);
+            // 管理类客户端操作可能需要检查操作权限
+            $role_allowed = array('管理员', '经理'); // 角色要求
+            $min_level = 10; // 级别要求
+            $this->permission_check($role_allowed, $min_level);
 
 			// 检查必要参数是否已传入
 			$required_params = $this->names_edit_certain_required;
@@ -442,73 +444,80 @@
 			endif;
 		} // end edit_certain
 
-		/**
-		 * 6 编辑多行数据特定字段
-		 *
-		 * 修改多行数据的单一字段值
-		 */
-		public function edit_bulk()
-		{
-			// 操作可能需要检查客户端及设备信息
-			$type_allowed = array('admin', 'biz', 'client'); // 客户端类型
-			$platform_allowed = array('ios', 'android', 'weapp', 'web'); // 客户端平台
-			$min_version = '0.0.1'; // 最低版本要求
-			$this->client_check($type_allowed, $platform_allowed, $min_version);
+        /**
+         * 6 编辑多行数据特定字段
+         *
+         * 修改多行数据的单一字段值
+         */
+        public function edit_bulk()
+        {
+            // 操作可能需要检查客户端及设备信息
+            $type_allowed = array('admin', 'biz', 'client'); // 客户端类型
+            $platform_allowed = array('ios', 'android', 'weapp', 'web'); // 客户端平台
+            $min_version = '0.0.1'; // 最低版本要求
+            $this->client_check($type_allowed, $platform_allowed, $min_version);
 
-			// 管理类客户端操作可能需要检查操作权限
-			//$role_allowed = array('管理员', '经理'); // 角色要求
-			//$min_level = 10; // 级别要求
-			//$this->permission_check($role_allowed, $min_level);
+            // 管理类客户端操作可能需要检查操作权限
+            $role_allowed = array('管理员', '经理'); // 角色要求
+            $min_level = 10; // 级别要求
+            $this->permission_check($role_allowed, $min_level);
+
+            // （可选）检查密码正确性
+            //$this->password_check();
+
+            // 检查必要参数是否已传入
+            $required_params = $this->names_edit_bulk_required;
+            foreach ($required_params as $param):
+                ${$param} = $this->input->post($param);
+                if ( empty( ${$param} ) ):
+                    $this->result['status'] = 400;
+                    $this->result['content']['error']['message'] = '必要的请求参数未全部传入';
+                    exit();
+                endif;
+            endforeach;
 
             // 此类型方法通用代码块
             $this->common_edit_bulk(TRUE);
 
-			// 验证表单值格式
-			if ($this->form_validation->run() === FALSE):
-				$this->result['status'] = 401;
-				$this->result['content']['error']['message'] = validation_errors();
-				exit();
+            // 验证表单值格式
+            if ($this->form_validation->run() === FALSE):
+                $this->result['status'] = 401;
+                $this->result['content']['error']['message'] = validation_errors();
 
-			elseif ($this->operator_check() !== TRUE):
-				$this->result['status'] = 453;
-				$this->result['content']['error']['message'] = '与该ID及类型对应的操作者不存在，或操作密码错误';
-				exit();
+            else:
+                // 需要编辑的数据；逐一赋值需特别处理的字段
+                $data_to_edit['operator_id'] = $operator_id;
 
-			else:
-				// 需要编辑的数据；逐一赋值需特别处理的字段
-				$data_to_edit['operator_id'] = $user_id;
+                // 根据待执行的操作赋值待编辑数据
+                switch ( $operation ):
+                    case 'delete':
+                        $data_to_edit['time_delete'] = date('Y-m-d H:i:s');
+                        break;
+                    case 'restore':
+                        $data_to_edit['time_delete'] = NULL;
+                        break;
+                endswitch;
 
-				// 根据待执行的操作赋值待编辑数据
-				switch ( $operation ):
-					case 'delete':
-						$data_to_edit['time_delete'] = date('Y-m-d H:i:s');
-						break;
-					case 'restore':
-						$data_to_edit['time_delete'] = NULL;
-						break;
-				endswitch;
+                // 依次操作数据并输出操作结果
+                // 将待操作行ID们的CSV格式字符串，转换为待操作行的ID数组
+                $ids = explode(',', $ids);
 
-				// 依次操作数据并输出操作结果
-				// 将待操作行ID们的CSV格式字符串，转换为待操作行的ID数组
-				$ids = explode(',', $ids);
+                // 默认批量处理全部成功，若有任一处理失败则将处理失败行进行记录
+                $this->result['status'] = 200;
+                foreach ($ids as $id):
+                    $result = $this->basic_model->edit($id, $data_to_edit);
+                    if ($result === FALSE):
+                        $this->result['status'] = 434;
+                        $this->result['content']['row_failed'][] = $id;
+                    endif;
+                endforeach;
 
-				// 默认批量处理全部成功，若有任一处理失败则将处理失败行进行记录
-				$this->result['status'] = 200;
-				foreach ($ids as $id):
-					$result = $this->basic_model->edit($id, $data_to_edit);
-					if ($result === FALSE):
-						$this->result['status'] = 434;
-						$this->result['content']['row_failed'][] = $id;
-					endif;
+                // 添加全部操作成功后的提示
+                if ($this->result['status'] = 200)
+                    $this->result['content']['message'] = '全部操作成功';
 
-				endforeach;
-
-				// 添加全部操作成功后的提示
-				if ($this->result['status'] = 200)
-					$this->result['content']['message'] = '全部操作成功';
-
-			endif;
-		} // end edit_bulk
+            endif;
+        } // end edit_bulk
 		[[extra_functions]]
 			
 		/**
