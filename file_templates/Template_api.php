@@ -13,9 +13,8 @@
 	 */
 	class [[class_name]] extends MY_Controller
 	{
-	    protected $names_csv = array(
-	        '[[names_csv]]'
-        );
+	    protected $names_csv = '[[names_csv]]';
+
 		/**
 		 * 可作为列表筛选条件的字段名；可在具体方法中根据需要删除不需要的字段并转换为字符串进行应用，下同
 		 */

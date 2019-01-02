@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="597620d4-3fb9-404b-b7c5-5e4d3b5dc38a" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/header.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file_templates/Template_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/Template_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/detail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/Template_app.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/Template_app.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,56 +28,31 @@
     <expand />
     <select />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-623508888">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="10" />
-          <entry key="project.open.time.0" value="8" />
-          <entry key="project.open.time.1" value="2" />
-          <entry key="project.opened" value="10" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="gitignore" value="1" />
-          <entry key="php" value="62" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="PHP" value="62" />
-          <entry key="PLAIN_TEXT" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="gitignore" value="1" />
-          <entry key="php" value="401" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="PHP" value="401" />
-          <entry key="PLAIN_TEXT" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.php.composer.command.options" />
-      <usages-collector id="statistics.php.new.test" />
-      <usages-collector id="statistics.php.new.class" />
-      <usages-collector id="statistics.js.language.service.starts" />
-      <usages-collector id="statistics.php.composer.actions" />
-      <usages-collector id="statistics.php.rename.constructor" />
-      <usages-collector id="statistics.vcs.git.usages" />
-    </session>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/file_templates/template_view/index.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="290">
-              <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
+              <caret line="83" selection-start-line="83" selection-end-line="83" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/file_templates/Template_app.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="327">
+              <caret line="386" column="11" lean-forward="true" selection-start-line="386" selection-start-column="11" selection-end-line="386" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-978">
+              <caret line="62" column="25" lean-forward="true" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -152,7 +127,6 @@
         <option value="$PROJECT_DIR$/application/views/biz/index.php" />
         <option value="$PROJECT_DIR$/application/models/Basic_model.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/file_templates/Template_app.php" />
         <option value="$PROJECT_DIR$/file_templates/template_view/result.php" />
         <option value="$PROJECT_DIR$/file_templates/template_view/delete.php" />
         <option value="$PROJECT_DIR$/file_templates/template_view/restore.php" />
@@ -162,27 +136,22 @@
         <option value="$PROJECT_DIR$/file_templates/template_view/trash.php" />
         <option value="$PROJECT_DIR$/application/controllers/Tool.php" />
         <option value="$PROJECT_DIR$/generated/api/Branch.php" />
-        <option value="$PROJECT_DIR$/file_templates/Template_api.php" />
-        <option value="$PROJECT_DIR$/application/views/templates/header.php" />
         <option value="$PROJECT_DIR$/file_templates/template_view/detail.php" />
         <option value="$PROJECT_DIR$/file_templates/template_view/index.php" />
+        <option value="$PROJECT_DIR$/file_templates/Template_api.php" />
+        <option value="$PROJECT_DIR$/file_templates/Template_app.php" />
+        <option value="$PROJECT_DIR$/application/views/templates/header.php" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpServers">
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="908" />
-    <option name="y" value="413" />
-    <option name="width" value="1491" />
-    <option name="height" value="1027" />
+    <option name="x" value="1229" />
+    <option name="y" value="439" />
+    <option name="width" value="1331" />
+    <option name="height" value="1001" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -192,6 +161,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -207,13 +177,20 @@
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
               <item name="file_templates" type="462c0819:PsiDirectoryNode" />
-              <item name="template_view" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
@@ -224,7 +201,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -318,18 +294,19 @@
       <workItem from="1539549224133" duration="39000" />
       <workItem from="1541864142074" duration="346000" />
       <workItem from="1541866857359" duration="396000" />
+      <workItem from="1546461324275" duration="549000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77691000" />
+    <option name="totallyTimeSpent" value="78240000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="908" y="413" width="1491" height="1027" extended-state="0" />
+    <frame x="1229" y="439" width="1331" height="1001" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5964706" visible="true" weight="0.2636301" />
-      <window_info id="Structure" order="1" sideWeight="0.4035294" side_tool="true" visible="true" weight="0.2636301" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5946602" visible="true" weight="0.20170675" />
+      <window_info id="Structure" order="1" sideWeight="0.4053398" side_tool="true" visible="true" weight="0.20170675" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -342,7 +319,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32984293" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="REST Client" order="10" weight="0.32984293" />
-      <window_info anchor="bottom" id="File Transfer" order="11" visible="true" weight="0.09090909" />
+      <window_info anchor="bottom" id="File Transfer" order="11" visible="true" weight="0.09350935" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -354,9 +331,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
@@ -600,13 +574,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/Template_app.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="6" lean-forward="true" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/file_templates/template_view/delete.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -664,20 +631,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="43">
-          <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="57" column="11" selection-start-line="57" selection-start-column="11" selection-end-line="57" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/file_templates/template_view/detail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -685,10 +638,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-954">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/file_templates/template_view/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
-          <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
+          <caret line="83" selection-start-line="83" selection-end-line="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/Template_app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="386" column="11" lean-forward="true" selection-start-line="386" selection-start-column="11" selection-end-line="386" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-978">
+          <caret line="62" column="25" lean-forward="true" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
         </state>
       </provider>
     </entry>

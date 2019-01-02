@@ -20,21 +20,6 @@
 			[[names_list]] 'sth_min', 'sth_max',
 		);
 
-		/**
-		 * 可被编辑的字段名
-		 */
-		protected $names_edit_allowed = array(
-			[[names_list]]
-		);
-
-		/**
-		 * 完整编辑单行时必要的字段名
-		 */
-		protected $names_edit_required = array(
-			'id',
-			[[names_list]]
-		);
-
 		public function __construct()
 		{
 			parent::__construct();
@@ -64,10 +49,13 @@
 		 */
 		public function mine()
 		{
+            parent::index();
+
 			// 页面信息
 			$data = array(
 				'title' => '我的'. $this->class_name_cn, // 页面标题
 				'class' => $this->class_name.' mine', // 页面body标签的class属性值
+                'items' => array(),
 				
 				'keywords' => '关键词一,关键词二,关键词三', // （可选，后台功能可删除此行）页面关键词；每个关键词之间必须用半角逗号","分隔才能保证搜索引擎兼容性
 				'description' => '这个页面的主要内容', // （可选，后台功能可删除此行）页面内容描述
@@ -78,19 +66,22 @@
 			$condition['user_id'] = $this->session->user_id;
 
 			// 排序条件
-			$order_by = NULL;
 			//$order_by['name'] = 'value';
 
 			// 从API服务器获取相应列表信息
 			$params = $condition;
 			$url = api_url($this->class_name. '/index');
 			$result = $this->curl->go($url, $params, 'array');
-			if ($result['status'] === 200):
-				$data['items'] = $result['content'];
-			else:
-				$data['items'] = array();
-				$data['error'] = $result['content']['error']['message'];
-			endif;
+            if ($result['status'] === 200):
+                $data['items_count'] = $result['content']['count'];
+                unset($result['content']['count']);
+
+                $data['items'] = $result['content'];
+
+            else:
+                $data['error'] = $result['content']['error']['message'];
+
+            endif;
 
 			// 输出视图
 			$this->load->view('templates/header', $data);
@@ -102,286 +93,199 @@
 		 * 列表页
 		 */
 		public function index()
-		{
-			// 页面信息
-			$data = array(
-				'title' => $this->class_name_cn. '列表',
-				'class' => $this->class_name.' index',
-			);
+        {
+            parent::index();
 
-			// 筛选条件
-			$condition['time_delete'] = 'NULL';
-			// （可选）遍历筛选条件
-			foreach ($this->names_to_sort as $sorter):
-				if ( !empty($this->input->get_post($sorter)) )
-					$condition[$sorter] = $this->input->get_post($sorter);
-			endforeach;
+            // 页面信息
+            $data = array(
+                'title' => $this->class_name_cn,
+                'class' => $this->class_name.' index',
+                'items' => array(),
+            );
 
-			// 排序条件
-			$order_by = NULL;
-			//$order_by['name'] = 'value';
+            // 筛选条件
+            $condition['time_delete'] = 'NULL';
+            $condition['limit'] = $this->limit;
+            $condition['offset'] = $this->offset;
+            // （可选）遍历筛选条件
+            foreach ($this->names_to_sort as $sorter):
+                if ( !empty($this->input->get_post($sorter)) )
+                    $condition[$sorter] = $this->input->get_post($sorter);
+            endforeach;
 
-			// 从API服务器获取相应列表信息
-			$params = $condition;
-			$url = api_url($this->class_name. '/index');
-			$result = $this->curl->go($url, $params, 'array');
-			if ($result['status'] === 200):
-				$data['items'] = $result['content'];
-			else:
-				$data['items'] = array();
-				$data['error'] = $result['content']['error']['message'];
-			endif;
+            // 排序条件
+            //$order_by['name'] = 'value';
 
-			// 将需要显示的数据传到视图以备使用
-			$data['data_to_display'] = $this->data_to_display;
+            // 从API服务器获取相应列表信息
+            $params = $condition;
+            $url = api_url($this->class_name);
+            $result = $this->curl->go($url, $params, 'array');
+            if ($result['status'] === 200):
+                $data['items_count'] = $result['content']['count'];
+                unset($result['content']['count']);
 
-			// 输出视图
-			$this->load->view('templates/header', $data);
-			$this->load->view($this->view_root.'/index', $data);
-			$this->load->view('templates/footer', $data);
-		} // end index
+                $data['items'] = $result['content'];
+
+            else:
+                $data['error'] = $result['content']['error']['message'];
+
+            endif;
+
+            // 输出视图
+            $this->load->view('templates/header', $data);
+            $this->load->view($this->view_root.'/index', $data);
+            $this->load->view('templates/footer', $data);
+        } // end index
 
 		/**
 		 * 详情页
 		 */
 		public function detail()
-		{
-			// 检查是否已传入必要参数
-			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-			if ( !empty($id) ):
-				$params['id'] = $id;
-			else:
-				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
-			endif;
+        {
+            // 检查是否已传入必要参数
+            $id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+            if ( !empty($id) ):
+                $params['id'] = $id;
+            else:
+                redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
+            endif;
 
-			// 从API服务器获取相应详情信息
-			$url = api_url($this->class_name. '/detail');
-			$result = $this->curl->go($url, $params, 'array');
-			if ($result['status'] === 200):
-				$data['item'] = $result['content'];
+            // 从API服务器获取相应详情信息
+            $url = api_url($this->class_name. '/detail');
+            $result = $this->curl->go($url, $params, 'array');
+            if ($result['status'] === 200):
+                $data['item'] = $result['content'];
 
-				// 页面信息
-                $data['title'] = $this->class_name_cn. ' "'.$data['item']['name']. '"';
+                // 页面信息
+                $data['title'] = $this->class_name_cn. '详情';
                 $data['class'] = $this->class_name.' detail';
-				
-				// 输出视图
-				$this->load->view('templates/header', $data);
-				$this->load->view($this->view_root.'/detail', $data);
-				$this->load->view('templates/footer', $data);
 
-			else:
+                // 输出视图
+                $this->load->view('templates/header', $data);
+                $this->load->view($this->view_root.'/detail', $data);
+                $this->load->view('templates/footer', $data);
+
+            else:
                 redirect( base_url('error/code_404') ); // 若缺少参数，转到错误提示页
 
-			endif;
-		} // end detail
+            endif;
+        } // end detail
 
 		/**
 		 * 回收站
 		 */
 		public function trash()
-		{
-			// 操作可能需要检查操作权限
-			$role_allowed = array('管理员', '经理'); // 角色要求
-			$min_level = 30; // 级别要求
-			$this->permission_check($role_allowed, $min_level);
+        {
+            parent::index();
 
-			// 页面信息
-			$data = array(
-				'title' => $this->class_name_cn. '回收站',
-				'class' => $this->class_name.' trash',
-			);
+            // 操作可能需要检查操作权限
+            $role_allowed = array('管理员', '经理'); // 角色要求
+            $min_level = 30; // 级别要求
+            $this->permission_check($role_allowed, $min_level);
 
-			// 筛选条件
-			$condition['time_delete'] = 'IS NOT NULL';
-			// （可选）遍历筛选条件
-			foreach ($this->names_to_sort as $sorter):
-				if ( !empty($this->input->get_post($sorter)) )
-					$condition[$sorter] = $this->input->get_post($sorter);
-			endforeach;
+            // 页面信息
+            $data = array(
+                'title' => '回收站',
+                'class' => $this->class_name.' index trash',
+                'items' => array(),
+            );
 
-			// 排序条件
-			$order_by['time_delete'] = 'DESC';
+            // 筛选条件
+            $condition['time_delete'] = 'IS NOT NULL';
+            $condition['limit'] = $this->limit;
+            $condition['offset'] = $this->offset;
+            // （可选）遍历筛选条件
+            foreach ($this->names_to_sort as $sorter):
+                if ( !empty($this->input->get_post($sorter)) )
+                    $condition[$sorter] = $this->input->get_post($sorter);
+            endforeach;
 
-			// 从API服务器获取相应列表信息
-			$params = $condition;
-			$url = api_url($this->class_name. '/index');
-			$result = $this->curl->go($url, $params, 'array');
-			if ($result['status'] === 200):
-				$data['items'] = $result['content'];
-			else:
-				$data['items'] = array();
-				$data['error'] = $result['content']['error']['message'];
-			endif;
+            // 排序条件
+            $condition['orderby_time_delete'] = 'DESC';
 
-			// 将需要显示的数据传到视图以备使用
-			$data['data_to_display'] = $this->data_to_display;
+            // 从API服务器获取相应列表信息
+            $params = $condition;
+            $url = api_url($this->class_name);
+            $result = $this->curl->go($url, $params, 'array');
+            if ($result['status'] === 200):
+                $data['items_count'] = $result['content']['count'];
+                unset($result['content']['count']);
 
-			// 输出视图
-			$this->load->view('templates/header', $data);
-			$this->load->view($this->view_root.'/trash', $data);
-			$this->load->view('templates/footer', $data);
-		} // end trash
+                $data['items'] = $result['content'];
+
+            else:
+                $data['error'] = $result['content']['error']['message'];
+
+            endif;
+
+            // 输出视图
+            $this->load->view('templates/header', $data);
+            $this->load->view($this->view_root.'/trash', $data);
+            $this->load->view('templates/footer', $data);
+        } // end trash
 
 		/**
 		 * 创建
 		 */
 		public function create()
-		{
-			// 操作可能需要检查操作权限
-			// $role_allowed = array('管理员', '经理'); // 角色要求
-// 			$min_level = 30; // 级别要求
-// 			$this->basic->permission_check($role_allowed, $min_level);
+        {
+            // 操作可能需要检查操作权限
+            //$role_allowed = array('管理员', '经理'); // 角色要求
+            //$min_level = 30; // 级别要求
+            //$this->permission_check($role_allowed, $min_level);
 
-			// 页面信息
-			$data = array(
-				'title' => '创建'.$this->class_name_cn,
-				'class' => $this->class_name.' create',
-				'error' => '', // 预设错误提示
-			);
+            // 页面信息
+            $data = array(
+                'title' => '创建'.$this->class_name_cn,
+                'class' => $this->class_name.' create',
+            );
 
-			// 待验证的表单项
-			$this->form_validation->set_error_delimiters('', '；');
-			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
-			[[rules]]
-
-			// 若表单提交不成功
-			if ($this->form_validation->run() === FALSE):
-				$data['error'] = validation_errors();
-
-				$this->load->view('templates/header', $data);
-				$this->load->view($this->view_root.'/create', $data);
-				$this->load->view('templates/footer', $data);
-
-			else:
-				// 需要创建的数据；逐一赋值需特别处理的字段
-				$data_to_create = array(
-					'user_id' => $this->session->user_id,
-
-                    //'name' => empty($this->input->post('name'))? NULL: $this->input->post('name'),
-				);
-				// 自动生成无需特别处理的数据
-				$data_need_no_prepare = array(
-					[[names_list]]
-				);
-				foreach ($data_need_no_prepare as $name)
-                    $data_to_create[$name] = empty($this->input->post($name))? NULL: $this->input->post($name);
-
-				// 向API服务器发送待创建数据
-				$params = $data_to_create;
-				$url = api_url($this->class_name. '/create');
-				$result = $this->curl->go($url, $params, 'array');
-				if ($result['status'] === 200):
-					$data['title'] = $this->class_name_cn. '创建成功';
-					$data['class'] = 'success';
-					$data['content'] = $result['content']['message'];
-					$data['operation'] = 'create';
-					$data['id'] = $result['content']['id']; // 创建后的信息ID
-
-					$this->load->view('templates/header', $data);
-					$this->load->view($this->view_root.'/result', $data);
-					$this->load->view('templates/footer', $data);
-
-				else:
-					// 若创建失败，则进行提示
-					$data['error'] = $result['content']['error']['message'];
-
-					$this->load->view('templates/header', $data);
-					$this->load->view($this->view_root.'/create', $data);
-					$this->load->view('templates/footer', $data);
-
-				endif;
-				
-			endif;
-		} // end create
+            $this->load->view('templates/header', $data);
+            $this->load->view($this->view_root.'/create', $data);
+            $this->load->view('templates/footer', $data);
+        } // end create
 
 		/**
 		 * 编辑单行
 		 */
 		public function edit()
-		{
-			// 检查是否已传入必要参数
-			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
-			if ( !empty($id) ):
-				$params['id'] = $id;
-			else:
-				redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
-			endif;
+        {
+            // 检查是否已传入必要参数
+            $id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+            if ( !empty($id) ):
+                $params['id'] = $id;
+            else:
+                redirect( base_url('error/code_400') ); // 若缺少参数，转到错误提示页
+            endif;
 
-			// 操作可能需要检查操作权限
-			// $role_allowed = array('管理员', '经理'); // 角色要求
-// 			$min_level = 30; // 级别要求
-// 			$this->basic->permission_check($role_allowed, $min_level);
+            // 操作可能需要检查操作权限
+            //$role_allowed = array('管理员', '经理'); // 角色要求
+            //$min_level = 30; // 级别要求
+            //$this->permission_check($role_allowed, $min_level);
 
-			// 页面信息
-			$data = array(
-				'title' => '修改'.$this->class_name_cn,
-				'class' => $this->class_name.' edit',
-				'error' => '', // 预设错误提示
-			);
+            // 页面信息
+            $data = array(
+                'title' => '修改'.$this->class_name_cn,
+                'class' => $this->class_name.' edit',
+                'item' => array(), // 待修改项
+            );
 
-			// 从API服务器获取相应详情信息
-			$url = api_url($this->class_name. '/detail');
-			$result = $this->curl->go($url, $params, 'array');
-			if ($result['status'] === 200):
-				$data['item'] = $result['content'];
-			else:
-				redirect( base_url('error/code_404') ); // 若未成功获取信息，则转到错误页
-			endif;
+            // 从API服务器获取相应详情信息
+            $url = api_url($this->class_name. '/detail');
+            $result = $this->curl->go($url, $params, 'array');
+            if ($result['status'] === 200):
+                $data['item'] = $result['content'];
 
-			// 待验证的表单项
-			$this->form_validation->set_error_delimiters('', '；');
-			[[rules]]
+                $this->load->view('templates/header', $data);
+                $this->load->view($this->view_root.'/edit', $data);
+                $this->load->view('templates/footer', $data);
 
-			// 若表单提交不成功
-			if ($this->form_validation->run() === FALSE):
-				$data['error'] .= validation_errors();
+            else:
+                // 若未成功获取信息，则转到错误页
+                redirect( base_url('error/code_404') );
 
-				$this->load->view('templates/header', $data);
-				$this->load->view($this->view_root.'/edit', $data);
-				$this->load->view('templates/footer', $data);
-
-			else:
-				// 需要编辑的数据；逐一赋值需特别处理的字段
-				$data_to_edit = array(
-					'user_id' => $this->session->user_id,
-					'id' => $id,
-
-                    //'name' => empty($this->input->post('name'))? NULL: $this->input->post('name'),
-				);
-				// 自动生成无需特别处理的数据
-				$data_need_no_prepare = array(
-					[[names_list]]
-				);
-				foreach ($data_need_no_prepare as $name)
-                    $data_to_edit[$name] = empty($this->input->post($name))? NULL: $this->input->post($name);
-
-				// 向API服务器发送待创建数据
-				$params = $data_to_edit;
-				$url = api_url($this->class_name. '/edit');
-				$result = $this->curl->go($url, $params, 'array');
-				if ($result['status'] === 200):
-					$data['title'] = $this->class_name_cn. '修改成功';
-					$data['class'] = 'success';
-					$data['content'] = $result['content']['message'];
-					$data['operation'] = 'edit';
-					$data['id'] = $result['content']['id']; // 修改后的信息ID
-
-					$this->load->view('templates/header', $data);
-					$this->load->view($this->view_root.'/result', $data);
-					$this->load->view('templates/footer', $data);
-
-				else:
-					// 若修改失败，则进行提示
-					$data['error'] = $result['content']['error']['message'];
-
-					$this->load->view('templates/header', $data);
-					$this->load->view($this->view_root.'/edit', $data);
-					$this->load->view('templates/footer', $data);
-
-				endif;
-
-			endif;
-		} // end edit
+            endif;
+        } // end edit
 
 		/**
 		 * 修改单项
@@ -401,10 +305,10 @@
 				endif;
 			endforeach;
 
-			// 操作可能需要检查操作权限
-			// $role_allowed = array('管理员', '经理'); // 角色要求
-// 			$min_level = 30; // 级别要求
-// 			$this->basic->permission_check($role_allowed, $min_level);
+            // 操作可能需要检查操作权限
+            //$role_allowed = array('管理员', '经理'); // 角色要求
+            //$min_level = 30; // 级别要求
+            //$this->permission_check($role_allowed, $min_level);
 
 			// 页面信息
 			$data = array(
