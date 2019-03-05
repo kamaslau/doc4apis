@@ -48,7 +48,7 @@
 	<?php endif ?>
 
 	<?php
-		if ( !emtpy($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
+		if ( !empty($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
 		$attributes = array('class' => 'form-'.$this->class_name.'-edit form-horizontal', 'role' => 'form');
 		echo form_open_multipart($this->class_name.'/edit?id='.$item[$this->id_name], $attributes);
 	?>
@@ -106,7 +106,7 @@
 			<div class=form-group>
 				<label for=url_wechat class="col-sm-2 control-label">微信公众号二维码（可选）</label>
 				<div class=col-sm-10>
-					<p class=help-block>可以通过 <a class="btn btn-info btn-sm" href="http://cli.im/deqr" target=_blank>解码工具</a> 获取二维码文本</p>
+					<p class=help-block>二维码文本内容可通过 <a class="btn btn-info btn-sm" href="http://cli.im/deqr" target=_blank>解码工具</a> 获取</p>
 					<input class=form-control name=url_wechat type=url value="<?php echo $item['url_wechat'] ?>" placeholder="即微信公众号二维码文本">
 					<?php echo form_error('url_wechat') ?>
 				</div>

@@ -1,8 +1,5 @@
 <link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/index.css">
 <style>
-	// 基本的响应式网页内嵌样式
-	// 作为一个PHP开发框架，Basic只提供一个基本的前端页面示例
-	// 当然这不妨碍我借着这个机会推广一下移动优先的响应式开发思路 lol
 
 	/* 宽度在750像素以上的设备 */
 	@media only screen and (min-width:751px)
@@ -33,6 +30,14 @@
 		<p>Hey，你正在用默认密码，这有一定的安全隐患；请考虑 <a class="btn btn-info btn-sm" href="<?php echo base_url('password_change') ?>" target=_blank>修改密码</a>。</p>
 	</div>
   	<?php endif ?>
+
+  <div v-if="bookmarks.length > 0" id="bookmarks">
+    <ul>
+      <li v-for="(item, index) in bookmarks" :key="index">
+        <a :title="item.name" :href="item.url" target="_blank">{{ item.name }}</a>
+      </li>
+    </ul>
+  </div>
 	<!--
 	<section class="col-xs-12 col-md-6 col-lg-4">
 		<h2>条形图</h2>
@@ -56,6 +61,27 @@
 	</section>
 	-->
 </div>
+
+<script>
+  let vue_app = new Vue({
+    el: '#content',
+
+    data: {
+      bookmarks: [
+        { name: 'Github', url: 'https://github.com' },
+        { name: 'Vue.js', url: 'https://vuejs.org/v2/guide' },
+        { name: 'Nuxt.js', url: 'https://nuxtjs.org/guide' },
+        { name: 'BootStrap', url: 'https://getbootstrap.com/docs/4.3/getting-started/introduction/' },
+        { name: 'FontAwesome', url: 'https://fontawesome.com/icons' },
+
+        { name: 'Udemy', url: 'https://www.udemy.com/home/my-courses/learning/' },
+        { name: '阿里云', url: 'https://home.console.aliyun.com/' },
+        { name: '华为云', url: 'https://console.huaweicloud.com/console/' }
+      ]
+    }
+  })
+
+</script>
 
 <!--
 <script defer src="https://cdn.key2all.com/js/highcharts.js"></script>

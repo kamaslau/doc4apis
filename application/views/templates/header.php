@@ -27,7 +27,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20190103">
+		<meta name=version content="revision20190305">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -37,6 +37,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 		<script src="<?php echo CDN_URL ?>js/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 		<script defer src="<?php echo base_url('js/jquery-qrcode.js') ?>"></script>
         <script defer src="<?php echo CDN_URL ?>bootstrap/v3.3.7/bootstrap.min.js"></script>
         <script>
@@ -69,8 +70,7 @@
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/reset.css">
         <link rel=stylesheet media=all href="<?php echo CDN_URL ?>bootstrap/v3.3.7/bootstrap.min.css">
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/flat-ui.min.css">
-        <script defer src="<?php echo CDN_URL ?>font-awesome/v5.0.13/fontawesome-all.min.js"></script>
-        <script defer src="<?php echo CDN_URL ?>font-awesome/v5.0.13/fa-v4-shims.min.js"></script>
+    <script defer src="https://pro.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-I3Hhe9TkmlsxzooTtbRzdeLbmkFQE9DVzX/19uTZfHk1zn/uWUyk+a+GyrHyseSq" crossorigin="anonymous"></script>
 		<link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/style.css">
 
 		<link rel="shortcut icon" href="/media/logos/logo_32x32.png">
