@@ -1,4 +1,4 @@
 .idea/workspace.xml
 .DS_Store
-generated
-.idea/workspace.xml
+generated/
+vendor/
