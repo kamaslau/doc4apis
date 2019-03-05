@@ -42,7 +42,7 @@
 			</div>
 		</footer>
 
-        <a id=totop title="回到页首" href="#"><i class="far fa-chevron-up" aria-hidden=true></i></a>
+        <a id=totop title="回到页首" href="#"><i class="far fa-chevron-up"></i></a>
 		<script>
 			$(function(){
 				// 回到页首按钮

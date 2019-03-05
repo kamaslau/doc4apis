@@ -18,7 +18,7 @@
 			<div class=form-group>
 				<label for=mobile>手机号</label>
 				<div class=input-group>
-					<span class="input-group-addon"><i class="far fa-mobile fa-fw" aria-hidden=true></i></span>
+					<span class="input-group-addon"><i class="far fa-mobile fa-fw"></i></span>
 					<input class=form-control name=mobile type=tel value="<?php echo $this->input->post('mobile')? set_value('mobile'): $this->input->cookie('mobile') ?>" size=11 pattern="\d{11}" placeholder="手机号" required>
 				</div>
 				<?php echo form_error('mobile') ?>
@@ -27,7 +27,7 @@
 			<div class=form-group>
 				<label for=password>密码</label>
 				<div class=input-group>
-					<span class="input-group-addon"><i class="far fa-lock fa-fw" aria-hidden=true></i></span>
+					<span class="input-group-addon"><i class="far fa-lock fa-fw"></i></span>
 					<input class=form-control name=password type=password <?php if ($this->input->cookie('mobile')) echo 'autofocus '; ?>size=6 pattern="\d{6}" placeholder="请输入6位数字" required>
 				</div>
 				<?php echo form_error('password') ?>
@@ -36,7 +36,7 @@
 			<div class=form-group>
 				<label for=password2>确认密码</label>
 				<div class=input-group>
-					<span class="input-group-addon"><i class="far fa-lock fa-fw" aria-hidden=true></i></span>
+					<span class="input-group-addon"><i class="far fa-lock fa-fw"></i></span>
 					<input class=form-control name=password2 type=password size=6 pattern="\d{6}" placeholder="请再次输入密码" required>
 				</div>
 				<?php echo form_error('password2') ?>

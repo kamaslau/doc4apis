@@ -1,7 +1,7 @@
 <style>
 
-	/* 宽度在768像素以上的设备 */
-	@media only screen and (min-width:769px)
+	/* 宽度在750像素以上的设备 */
+	@media only screen and (min-width:751px)
 	{
 
 	}
@@ -60,10 +60,10 @@
 					$time_to_dob = strtotime($dob_next) - time(); // 计算秒数
 					$days_to_dob = round( $time_to_dob / (60 * 60 * 24) ); // 计算天数，四舍五入到个位数
 					
-					$dob_string = $item['dob']. ' （<i class="far fa-calendar" aria-hidden=true></i> '. $days_to_dob. '天后过生日）';
+					$dob_string = $item['dob']. ' （<i class="far fa-calendar"></i> '. $days_to_dob. '天后过生日）';
 
 				else:
-					$dob_string = '<i class="far fa-birthday-cake" aria-hidden=true></i> 生日快乐！！！';
+					$dob_string = '<i class="far fa-birthday-cake"></i> 生日快乐！！！';
 
 				endif;
 		?>

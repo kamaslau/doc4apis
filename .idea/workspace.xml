@@ -2,11 +2,101 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="597620d4-3fb9-404b-b7c5-5e4d3b5dc38a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/home.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/account/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/account/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/account/password_change.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/account/password_change.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/account/password_set.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/account/password_set.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/account/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/account/register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/api/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/api/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/api/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/api/delete.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/api/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/api/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/api/duplicate.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/api/duplicate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/api/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/api/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/api/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/api/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/api/restore.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/api/restore.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/api/trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/api/trash.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/biz/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/biz/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/biz/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/biz/delete.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/biz/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/biz/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/biz/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/biz/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/biz/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/biz/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/biz/restore.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/biz/restore.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/biz/result.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/biz/result.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/biz/trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/biz/trash.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/error/404.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/error/404.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/error/permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/error/permission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/faq/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/faq/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/faq/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/faq/delete.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/faq/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/faq/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/faq/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/faq/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/faq/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/faq/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/faq/restore.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/faq/restore.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/faq/result.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/faq/result.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/faq/trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/faq/trash.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/flow/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/flow/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/flow/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/flow/delete.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/flow/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/flow/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/flow/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/flow/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/flow/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/flow/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/flow/restore.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/flow/restore.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/flow/result.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/flow/result.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/flow/trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/flow/trash.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/meta/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/meta/create.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/meta/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/meta/detail.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/meta/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/meta/edit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/meta/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/meta/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/meta/result.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/meta/result.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/page/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/page/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/page/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/page/delete.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/page/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/page/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/page/duplicate.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/page/duplicate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/page/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/page/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/page/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/page/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/page/restore.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/page/restore.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/page/trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/page/trash.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/project/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/project/delete.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/project/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/project/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/project/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/restore.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/project/restore.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/result.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/project/result.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/project/trash.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/task/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/task/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/task/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/task/delete.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/task/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/task/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/task/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/task/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/task/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/task/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/task/restore.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/task/restore.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/task/result.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/task/result.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/task/trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/task/trash.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/team/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/team/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/team/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/team/delete.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/team/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/team/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/team/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/team/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/team/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/team/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/team/restore.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/team/restore.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/team/result.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/team/result.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/team/trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/team/trash.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/template.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/template.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/templates/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/user/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/user/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/delete.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/user/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/user/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/user/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/user/mine.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/mine.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/user/restore.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/restore.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/user/result.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/result.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/user/trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/trash.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/template_view/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/template_view/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/delete.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/template_view/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/template_view/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/template_view/edit_certain.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/edit_certain.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/template_view/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/template_view/restore.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/restore.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/template_view/result.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/result.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/template_view/trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/template_view/trash.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,38 +120,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="477">
-              <caret line="53" column="70" lean-forward="true" selection-start-line="53" selection-start-column="70" selection-end-line="53" selection-end-column="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/home.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="51" selection-start-line="51" selection-end-line="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/views/meta/detail.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="73" column="50" lean-forward="true" selection-start-line="73" selection-start-column="50" selection-end-line="73" selection-end-column="50" />
+            <state relative-caret-position="124">
+              <caret line="28" column="6" lean-forward="true" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/views/project/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="142">
+              <caret line="76" column="17" lean-forward="true" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/meta/edit.php">
+        <entry file="file://$PROJECT_DIR$/.htaccess">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="153" column="21" lean-forward="true" selection-start-line="153" selection-start-column="21" selection-end-line="153" selection-end-column="21" />
+            <state relative-caret-position="90">
+              <caret line="6" column="13" lean-forward="true" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -81,6 +162,12 @@
       <find>视图</find>
       <find>delete</find>
       <find>branch_id</find>
+      <find>aria-hidden=&quot;true&quot;</find>
+      <find>aria-hidden=true</find>
+      <find>min-width:751px</find>
+      <find>min-width:769px</find>
+      <find>/* 宽度在768像素以上的设备 */</find>
+      <find>$item[$this-&gt;id_name]</find>
     </findStrings>
     <replaceStrings>
       <replace>if ( !emtpy($error) ) echo '&lt;div class=&quot;alert alert-warning&quot; role=alert&gt;'.$error.'&lt;/div&gt;';</replace>
@@ -88,9 +175,16 @@
       <replace>&lt;a</replace>
       <replace>fa-copy</replace>
       <replace>[[id_name]]</replace>
+      <replace />
+      <replace>min-width:751px</replace>
+      <replace>/* 宽度在750像素以上的设备 */</replace>
+      <replace>$item_id</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/application/views</dir>
+      <dir>$PROJECT_DIR$/file_templates</dir>
+      <dir>$PROJECT_DIR$/application</dir>
+      <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -111,7 +205,6 @@
         <option value="$PROJECT_DIR$/application/views/api/restore.php" />
         <option value="$PROJECT_DIR$/application/views/biz/detail.php" />
         <option value="$PROJECT_DIR$/application/views/project/detail.php" />
-        <option value="$PROJECT_DIR$/application/views/project/index.php" />
         <option value="$PROJECT_DIR$/application/views/api/detail.php" />
         <option value="$PROJECT_DIR$/application/views/page/index.php" />
         <option value="$PROJECT_DIR$/application/views/page/detail.php" />
@@ -127,7 +220,6 @@
         <option value="$PROJECT_DIR$/css/index.css" />
         <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/css/home.css" />
-        <option value="$PROJECT_DIR$/application/views/api/index.php" />
         <option value="$PROJECT_DIR$/application/views/user/index.php" />
         <option value="$PROJECT_DIR$/application/config/config.php" />
         <option value="$PROJECT_DIR$/application/views/biz/index.php" />
@@ -147,9 +239,11 @@
         <option value="$PROJECT_DIR$/file_templates/Template_api.php" />
         <option value="$PROJECT_DIR$/file_templates/Template_app.php" />
         <option value="$PROJECT_DIR$/application/views/home.php" />
-        <option value="$PROJECT_DIR$/application/views/meta/detail.php" />
         <option value="$PROJECT_DIR$/application/views/meta/edit.php" />
         <option value="$PROJECT_DIR$/application/views/templates/header.php" />
+        <option value="$PROJECT_DIR$/application/views/meta/detail.php" />
+        <option value="$PROJECT_DIR$/application/views/api/index.php" />
+        <option value="$PROJECT_DIR$/application/views/project/index.php" />
       </list>
     </option>
   </component>
@@ -157,8 +251,8 @@
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1229" />
-    <option name="y" value="439" />
+    <option name="x" value="1213" />
+    <option name="y" value="433" />
     <option name="width" value="1331" />
     <option name="height" value="1001" />
   </component>
@@ -176,24 +270,6 @@
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="meta" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -295,22 +371,22 @@
       <workItem from="1541866857359" duration="396000" />
       <workItem from="1546461324275" duration="549000" />
       <workItem from="1551775898198" duration="2770000" />
-      <workItem from="1551782496523" duration="1101000" />
+      <workItem from="1551782496523" duration="5606000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82111000" />
+    <option name="totallyTimeSpent" value="86616000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1229" y="439" width="1331" height="1001" extended-state="0" />
+    <frame x="1213" y="433" width="1331" height="1001" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.592233" visible="true" weight="0.20791312" />
-      <window_info id="Structure" order="1" sideWeight="0.407767" side_tool="true" visible="true" weight="0.20791312" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.59180325" visible="true" weight="0.13731575" />
+      <window_info id="Structure" order="1" sideWeight="0.40819672" side_tool="true" visible="true" weight="0.13731575" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.20732984" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -318,9 +394,9 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32984293" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32984293" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32893288" />
       <window_info anchor="bottom" id="REST Client" order="10" weight="0.32984293" />
-      <window_info anchor="bottom" id="File Transfer" order="11" visible="true" weight="0.09350935" />
+      <window_info anchor="bottom" id="File Transfer" order="11" weight="0.09350935" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -337,24 +413,10 @@
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/views/api/restore.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="75" column="39" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/biz/detail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="72" column="17" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/project/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="87" column="145" selection-start-line="87" selection-start-column="145" selection-end-line="87" selection-end-column="145" />
         </state>
       </provider>
     </entry>
@@ -460,13 +522,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/api/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="76" />
         </state>
       </provider>
     </entry>
@@ -639,31 +694,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/home.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="51" selection-start-line="51" selection-end-line="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/meta/detail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="73" column="50" lean-forward="true" selection-start-line="73" selection-start-column="50" selection-end-line="73" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/meta/edit.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="153" column="21" lean-forward="true" selection-start-line="153" selection-start-column="21" selection-end-line="153" selection-end-column="21" />
+        <state relative-caret-position="181">
+          <caret line="151" column="98" lean-forward="true" selection-start-line="151" selection-start-column="98" selection-end-line="151" selection-end-column="98" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="53" column="70" lean-forward="true" selection-start-line="53" selection-start-column="70" selection-end-line="53" selection-end-column="70" />
+        <state relative-caret-position="110">
+          <caret line="45" column="82" lean-forward="true" selection-start-line="45" selection-start-column="82" selection-end-line="45" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/home.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/api/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="82" column="17" lean-forward="true" selection-start-line="82" selection-start-column="17" selection-end-line="82" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/meta/detail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="28" column="6" lean-forward="true" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.htaccess">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="13" lean-forward="true" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/project/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="76" column="17" lean-forward="true" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
         </state>
       </provider>
     </entry>

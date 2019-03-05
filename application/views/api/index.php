@@ -3,8 +3,8 @@
     td.api-code {font-weight:bold;}
         .api-status {float:right;text-align:right;}
 
-	/* 宽度在768像素以上的设备 */
-	@media only screen and (min-width:769px)
+	/* 宽度在750像素以上的设备 */
+	@media only screen and (min-width:751px)
 	{
 
 	}
@@ -54,8 +54,8 @@
 	</blockquote>
 
 	<?php else: ?>
-	<ul class="well well-sm dl-horizontal">
-        <li><i class="fal fa-fw fa-hourglass-half"></i> 草稿/修改中</li>
+	<ul class="well well-sm dl-horizontal list-unstyled list-inline">
+    <li><i class="fal fa-fw fa-hourglass-half"></i> 草稿/未发布</li>
 		<li><i class="fal fa-fw fa-bolt"></i> 3天内添加</li>
 		<li><i class="fal fa-fw fa-exclamation"></i> 3天内更新</li>
 	</ul>
@@ -63,10 +63,10 @@
     <table class="table table-condensed table-responsive table-striped sortable">
 		<thead>
 			<tr>
-                <th>组</th>
-                <th>序号&名称</th>
-                <th>所属企业</th>
-                <th>所属项目</th>
+        <th>组</th>
+        <th>序号&名称</th>
+        <th>所属企业</th>
+        <th>所属项目</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -77,7 +77,7 @@
 </div>
 
 <script>
-    var items = <?php echo json_encode($items) ?>;
+    let items = <?php echo json_encode($items) ?>;
     //console.log(items);
 
     $(function(){

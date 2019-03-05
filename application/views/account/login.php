@@ -1,8 +1,8 @@
 <style>
 
 
-	/* 宽度在768像素以上的设备 */
-	@media only screen and (min-width:769px)
+	/* 宽度在750像素以上的设备 */
+	@media only screen and (min-width:751px)
 	{
 
 	}
@@ -37,7 +37,7 @@
 			<div class=form-group>
 				<label for=mobile>手机号</label>
 				<div class=input-group>
-					<span class="input-group-addon"><i class="far fa-mobile fa-fw" aria-hidden=true></i></span>
+					<span class="input-group-addon"><i class="far fa-mobile fa-fw"></i></span>
 					<input class=form-control name=mobile type=tel value="<?php echo $this->input->post('mobile')? set_value('mobile'): $this->input->cookie('mobile') ?>" size=11 pattern="\d{11}" placeholder="手机号" required>
 					<?php echo form_error('mobile') ?>
 				</div>
@@ -46,7 +46,7 @@
 			<div class=form-group>
 				<label for=password>密码</label>
 				<div class=input-group>
-					<span class="input-group-addon"><i class="far fa-key fa-fw" aria-hidden=true></i></span>
+					<span class="input-group-addon"><i class="far fa-key fa-fw"></i></span>
 					<input class=form-control name=password type=password <?php if ($this->input->cookie('mobile')) echo 'autofocus '; ?> placeholder="密码" required>
 					<?php echo form_error('password') ?>
 				</div>

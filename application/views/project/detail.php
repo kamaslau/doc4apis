@@ -1,7 +1,7 @@
 <style>
 
-	/* 宽度在768像素以上的设备 */
-	@media only screen and (min-width:769px)
+	/* 宽度在750像素以上的设备 */
+	@media only screen and (min-width:751px)
 	{
 
 	}
@@ -37,9 +37,9 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
-		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="far fa-list fa-fw" aria-hidden=true></i> 所有<?php echo $this->class_name_cn ?></a>
-	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="far fa-trash fa-fw" aria-hidden=true></i> 回收站</a>
-		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="far fa-plus fa-fw" aria-hidden=true></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="far fa-list fa-fw"></i> 所有<?php echo $this->class_name_cn ?></a>
+	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="far fa-trash fa-fw"></i> 回收站</a>
+		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="far fa-plus fa-fw"></i> 创建<?php echo $this->class_name_cn ?></a>
 	</div>
 	<?php endif ?>
 
@@ -80,18 +80,18 @@
 
 	<?php if ( !empty($item['url_assets']) ): ?>
 	<section>
-		<a class="btn btn-info btn-lg" href="<?php echo $item['url_assets'] ?>" target=_blank><i class="far fa-download" aria-hidden=true></i>素材下载</a>
+		<a class="btn btn-info btn-lg" href="<?php echo $item['url_assets'] ?>" target=_blank><i class="far fa-download"></i>素材下载</a>
 	</section>
 	<?php endif ?>
 
 	<ul class="list-unstyled list-inline">
-		<li><a href="<?php echo base_url('meta/detail?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-cogs" aria-hidden=true></i> 技术参数</a></li>
+		<li><a href="<?php echo base_url('meta/detail?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-cogs"></i> 技术参数</a></li>
 		<!--
-		<li><a href="<?php echo base_url('task?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-tasks" aria-hidden=true></i> 任务</a></li>
+		<li><a href="<?php echo base_url('task?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-tasks"></i> 任务</a></li>
 		-->
-		<li><a href="<?php echo base_url('flow?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-code-branch" aria-hidden=true></i> 流程</a></li>
+		<li><a href="<?php echo base_url('flow?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-code-branch"></i> 流程</a></li>
 		<li><a href="<?php echo base_url('page?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="fab fa-html5"></i> 页面</a></li>
-		<li><a href="<?php echo base_url('api?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-plug" aria-hidden=true></i> API</a></li>
+		<li><a href="<?php echo base_url('api?project_id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-plug"></i> API</a></li>
 	</ul>
 
 	<?php
