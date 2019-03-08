@@ -23,10 +23,10 @@
         <script>
             $(function(){
                 // 生成可用的input类型选项值
-                var input_types = 'text,color,email,file,hidden,number,password,range,tel,search,url,date,month,week,time,datetime,datetime-local'.split(',');
+                const input_types = 'text,color,email,file,hidden,number,password,range,tel,search,url,date,month,week,time,datetime,datetime-local'.split(',');
                 //console.log(input_types)
-                var option_html = '';
-                for (var i=0; i<input_types.length; i++)
+                let option_html = '';
+                for (let i=0; i<input_types.length; i++)
                 {
                     option_html += '<option value="'+ input_types[i] +'">input - '+ input_types[i] +'</option>'
                 }
@@ -37,7 +37,7 @@
                 $('[required]').closest('.form-group').children('label').append(' *');
 
                 // 新增自定义属性
-                var more_attr_html = '<div class="custom-attr form-row">\n' +
+                const more_attr_html = '<div class="custom-attr form-row">\n' +
                     '                            <div class="form-group col-md-6">\n' +
                     '                                <label>属性名</label>\n' +
                     '                                <input type=text class="attr-name form-control" placeholder="例如：data-tag">\n' +
@@ -55,11 +55,11 @@
 
                 // 若自定义属性名为autofocus、disabled、readonly，则无需填写属性值
                 $('body').on('change', 'input.attr-name', function(){
-                    var attr_name = $(this).val();
+                    const attr_name = $(this).val();
 
                     if (['autofocus', 'disabled', 'readonly'].indexOf(attr_name) > -1)
                     {
-                        var attr_value = $(this).closest('.custom-attr').find('.attr-value');
+                        let attr_value = $(this).closest('.custom-attr').find('.attr-value');
                         attr_value.attr('value', attr_name);
                     }
                 });
@@ -81,19 +81,19 @@
                 // 生成DOM
                 function generate_dom()
                 {
-                    var label = $('[name=label]').val() || '字段label';
-
-                    var type = $('[name=type]').val();
-                    var name = $('[name=name]').val() || type;
-                    var placeholder = $('[name=placeholder]').val();
-                    var is_required = $('[name=is_required]:checked').val();
+                    const label = $('[name=label]').val() || '字段label';
+    
+                    const type = $('[name=type]').val();
+                    const name = $('[name=name]').val() || type;
+                    const placeholder = $('[name=placeholder]').val();
+                    const is_required = $('[name=is_required]:checked').val();
                     console.log(is_required)
 
                     // 生成自定义属性HTML
-                    var custom_attr_html = grab_custom_attr();
+                    const custom_attr_html = grab_custom_attr();
 
                     // 生成所有HTML;
-                    var dom =
+                    const dom =
                         '<div class=form-group>' +"\r"+
                         "\t"+ '<label>' + label + '</label>' +"\r"+
                         "\t"+ '<div class="input-group">' +"\r"+
@@ -114,10 +114,10 @@
                 // 生成自定义属性HTML
                 function grab_custom_attr()
                 {
-                    var html = '';
+                    let html = '';
 
                     // 获取所有自定义属性字段
-                    var attrs = $('.custom-attr');
+                    const attrs = $('.custom-attr');
                     //console.log(attrs);
 
                     // 若存在自定义属性字段，生成HTML
@@ -125,9 +125,9 @@
                     {
                         for (var i=0; i<attrs.length; i++)
                         {
-                            var item = $(attrs[i]) // 原生JS对象转为jQuery对象，以使用jQuery的方法
-                            var attr_name = item.find('.attr-name').val()
-                            var attr_value = item.find('.attr-value').val()
+                            const item = $(attrs[i]) // 原生JS对象转为jQuery对象，以使用jQuery的方法
+                            const attr_name = item.find('.attr-name').val()
+                            const attr_value = item.find('.attr-value').val()
 
                             if (attr_name.length != 0)
                             {

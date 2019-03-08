@@ -27,7 +27,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20190305">
+		<meta name=version content="revision20190306">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@outlook.com">
@@ -39,24 +39,25 @@
 		<script src="<?php echo CDN_URL ?>js/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 		<script defer src="<?php echo base_url('js/jquery-qrcode.js') ?>"></script>
-        <script defer src="<?php echo CDN_URL ?>bootstrap/v3.3.7/bootstrap.min.js"></script>
-        <script>
-            var user_agent = new Object();
-            user_agent.is_wechat = <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>;
-            user_agent.is_ios = <?php echo ($is_ios === TRUE)? 'true': 'false' ?>;
-            user_agent.is_android = <?php echo ($is_android === TRUE)? 'true': 'false' ?>;
+    <script defer src="<?php echo CDN_URL ?>bootstrap/v3.3.7/bootstrap.min.js"></script>
+    <script defer src="https://pro.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-I3Hhe9TkmlsxzooTtbRzdeLbmkFQE9DVzX/19uTZfHk1zn/uWUyk+a+GyrHyseSq" crossorigin="anonymous"></script>
+    <script>
+            const user_agent = new Object();
+            user_agent.is_wechat = <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>
+            user_agent.is_ios = <?php echo ($is_ios === TRUE)? 'true': 'false' ?>
+            user_agent.is_android = <?php echo ($is_android === TRUE)? 'true': 'false' ?>
 
             // 全局参数
-            //var api_url = '<?php //echo API_URL ?>'; // API根URL
-            var base_url = '<?php echo BASE_URL ?>'; // 页面根URL
-            var current_url = '<?php echo current_url() ?>';
-            var cdn_url = '<?php echo CDN_URL ?>'; // CDN根URL
-            //var media_url = '<?php //echo MEDIA_URL ?>'; // 媒体文件根URL
-            var class_name = '<?php echo $this->class_name ?>';
-            var class_name_cn = '<?php echo $this->class_name_cn ?>';
+            // const api_url = '<?php //echo API_URL ?>' // API根URL
+            const base_url = '<?php echo BASE_URL ?>' // 页面根URL
+            const current_url = '<?php echo current_url() ?>'
+            const cdn_url = '<?php echo CDN_URL ?>'; // CDN根URL
+            // const media_url = '<?php //echo MEDIA_URL ?>' // 媒体文件根URL
+            const class_name = '<?php echo $this->class_name ?>'
+            const class_name_cn = '<?php echo $this->class_name_cn ?>'
 
             // 当前用户信息
-            var user_id = '<?php echo $this->session->user_id ?>';
+            var user_id = '<?php echo $this->session->user_id ?>'
 
             var common_params = new Object()
             common_params.app_type = 'client' // 默认为客户端请求
@@ -68,9 +69,8 @@
         </script>
 
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/reset.css">
-        <link rel=stylesheet media=all href="<?php echo CDN_URL ?>bootstrap/v3.3.7/bootstrap.min.css">
+    <link rel=stylesheet media=all href="<?php echo CDN_URL ?>bootstrap/v3.3.7/bootstrap.min.css">
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/flat-ui.min.css">
-    <script defer src="https://pro.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-I3Hhe9TkmlsxzooTtbRzdeLbmkFQE9DVzX/19uTZfHk1zn/uWUyk+a+GyrHyseSq" crossorigin="anonymous"></script>
 		<link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/style.css">
 
 		<link rel="shortcut icon" href="/media/logos/logo_32x32.png">
@@ -136,12 +136,12 @@
 							$display_name = !empty($this->session->nickname)? $this->session->nickname: $this->session->lastname.$this->session->firstname;
 						?>
 						<li>
-                            <a href="<?php echo base_url('user/mine') ?>">
-                                <i class="far fa-user-circle"></i>
-                                <?php echo $display_name ?>
-                                <?php echo $this->session->role. 'lv.'. $this->session->level ?>
-                            </a>
-                        </li>
+                <a href="<?php echo base_url('user/mine') ?>">
+                    <i class="far fa-user-circle"></i>
+                    <?php echo $display_name ?>
+                    <?php echo $this->session->role. 'lv.'. $this->session->level ?>
+                </a>
+            </li>
 						<li><a href="<?php echo base_url('logout') ?>"><i class="far fa-sign-out"></i></a></li>
 						<?php endif ?>
 					</ul>
@@ -151,12 +151,3 @@
 <?php endif ?>
 
 		<main id=maincontainer role=main>
-			<script>
-				document.ready = function(){
-					// 每隔五分钟刷新页面
-					setTimeout(function(){location.reload();}, 1000*60*5);
-				}
-			</script>
-			<div class=bg-info style="overflow:hidden;">
-				<p class="text-info text-center">页面最后刷新于 <em><?php echo date('H:i:s') ?></em></p>
-			</div>
