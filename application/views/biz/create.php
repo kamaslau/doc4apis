@@ -46,7 +46,7 @@
 	<?php endif ?>
 
 	<?php
-		if ( !emtpy($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
+		if ( !empty($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>';
 		$attributes = array('class' => 'form-'.$this->class_name.'-create form-horizontal', 'role' => 'form');
 		echo form_open_multipart($this->class_name.'/create', $attributes);
 	?>

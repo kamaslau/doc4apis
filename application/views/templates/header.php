@@ -27,19 +27,19 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20190306">
+		<meta name=version content="revision20190310">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
-		<meta name=contact content="kamaslau@outlook.com">
-		<meta name=robots content="nofollow">
+		<meta name=contact content="kamaslau@dingtalk.com">
+		<meta name=robots content="index,nofollow">
 
 		<meta name=viewport content="width=device-width">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-		<script src="<?php echo CDN_URL ?>js/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 		<script defer src="<?php echo base_url('js/jquery-qrcode.js') ?>"></script>
-    <script defer src="<?php echo CDN_URL ?>bootstrap/v3.3.7/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
     <script defer src="https://pro.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-I3Hhe9TkmlsxzooTtbRzdeLbmkFQE9DVzX/19uTZfHk1zn/uWUyk+a+GyrHyseSq" crossorigin="anonymous"></script>
     <script>
             const user_agent = new Object();
@@ -69,7 +69,7 @@
         </script>
 
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/reset.css">
-    <link rel=stylesheet media=all href="<?php echo CDN_URL ?>bootstrap/v3.3.7/bootstrap.min.css">
+    <link rel=stylesheet href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/flat-ui.min.css">
 		<link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/style.css">
 

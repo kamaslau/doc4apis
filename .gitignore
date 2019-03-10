@@ -2,3 +2,4 @@
 .DS_Store
 generated/
 vendor/
+.idea/workspace.xml
