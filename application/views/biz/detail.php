@@ -106,7 +106,7 @@
 </div>
 
 <script>
-  let vue_app = new Vue({
+  const vue_app = new Vue({
     el: '#content',
 
     data: {

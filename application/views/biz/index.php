@@ -44,63 +44,69 @@
 	</div>
 	<?php endif ?>
 
-	<?php if ( empty($items) ): ?>
-	<blockquote>
-		<p>这里空空如也，快点添加<?php echo $this->class_name_cn ?>吧</p>
-	</blockquote>
+  <template v-if="items.length === 0">
 
-	<?php else: ?>
-	<table class="table table-condensed table-responsive table-striped sortable">
-		<thead>
-			<tr>
-				<th><?php echo $this->class_name_cn ?>ID</th>
-				<?php
-					$thead = array_values($data_to_display);
-					foreach ($thead as $th):
-						echo '<th>' .$th. '</th>';
-					endforeach;
-				?>
-				<th>成员</th>
-				<th>操作</th>
-			</tr>
-		</thead>
+    <blockquote>
+      <p>这里空空如也，快点添加<?php echo $this->class_name_cn ?>吧</p>
+    </blockquote>
 
-		<tbody>
-		<?php foreach ($items as $item): ?>
-			<tr>
-				<td><?php echo $item[$this->id_name] ?></td>
-				<?php
-					$tr = array_keys($data_to_display);
-					foreach ($tr as $td):
-						echo '<td>' .$item[$td]. '</td>';
-					endforeach;
-				?>
-				<td>
-					<ul class=list-unstyled>
-						<li>
-							<a class="btn btn-default" href="<?php echo base_url('user/index?biz_id='.$item['biz_id']) ?>"><i class="far fa-users fa-fw"></i> 查看</a>
-						</li>
-						<li>
-							<a class="btn btn-default" href="<?php echo base_url('user/create?biz_id='.$item['biz_id']) ?>" target=_blank><i class="far fa-plus fa-fw"></i> 创建</a>
-						</li>
-					</ul>
-				</td>
-				<td>
-                    <ul class="list-actions list-unstyled horizontal">
-						<li><a href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-eye"></i></a></li>
-						<?php
-						// 需要特定角色和权限进行该操作
-						if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
-						?>
-						<li><a href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-edit"></i></a></li>
-						<li><a href="<?php echo base_url($this->class_name.'/delete?ids='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-trash"></i></a></li>
-						<?php endif ?>
-					</ul>
-				</td>
-			</tr>
-		<?php endforeach ?>
-		</tbody>
-	</table>
+  </template>
 
-	<?php endif ?>
+  <template v-else>
+
+    <table class="table table-condensed table-responsive table-striped sortable">
+      <thead>
+        <tr>
+          <th><?php echo $this->class_name_cn ?>ID</th>
+          <th>简称</th>
+          <th>名称</th>
+          <th>成员</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr v-for="(item, index) in items" :key="index">
+          <td>{{ item[id_name] }}</td>
+          <td>{{ item.brief_name }}</td>
+          <td>{{ item.name }}</td>
+          <td>
+            <ul class=list-unstyled>
+              <li>
+                <a class="btn btn-default" :href="'<?php echo base_url() ?>' + 'user?biz_id=' + item[id_name]" target=_blank><i class="fal fa-users"></i></a>
+              </li>
+              <li>
+                <a class="btn btn-default" :href="'<?php echo base_url() ?>' + 'user/create?biz_id=' + item[id_name]" target=_blank><i class="fal fa-plus"></i></a>
+              </li>
+            </ul>
+          </td>
+          <td>
+            <ul class="list-actions list-unstyled horizontal">
+              <li><a :href="'<?php echo base_url($this->view_root) ?>' + '/detail?id=' + item[id_name]" target=_blank><i class="fal fa-eye"></i></a></li>
+                <?php
+                // 需要特定角色和权限进行该操作
+                if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
+                    ?>
+                  <li><a :href="'<?php echo base_url($this->class_name) ?>' + '/edit?id=' + item[id_name]" target=_blank><i class="fal fa-edit"></i></a></li>
+                  <li><a :href="'<?php echo base_url($this->class_name) ?>' + '/delete?ids=' + item[id_name]" target=_blank><i class="fal fa-trash"></i></a></li>
+                <?php endif ?>
+            </ul>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </template>
 </div>
+
+<script>
+  const vue_app = new Vue({
+    el: '#content',
+
+    data: {
+      id_name: 'biz_id',
+      items: <?php echo empty($items)? '[]': json_encode($items) ?>
+    }
+  })
+</script>

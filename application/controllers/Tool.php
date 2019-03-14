@@ -158,9 +158,7 @@
 			$result = $this->curl->go($url, $params, 'array');
 			if ($result['status'] === 200):
 				$info_to_parse = array('form_data', 'names_csv', 'names_list', 'rules', 'params_request', 'params_respond', 'elements', 'create', 'edit', 'detail',);
-				foreach ($info_to_parse as $info_item):
-					$$info_item = $result['content'][$info_item];
-				endforeach;
+				foreach ($info_to_parse as $info_item) $$info_item = $result['content'][$info_item];
 			else:
 				echo 'API失败';
 				exit();
@@ -230,8 +228,7 @@
 				);
 
 				// 生成API文档
-				if ($doc_api === 'yes')
-					$this->doc_api_generate($doc_content_api, $apis, $i);
+				if ($doc_api === 'yes') $this->doc_api_generate($doc_content_api, $apis, $i);
 			endfor;
 
 			// 生成页面文档
