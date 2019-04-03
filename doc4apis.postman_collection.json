@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "aa03db09-632b-5318-a906-f7958941ce66",
+		"name": "doc4apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "类文件生产器",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "test_mode",
+							"value": "on",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "biz_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "project_id",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "class_name_cn",
+							"value": "职位",
+							"description": "类中文名称",
+							"type": "text"
+						},
+						{
+							"key": "code",
+							"value": "pst",
+							"description": "类名称缩写；一般为3个英文字母",
+							"type": "text"
+						},
+						{
+							"key": "class_name",
+							"value": "post",
+							"description": "类名称",
+							"type": "text"
+						},
+						{
+							"key": "table_name",
+							"value": "message",
+							"description": "类相关表名称",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "id_name",
+							"value": "stuff_id",
+							"description": "类相关表主键名",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "api_url",
+							"value": "https://api.bandaodian.com/tool/table_info",
+							"type": "text"
+						},
+						{
+							"key": "allow_edit_certain",
+							"value": "yes",
+							"description": "是否允许单项修改",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "extra_functions",
+							"value": "",
+							"description": "非标准方法；CSV格式列出方法名，仅创建方法结构，不含具体业务代码",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "doc_api",
+							"value": "yes",
+							"description": "是否输出API文档",
+							"type": "text"
+						},
+						{
+							"key": "doc_page",
+							"value": "yes",
+							"description": "是否输出页面文档",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "file_api",
+							"value": "yes",
+							"description": "是否输出API代码文件",
+							"type": "text"
+						},
+						{
+							"key": "file_code",
+							"value": "yes",
+							"description": "是否输出客户端控制器及主要视图文件",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://www.doc4apis.com/tool/class_generate",
+					"protocol": "http",
+					"host": [
+						"www",
+						"doc4apis",
+						"com"
+					],
+					"path": [
+						"tool",
+						"class_generate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

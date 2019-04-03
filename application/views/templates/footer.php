@@ -34,9 +34,7 @@
 				<?php endif ?>
 
 				由
-				<a class=support title="访问BasicCodeigniter的Github主页" href="https://github.com/kamaslau/BasicCodeigniter" target=_blank>BasicCodeigniter</a>、
-				<a class=support title="访问BootStrap的Github主页" href="https://github.com/twbs/bootstrap" target=_blank>BootStrap</a>、
-                <a class=support title="访问Vue.js的主页" href="https://cn.vuejs.org/" target=_blank>Vue.js（部分页面）</a>
+				<a class=support title="访问BootStrap的Github主页" href="https://github.com/twbs/bootstrap" target=_blank>BootStrap</a>、<a class=support title="访问Vue.js的主页" href="https://cn.vuejs.org/" target=_blank>Vue.js（部分页面）</a>
 				驱动
 				</p>
 			</div>

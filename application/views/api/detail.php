@@ -41,13 +41,18 @@
 	?>
 	<div class=btn-group role=group>
 		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="far fa-list fa-fw"></i> 所有<?php echo $this->class_name_cn ?></a>
-	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="far fa-trash fa-fw"></i> 回收站</a>
+    <a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="far fa-trash fa-fw"></i> 回收站</a>
 		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create?project_id='.@$project['project_id']) ?>"><i class="far fa-plus fa-fw"></i> 创建<?php echo $this->class_name_cn ?></a>
 	</div>
 	<?php endif ?>
 
 	<h2><?php echo $item['code'] ?> <?php echo $item['name'] ?> <?php if ($item['status'] === '0') echo '<span class="btn btn-warning">草稿</span>' ?></h2>
-	<p><?php echo $item['description'] ?></p>
+  <?php
+    // 从API路径数据中摘取代码文件名（不含后缀名部分），并生成下载代码按钮
+    $file_name = substr( $item['url'], 0, strpos($item['url'], '/') )
+  ?>
+  <a class="btn btn-block btn-primary" href="<?php echo base_url( $this->class_name.'/download/'. $file_name ) ?>" target="_blank">下载代码文件</a>
+  <p><?php echo $item['description'] ?></p>
 
 	<dl class=dl-horizontal>
 		<dt>URL</dt>
@@ -60,6 +65,7 @@
 
 	<section>
 		<h3>请求参数（除公共参数外）</h3>
+
 		<?php if ( !empty($item['params_request']) ): ?>
 		<table class="table table-striped">
 			<thead>
@@ -78,6 +84,7 @@
 
 	<section>
 		<h3>响应参数（即返回值中content的内容）</h3>
+
 		<?php if ( !empty($item['params_respond']) ): ?>
 		<table class="table table-striped">
 			<thead>

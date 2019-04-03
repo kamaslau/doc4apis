@@ -39,7 +39,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 		<script defer src="<?php echo base_url('js/jquery-qrcode.js') ?>"></script>
-		<script defer src="<?php echo base_url('js/fontawesome.5.7.2.js') ?>"></script>
+		<script defer src="<?php echo base_url('js/fontawesome.5.8.1.js') ?>"></script>
 		<script defer src="<?php echo base_url('js/bootstrap.3.4.1.js') ?>"></script>
     <script>
             const user_agent = new Object();

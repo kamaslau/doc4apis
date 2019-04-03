@@ -9,7 +9,7 @@
 	 *
 	 * @version 1.0.0
 	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
-	 * @copyright ICBG <www.bingshankeji.com>
+	 * @copyright Kamas 'Iceberg' Lau <kamaslau@outlook.com>
 	 */
 	class [[class_name]] extends MY_Controller
 	{
@@ -115,7 +115,7 @@
             $condition = $this->advanced_sorter($condition);
 
             // 商家仅可操作自己的数据
-            if ($this->app_type === 'biz') $condition['biz_id'] = $this->input->post('biz_id');
+            if ($this->app_type === 'biz') $condition['biz_id'] = $this->post_input('biz_id');
 
 			// 获取列表；默认可获取已删除项
 			$count = $this->basic_model->count($condition);
@@ -139,7 +139,7 @@
 			// 检查必要参数是否已传入
 			$required_params = array();
 			foreach ($required_params as $param):
-				${$param} = $this->input->post($param);
+				${$param} = $this->post_input($param);
 				if ( !isset( ${$param} ) ):
 					$this->result['status'] = 400;
 					$this->result['content']['error']['message'] = '必要的请求参数未全部传入';
@@ -151,12 +151,15 @@
 			$condition = $this->condition_generate();
             // 类特有筛选项
             $condition = $this->advanced_sorter($condition);
+            // 生成翻页参数
+            $this->basic_model->limit = $this->post_input('limit');
+            $this->basic_model->offset = $this->post_input('offset');
 
-			// 排序条件
+            // 排序条件
 			$order_by = NULL;
 			foreach ($this->names_to_order as $sorter):
-				if ( !empty($this->input->post('orderby_'.$sorter)) )
-					$order_by[$sorter] = $this->input->post('orderby_'.$sorter);
+				if ( !empty($this->post_input('orderby_'.$sorter)) )
+					$order_by[$sorter] = $this->post_input('orderby_'.$sorter);
 			endforeach;
 
             // 限制可返回的字段
@@ -168,7 +171,7 @@
             $this->db->select( implode(',', $this->names_to_return) );
 
 			// 获取列表；默认可获取已删除项
-            $ids = $this->input->post('ids'); // 可以CSV格式指定需要获取的信息ID们
+            $ids = $this->post_input('ids'); // 可以CSV格式指定需要获取的信息ID们
             if ( empty($ids) ):
                 $items = $this->basic_model->select($condition, $order_by);
             else:
@@ -194,7 +197,7 @@
 		public function detail()
 		{
 			// 检查必要参数是否已传入
-			$id = $this->input->post('id');
+			$id = $this->post_input('id');
 			if ( !isset($id) ):
 				$this->result['status'] = 400;
 				$this->result['content']['error']['message'] = '必要的请求参数未传入';
@@ -238,7 +241,7 @@
 			// 检查必要参数是否已传入
 			$required_params = $this->names_create_required;
 			foreach ($required_params as $param):
-				${$param} = $this->input->post($param);
+				${$param} = $this->post_input($param);
 				if ( empty( ${$param} ) ):
 					$this->result['status'] = 400;
 					$this->result['content']['error']['message'] = '必要的请求参数未全部传入';
@@ -248,7 +251,7 @@
 
 			// 初始化并配置表单验证库
 			$this->load->library('form_validation');
-			$this->form_validation->set_error_delimiters('', '');
+			$this->form_validation->set_error_delimiters('', '')->set_data($this->post_input); // 待验证数据
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
 			[[rules]]
 
@@ -262,14 +265,14 @@
 				$data_to_create = array(
 					'creator_id' => $user_id,
 
-                    //'name' => empty($this->input->post('name'))? NULL: $this->input->post('name'),
+                    //'name' => empty($this->post_input('name'))? NULL: $this->post_input('name'),
 				);
 				// 自动生成无需特别处理的数据
 				$data_need_no_prepare = array(
 					[[names_list]]
 				);
 				foreach ($data_need_no_prepare as $name)
-                    $data_to_create[$name] = empty($this->input->post($name))? NULL: $this->input->post($name);
+                    $data_to_create[$name] = empty($this->post_input($name))? NULL: $this->post_input($name);
 
 				$result = $this->basic_model->create($data_to_create, TRUE);
 				if ($result !== FALSE):
@@ -304,7 +307,7 @@
 			// 检查必要参数是否已传入
 			$required_params = $this->names_edit_required;
 			foreach ($required_params as $param):
-				${$param} = $this->input->post($param);
+				${$param} = $this->post_input($param);
 				if ( empty( ${$param} ) ):
 					$this->result['status'] = 400;
 					$this->result['content']['error']['message'] = '必要的请求参数未全部传入';
@@ -314,7 +317,7 @@
 
 			// 初始化并配置表单验证库
 			$this->load->library('form_validation');
-			$this->form_validation->set_error_delimiters('', '');
+			$this->form_validation->set_error_delimiters('', '')->set_data($this->post_input); // 待验证数据
 			[[rules]]
 			// 针对特定条件的验证规则
 			if ($this->app_type === '管理员'):
@@ -331,14 +334,14 @@
 				$data_to_edit = array(
 					'operator_id' => $user_id,
 
-                    //'name' => empty($this->input->post('name'))? NULL: $this->input->post('name'),
+                    //'name' => empty($this->post_input('name'))? NULL: $this->post_input('name'),
 				);
 				// 自动生成无需特别处理的数据
 				$data_need_no_prepare = array(
 					[[names_list]]
 				);
 				foreach ($data_need_no_prepare as $name)
-                    $data_to_edit[$name] = empty($this->input->post($name))? NULL: $this->input->post($name);
+                    $data_to_edit[$name] = empty($this->post_input($name))? NULL: $this->post_input($name);
 
 				// 根据客户端类型等条件筛选可操作的字段名
 				if ($this->app_type !== 'admin'):
@@ -380,7 +383,7 @@
 			// 检查必要参数是否已传入
 			$required_params = $this->names_edit_certain_required;
 			foreach ($required_params as $param):
-				${$param} = $this->input->post($param);
+				${$param} = $this->post_input($param);
 
                 // value 可以为空；必要字段会在字段验证中另行检查
 				if ( $param !== 'value' && !isset( ${$param} ) ):
@@ -412,7 +415,7 @@
 
 			// 初始化并配置表单验证库
 			$this->load->library('form_validation');
-			$this->form_validation->set_error_delimiters('', '');
+			$this->form_validation->set_error_delimiters('', '')->set_data($this->post_input); // 待验证数据
 			// 动态设置待验证字段名及字段值
 			$data_to_validate["{$name}"] = $value;
 			$this->form_validation->set_data($data_to_validate);
@@ -467,7 +470,7 @@
             // 检查必要参数是否已传入
             $required_params = $this->names_edit_bulk_required;
             foreach ($required_params as $param):
-                ${$param} = $this->input->post($param);
+                ${$param} = $this->post_input($param);
                 if ( empty( ${$param} ) ):
                     $this->result['status'] = 400;
                     $this->result['content']['error']['message'] = '必要的请求参数未全部传入';

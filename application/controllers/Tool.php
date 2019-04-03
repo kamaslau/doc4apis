@@ -6,7 +6,7 @@
 	 *
 	 * @version 1.0.0
 	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
-	 * @copyright ICBG <www.bingshankeji.com>
+	 * @copyright Kamas 'Iceberg' Lau <kamaslau@outlook.com>
 	 */
 	class Tool extends CI_Controller
 	{
@@ -157,7 +157,7 @@
 			$url = api_url($api_url);
 			$result = $this->curl->go($url, $params, 'array');
 			if ($result['status'] === 200):
-				$info_to_parse = array('form_data', 'names_csv', 'names_list', 'rules', 'params_request', 'params_respond', 'elements', 'create', 'edit', 'detail',);
+				$info_to_parse = array('form_data', 'names_csv', 'names_list', 'rules', 'params_request', 'params_respond', 'elements', 'create', 'edit', 'detail');
 				foreach ($info_to_parse as $info_item) $$info_item = $result['content'][$info_item];
 			else:
 				echo 'API失败';
@@ -214,12 +214,13 @@
 
 			// 生成API文档
 			$apis = array('计数', '列表', '详情', '创建', '修改', '单项修改', '批量操作'); // 需要生成文档的常规功能API
-            if ($allow_edit_certain === NULL) $apis = array_splice($apis,5,1); // 若不允许修改单项，则不生成相应文档
+            if ($allow_edit_certain !== 'yes') array_splice($apis,5,1); // 若不允许修改单项，则不生成相应文档
 			if ($extra_functions !== NULL) $apis = array_merge($apis, $extra_functions);  // 其它附加功能
-			for ($i=0; $i<count($apis); $i++):
+			for ($i=0, $j=count($apis); $i<$j; $i++):
 				// 页面文档必要字段
 				$doc_content_api = array(
 					'biz_id' => $biz_id,
+                    'project_id' => $project_id,
 					'name' => $class_name_cn. $apis[$i],
 					'code' => strtoupper( $code ). $i,
 					'url' => strtolower( $class_name ).'/',
@@ -655,8 +656,12 @@
 			$result = file_put_contents($target_url, $file_content);
 			if ( $result !== FALSE ):
 				$this->result['status'] = 200;
-				$this->result['content']['api']['file_name'] = $target_url;
-				$this->result['content']['file_size'] = round($result / 1024, 2). ' kb';
+				$this->result['content']['api'] = array(
+                    'file_name' => $target_url,
+                    'file_size' => round($result / 1024, 2). ' kb'
+                );
+
+                $this->load->helper('download');
 			else:
 				$this->result['status'] = 400;
 				$this->result['error']['message'] = '类API文件创建失败';
@@ -683,8 +688,10 @@
 			$result = file_put_contents($target_url, $file_content);
 			if ( $result !== FALSE ):
 				$this->result['status'] = 200;
-				$this->result['content']['controllers']['file_name'] = $target_url;
-				$this->result['content']['file_size'] = round($result / 1024, 2). ' kb';
+				$this->result['content']['controllers'] = array(
+                    'file_name' => $target_url,
+                    'file_size' => round($result / 1024, 2). ' kb'
+                );
 			else:
 				$this->result['status'] = 400;
 				$this->result['error']['message'] = '类控制器文件创建失败';
@@ -718,8 +725,10 @@
 			$result = file_put_contents($target_url, $file_content);
 			if ( $result !== FALSE ):
 				$this->result['status'] = 200;
-				$this->result['content']['views']['file_name'][] = $target_url;
-				$this->result['content']['file_size'] = round($result / 1024, 2). ' kb';
+				$this->result['content']['views'][] = array(
+                    'file_name' => $target_url,
+                    'file_size' => round($result / 1024, 2). ' kb'
+                );
 			else:
 				$this->result['status'] = 400;
 				$this->result['error']['message'] = '视图文件创建失败';

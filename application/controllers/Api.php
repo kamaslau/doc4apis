@@ -115,6 +115,17 @@
 			$this->basic->index($data, $condition, $order_by);
 		} // end index
 
+        /**
+         * 下载API代码文件
+         */
+        public function download($file_name)
+        {
+            // 下载文件
+            $this->load->helper('download');
+            $file_url = $_SERVER['DOCUMENT_ROOT']. '/generated/api/'. ucfirst($file_name). '.php';
+            force_download($file_url, NULL, true);
+        } // end download
+
 		/**
 		 * 详情页
 		 */
