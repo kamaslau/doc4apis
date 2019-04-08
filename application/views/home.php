@@ -1,20 +1,20 @@
 <link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/index.css">
 <style>
 
-	/* 宽度在750像素以上的设备 */
-	@media only screen and (min-width:751px)
+	/* 宽度在768像素以上的设备 */
+	@media only screen and (min-width:769px)
 	{
 
 	}
 
-	/* 宽度在960像素以上的设备 */
-	@media only screen and (min-width:961px)
+	/* 宽度在992像素以上的设备 */
+	@media only screen and (min-width:993px)
 	{
 
 	}
 
-	/* 宽度在1280像素以上的设备 */
-	@media only screen and (min-width:1281px)
+	/* 宽度在1200像素以上的设备 */
+	@media only screen and (min-width:1201px)
 	{
 
 	}

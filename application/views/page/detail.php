@@ -1,19 +1,19 @@
 <style>
 
-	/* 宽度在750像素以上的设备 */
-	@media only screen and (min-width:751px)
+	/* 宽度在768像素以上的设备 */
+	@media only screen and (min-width:769px)
 	{
 
 	}
 	
-	/* 宽度在960像素以上的设备 */
-	@media only screen and (min-width:961px)
+	/* 宽度在992像素以上的设备 */
+	@media only screen and (min-width:993px)
 	{
 
 	}
 
-	/* 宽度在1280像素以上的设备 */
-	@media only screen and (min-width:1281px)
+	/* 宽度在1200像素以上的设备 */
+	@media only screen and (min-width:1201px)
 	{
 
 	}
@@ -38,9 +38,9 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
-		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="far fa-list fa-fw"></i> 所有<?php echo $this->class_name_cn ?></a>
-	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="far fa-trash fa-fw"></i> 回收站</a>
-		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create?project_id='.$project['project_id']) ?>"><i class="far fa-plus fa-fw"></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fal fa-list fa-fw"></i> 所有<?php echo $this->class_name_cn ?></a>
+	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fal fa-trash fa-fw"></i> 回收站</a>
+		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create?project_id='.$project['project_id']) ?>"><i class="fal fa-plus fa-fw"></i> 创建<?php echo $this->class_name_cn ?></a>
 	</div>
 	<?php endif ?>
 
@@ -57,25 +57,25 @@
 
 		<dt>需登录</dt>
 		<dd>
-			<?php echo ($item['private'] === '1')? '<i class="far fa-lock"></i> 是': '<i class="far fa-unlock"></i> 否'; ?>
+			<?php echo ($item['private'] === '1')? '<i class="fal fa-lock"></i> 是': '<i class="fal fa-unlock"></i> 否'; ?>
 			<?php if ($item['private'] === '1') echo ' <p class=help-block>获取本地time_expire_login值，若为空或小于当前时间戳则转到密码登录页</p>'; ?>
 		</dd>
 
 		<dt>可返回</dt>
 		<dd>
-			<?php echo ($item['return_allowed'] === '1')? '<i class="far fa-check"></i> 是': '<i class="far fa-times"></i> 否'; ?>
+			<?php echo ($item['return_allowed'] === '1')? '<i class="fal fa-check"></i> 是': '<i class="fal fa-times"></i> 否'; ?>
 			<?php if ($item['return_allowed'] === '0') echo ' <p class=help-block>移动端页面无返回按钮；有系统级返回按钮的设备上点击返回按钮无反应（或继承系统级事件，例如Android设备上再按一次返回按钮退出当前APP，及相关提示等）</p>'; ?>
 		</dd>
 
 		<dt>显示标题栏</dt>
 		<dd>
-			<?php echo ($item['nav_top'] === '1')? '<i class="far fa-check"></i> 是': '<i class="far fa-times"></i> 否'; ?>
+			<?php echo ($item['nav_top'] === '1')? '<i class="fal fa-check"></i> 是': '<i class="fal fa-times"></i> 否'; ?>
 			<?php if ($item['nav_top'] === '1') echo ' <p class=help-block>显示上方标题栏，并设置标题为“'.$item['name'].'”</p>'; ?>
 		</dd>
 		
 		<dt>显示导航栏</dt>
 		<dd>
-			<?php echo ($item['nav_bottom'] === '1')? '<i class="far fa-check"></i> 是': '<i class="far fa-times"></i> 否'; ?>
+			<?php echo ($item['nav_bottom'] === '1')? '<i class="fal fa-check"></i> 是': '<i class="fal fa-times"></i> 否'; ?>
 			<?php if ($item['nav_bottom'] === '1') echo ' <p class=help-block>显示下方导航栏，并设置相应图标为激活状态</p>'; ?>
 		</dd>
 	</dl>
@@ -116,7 +116,7 @@
 
 			<?php if ( !empty($item['url_design_assets']) ): ?>
 			<li>
-				设计附件 <a title="下载设计附件" href="<?php echo $item['url_design_assets'] ?>" target=_blank><i class="far fa-download"></i> 去下载</a>
+				设计附件 <a title="下载设计附件" href="<?php echo $item['url_design_assets'] ?>" target=_blank><i class="fal fa-download"></i> 去下载</a>
 			</li>
 			<?php endif ?>
 		</ul>
@@ -216,8 +216,8 @@
 		// 需要特定角色和权限进行该操作
 		if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 		?>
-		<li><a href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-edit"></i> 编辑</a></li>
-		<li><a href="<?php echo base_url($this->class_name.'/duplicate?id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-copy"></i> 克隆</a></li>
+		<li><a href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-edit"></i> 编辑</a></li>
+		<li><a href="<?php echo base_url($this->class_name.'/duplicate?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-copy"></i> 克隆</a></li>
 		<?php endif ?>
 	</ul>
 </div>

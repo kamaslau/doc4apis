@@ -62,8 +62,8 @@ h4 {margin:0;}
 #totop {color:#fff;background-color:rgba(0,0,0,.6);position:fixed;bottom:22px;right:22px;width:66px;height:66px;line-height:66px;display:block;text-align:center;}
 	#totop:hover {background-color:#333;}
 
-/* 宽度在750像素以上的设备 */
-@media only screen and (min-width:751px)
+/* 宽度在768像素以上的设备 */
+@media only screen and (min-width:769px)
 {
     #header>.container>*:not(h1) {height:64px;line-height:64px;}
 	#header h1 {width:auto;float:left;}
@@ -73,14 +73,14 @@ h4 {margin:0;}
 	#footer {padding:40px 0 50px;}
 }
 
-/* 宽度在960像素以上的设备 */
-@media only screen and (min-width:961px)
+/* 宽度在992像素以上的设备 */
+@media only screen and (min-width:993px)
 {
-	.container {width:960px;}
+	.container {width:992px;}
 }
 
-/* 宽度在1280像素以上的设备 */
-@media only screen and (min-width:1281px)
+/* 宽度在1200像素以上的设备 */
+@media only screen and (min-width:1201px)
 {
-	.container {width:1280px;}
+	.container {width:1200px;}
 }

@@ -1,19 +1,19 @@
 <style>
 
-	/* 宽度在750像素以上的设备 */
-	@media only screen and (min-width:751px)
+	/* 宽度在768像素以上的设备 */
+	@media only screen and (min-width:769px)
 	{
 
 	}
 
-	/* 宽度在960像素以上的设备 */
-	@media only screen and (min-width:961px)
+	/* 宽度在992像素以上的设备 */
+	@media only screen and (min-width:993px)
 	{
 
 	}
 
-	/* 宽度在1280像素以上的设备 */
-	@media only screen and (min-width:1281px)
+	/* 宽度在1200像素以上的设备 */
+	@media only screen and (min-width:1201px)
 	{
 
 	}
@@ -39,9 +39,9 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
-		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="far fa-list fa-fw"></i> 所有<?php echo $this->class_name_cn ?></a>
-	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="far fa-trash fa-fw"></i> 回收站</a>
-		<a class="btn btn-primary" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="far fa-plus fa-fw"></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fal fa-list fa-fw"></i> 所有<?php echo $this->class_name_cn ?></a>
+	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fal fa-trash fa-fw"></i> 回收站</a>
+		<a class="btn btn-primary" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="fal fa-plus fa-fw"></i> 创建<?php echo $this->class_name_cn ?></a>
 	</div>
 	<?php endif ?>
 
@@ -83,7 +83,7 @@
 					<input id=url_logo class=form-control type=file>
 					<input name=url_logo type=hidden value="<?php echo set_value('url_logo') ?>">
 
-					<button class="file-upload btn btn-primary btn-lg col-xs-12 col-md-3" data-target-dir=biz data-selector-id=url_logo data-input-name=url_logo type=button><i class="far fa-upload"></i> 上传</button>
+					<button class="file-upload btn btn-primary btn-lg col-xs-12 col-md-3" data-target-dir=biz data-selector-id=url_logo data-input-name=url_logo type=button><i class="fal fa-upload"></i> 上传</button>
 
 					<ul class="upload_preview list-inline row"></ul>
 					<?php echo form_error('url_logo') ?>

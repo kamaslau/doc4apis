@@ -27,7 +27,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20190314">
+		<meta name=version content="revision20190409">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@dingtalk.com">
@@ -42,16 +42,17 @@
 		<script defer src="<?php echo base_url('js/fontawesome.5.8.1.js') ?>"></script>
 		<script defer src="<?php echo base_url('js/bootstrap.3.4.1.js') ?>"></script>
     <script>
-            const user_agent = new Object();
-            user_agent.is_wechat = <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>
-            user_agent.is_ios = <?php echo ($is_ios === TRUE)? 'true': 'false' ?>
-            user_agent.is_android = <?php echo ($is_android === TRUE)? 'true': 'false' ?>
+            const user_agent = {
+              is_wechat: <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>,
+              is_ios: <?php echo ($is_ios === TRUE)? 'true': 'false' ?>,
+              is_android: <?php echo ($is_android === TRUE)? 'true': 'false' ?>
+            }
 
             // 全局参数
             // const api_url = '<?php //echo API_URL ?>' // API根URL
             const base_url = '<?php echo BASE_URL ?>' // 页面根URL
             const current_url = '<?php echo current_url() ?>'
-            const cdn_url = '<?php echo CDN_URL ?>'; // CDN根URL
+            // const cdn_url = '<?php echo CDN_URL ?>'; // CDN根URL
             // const media_url = '<?php //echo MEDIA_URL ?>' // 媒体文件根URL
             const class_name = '<?php echo $this->class_name ?>'
             const class_name_cn = '<?php echo $this->class_name_cn ?>'
@@ -59,13 +60,15 @@
             // 当前用户信息
             const user_id = '<?php echo $this->session->user_id ?>'
 
-            let common_params = new Object()
-            common_params.app_type = 'client' // 默认为客户端请求
-            common_params.user_id = user_id
-            $.ajaxSetup({
-                type: 'post',
-                dataType: 'json',
-            });
+            let common_params = {
+              app_type: 'client', // 默认为客户端请求
+              user_id
+            }
+
+            // $.ajaxSetup({
+            //     type: 'post',
+            //     dataType: 'json',
+            // });
         </script>
 
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/reset.css">
@@ -107,12 +110,7 @@
 				<nav id=nav-header role=navigation>
 					<ul id=main-nav class=horizontal>
 						<li<?php if (strpos($class, 'home') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url() ?>">首页</a></li>
-						<!--<li<?php if (strpos($class, 'task') !== FALSE) echo ' class=active' ?>><a title="任务" href="<?php echo base_url('task') ?>">任务</a></li>-->
-						<li<?php if (strpos($class, 'task') !== FALSE) echo ' class=active' ?>><a href="https://www.teambition.com/project/59093c6f8752371d796bda6f" target=_blank>任务</a></li>
 						<li<?php if (strpos($class, 'project') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('project') ?>">项目</a></li>
-						<li<?php if (strpos($class, 'flow') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('flow') ?>">流程</a></li>
-						<li<?php if (strpos($class, 'page') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('page') ?>">页面</a></li>
-						<li<?php if (strpos($class, 'api') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('api') ?>">API</a></li>
 
 						<?php if ($this->session->role === '管理员'): ?>
 						<li<?php if (strpos($class, 'biz') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('biz') ?>">企业</a></li>
@@ -128,21 +126,20 @@
 				<div id=account-panel>
 					<ul id=user-actions class=horizontal>
 						<?php if ($this->session->logged_in !== TRUE): ?>
-						<li><a href="<?php echo base_url('login') ?>"><i class="far fa-sign-in"></i> 登录</a></li>
-						<!--<li><a href="<?php echo base_url('register') ?>"><i class="far fa-user-plus"></i> 注册</a></li>-->
+						<li><a href="<?php echo base_url('login') ?>"><i class="fal fa-sign-in"></i> 登录/注册</a></li>
 
 						<?php
 							else:
-							$display_name = !empty($this->session->nickname)? $this->session->nickname: $this->session->lastname.$this->session->firstname;
+							$display_name = !empty($this->session->nickname)? $this->session->nickname: $this->session->firstname.', '.$this->session->lastname;
 						?>
 						<li>
                 <a href="<?php echo base_url('user/mine') ?>">
-                    <i class="far fa-user-circle"></i>
+                    <i class="fal fa-user-circle"></i>
                     <?php echo $display_name ?>
                     <?php echo $this->session->role. 'lv.'. $this->session->level ?>
                 </a>
             </li>
-						<li><a href="<?php echo base_url('logout') ?>"><i class="far fa-sign-out"></i></a></li>
+						<li><a href="<?php echo base_url('logout') ?>"><i class="fal fa-sign-out"></i></a></li>
 						<?php endif ?>
 					</ul>
 				</div>

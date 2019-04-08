@@ -1,19 +1,19 @@
 <style>
 
-	/* 宽度在750像素以上的设备 */
-	@media only screen and (min-width:751px)
+	/* 宽度在768像素以上的设备 */
+	@media only screen and (min-width:769px)
 	{
 
 	}
 	
-	/* 宽度在960像素以上的设备 */
-	@media only screen and (min-width:961px)
+	/* 宽度在992像素以上的设备 */
+	@media only screen and (min-width:993px)
 	{
 
 	}
 
-	/* 宽度在1280像素以上的设备 */
-	@media only screen and (min-width:1281px)
+	/* 宽度在1200像素以上的设备 */
+	@media only screen and (min-width:1201px)
 	{
 
 	}
@@ -37,9 +37,9 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
-		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="far fa-list fa-fw"></i> 所有<?php echo $this->class_name_cn ?></a>
-	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="far fa-trash fa-fw"></i> 回收站</a>
-		<a class="btn btn-primary" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="far fa-plus fa-fw"></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fal fa-list fa-fw"></i> 所有<?php echo $this->class_name_cn ?></a>
+	  	<a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fal fa-trash fa-fw"></i> 回收站</a>
+		<a class="btn btn-primary" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create') ?>"><i class="fal fa-plus fa-fw"></i> 创建<?php echo $this->class_name_cn ?></a>
 	</div>
 	<?php endif ?>
 

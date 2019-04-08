@@ -33,8 +33,9 @@
 		public function __construct()
 		{
 			parent::__construct();
+            // $this->output->enable_profiler(TRUE);
 
-			// （可选）未登录用户转到登录页
+            // （可选）未登录用户转到登录页
 			if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
 			
 			// 向类属性赋值
@@ -58,15 +59,6 @@
 			);
 			$this->load->library('basic', $basic_configs);
 		}
-		
-		/**
-		 * 截止3.1.3为止，CI_Controller类无析构函数，所以无需继承相应方法
-		 */
-		public function __destruct()
-		{
-			// 调试信息输出开关
-			// $this->output->enable_profiler(TRUE);
-		}
 
 		/**
 		 * 列表页
@@ -84,15 +76,19 @@
 			
 			// 筛选条件
 			$condition = NULL;
-			// 非系统级管理员仅可看到自己企业相关的信息
-			if ( ! empty($this->session->biz_id) )
-				$condition['biz_id'] = $this->session->biz_id;
+
+            // 非系统级管理员仅可看到自己企业相关的信息，否则可接收传入的参数
+            if ( ! empty($this->session->biz_id) ):
+                $condition['biz_id'] = $this->session->biz_id;
+            elseif ($this->session->role === '管理员'):
+                $condition['biz_id'] = $this->input->get_post('biz_id');
+            endif;
 			
 			// 排序条件
 			$order_by[$this->id_name] = 'ASC';
 			
 			// Go Basic！
-			$this->basic->index($data, $condition, $order_by);
+			$this->basic->index($data, array_filter($condition), $order_by);
 		}
 
 		/**

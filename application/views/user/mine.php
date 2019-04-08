@@ -1,19 +1,19 @@
 <style>
 
-	/* 宽度在750像素以上的设备 */
-	@media only screen and (min-width:751px)
+	/* 宽度在768像素以上的设备 */
+	@media only screen and (min-width:769px)
 	{
 
 	}
 	
-	/* 宽度在960像素以上的设备 */
-	@media only screen and (min-width:961px)
+	/* 宽度在992像素以上的设备 */
+	@media only screen and (min-width:993px)
 	{
 
 	}
 
-	/* 宽度在1280像素以上的设备 */
-	@media only screen and (min-width:1281px)
+	/* 宽度在1200像素以上的设备 */
+	@media only screen and (min-width:1201px)
 	{
 
 	}
@@ -60,10 +60,10 @@
 					$time_to_dob = strtotime($dob_next) - time(); // 计算秒数
 					$days_to_dob = round( $time_to_dob / (60 * 60 * 24) ); // 计算天数，四舍五入到个位数
 					
-					$dob_string = $item['dob']. ' （<i class="far fa-calendar"></i> '. $days_to_dob. '天后过生日）';
+					$dob_string = $item['dob']. ' （<i class="fal fa-calendar"></i> '. $days_to_dob. '天后过生日）';
 
 				else:
-					$dob_string = '<i class="far fa-birthday-cake"></i> 生日快乐！！！';
+					$dob_string = '<i class="fal fa-birthday-cake"></i> 生日快乐！！！';
 
 				endif;
 		?>
@@ -90,6 +90,6 @@
     <?php endif ?>
 
 	<ul class="list-unstyled list-inline">
-		<li><a href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="far fa-edit"></i> 编辑</a></li>
+		<li><a href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-edit"></i> 编辑</a></li>
 	</ul>
 </div>

@@ -5,8 +5,8 @@
 	 * Tool 类
 	 *
 	 * @version 1.0.0
-	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
-	 * @copyright Kamas 'Iceberg' Lau <kamaslau@outlook.com>
+	 * @author Kamas 'Iceberg' Lau <kamaslau@dingtalk.com>
+	 * @copyright Kamas 'Iceberg' Lau <kamaslau@dingtalk.com>
 	 */
 	class Tool extends CI_Controller
 	{

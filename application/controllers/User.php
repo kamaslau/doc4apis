@@ -33,6 +33,7 @@
 		public function __construct()
 		{
 			parent::__construct();
+            // $this->output->enable_profiler(TRUE);
 
 			// 未登录用户转到登录页
 			if ($this->session->logged_in !== TRUE) redirect(base_url('login'));
@@ -63,15 +64,6 @@
 		}
 
 		/**
-		 * 截止3.1.3为止，CI_Controller类无析构函数，所以无需继承相应方法
-		 */
-		public function __destruct()
-		{
-			// 调试信息输出开关
-			// $this->output->enable_profiler(TRUE);
-		}
-
-		/**
 		 * 列表页
 		 */
 		public function index()
@@ -79,6 +71,7 @@
 			// 若角色为成员，则转到相应的详情页面
 			if ($this->session->role === '成员')
 				redirect( base_url('user/detail?id='.$this->session->user_id) );
+
 			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '列表',
@@ -90,9 +83,12 @@
 
 			// 筛选条件
 			$condition = NULL;
-			// 非系统级管理员仅可看到自己企业相关的信息
-			if ( ! empty($this->session->biz_id) )
-				$condition['biz_id'] = $this->session->biz_id;
+            // 非系统级管理员仅可看到自己企业相关的信息，否则可接收传入的参数
+            if ( ! empty($this->session->biz_id) ):
+                $condition['biz_id'] = $this->session->biz_id;
+            elseif ($this->session->role === '管理员'):
+                $condition['biz_id'] = $this->input->get_post('biz_id');
+            endif;
 
 			// 排序条件
 			$order_by['biz_id'] = 'DESC';
@@ -100,7 +96,7 @@
             $order_by['level'] = 'DESC';
 
 			// Go Basic！
-			$this->basic->index($data, $condition, $order_by);
+			$this->basic->index($data, array_filter($condition), $order_by);
 		}
 
 		/**
@@ -109,7 +105,7 @@
 		public function detail()
 		{
 			// 检查是否已传入必要参数
-			$id = $this->input->get_post('id')? $this->input->get_post('id'): NULL;
+			$id = $this->input->get_post('id');
 			if ( empty($id) )
 				redirect(base_url('error/code_404'));
 
@@ -122,13 +118,16 @@
 			// 获取页面数据
 			$data['item'] = $this->basic_model->select_by_id($id);
 
-			// 若存在所属企业，则获取企业信息
-			if ( !empty($data['item']['biz_id']) ):
-				$data['biz'] = $this->basic->get_by_id($data['item']['biz_id'], 'biz', 'biz_id');
-			endif;
-			
-			// 生成页面标题
-			$data['title'] = $data['item']['lastname'].$data['item']['firstname'];
+			// 若存在相关数据
+			if ( !empty($data['item']) ):
+                // 若存在所属企业，则获取企业信息
+                if ( !empty($data['item']['biz_id']) ):
+                    $data['biz'] = $this->basic->get_by_id($data['item']['biz_id'], 'biz', 'biz_id');
+                endif;
+
+                // 生成页面标题
+                $data['title'] = $data['item']['lastname'].$data['item']['firstname'];
+            endif;
 
 			$this->load->view('templates/header', $data);
 			$this->load->view($this->view_root.'/detail', $data);
@@ -141,13 +140,13 @@
         public function mine()
         {
             // 检查是否已传入必要参数
-            $id = empty($this->session->user_id)? NULL: $this->session->user_id;
+            $id = $this->session->user_id;
             if ($id === NULL)
                 redirect(base_url('error/code_404'));
 
             // 页面信息
             $data = array(
-                'title' => '我的主页',
+                'title' => '我的',
                 'class' => $this->class_name.' '. $this->class_name.'-mine',
             );
 
@@ -155,7 +154,7 @@
             $data['item'] = $this->basic_model->select_by_id($id);
 
             // 若存在所属企业，则获取企业信息
-            if ( !empty($data['item']['biz_id']) ):
+            if ( !empty($data['item']) && !empty($data['item']['biz_id']) ):
                 $data['biz'] = $this->basic->get_by_id($data['item']['biz_id'], 'biz', 'biz_id');
             endif;
 

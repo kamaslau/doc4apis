@@ -33,6 +33,7 @@
 		public function __construct()
 		{
 			parent::__construct();
+            // $this->output->enable_profiler(TRUE);
 
             // 检查是否已打开测试模式
             if ($this->input->post_get('test_mode') === 'on') $this->output->enable_profiler(TRUE); // 输出调试信息
@@ -65,20 +66,15 @@
 		}
 
 		/**
-		 * 截止3.1.3为止，CI_Controller类无析构函数，所以无需继承相应方法
-		 */
-		public function __destruct()
-		{
-			// 调试信息输出开关
-			// $this->output->enable_profiler(TRUE);
-		}
-
-		/**
 		 * 列表页
 		 */
 		public function index()
 		{
-			// 页面信息
+            // 检查是否已传入必要参数
+            $project_id = $this->input->get_post('project_id');
+            if ( empty($project_id) ) redirect(base_url('project'));
+
+            // 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '列表',
 				'class' => $this->class_name.' '. $this->class_name.'-index',
@@ -87,24 +83,19 @@
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
-			// 获取项目数据
-			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-			if ( !empty($project_id) )
-				$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
+            // 获取项目数据
+			if ( ! empty($project_id)):
+                $data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
 
-			// 筛选条件
-			$condition = NULL;
+                $condition['project_id'] = $project_id; // 添加筛选条件
+            endif;
 
-			// 非系统级管理员仅可看到自己企业相关的信息
-			if ( !empty($this->session->biz_id) ):
+            // 非系统级管理员仅可看到自己企业相关的信息，否则可接收传入的参数
+            if ( ! empty($this->session->biz_id) ):
                 $condition['biz_id'] = $this->session->biz_id;
-
-			// 系统级管理员可查看任意企业的相关信息
-			elseif ($this->session->role === '管理员'):
-				$biz_id = $this->input->get_post('biz_id')? $this->input->get_post('biz_id'): NULL;
-
-				if ( !empty($biz_id) ) $condition['biz_id'] = $biz_id;
-			endif;
+            elseif ($this->session->role === '管理员'):
+                $condition['biz_id'] = $this->input->get_post('biz_id');
+            endif;
 
 			// 排序条件
 			$order_by['biz_id'] = 'ASC';
@@ -112,17 +103,22 @@
 			$order_by['code'] = 'ASC'; // 按API序号字母顺序进行排序
 
 			// Go Basic！
-			$this->basic->index($data, $condition, $order_by);
+			$this->basic->index($data, array_filter($condition), $order_by);
 		} // end index
 
         /**
          * 下载API代码文件
+         *
+         * @param $file_name 文件名；不含后缀名，一般为API类名的代码
          */
         public function download($file_name)
         {
+            // 实际文件名
+            $file_name = ucfirst( strtolower($file_name) ). '.php';
+
             // 下载文件
             $this->load->helper('download');
-            $file_url = $_SERVER['DOCUMENT_ROOT']. '/generated/api/'. ucfirst($file_name). '.php';
+            $file_url = $_SERVER['DOCUMENT_ROOT']. '/generated/api/'. $file_name;
             force_download($file_url, NULL, true);
         } // end download
 
