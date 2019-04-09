@@ -8,8 +8,8 @@
 	 * CodeIgniter官方网站 https://www.codeigniter.com/user_guide/
 	 *
 	 * @version 1.0.0
-	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
-	 * @copyright ICBG <www.bingshankeji.com>
+     * @author Kamas 'Iceberg' Lau <kamaslau@dingtalk.com>
+     * @copyright Kamas 'Iceberg' Lau <kamaslau@dingtalk.com>
 	 */
 	class [[class_name]] extends MY_Controller
 	{	

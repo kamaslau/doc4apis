@@ -6,7 +6,7 @@
 	* http://docs.upyun.com/api/rest_api/
 	*
 	* @version 1.0.0
-	* @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
+	* @author Kamas 'Iceberg' Lau <kamaslau@dingtalk.com>
 	* @copyright SSEC <www.ssectec.com>
 	*/
 	class Upyun

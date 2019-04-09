@@ -140,13 +140,13 @@
                 'project_id', 'doc_api', 'doc_page', 'file_api', 'file_code'
             );
             foreach ($data_need_no_prepare as $name)
-                ${$name} = empty($this->input->post($name))? NULL: trim($this->input->post($name));
+                ${$name} = trim($this->input->post($name));
 
 			// 预处理部分参数字符串格式
 			$code = strtoupper( $code );
             $class_name = ucfirst( strtolower($class_name) );
 
-			// 从API服务器获取相应列表信息
+			// 从API获取相应表所含字段信息
 			$params = array(
 				//'skip_sign' => 'please', // 默认添加用于测试环境的跳过签名检查的设置参数，若在环境变量中已设置，则可注释掉这行代码
 				'class_name' => $class_name,
@@ -155,7 +155,12 @@
 				'id_name' => $id_name,
 			);
 			$url = api_url($api_url);
-			$result = $this->curl->go($url, $params, 'array');
+			try {
+                $result = $this->curl->go($url, $params, 'array');
+            } catch(Exception $error){
+                var_dump($error);
+            }
+
 			if ($result['status'] === 200):
 				$info_to_parse = array('form_data', 'names_csv', 'names_list', 'rules', 'params_request', 'params_respond', 'elements', 'create', 'edit', 'detail');
 				foreach ($info_to_parse as $info_item) $$info_item = $result['content'][$info_item];
@@ -178,10 +183,10 @@
             endforeach;
 
             // 检查是否需包含"单项修改"方法
-            $allow_edit_certain = empty($this->input->post('allow_edit_certain'))? NULL: $this->input->post('allow_edit_certain');
+            $allow_edit_certain = $this->input->post('allow_edit_certain');
 
 			// 若有需要特别生成的类方法，进行生成
-			$extra_functions = empty($this->input->post('extra_functions'))? NULL: $this->input->post('extra_functions');
+			$extra_functions = $this->input->post('extra_functions');
 			if ($extra_functions !== NULL):
 				$extra_functions = explode(',', $extra_functions);
 				$extra_functions_text = '';
@@ -636,6 +641,19 @@
 			endif;
 		} // end doc_page_generate
 
+        /**
+         * 生成路径
+         */
+        public function generate_directory($target_directory)
+        {
+            // 检查目标路径是否存在
+            if ( ! file_exists($target_directory) )
+                mkdir($target_directory, 0777, TRUE); // 若不存在则新建，且允许新建多级子目录
+
+            // 设置目标路径（含文件名）
+            chmod($target_directory, 0777); // 设置权限为可写
+        } // end generate_directory
+
 		/**
 		 * 生成API文件
 		 */
@@ -643,16 +661,10 @@
 		{
 			// 生成完整的文件所在目录
 			$target_directory = 'generated/'. $target_directory;
-
-			// 检查目标路径是否存在
-			if ( ! file_exists($target_directory) )
-				mkdir($target_directory, 0777, TRUE); // 若不存在则新建，且允许新建多级子目录
-
-			// 设置目标路径（含文件名）
-			chmod($target_directory, 0777); // 设置权限为可写
-			$target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $target_directory. $file_name;
+			$this->generate_directory($target_directory);
 
 			// 创建新文件并写入内容
+            $target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $target_directory. $file_name;
 			$result = file_put_contents($target_url, $file_content);
 			if ( $result !== FALSE ):
 				$this->result['status'] = 200;
@@ -660,8 +672,6 @@
                     'file_name' => $target_url,
                     'file_size' => round($result / 1024, 2). ' kb'
                 );
-
-                $this->load->helper('download');
 			else:
 				$this->result['status'] = 400;
 				$this->result['error']['message'] = '类API文件创建失败';
@@ -675,16 +685,10 @@
 		{
 			// 生成完整的文件所在目录
 			$target_directory = 'generated/'. $target_directory;
+            $this->generate_directory($target_directory);
 
-			// 检查目标路径是否存在
-			if ( ! file_exists($target_directory) )
-				mkdir($target_directory, 0777, TRUE); // 若不存在则新建，且允许新建多级子目录
-
-			// 设置目标路径（含文件名）
-			chmod($target_directory, 0777); // 设置权限为可写
-			$target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $target_directory. $file_name;
-
-			// 创建新文件并写入内容
+            // 创建新文件并写入内容
+            $target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $target_directory. $file_name;
 			$result = file_put_contents($target_url, $file_content);
 			if ( $result !== FALSE ):
 				$this->result['status'] = 200;
@@ -712,16 +716,10 @@
 
 			// 生成完整的文件所在目录
 			$target_directory = 'generated/'. $target_directory;
+            $this->generate_directory($target_directory);
 
-			// 检查目标路径是否存在
-			if ( ! file_exists($target_directory) )
-				mkdir($target_directory, 0777, TRUE); // 若不存在则新建，且允许新建多级子目录
-
-			// 设置目标路径（含文件名）
-			chmod($target_directory, 0777); // 设置权限为可写
-			$target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $target_directory. $file_name;
-
-			// 创建新文件并写入内容
+            // 创建新文件并写入内容
+            $target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $target_directory. $file_name;
 			$result = file_put_contents($target_url, $file_content);
 			if ( $result !== FALSE ):
 				$this->result['status'] = 200;

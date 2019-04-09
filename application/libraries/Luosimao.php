@@ -6,7 +6,7 @@
 	 * http://luosimao.com/docs/api
 	 *
 	 * @version 1.0.0
-	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
+	 * @author Kamas 'Iceberg' Lau <kamaslau@dingtalk.com>
 	 * @copyright Iceberg <www.bingshankeji.com>
 	 */
 	class Luosimao

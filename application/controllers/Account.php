@@ -7,7 +7,7 @@
 	 * 账户相关功能
 	 *
 	 * @version 1.0.0
-	 * @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
+	 * @author Kamas 'Iceberg' Lau <kamaslau@dingtalk.com>
 	 * @copyright ICBG <www.bingshankeji.com>
 	 */
 	class Account extends CI_Controller
