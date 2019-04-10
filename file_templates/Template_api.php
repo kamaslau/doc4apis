@@ -272,7 +272,7 @@
 					[[names_list]]
 				);
 				foreach ($data_need_no_prepare as $name)
-                    $data_to_create[$name] = empty($this->post_input($name))? NULL: $this->post_input($name);
+                    $data_to_create[$name] = $this->post_input($name);
 
 				$result = $this->basic_model->create($data_to_create, TRUE);
 				if ($result !== FALSE):
@@ -341,7 +341,7 @@
 					[[names_list]]
 				);
 				foreach ($data_need_no_prepare as $name)
-                    $data_to_edit[$name] = empty($this->post_input($name))? NULL: $this->post_input($name);
+                    $data_to_edit[$name] = $this->post_input($name);
 
 				// 根据客户端类型等条件筛选可操作的字段名
 				if ($this->app_type !== 'admin'):
@@ -493,7 +493,7 @@
                 // 根据待执行的操作赋值待编辑数据
                 switch ( $operation ):
                     case 'delete':
-                        $data_to_edit['time_delete'] = date('Y-m-d H:i:s');
+                        $data_to_edit['time_delete'] = time();
                         break;
                     case 'restore':
                         $data_to_edit['time_delete'] = NULL;

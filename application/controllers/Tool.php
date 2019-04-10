@@ -2,7 +2,7 @@
 	defined('BASEPATH') OR exit('此文件不可被直接访问');
 
 	/**
-	 * Tool 类
+	 * Tool类
 	 *
 	 * @version 1.0.0
 	 * @author Kamas 'Iceberg' Lau <kamaslau@dingtalk.com>
@@ -10,6 +10,13 @@
 	 */
 	class Tool extends CI_Controller
 	{
+        /**
+         * 模板文件根URL
+         *
+         * @var string
+         */
+	    protected $template_url;
+
 		public function __construct()
 		{
 			parent::__construct();
@@ -122,7 +129,7 @@
 		public function class_generate()
 		{
 			// 检查必要参数是否已传入
-			$required_params = array('biz_id', 'code', 'class_name_cn', 'api_url');
+			$required_params = array('biz_id', 'project_id', 'code', 'class_name_cn', 'api_url');
 			foreach ($required_params as $param):
 				${$param} = trim($this->input->post($param));
 				if ( empty( ${$param} ) ):
@@ -136,19 +143,16 @@
             $class_name = empty($this->input->post('class_name'))? $code: $this->input->post('class_name');
             $table_name = empty($this->input->post('table_name'))? $class_name: $this->input->post('table_name');
             $id_name = empty($this->input->post('id_name'))? $class_name.'_id': $this->input->post('id_name');
-            $data_need_no_prepare = array(
-                'project_id', 'doc_api', 'doc_page', 'file_api', 'file_code'
-            );
-            foreach ($data_need_no_prepare as $name)
-                ${$name} = trim($this->input->post($name));
+            $doc_api = $this->input->post('doc_api') === 'yes'; // 是否生成API文档
+            $doc_page = $this->input->post('doc_page') === 'yes'; // 是否生成页面文档
+            $file_api = $this->input->post('file_api') === 'yes'; // 是否生成API控制器文件
+            $file_app = $this->input->post('file_app') === 'yes'; // 是否生成应用控制器文件
+            $file_view = $this->input->post('file_view') === 'yes'; // 是否生成应用视图文件
+            $allow_edit_certain = $this->input->post('allow_edit_certain') === 'yes'; // 待生成的文档或文件是否需包含"单项修改"方法
 
-			// 预处理部分参数字符串格式
-			$code = strtoupper( $code );
-            $class_name = ucfirst( strtolower($class_name) );
-
-			// 从API获取相应表所含字段信息
+			// 从API获取相应表字段信息
 			$params = array(
-				//'skip_sign' => 'please', // 默认添加用于测试环境的跳过签名检查的设置参数，若在环境变量中已设置，则可注释掉这行代码
+				// 'skip_sign' => 'please', // 默认添加用于测试环境的跳过签名检查的设置参数，若在环境变量中已设置，则可注释掉这行代码
 				'class_name' => $class_name,
 				'class_name_cn' => $class_name_cn,
 				'table_name' => $table_name,
@@ -158,59 +162,77 @@
 			try {
                 $result = $this->curl->go($url, $params, 'array');
             } catch(Exception $error){
-                var_dump($error);
+                // var_dump($error);
+                exit('API请求失败');
+                exit();
             }
-
 			if ($result['status'] === 200):
+                $result = $this->parse_names($result['content']);
 				$info_to_parse = array('form_data', 'names_csv', 'names_list', 'rules', 'params_request', 'params_respond', 'elements', 'create', 'edit', 'detail');
-				foreach ($info_to_parse as $info_item) $$info_item = $result['content'][$info_item];
+				foreach ($info_to_parse as $info_item) $$info_item = $result[$info_item];
 			else:
-				echo 'API失败';
-				exit();
+				exit('API请求不成功');
 			endif;
 
-			// 待替换的内容
-            $real_contents = array(
-                'code', 'class_name', 'class_name_cn', 'table_name', 'id_name', 'rules', 'names_csv', 'names_list', 'params_request', 'params_respond'
-            );
-            // 获取模板文件并生成待生成API文件内容
-            $template_url = $_SERVER['DOCUMENT_ROOT']. '/file_templates/';
-            $api_file_content = file_get_contents($template_url.'/Template_api.php');
-            $controller_file_content = file_get_contents($template_url.'Template_app.php');
-            foreach ($real_contents as $real_content):
-                $api_file_content = str_replace('[['.$real_content.']]', ${$real_content}, $api_file_content);
-                $controller_file_content = str_replace('[['.$real_content.']]', ${$real_content}, $controller_file_content);
-            endforeach;
+            // 预处理部分参数
+            $code = strtoupper( $code );
+            $class_name = ucfirst( strtolower($class_name) );
+            $this->template_url = $_SERVER['DOCUMENT_ROOT']. '/file_templates/';
 
-            // 检查是否需包含"单项修改"方法
-            $allow_edit_certain = $this->input->post('allow_edit_certain');
+            // 获取模板文件，并开始生成待生成文件内容
+            if ($file_api || $file_app):
+                // 待替换的内容
+                $real_contents = array(
+                    'code', 'class_name', 'class_name_cn', 'table_name', 'id_name', 'rules', 'names_csv', 'names_list', 'params_request', 'params_respond'
+                );
 
-			// 若有需要特别生成的类方法，进行生成
-			$extra_functions = $this->input->post('extra_functions');
-			if ($extra_functions !== NULL):
-				$extra_functions = explode(',', $extra_functions);
-				$extra_functions_text = '';
-				foreach ($extra_functions as $function_name):
-					$extra_functions_text .=
-					"\n\n".
-					"\t\t". '// 类方法'. "\n".
-					"\t\t". 'public function '. $function_name. '()'. "\n".
-					"\t\t". '{'.
-					"\n\n".
-					"\t\t". '} // end '. $function_name;
-				endforeach;
+                if ($file_api):
+                    $api_file_content = file_get_contents($this->template_url.'Template_api.php');
+                    foreach ($real_contents as $real_content):
+                        $api_file_content = str_replace('[['.$real_content.']]', ${$real_content}, $api_file_content);
+                    endforeach;
+                endif;
 
-				$api_file_content = str_replace('[[extra_functions]]', $extra_functions_text, $api_file_content);
-				$controller_file_content = str_replace('[[extra_functions]]', $extra_functions_text, $controller_file_content);
+                if ($file_app):
+                    $app_file_content = file_get_contents($this->template_url.'Template_app.php');
+                    foreach ($real_contents as $real_content):
+                        $app_file_content = str_replace('[['.$real_content.']]', ${$real_content}, $app_file_content);
+                    endforeach;
+                endif;
 
-			else:
-				// 若没有需要特别生成的类方法，清除模板文件中的模板标记
-				$api_file_content = str_replace('[[extra_functions]]', NULL, $api_file_content);
-				$controller_file_content = str_replace('[[extra_functions]]', NULL, $controller_file_content);
+                // 若有需要特别生成的类方法，进行生成
+                $extra_functions = $this->input->post('extra_functions');
+                if ( empty($extra_functions) ):
+                    // 若没有需要特别生成的类方法，清除模板文件中的相应占位标记
+                    if ($file_api):
+                        $api_file_content = str_replace('[[extra_functions]]', NULL, $api_file_content);
+                    endif;
+                    if ($file_app):
+                        $app_file_content = str_replace('[[extra_functions]]', NULL, $app_file_content);
+                    endif;
 
-			endif;
+                else:
+                    $extra_functions = explode(',', $extra_functions);
+                    $extra_functions_text = '';
+
+                    foreach ($extra_functions as $function):
+                        $extra_functions_text .=
+                            "\n\n".
+                            "\t\t". '// 类方法'. "\n".
+                            "\t\t". 'public function '. $function. '()'. "\n".
+                            "\t\t". '{'.
+                            "\n\n".
+                            "\t\t". '} // end '. $function;
+                    endforeach;
+
+                    if ($file_api) $api_file_content = str_replace('[[extra_functions]]', $extra_functions_text, $api_file_content);
+                    if ($file_app) $app_file_content = str_replace('[[extra_functions]]', $extra_functions_text, $app_file_content);
+
+                endif;
+            endif;
 
 			// 赋值类属性，为后续生成文档做准备
+            $this->code = $code;
 			$this->class_name = $class_name;
 			$this->class_name_cn = $class_name_cn;
 			$this->params_request = $params_request;
@@ -219,22 +241,23 @@
 
 			// 生成API文档
 			$apis = array('计数', '列表', '详情', '创建', '修改', '单项修改', '批量操作'); // 需要生成文档的常规功能API
-            if ($allow_edit_certain !== 'yes') array_splice($apis,5,1); // 若不允许修改单项，则不生成相应文档
+            if ( ! $allow_edit_certain) array_splice($apis,5,1); // 若不允许修改单项，则不生成相应文档
 			if ($extra_functions !== NULL) $apis = array_merge($apis, $extra_functions);  // 其它附加功能
 			for ($i=0, $j=count($apis); $i<$j; $i++):
 				// 页面文档必要字段
 				$doc_content_api = array(
 					'biz_id' => $biz_id,
                     'project_id' => $project_id,
-					'name' => $class_name_cn. $apis[$i],
-					'code' => strtoupper( $code ). $i,
-					'url' => strtolower( $class_name ).'/',
+					'name' => $this->class_name_cn. $apis[$i],
+					'code' => $this->code. $i,
+					'url' => strtolower( $this->class_name ).'/',
 					'sample_request' => $form_data,
 					'status' => '0', // 默认为草稿状态
 				);
 
 				// 生成API文档
-				if ($doc_api === 'yes') $this->doc_api_generate($doc_content_api, $apis, $i);
+				if ($doc_api) $this->doc_api_generate($doc_content_api, $apis, $i);
+				unset($doc_content_api);
 			endfor;
 
 			// 生成页面文档
@@ -248,8 +271,8 @@
 				'delete' => '删除',
 				'restore' => '找回',
 			); // 需生成文档的常规功能页面
-            if ($allow_edit_certain !== 'yes') unset($pages['edit_certain']); // 若不允许修改单项，则不生成相应文档
-			if ($extra_functions !== NULL) $pages = array_merge($pages, $extra_functions);  // 其它附加功能
+            if ( ! $allow_edit_certain) unset($pages['edit_certain']); // 若不允许修改单项，则不生成相应文档
+			if ( ! empty($extra_functions)) $pages = array_merge($pages, $extra_functions);  // 其它附加功能
 			$i = 0; // 页面序号
 			foreach ($pages as $name => $title):
 				// 为特殊功能做特别处理
@@ -259,20 +282,22 @@
 				$doc_content_page = array(
 					'biz_id' => $biz_id,
 					'project_id' => $project_id,
-					'name' => $class_name_cn. $title,
-					'code' => strtoupper( $code ).'P'. $i,
-					'code_class' => strtolower( $class_name ),
+					'name' => $this->class_name_cn. $title,
+					'code' => $this->code.'P'. $i,
+					'code_class' => strtolower( $this->class_name ),
 					'code_function' => $name,
 					'status' => '0', // 默认为草稿状态
 				);
 				$i++; // 更新序号
 
 				// 生成页面文档
-				if ($doc_page === 'yes')
+				if ($doc_page):
 					$this->doc_page_generate($doc_content_page, $pages, $title);
+                    unset($doc_content_page);
+                endif;
 
 				// 生成视图文件；部分页面需插入具体生成的内容
-				if ($file_code === 'yes'):
+				if ($file_view):
 					$pages_to_generate = array('create', 'detail', 'edit');
 					if ( in_array($name, $pages_to_generate) ):
 						$target_directory = 'views/'.strtolower( $class_name ).'/';
@@ -282,9 +307,11 @@
 				endif;
 			endforeach;
 
-			// 生成通用视图文件
-            if ($file_code === 'yes'):
-                $common_pages = array('delete', 'edit_certain', 'index', 'restore', 'result', 'trash',);
+
+            // 生成通用视图文件
+            if ($file_view):
+                $common_pages = array('delete', 'index', 'restore', 'result', 'trash',);
+                if ($allow_edit_certain) $common_pages[] = 'edit_certain';
                 foreach ($common_pages as $name):
                     $target_directory = 'views/'.strtolower( $class_name ).'/';
                     $file_name = $name. '.php';
@@ -292,23 +319,127 @@
                 endforeach;
             endif;
 
-			// 待生成的API及控制器文件名
-			$file_name = ucfirst($class_name). '.php';
 
             // 生成控制器文件
-            if ($file_code === 'yes'):
-                $target_directory = 'controllers/';
-                $this->controller_file_generate($target_directory, $file_name, $controller_file_content);
+            if ($file_app || $file_api):
+                // 待生成的文件名
+                $file_name = ucfirst($class_name). '.php';
+
+                // 生成应用控制器文件
+                if ($file_app):
+                    $this->controller_file_generate('controllers/', $file_name, $app_file_content);
+                    unset($app_file_content);
+                endif;
+
+                // 生成API控制器文件
+                if ($file_api):
+                    $this->api_file_generate('api/', $file_name, $api_file_content);
+                    unset($api_file_content);
+                endif;
             endif;
+        } // end class_generate
 
-			// 生成API文件
-			if ($file_api === 'yes'):
-				$target_directory = 'api/';
-				$this->api_file_generate($target_directory, $file_name, $api_file_content);
-			endif;
-		} // end class_generate
+        /**
+         * 以下为工具方法
+         */
 
-		// 生成API文档，不含需特别生成的类方法相关页面
+        /**
+         * 解析表字段
+         *
+         * @param $names_info 表字段信息
+         * @return $result 解析后的内容
+         */
+        protected function parse_names($names_info)
+        {
+            $result = array(
+                'names_csv' => '', // 所有表字段；CSV
+                'names_list' => '', // 所有表字段；数组
+                'form_data' => '', // 用于接口测试的key-value值，可用于Postman等工具
+                'rules' => '', // 验证规则
+                'params_request' => '', // 请求参数（生成文档用）
+                'params_respond' => '', // 响应参数（生成文档用）
+                'elements' => '', // 主要视图元素（生成文档用）
+
+                'create' => '', // 创建页请求参数信息
+                'edit' => '', // 编辑页请求参数信息
+                'detail' => '', // 详情页响应参数信息
+            );
+
+            foreach ($names_info as $column):
+                // 预赋值部分待用数据为变量
+                $name = $column['name']; // 当前字段名
+                $comment = $column['comment']; // 当前字段备注
+                $type = $column['type']; // 当前字段数据类型
+                $allow_null = $column['allow_null']; // 当前字段是否允许为空
+
+                $result['names_csv'] .= "$name,";
+                $result['names_list'] .= "'$name', ";
+                $result['form_data'] .= $name. ':'. "\n";
+
+                $result['params_request'] .= '<tr><td>'. $name. '</td><td>'.$type.'</td><td>'.($allow_null === 'YES'? '否': '是').'</td><td>示例</td><td>'.$comment.'</td></tr>'. "\n"; // 根据相应字段在数据库中是否允许为空，标识请求参数的必要性
+
+                // 对于其它信息，去除字段备注中全角分号之后的部分
+                $length_to_end = strpos($comment, '；');
+                if ( $length_to_end !== FALSE ) $comment = substr($comment, 0, $length_to_end);
+
+                $result['params_respond'] .= '<tr><td>'. $name. '</td><td>'.$type.'</td><td>详见返回示例</td><td>'.$comment.'</td></tr>'. "\n";
+                $result['elements'] .= '<tr><td>┣'. $name. '</td><td>1</td><td>文本</td><td>'.$comment.'</td></tr>'. "\n";
+
+                // 不为通用字段创建表单验证规则、创建/编辑HTML
+                $meta_names = array('time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id',);
+                if ( ! in_array($name, $meta_names)):
+                    $result['rules'] .= "\t\t\t". '$this->form_validation->set_rules('. "'$name', '$comment', 'trim". ($allow_null === 'NO'? '|required': NULL). "');". "\n";
+
+                    $result['create'] .=
+                        "\t\t\t\t\t\t".
+                        "<div class=form-group>
+                                <label for=$name class=\"col-sm-2\">$comment". ($allow_null === 'NO'? ' *': NULL). "</label>
+                                <div class=\"col-sm-10 input-group\">
+                                    <input class=form-control name=$name type=text value=\"<?php echo set_value('$name') ?>\" placeholder=\"$comment\"". ($allow_null === 'NO'? ' required': NULL). ">
+                                </div>
+                            </div>". "\n\n";
+
+                    $result['edit'] .=
+                        "\t\t\t\t\t\t".
+                        "<div class=form-group>
+                                <label for=$name class=\"col-sm-2\">$comment". ($allow_null === 'NO'? ' *': NULL). "</label>
+                                <div class=\"col-sm-10 input-group\">
+                                    <input class=form-control name=$name type=text value=\"<?php echo empty(set_value('$name'))? ".'$item'."['$name']: set_value('$name') ?>\" placeholder=\"$comment\"". ($allow_null === 'NO'? ' required': NULL). ">
+                                </div>
+                            </div>". "\n\n";
+
+                    $result['detail'] .=
+                        "\t\t".'<dt>'.$comment.'</dt>'. "\n".
+                        /**"\t\t".'<dd><?php echo $item'."['$name']".' ?></dd>'. "\n\n";**/
+
+                        "\t\t".'<dd><?php echo empty($item'."['$name']".')? \'N/A\': $item'."['$name']".' ?></dd>'. "\n\n";
+                endif;
+            endforeach;
+
+            return $result;
+        } // end parse_names
+
+        /**
+         * 生成路径
+         */
+        protected function generate_directory($target_directory)
+        {
+            // 检查目标路径是否存在
+            if ( ! file_exists($target_directory) )
+                mkdir($target_directory, 0777, TRUE); // 若不存在则新建，且允许新建多级子目录
+
+            // 设置目标路径（含文件名）
+            chmod($target_directory, 0777); // 设置权限为可写
+        } // end generate_directory
+
+        /**
+         * 生成API文档
+         *
+         * 不含需特别生成的类方法相关页面
+         * @param $data_to_create
+         * @param $apis
+         * @param $i
+         */
 		private function doc_api_generate($data_to_create, $apis, $i)
 		{
 			switch ($apis[$i]):
@@ -418,7 +549,14 @@
 			endif;
 		} // end doc_api_generate
 
-		// 生成页面文档，不含需特别生成的类方法相关页面
+        /**
+         * 生成页面文档
+         *
+         * 不含需特别生成的类方法相关页面
+         * @param $data_to_create
+         * @param $pages
+         * @param $title
+         */
 		private function doc_page_generate($data_to_create, $pages, $title)
 		{
 			switch ($title):
@@ -642,21 +780,12 @@
 		} // end doc_page_generate
 
         /**
-         * 生成路径
+         * 生成API控制器文件
+         *
+         * @param $target_directory
+         * @param $file_name
+         * @param $file_content
          */
-        public function generate_directory($target_directory)
-        {
-            // 检查目标路径是否存在
-            if ( ! file_exists($target_directory) )
-                mkdir($target_directory, 0777, TRUE); // 若不存在则新建，且允许新建多级子目录
-
-            // 设置目标路径（含文件名）
-            chmod($target_directory, 0777); // 设置权限为可写
-        } // end generate_directory
-
-		/**
-		 * 生成API文件
-		 */
 		private function api_file_generate($target_directory, $file_name, $file_content)
 		{
 			// 生成完整的文件所在目录
@@ -677,10 +806,14 @@
 				$this->result['error']['message'] = '类API文件创建失败';
 			endif;
 		} // end api_file_generate
-		
-		/**
-		 * 生成控制器文件
-		 */
+
+        /**
+         * 生成应用控制器文件
+         *
+         * @param $target_directory
+         * @param $file_name
+         * @param $file_content
+         */
 		private function controller_file_generate($target_directory, $file_name, $file_content)
 		{
 			// 生成完整的文件所在目录
@@ -702,15 +835,18 @@
 			endif;
 		} // end controller_file_generate
 
-		/**
-		 * 生成视图文件
+        /**
+         * 生成视图文件
          *
          * 部分文件需插入相关字段相关内容
-		 */
+         * @param $target_directory
+         * @param $file_name
+         * @param null $content_to_insert
+         */
 		private function view_file_generate($target_directory, $file_name, $content_to_insert = NULL)
 		{
 			// 获取模板文件并生成待生成API文件内容
-			$file_content = file_get_contents($_SERVER['DOCUMENT_ROOT']. '/file_templates/template_view/'. $file_name);
+			$file_content = file_get_contents($this->template_url. 'template_view/'. $file_name);
 			if ($content_to_insert != NULL)
 			    $file_content = str_replace('[[content]]', $content_to_insert, $file_content);
 
