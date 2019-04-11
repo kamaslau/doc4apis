@@ -40,9 +40,9 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
-		<a class="btn btn-default" title="所有<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name) ?>"><i class="fal fa-list fa-fw"></i> 所有<?php echo $this->class_name_cn ?></a>
-    <a class="btn btn-default" title="<?php echo $this->class_name_cn ?>回收站" href="<?php echo base_url($this->class_name.'/trash') ?>"><i class="fal fa-trash fa-fw"></i> 回收站</a>
-		<a class="btn btn-default" title="创建<?php echo $this->class_name_cn ?>" href="<?php echo base_url($this->class_name.'/create?project_id='.@$project['project_id']) ?>"><i class="fal fa-plus fa-fw"></i> 创建<?php echo $this->class_name_cn ?></a>
+		<a class="btn btn-default" :href="base_url + class_name"><i class="fal fa-list"></i> 所有{{ class_name_cn }}</a>
+    <a class="btn btn-default" :href="base_url + class_name + '/trash'"><i class="fal fa-trash"></i> 回收站</a>
+		<a class="btn btn-default" :href="base_url + class_name + '/create?project_id=' + '<?php echo $project['project_id'] ?>'"><i class="fal fa-plus"></i> 添加{{ class_name_cn }}</a>
 	</div>
 	<?php endif ?>
 
@@ -57,9 +57,9 @@
   if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
       ?>
     <ul class="list-unstyled horizontal">
-      <li><a href="<?php echo base_url($this->class_name.'/edit?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-edit"></i> 编辑</a></li>
-      <li><a href="<?php echo base_url($this->class_name.'/duplicate?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-copy"></i> 克隆</a></li>
-      <li><a title="下载所属类源文件" href="<?php echo base_url( $this->class_name.'/download/'. substr( $item['code'], 0, 3 ) ) ?>" target="_blank"><i class="fal fa-download"></i> 下载</a></li>
+      <li><a :href="base_url + class_name + '/edit?id=' + item[id_name]" target=_blank><i class="fal fa-edit"></i> 编辑</a></li>
+      <li><a :href="base_url + class_name + '/duplicate?id=' + item[id_name]" target=_blank><i class="fal fa-copy"></i> 克隆</a></li>
+      <li><a title="下载所属类源文件" :href="base_url + class_name + '/download/' + '<?php echo substr( $item['url'], 0, strpos($item['url'], '/') ) ?>'" target="_blank"><i class="fal fa-download"></i> 下载</a></li>
     </ul>
   <?php endif ?>
 
@@ -141,8 +141,14 @@
     el: '#content',
 
     data: {
-      id_name: 'api_id',
+      base_url: '<?php echo base_url() ?>',
+
+      class_name: '<?php echo $this->class_name ?>',
+      class_name_cn: '<?php echo $this->class_name_cn ?>',
+      id_name: '<?php echo $this->id_name ?>',
+
       url_stuff_detail: '<?php echo base_url('stuff/detail?id=') ?>',
+
       item: <?php echo empty($item)? '[]': json_encode($item) ?>
     }
   })

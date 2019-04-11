@@ -142,7 +142,7 @@
             // 生成非必要参数值
             $class_name = empty($this->input->post('class_name'))? $code: $this->input->post('class_name');
             $table_name = empty($this->input->post('table_name'))? $class_name: $this->input->post('table_name');
-            $id_name = empty($this->input->post('id_name'))? $class_name.'_id': $this->input->post('id_name');
+            $this->id_name = $id_name = empty($this->input->post('id_name'))? $class_name.'_id': $this->input->post('id_name');
             $doc_api = $this->input->post('doc_api') === 'yes'; // 是否生成API文档
             $doc_page = $this->input->post('doc_page') === 'yes'; // 是否生成页面文档
             $file_api = $this->input->post('file_api') === 'yes'; // 是否生成API控制器文件
@@ -156,7 +156,7 @@
 				'class_name' => $class_name,
 				'class_name_cn' => $class_name_cn,
 				'table_name' => $table_name,
-				'id_name' => $id_name,
+				'id_name' => $this->id_name,
 			);
 			$url = api_url($api_url);
 			try {
@@ -298,11 +298,10 @@
 
 				// 生成视图文件；部分页面需插入具体生成的内容
 				if ($file_view):
-					$pages_to_generate = array('create', 'detail', 'edit');
+					$pages_to_generate = array('create', 'detail', 'edit', 'form');
 					if ( in_array($name, $pages_to_generate) ):
 						$target_directory = 'views/'.strtolower( $class_name ).'/';
-						$file_name = $name. '.php';
-						$this->view_file_generate($target_directory, $file_name, $$name);
+						$this->view_file_generate($target_directory, $name, $$name);
 					endif;
 				endif;
 			endforeach;
@@ -314,8 +313,7 @@
                 if ($allow_edit_certain) $common_pages[] = 'edit_certain';
                 foreach ($common_pages as $name):
                     $target_directory = 'views/'.strtolower( $class_name ).'/';
-                    $file_name = $name. '.php';
-                    $this->view_file_generate($target_directory, $file_name);
+                    $this->view_file_generate($target_directory, $name);
                 endforeach;
             endif;
 
@@ -360,9 +358,11 @@
                 'params_respond' => '', // 响应参数（生成文档用）
                 'elements' => '', // 主要视图元素（生成文档用）
 
-                'create' => '', // 创建页请求参数信息
-                'edit' => '', // 编辑页请求参数信息
-                'detail' => '', // 详情页响应参数信息
+                // 视图文件HTML
+                'form' => '', // 创建/编辑（SPA）的表单组件内容
+                'create' => '', // 创建页
+                'edit' => '', // 编辑页
+                'detail' => '', // 详情页
             );
 
             foreach ($names_info as $column):
@@ -378,7 +378,7 @@
 
                 $result['params_request'] .= '<tr><td>'. $name. '</td><td>'.$type.'</td><td>'.($allow_null === 'YES'? '否': '是').'</td><td>示例</td><td>'.$comment.'</td></tr>'. "\n"; // 根据相应字段在数据库中是否允许为空，标识请求参数的必要性
 
-                // 对于其它信息，去除字段备注中全角分号之后的部分
+                // 对于其它信息，去除字段备注中首个全角分号之后的部分
                 $length_to_end = strpos($comment, '；');
                 if ( $length_to_end !== FALSE ) $comment = substr($comment, 0, $length_to_end);
 
@@ -386,9 +386,18 @@
                 $result['elements'] .= '<tr><td>┣'. $name. '</td><td>1</td><td>文本</td><td>'.$comment.'</td></tr>'. "\n";
 
                 // 不为通用字段创建表单验证规则、创建/编辑HTML
-                $meta_names = array('time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id',);
+                $meta_names = array($this->id_name, 'time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id',);
                 if ( ! in_array($name, $meta_names)):
                     $result['rules'] .= "\t\t\t". '$this->form_validation->set_rules('. "'$name', '$comment', 'trim". ($allow_null === 'NO'? '|required': NULL). "');". "\n";
+
+                    $result['form'] .=
+                        "\t\t\t\t\t\t".
+                        "<div class=form-group>
+                                <label class=\"col-sm-2\">$comment". ($allow_null === 'NO'? ' *': NULL). "</label>
+                                <div class=\"col-sm-10 input-group\">
+                                    <input v-model.lazy.trim=\"$name\" class=form-control type=text placeholder=\"$comment\"". ($allow_null === 'NO'? ' required': NULL). ">
+                                </div>
+                            </div>". "\n\n";
 
                     $result['create'] .=
                         "\t\t\t\t\t\t".
@@ -846,7 +855,8 @@
 		private function view_file_generate($target_directory, $file_name, $content_to_insert = NULL)
 		{
 			// 获取模板文件并生成待生成API文件内容
-			$file_content = file_get_contents($this->template_url. 'template_view/'. $file_name);
+			// $file_content = file_get_contents($this->template_url. 'view/php/'. $file_name. '.php');
+			$file_content = file_get_contents($this->template_url. 'view/vue/'. $file_name. '.vue');
 			if ($content_to_insert != NULL)
 			    $file_content = str_replace('[[content]]', $content_to_insert, $file_content);
 
@@ -855,7 +865,7 @@
             $this->generate_directory($target_directory);
 
             // 创建新文件并写入内容
-            $target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $target_directory. $file_name;
+            $target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $target_directory. $file_name. '.vue';
 			$result = file_put_contents($target_url, $file_content);
 			if ( $result !== FALSE ):
 				$this->result['status'] = 200;
