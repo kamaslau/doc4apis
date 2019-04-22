@@ -45,7 +45,8 @@
 							"key": "class_name",
 							"value": "biz",
 							"description": "类名称",
-							"type": "text"
+							"type": "text",
+							"disabled": true
 						},
 						{
 							"key": "table_name",
@@ -111,7 +112,8 @@
 							"key": "file_view",
 							"value": "yes",
 							"description": "是否生成应用视图文件",
-							"type": "text"
+							"type": "text",
+							"disabled": true
 						}
 					]
 				},

@@ -4,17 +4,8 @@
     <list default="true" id="597620d4-3fb9-404b-b7c5-5e4d3b5dc38a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/Tool.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Tool.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/api/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/api/detail.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/create.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/delete.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/detail.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/edit.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/edit_certain.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/restore.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/result.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/template_view/trash.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/Template_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/Template_api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,44 +69,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="861" lean-forward="true" selection-start-line="861" selection-end-line="861" />
-              <folding>
-                <element signature="e#16374#21125#0#PHP" />
-                <element signature="e#21317#31629#0#PHP" />
-                <element signature="e#31812#32541#0#PHP" />
-                <element signature="e#32723#33485#0#PHP" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/file_templates/view/vue/form.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/file_templates/view/vue/detail.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1005">
-              <caret line="67" column="2" lean-forward="true" selection-start-line="67" selection-start-column="2" selection-end-line="67" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/file_templates/view/vue/index.vue">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+            <state relative-caret-position="45">
+              <caret line="3" column="7" lean-forward="true" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -124,17 +82,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&lt;a title=&quot;编辑&quot;</find>
-      <find>fa-files-o</find>
-      <find>fa-copy</find>
-      <find>doc_api</find>
-      <find>extra_functions</find>
-      <find>视图</find>
-      <find>delete</find>
-      <find>branch_id</find>
-      <find>aria-hidden=&quot;true&quot;</find>
-      <find>aria-hidden=true</find>
-      <find>min-width:751px</find>
       <find>min-width:769px</find>
       <find>/* 宽度在768像素以上的设备 */</find>
       <find>$item[$this-&gt;id_name]</find>
@@ -154,6 +101,17 @@
       <find>$controller_file_content</find>
       <find>$file_code</find>
       <find>id_name</find>
+      <find>$this-&gt;table_info</find>
+      <find>$this-&gt;id_name</find>
+      <find>[[table_name</find>
+      <find>$project_id</find>
+      <find>[[params_request</find>
+      <find>[[params_respond</find>
+      <find>[[names_list</find>
+      <find>[[names_csv</find>
+      <find>[[rules</find>
+      <find>[[code</find>
+      <find>$extra_functions</find>
     </findStrings>
     <replaceStrings>
       <replace>if ( !emtpy($error) ) echo '&lt;div class=&quot;alert alert-warning&quot; role=alert&gt;'.$error.'&lt;/div&gt;';</replace>
@@ -177,6 +135,7 @@
       <replace>kamaslau@dingtalk.com</replace>
       <replace>$app_file_content</replace>
       <replace>$file_view</replace>
+      <replace>$this-&gt;info</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -235,14 +194,14 @@
         <option value="$PROJECT_DIR$/application/controllers/Api.php" />
         <option value="$PROJECT_DIR$/common.sql" />
         <option value="$PROJECT_DIR$/file_templates/Template_app.php" />
-        <option value="$PROJECT_DIR$/file_templates/Template_api.php" />
         <option value="$PROJECT_DIR$/application/views/api/detail.php" />
-        <option value="$PROJECT_DIR$/application/views/templates/header.php" />
         <option value="$PROJECT_DIR$/file_templates/view/vue/index.vue" />
         <option value="$PROJECT_DIR$/file_templates/view/vue/create.vue" />
-        <option value="$PROJECT_DIR$/application/controllers/Tool.php" />
         <option value="$PROJECT_DIR$/file_templates/view/vue/form.vue" />
         <option value="$PROJECT_DIR$/file_templates/view/vue/detail.vue" />
+        <option value="$PROJECT_DIR$/application/controllers/Tool.php" />
+        <option value="$PROJECT_DIR$/file_templates/Template_api.php" />
+        <option value="$PROJECT_DIR$/application/views/templates/header.php" />
       </list>
     </option>
   </component>
@@ -256,9 +215,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="1171" />
-    <option name="y" value="306" />
+    <option name="y" value="99" />
     <option name="width" value="1331" />
-    <option name="height" value="1102" />
+    <option name="height" value="1309" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -268,6 +227,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -275,34 +235,10 @@
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="vue" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -419,11 +355,15 @@
       <workItem from="1554880001951" duration="2838000" />
       <workItem from="1554903783144" duration="11989000" />
       <workItem from="1554997832551" duration="6550000" />
+      <workItem from="1555140899539" duration="439000" />
+      <workItem from="1555176343837" duration="93000" />
+      <workItem from="1555869093157" duration="101000" />
+      <workItem from="1555937610687" duration="10525000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134114000" />
+    <option name="totallyTimeSpent" value="145272000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -435,14 +375,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1171" y="306" width="1331" height="1102" extended-state="0" />
+    <frame x="1171" y="99" width="1331" height="1309" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5772277" visible="true" weight="0.1598138" />
-      <window_info id="Structure" order="1" sideWeight="0.4227723" side_tool="true" visible="true" weight="0.1598138" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5735415" visible="true" weight="0.16912335" />
+      <window_info id="Structure" order="1" sideWeight="0.4264585" side_tool="true" visible="true" weight="0.16912335" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32871288" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286771" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.20732984" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -470,14 +410,6 @@
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/composer.lock" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -655,20 +587,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/template_view/create.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/Template_app.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/template_view/create.php" />
     <entry file="das://64ad0588-9386-4d27-b66e-78c1ed50b3a5/schema/jianshu/table/article">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -693,13 +612,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="127" column="46" selection-start-line="127" selection-start-column="46" selection-end-line="127" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/Api.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -711,13 +623,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
           <caret line="62" column="9" lean-forward="true" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
         </state>
       </provider>
     </entry>
@@ -745,19 +650,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="861" lean-forward="true" selection-start-line="861" selection-end-line="861" />
-          <folding>
-            <element signature="e#16374#21125#0#PHP" />
-            <element signature="e#21317#31629#0#PHP" />
-            <element signature="e#31812#32541#0#PHP" />
-            <element signature="e#32723#33485#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/file_templates/view/vue/form.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -768,14 +660,73 @@
     <entry file="file://$PROJECT_DIR$/file_templates/view/vue/detail.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1005">
-          <caret line="67" column="2" lean-forward="true" selection-start-line="67" selection-start-column="2" selection-end-line="67" selection-end-column="2" />
+          <caret line="67" column="2" selection-start-line="67" selection-start-column="2" selection-end-line="67" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/file_templates/view/vue/index.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
-          <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/Template_app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="81" column="25" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generated/api/Biz.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="547" lean-forward="true" selection-start-line="547" selection-end-line="547" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="366" column="23" lean-forward="true" selection-start-line="366" selection-start-column="23" selection-end-line="366" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="414" column="83" lean-forward="true" selection-start-line="414" selection-start-column="83" selection-end-line="414" selection-end-column="83" />
+          <folding>
+            <element signature="e#357#735#0#PHP" />
+            <element signature="e#841#1468#0#PHP" />
+            <element signature="e#1502#2994#0#PHP" />
+            <element signature="e#3489#3750#0#PHP" />
+            <element signature="e#5059#5505#0#PHP" />
+            <element signature="e#9294#9489#0#PHP" />
+            <element signature="e#9715#10656#0#PHP" />
+            <element signature="e#10022#10293#0#PHP" />
+            <element signature="e#10332#10482#0#PHP" />
+            <element signature="e#10517#10807#0#PHP" />
+            <element signature="e#10695#11125#0#PHP" />
+            <element signature="e#17187#17501#0#PHP" />
+            <element signature="e#17427#22178#0#PHP" />
+            <element signature="e#17031#21400#0#PHP" />
+            <element signature="e#22673#32993#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-599">
+          <caret line="43" column="12" lean-forward="true" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="7" lean-forward="true" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
         </state>
       </provider>
     </entry>

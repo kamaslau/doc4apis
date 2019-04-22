@@ -49,7 +49,7 @@
          * 应删除time_create等需在MY_Controller通过names_return_for_admin等类属性声明的字段名
 		 */
 		protected $names_to_return = array(
-			[[names_list]]
+			'[[id_name]]', [[names_list]] 'time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id',
 		);
 
 		/**
@@ -115,7 +115,7 @@
             $condition = $this->advanced_sorter($condition);
 
             // 商家仅可操作自己的数据
-            if ($this->app_type === 'biz') $condition['biz_id'] = $this->post_input('biz_id');
+            //if ($this->app_type === 'biz') $condition['biz_id'] = $this->post_input('biz_id');
 
 			// 获取列表；默认可获取已删除项
 			$count = $this->basic_model->count($condition);
@@ -253,8 +253,7 @@
 			$this->load->library('form_validation');
 			$this->form_validation->set_error_delimiters('', '')->set_data($this->post_input); // 待验证数据
 			// 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
-			[[rules]]
-
+[[rules]]
 			// 若表单提交不成功
 			if ($this->form_validation->run() === FALSE):
 				$this->result['status'] = 401;
@@ -263,7 +262,7 @@
 			else:
 				// 需要创建的数据；逐一赋值需特别处理的字段
 				$data_to_create = array(
-					'creator_id' => $user_id,
+					'creator_id' => $operator_id,
 
                     //'name' => empty($this->post_input('name'))? NULL: $this->post_input('name'),
 				);
@@ -318,7 +317,7 @@
 			// 初始化并配置表单验证库
 			$this->load->library('form_validation');
 			$this->form_validation->set_error_delimiters('', '')->set_data($this->post_input); // 待验证数据
-			[[rules]]
+[[rules]]
 			// 针对特定条件的验证规则
 			if ($this->app_type === '管理员'):
 				// ...
@@ -332,7 +331,7 @@
 			else:
 				// 需要编辑的数据；逐一赋值需特别处理的字段
 				$data_to_edit = array(
-					'operator_id' => $user_id,
+					'operator_id' => $operator_id,
 
                     //'name' => empty($this->post_input('name'))? NULL: $this->post_input('name'),
 				);
@@ -419,8 +418,7 @@
 			// 动态设置待验证字段名及字段值
 			$data_to_validate["{$name}"] = $value;
 			$this->form_validation->set_data($data_to_validate);
-			[[rules]]
-
+[[rules]]
 			// 若表单提交不成功
 			if ($this->form_validation->run() === FALSE):
 				$this->result['status'] = 401;
@@ -428,7 +426,7 @@
 
 			else:
 				// 需要编辑的数据
-				$data_to_edit['operator_id'] = $user_id;
+				$data_to_edit['operator_id'] = $operator_id;
 				$data_to_edit[$name] = $value;
 
 				// 获取ID
