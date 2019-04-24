@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="597620d4-3fb9-404b-b7c5-5e4d3b5dc38a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Tool.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Tool.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/header.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file_templates/Template_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/Template_api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -70,10 +68,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+        <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="7" lean-forward="true" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+            <state relative-caret-position="435">
+              <caret line="466" column="33" selection-start-line="466" selection-start-column="33" selection-end-line="466" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -200,8 +198,8 @@
         <option value="$PROJECT_DIR$/file_templates/view/vue/form.vue" />
         <option value="$PROJECT_DIR$/file_templates/view/vue/detail.vue" />
         <option value="$PROJECT_DIR$/application/controllers/Tool.php" />
-        <option value="$PROJECT_DIR$/file_templates/Template_api.php" />
         <option value="$PROJECT_DIR$/application/views/templates/header.php" />
+        <option value="$PROJECT_DIR$/file_templates/Template_api.php" />
       </list>
     </option>
   </component>
@@ -213,7 +211,7 @@
       <path value="$PROJECT_DIR$/vendor/composer" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="1171" />
     <option name="y" value="99" />
     <option name="width" value="1331" />
@@ -234,6 +232,11 @@
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
+              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -359,11 +362,12 @@
       <workItem from="1555176343837" duration="93000" />
       <workItem from="1555869093157" duration="101000" />
       <workItem from="1555937610687" duration="10525000" />
+      <workItem from="1556128649799" duration="668000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="145272000" />
+    <option name="totallyTimeSpent" value="145940000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -375,11 +379,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1171" y="99" width="1331" height="1309" extended-state="0" />
+    <frame x="1171" y="99" width="1331" height="1309" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5735415" visible="true" weight="0.16912335" />
-      <window_info id="Structure" order="1" sideWeight="0.4264585" side_tool="true" visible="true" weight="0.16912335" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5721973" visible="true" weight="0.17145073" />
+      <window_info active="true" id="Structure" order="1" sideWeight="0.42780268" side_tool="true" visible="true" weight="0.17145073" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286771" />
@@ -392,7 +396,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32893288" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.11661166" />
       <window_info anchor="bottom" id="REST Client" order="10" weight="0.32984293" />
-      <window_info anchor="bottom" id="File Transfer" order="11" sideWeight="0.4996121" weight="0.08415841" />
+      <window_info anchor="bottom" id="File Transfer" order="11" sideWeight="0.4996121" visible="true" weight="0.083812654" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.32893288" />
@@ -678,20 +682,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generated/api/Biz.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="547" lean-forward="true" selection-start-line="547" selection-end-line="547" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="366" column="23" lean-forward="true" selection-start-line="366" selection-start-column="23" selection-end-line="366" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/generated/api/Biz.php" />
     <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
@@ -726,7 +717,14 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
-          <caret line="3" column="7" lean-forward="true" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+          <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="466" column="33" selection-start-line="466" selection-start-column="33" selection-end-line="466" selection-end-column="33" />
         </state>
       </provider>
     </entry>

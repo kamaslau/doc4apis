@@ -95,6 +95,9 @@
 		{
 			parent::__construct();
 
+            // （可选）全局验证JWT
+            // $this->token_check();
+
 			// 设置主要数据库信息
 			$this->table_name = '[[table_name]]'; // 这里……
 			$this->id_name = '[[id_name]]'; // 这里……
@@ -227,6 +230,9 @@
 		 */
 		public function create()
 		{
+            // （可选）验证JWT
+            $this->token_check();
+
 			// 操作可能需要检查客户端及设备信息
 			$type_allowed = array('admin', 'biz', 'client'); // 客户端类型
 			$platform_allowed = array('ios', 'android', 'weapp', 'web'); // 客户端平台
@@ -292,6 +298,9 @@
 		 */
 		public function edit()
 		{
+            // （可选）验证JWT
+            $this->token_check();
+
 			// 操作可能需要检查客户端及设备信息
 			$type_allowed = array('admin', 'biz', 'client'); // 客户端类型
 			$platform_allowed = array('ios', 'android', 'weapp', 'web'); // 客户端平台
@@ -368,6 +377,9 @@
 		 */
 		public function edit_certain()
 		{
+            // （可选）验证JWT
+            $this->token_check();
+
             // 操作可能需要检查客户端及设备信息
             $type_allowed = array('admin', 'biz', 'client'); // 客户端类型
             $platform_allowed = array('ios', 'android', 'weapp', 'web'); // 客户端平台
@@ -451,6 +463,9 @@
          */
         public function edit_bulk()
         {
+            // （可选）验证JWT
+            $this->token_check();
+
             // 操作可能需要检查客户端及设备信息
             $type_allowed = array('admin', 'biz', 'client'); // 客户端类型
             $platform_allowed = array('ios', 'android', 'weapp', 'web'); // 客户端平台
