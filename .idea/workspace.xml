@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="597620d4-3fb9-404b-b7c5-5e4d3b5dc38a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc4apis.postman_collection.json" beforeDir="false" afterPath="$PROJECT_DIR$/doc4apis.postman_collection.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file_templates/Template_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/Template_api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -70,8 +72,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="466" column="33" selection-start-line="466" selection-start-column="33" selection-end-line="466" selection-end-column="33" />
+            <state relative-caret-position="734">
+              <caret line="281" column="19" selection-start-line="281" selection-start-column="19" selection-end-line="281" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -80,7 +82,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>min-width:769px</find>
       <find>/* 宽度在768像素以上的设备 */</find>
       <find>$item[$this-&gt;id_name]</find>
       <find>composer</find>
@@ -110,6 +111,7 @@
       <find>[[rules</find>
       <find>[[code</find>
       <find>$extra_functions</find>
+      <find>414</find>
     </findStrings>
     <replaceStrings>
       <replace>if ( !emtpy($error) ) echo '&lt;div class=&quot;alert alert-warning&quot; role=alert&gt;'.$error.'&lt;/div&gt;';</replace>
@@ -134,6 +136,7 @@
       <replace>$app_file_content</replace>
       <replace>$file_view</replace>
       <replace>$this-&gt;info</replace>
+      <replace>404</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -225,7 +228,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -236,12 +238,24 @@
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
+              <item name="generated" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
+              <item name="generated" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -363,11 +377,13 @@
       <workItem from="1555869093157" duration="101000" />
       <workItem from="1555937610687" duration="10525000" />
       <workItem from="1556128649799" duration="668000" />
+      <workItem from="1556223151555" duration="1401000" />
+      <workItem from="1556227496472" duration="681000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="145940000" />
+    <option name="totallyTimeSpent" value="148022000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -380,10 +396,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1171" y="99" width="1331" height="1309" extended-state="1" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5721973" visible="true" weight="0.17145073" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.42780268" side_tool="true" visible="true" weight="0.17145073" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5704036" visible="true" weight="0.17610551" />
+      <window_info id="Structure" order="1" sideWeight="0.42959642" side_tool="true" visible="true" weight="0.17610551" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286771" />
@@ -404,7 +419,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" weight="0.32893717" />
-      <window_info anchor="right" id="Remote Host" order="4" weight="0.22417465" />
+      <window_info anchor="right" id="Remote Host" order="4" weight="0.22342901" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -707,13 +722,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-599">
-          <caret line="43" column="12" lean-forward="true" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -721,10 +729,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="67">
+          <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="466" column="33" selection-start-line="466" selection-start-column="33" selection-end-line="466" selection-end-column="33" />
+        <state relative-caret-position="734">
+          <caret line="281" column="19" selection-start-line="281" selection-start-column="19" selection-end-line="281" selection-end-column="19" />
         </state>
       </provider>
     </entry>

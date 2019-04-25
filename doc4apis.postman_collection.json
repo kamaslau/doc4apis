@@ -43,7 +43,7 @@
 						},
 						{
 							"key": "class_name",
-							"value": "biz",
+							"value": "branch",
 							"description": "类名称",
 							"type": "text",
 							"disabled": true
@@ -64,7 +64,7 @@
 						},
 						{
 							"key": "api_url",
-							"value": "https://api.bandaodian.com/tool/table_info",
+							"value": "https://api.imakp.com/tool/table_info",
 							"type": "text"
 						},
 						{

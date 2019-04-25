@@ -128,7 +128,7 @@
 				$this->result['content']['count'] = $count;
 
 			else:
-				$this->result['status'] = 414;
+				$this->result['status'] = 404;
 				$this->result['content']['error']['message'] = '没有符合条件的数据';
 
 			endif;
@@ -188,7 +188,7 @@
 				$this->result['content'] = $items;
 
 			else:
-				$this->result['status'] = 414;
+				$this->result['status'] = 404;
 				$this->result['content']['error']['message'] = '没有符合条件的数据';
 			
 			endif;
@@ -219,7 +219,7 @@
 				$this->result['content'] = $item;
 
 			else:
-				$this->result['status'] = 414;
+				$this->result['status'] = 404;
 				$this->result['content']['error']['message'] = '没有符合条件的数据';
 
 			endif;
@@ -231,7 +231,7 @@
 		public function create()
 		{
             // （可选）验证JWT
-            $this->token_check();
+            // $this->token_check();
 
 			// 操作可能需要检查客户端及设备信息
 			$type_allowed = array('admin', 'biz', 'client'); // 客户端类型
@@ -279,7 +279,8 @@
 				foreach ($data_need_no_prepare as $name)
                     $data_to_create[$name] = $this->post_input($name);
 
-				$result = $this->basic_model->create($data_to_create, TRUE);
+				// $result = $this->basic_model->create($data_to_create, TRUE);
+                $result = $this->basic_model->create(array_filter( $data_to_create ), TRUE);
 				if ($result !== FALSE):
 					$this->result['status'] = 200;
 					$this->result['content']['id'] = $result;
@@ -299,7 +300,7 @@
 		public function edit()
 		{
             // （可选）验证JWT
-            $this->token_check();
+            // $this->token_check();
 
 			// 操作可能需要检查客户端及设备信息
 			$type_allowed = array('admin', 'biz', 'client'); // 客户端类型
@@ -378,7 +379,7 @@
 		public function edit_certain()
 		{
             // （可选）验证JWT
-            $this->token_check();
+            // $this->token_check();
 
             // 操作可能需要检查客户端及设备信息
             $type_allowed = array('admin', 'biz', 'client'); // 客户端类型
@@ -464,7 +465,7 @@
         public function edit_bulk()
         {
             // （可选）验证JWT
-            $this->token_check();
+            // $this->token_check();
 
             // 操作可能需要检查客户端及设备信息
             $type_allowed = array('admin', 'biz', 'client'); // 客户端类型
