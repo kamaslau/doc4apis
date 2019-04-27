@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="597620d4-3fb9-404b-b7c5-5e4d3b5dc38a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc4apis.postman_collection.json" beforeDir="false" afterPath="$PROJECT_DIR$/doc4apis.postman_collection.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/Template_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/Template_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/create.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/detail.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/edit.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/form.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/index.vue" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,19 +68,6 @@
       </path>
     </expand>
     <select />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="734">
-              <caret line="281" column="19" selection-start-line="281" selection-start-column="19" selection-end-line="281" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -228,6 +217,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -243,19 +233,18 @@
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="generated" type="462c0819:PsiDirectoryNode" />
+              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="generated" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -379,11 +368,13 @@
       <workItem from="1556128649799" duration="668000" />
       <workItem from="1556223151555" duration="1401000" />
       <workItem from="1556227496472" duration="681000" />
+      <workItem from="1556263390540" duration="180000" />
+      <workItem from="1556390387875" duration="1091000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="148022000" />
+    <option name="totallyTimeSpent" value="149293000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -397,8 +388,8 @@
   <component name="ToolWindowManager">
     <frame x="1171" y="99" width="1331" height="1309" extended-state="1" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5704036" visible="true" weight="0.17610551" />
-      <window_info id="Structure" order="1" sideWeight="0.42959642" side_tool="true" visible="true" weight="0.17610551" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5686099" visible="true" weight="0.18076028" />
+      <window_info id="Structure" order="1" sideWeight="0.43139014" side_tool="true" visible="true" weight="0.18076028" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286771" />
