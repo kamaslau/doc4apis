@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="597620d4-3fb9-404b-b7c5-5e4d3b5dc38a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Tool.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Tool.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/components/biz_brief.vue" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/view/vue/components/_brief.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/components/biz_form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/view/vue/components/_form.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/page/form.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/page/class_name.vue" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/view/vue/page/class_name.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,23 +67,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="77">
-              <caret line="244" lean-forward="true" selection-start-line="244" selection-end-line="244" />
-              <folding>
-                <element signature="e#986#1364#0#PHP" />
-                <element signature="e#1470#2097#0#PHP" />
-                <element signature="e#2131#3623#0#PHP" />
-                <element signature="e#9566#12535#0#PHP" />
-                <element signature="e#12426#13459#0#PHP" />
-                <element signature="e#13609#17714#0#PHP" />
-                <element signature="e#18346#23093#0#PHP" />
-                <element signature="e#23285#33853#0#PHP" />
-                <element signature="e#34036#34765#0#PHP" />
-                <element signature="e#34947#35709#0#PHP" />
-              </folding>
+              <caret line="244" selection-start-line="244" selection-end-line="244" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/file_templates/view/vue/page/class_name.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="8" column="138" lean-forward="true" selection-start-line="8" selection-start-column="138" selection-end-line="8" selection-end-column="138" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="127">
+              <caret line="33" column="47" lean-forward="true" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -165,7 +168,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/application/views/page/index.php" />
         <option value="$PROJECT_DIR$/application/views/page/detail.php" />
         <option value="$PROJECT_DIR$/application/views/user/mine.php" />
         <option value="$PROJECT_DIR$/application/views/user/edit.php" />
@@ -213,9 +215,10 @@
         <option value="$PROJECT_DIR$/file_templates/view/vue/create.vue" />
         <option value="$PROJECT_DIR$/file_templates/view/vue/form.vue" />
         <option value="$PROJECT_DIR$/file_templates/view/vue/detail.vue" />
-        <option value="$PROJECT_DIR$/application/views/templates/header.php" />
         <option value="$PROJECT_DIR$/file_templates/Template_api.php" />
         <option value="$PROJECT_DIR$/application/controllers/Tool.php" />
+        <option value="$PROJECT_DIR$/file_templates/view/vue/page/class_name.vue" />
+        <option value="$PROJECT_DIR$/application/views/templates/header.php" />
       </list>
     </option>
   </component>
@@ -251,28 +254,20 @@
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="vue" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="vue" type="462c0819:PsiDirectoryNode" />
-              <item name="page" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
@@ -412,11 +407,12 @@
       <workItem from="1556459962106" duration="598000" />
       <workItem from="1556548194850" duration="357000" />
       <workItem from="1556558700171" duration="5044000" />
+      <workItem from="1556564138503" duration="61000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="155292000" />
+    <option name="totallyTimeSpent" value="155353000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -431,8 +427,8 @@
     <frame x="1171" y="99" width="1331" height="1309" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5659193" visible="true" weight="0.18774244" />
-      <window_info id="Structure" order="1" sideWeight="0.43408072" side_tool="true" visible="true" weight="0.18774244" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5650224" visible="true" weight="0.19006982" />
+      <window_info id="Structure" order="1" sideWeight="0.4349776" side_tool="true" visible="true" weight="0.19006982" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286771" />
@@ -453,7 +449,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" weight="0.32893717" />
-      <window_info active="true" anchor="right" id="Remote Host" order="4" visible="true" weight="0.22342901" />
+      <window_info anchor="right" id="Remote Host" order="4" visible="true" weight="0.22342901" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -463,13 +459,6 @@
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/autolayouter.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
@@ -706,13 +695,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/file_templates/Template_api.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="734">
@@ -730,19 +712,21 @@
     <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="77">
-          <caret line="244" lean-forward="true" selection-start-line="244" selection-end-line="244" />
-          <folding>
-            <element signature="e#986#1364#0#PHP" />
-            <element signature="e#1470#2097#0#PHP" />
-            <element signature="e#2131#3623#0#PHP" />
-            <element signature="e#9566#12535#0#PHP" />
-            <element signature="e#12426#13459#0#PHP" />
-            <element signature="e#13609#17714#0#PHP" />
-            <element signature="e#18346#23093#0#PHP" />
-            <element signature="e#23285#33853#0#PHP" />
-            <element signature="e#34036#34765#0#PHP" />
-            <element signature="e#34947#35709#0#PHP" />
-          </folding>
+          <caret line="244" selection-start-line="244" selection-end-line="244" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/view/vue/page/class_name.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="8" column="138" lean-forward="true" selection-start-line="8" selection-start-column="138" selection-end-line="8" selection-end-column="138" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/templates/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="33" column="47" lean-forward="true" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
         </state>
       </provider>
     </entry>
