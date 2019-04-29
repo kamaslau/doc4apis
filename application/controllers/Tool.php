@@ -18,6 +18,20 @@
 	    protected $template_url;
 
         /**
+         * 视图模板文件根URL
+         *
+         * @var string
+         */
+	    protected $view_template_root;
+
+        /**
+         * 视图文件模式
+         *
+         * @var string vue|php
+         */
+	    protected $view_mode = 'vue';
+
+        /**
          * 数据表信息
          *
          * @var array
@@ -31,8 +45,10 @@
             'params_respond' => '', // 响应参数（生成文档用）
             'elements' => '', // 主要视图元素（生成文档用）
 
-            // 视图文件HTML
+            // Vue.js视图文件
             'form' => '', // 创建/编辑（SPA）的表单组件内容
+            'brief' => '', // 详情页组件内容
+            // PHP视图文件
             'create' => '', // 创建页
             'edit' => '', // 编辑页
             'detail' => '', // 详情页
@@ -193,6 +209,15 @@
             $file_view = $this->input->post('file_view') === 'yes'; // 生成应用视图文件？
             $allow_edit_certain = $this->input->post('allow_edit_certain') === 'yes'; // 包含"单项修改"方法？
             $extra_functions = $this->input->post('extra_functions'); // 非标准功能
+            // 若需要生成文件，配置相关路径
+            if ($file_view || $file_app || $file_api):
+                // 赋值模板文件路径
+                $this->template_url = $_SERVER['DOCUMENT_ROOT']. '/file_templates/';
+
+                // 根据视图文件模式，生成视图文件根路径
+                if ($file_view)
+                    $this->view_template_root = $this->template_url. 'view/'. $this->view_mode. '/';
+            endif;
 
             /**
              * 生成API或页面文档
@@ -218,7 +243,7 @@
 				unset($doc_content_api);
 			endfor;
 
-			// 生成页面文档
+			// 生成页面文档及视图文件
 			$pages = array(
 				'result' => '操作结果',
 				'index' => '列表',
@@ -228,58 +253,65 @@
 				'edit_certain' => '单项修改',
 				'delete' => '删除',
 				'restore' => '找回',
-			); // 需生成文档的常规功能页面
+                'form' => '',
+                'brief' => '',
+			);
+            // 需生成文档的页面
+            $pages_to_doc = array(
+                'result', 'index', 'detail', 'create', 'edit', 'edit_certain', 'delete', 'restore',
+            );
+            // 需生成视图文件的页面
+            $pages_to_generate = array(
+                'create', 'detail', 'edit', 'form', 'brief',
+            );
+            if ($this->view_mode === 'vue') $pages_to_generate[] = 'index';
             if ( ! $allow_edit_certain) unset($pages['edit_certain']); // 若不允许修改单项，则不生成相应文档
 			if ( ! empty($extra_functions)) $pages = array_merge($pages, $extra_functions);  // 其它附加功能
-			$i = 0; // 页面序号
+			$i = 0; // 初始化页面序号
 			foreach ($pages as $name => $title):
 				// 为特殊功能做特别处理
 				if ( is_numeric($name) ) $name = $title;
 
-				// 页面文档必要字段
-				$doc_content_page = array(
-					'biz_id' => $biz_id,
-					'project_id' => $project_id,
-					'name' => $this->info['class_name_cn']. $title,
-					'code' => $this->info['code'].'P'. $i,
-					'code_class' => strtolower( $this->info['class_name'] ),
-					'code_function' => $name,
-					'status' => '0', // 默认为草稿状态
-				);
-				$i++; // 更新序号
-
 				// 生成页面文档
-				if ($doc_page):
+				if ($doc_page && in_array($name, $pages_to_doc)):
+                    // 页面文档必要字段
+                    $doc_content_page = array(
+                        'biz_id' => $biz_id,
+                        'project_id' => $project_id,
+                        'name' => $this->info['class_name_cn']. $title,
+                        'code' => $this->info['code'].'P'. $i,
+                        'code_class' => strtolower( $this->info['class_name'] ),
+                        'code_function' => $name,
+                        'status' => '0', // 默认为草稿状态
+                    );
+
 					$this->doc_page_generate($doc_content_page, $pages, $title);
                     unset($doc_content_page);
                 endif;
+                $i++; // 更新序号
 
 				// 生成视图文件；部分页面需插入具体生成的内容
-				if ($file_view):
-					$pages_to_generate = array('create', 'detail', 'edit', 'form');
-					if ( in_array($name, $pages_to_generate) ):
-						$target_directory = 'views/'.strtolower( $this->info['class_name'] ).'/';
-						$this->view_file_generate($target_directory, $name, $$name);
-					endif;
+				if ($file_view && in_array($name, $pages_to_generate)):
+                    $target_directory = 'views/'.strtolower( $this->info['class_name'] ).'/';
+                    $this->view_file_generate($target_directory, $name, $this->info[$name]);
 				endif;
 			endforeach;
+
+            unset($biz_id, $project_id); // 回收内存
+
+            // PHP 生成通用视图文件
+            if ($file_view && $this->view_mode === 'php'):
+                $common_pages = array('delete', 'index', 'restore', 'result', 'trash',);
+                if ($allow_edit_certain) $common_pages[] = 'edit_certain';
+                foreach ($common_pages as $name):
+                    $target_directory = 'views/'.strtolower( $this->info['class_name'] ).'/';
+                    $this->view_file_generate($target_directory, $name);
+                endforeach;
+            endif;
 
             /**
              * 生成视图或控制器文件
              */
-            unset($biz_id, $project_id); // 回收内存
-            // 若需要生成文件，赋值模板文件路径
-			if ($file_view || $file_app || $file_api) $this->template_url = $_SERVER['DOCUMENT_ROOT']. '/file_templates/';
-
-            // 生成通用视图文件
-            if ($file_view):
-                $common_pages = array('delete', 'index', 'restore', 'result', 'trash',);
-                if ($allow_edit_certain) $common_pages[] = 'edit_certain';
-                foreach ($common_pages as $name):
-                    $target_directory = 'views/'.strtolower( $class_name ).'/';
-                    $this->view_file_generate($target_directory, $name);
-                endforeach;
-            endif;
 
             // 生成控制器文件
             if ($file_app || $file_api):
@@ -427,13 +459,17 @@
 
                     $this->info['form'] .=
                         "\t\t\t\t\t\t".
-                        "<div class=form-group>
+                        "<div class=\"form-group row\">
                             <label class=\"col-form-label col-sm-2\">$comment". ($required? ' *': NULL). "</label>
                             
                             <div class=\"input-group col-sm-10\">
-                                <input v-model.lazy.trim=\"$name\" class=form-control type=text placeholder=\"$comment\"". ($required? ' required': NULL). ">
+                                <input v-model.trim.lazy=\"$name\" class=form-control type=text placeholder=\"$comment\"". ($required? ' required': NULL). ">
                             </div>
                         </div>". "\n\n";
+
+                    $this->info['brief'] .=
+                        "\t\t".'<dt>'.$comment.'</dt>'. "\n".
+                        "\t\t".'<dd>{{ item.'. $name. ' }}</dd>'. "\n\n";
 
                     $this->info['create'] .=
                         "\t\t\t\t\t\t".
@@ -890,18 +926,29 @@
          */
 		private function view_file_generate($target_directory, $file_name, $content_to_insert = NULL)
 		{
+		    // 为vue视图模式生成特定的视图路径
+		    if ($this->view_mode === 'vue'):
+                if ($file_name === 'form' || $file_name === 'brief'):
+                    $file_name = '_'.$file_name;
+                    $template_root = $this->view_template_root .'components/';
+                else:
+                    $template_root = $this->view_template_root .'page/';
+                endif;
+            else:
+                $template_root = $this->view_template_root;
+            endif;
+
 			// 获取模板文件并生成待生成API文件内容
-			// $file_content = file_get_contents($this->template_url. 'view/php/'. $file_name. '.php');
-			$file_content = file_get_contents($this->template_url. 'view/vue/'. $file_name. '.vue');
+			$file_content = file_get_contents($template_root. $file_name. '.'.$this->view_mode);
 			if ($content_to_insert != NULL)
 			    $file_content = str_replace('[[content]]', $content_to_insert, $file_content);
 
-			// 生成完整的文件所在目录
+			// 生成完整的文件写入目录
 			$target_directory = 'generated/'. $target_directory;
             $this->generate_directory($target_directory);
 
             // 创建新文件并写入内容
-            $target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $target_directory. $file_name. '.vue';
+            $target_url = $_SERVER['DOCUMENT_ROOT']. '/'. $target_directory. $file_name. '.'.$this->view_mode;
 			$result = file_put_contents($target_url, $file_content);
 			if ( $result !== FALSE ):
 				$this->result['status'] = 200;

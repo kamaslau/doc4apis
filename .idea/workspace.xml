@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="597620d4-3fb9-404b-b7c5-5e4d3b5dc38a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/create.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/detail.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/edit.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/form.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Tool.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Tool.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/components/biz_brief.vue" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/view/vue/components/_brief.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/components/biz_form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/file_templates/view/vue/components/_form.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_templates/view/vue/page/form.vue" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,6 +67,31 @@
       </path>
     </expand>
     <select />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="77">
+              <caret line="244" lean-forward="true" selection-start-line="244" selection-end-line="244" />
+              <folding>
+                <element signature="e#986#1364#0#PHP" />
+                <element signature="e#1470#2097#0#PHP" />
+                <element signature="e#2131#3623#0#PHP" />
+                <element signature="e#9566#12535#0#PHP" />
+                <element signature="e#12426#13459#0#PHP" />
+                <element signature="e#13609#17714#0#PHP" />
+                <element signature="e#18346#23093#0#PHP" />
+                <element signature="e#23285#33853#0#PHP" />
+                <element signature="e#34036#34765#0#PHP" />
+                <element signature="e#34947#35709#0#PHP" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -189,9 +213,9 @@
         <option value="$PROJECT_DIR$/file_templates/view/vue/create.vue" />
         <option value="$PROJECT_DIR$/file_templates/view/vue/form.vue" />
         <option value="$PROJECT_DIR$/file_templates/view/vue/detail.vue" />
-        <option value="$PROJECT_DIR$/application/controllers/Tool.php" />
         <option value="$PROJECT_DIR$/application/views/templates/header.php" />
         <option value="$PROJECT_DIR$/file_templates/Template_api.php" />
+        <option value="$PROJECT_DIR$/application/controllers/Tool.php" />
       </list>
     </option>
   </component>
@@ -203,7 +227,7 @@
       <path value="$PROJECT_DIR$/vendor/composer" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="1171" />
     <option name="y" value="99" />
     <option name="width" value="1331" />
@@ -217,18 +241,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
@@ -241,10 +259,31 @@
               <item name="file_templates" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
+              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="vue" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
+              <item name="file_templates" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="vue" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="doc4apis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="doc4apis" type="462c0819:PsiDirectoryNode" />
+              <item name="generated" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -370,11 +409,14 @@
       <workItem from="1556227496472" duration="681000" />
       <workItem from="1556263390540" duration="180000" />
       <workItem from="1556390387875" duration="1091000" />
+      <workItem from="1556459962106" duration="598000" />
+      <workItem from="1556548194850" duration="357000" />
+      <workItem from="1556558700171" duration="5044000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149293000" />
+    <option name="totallyTimeSpent" value="155292000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -386,10 +428,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1171" y="99" width="1331" height="1309" extended-state="1" />
+    <frame x="1171" y="99" width="1331" height="1309" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5686099" visible="true" weight="0.18076028" />
-      <window_info id="Structure" order="1" sideWeight="0.43139014" side_tool="true" visible="true" weight="0.18076028" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5659193" visible="true" weight="0.18774244" />
+      <window_info id="Structure" order="1" sideWeight="0.43408072" side_tool="true" visible="true" weight="0.18774244" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286771" />
@@ -410,7 +453,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" weight="0.32893717" />
-      <window_info anchor="right" id="Remote Host" order="4" weight="0.22342901" />
+      <window_info active="true" anchor="right" id="Remote Host" order="4" visible="true" weight="0.22342901" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -590,13 +633,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/file_templates/template_view/create.php" />
     <entry file="das://64ad0588-9386-4d27-b66e-78c1ed50b3a5/schema/jianshu/table/article">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
@@ -636,9 +672,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/view/vue/edit.vue">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/view/vue/edit.vue" />
     <entry file="file://$PROJECT_DIR$/file_templates/view/php/create.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-297">
@@ -653,34 +687,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/view/vue/create.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="26" lean-forward="true" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/view/vue/form.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/view/vue/detail.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1005">
-          <caret line="67" column="2" selection-start-line="67" selection-start-column="2" selection-end-line="67" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_templates/view/vue/index.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/file_templates/view/vue/create.vue" />
+    <entry file="file://$PROJECT_DIR$/file_templates/view/vue/form.vue" />
+    <entry file="file://$PROJECT_DIR$/file_templates/view/vue/detail.vue" />
+    <entry file="file://$PROJECT_DIR$/file_templates/view/vue/index.vue" />
     <entry file="file://$PROJECT_DIR$/file_templates/Template_app.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1215">
@@ -689,30 +699,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generated/api/Biz.php" />
-    <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="414" column="83" lean-forward="true" selection-start-line="414" selection-start-column="83" selection-end-line="414" selection-end-column="83" />
-          <folding>
-            <element signature="e#357#735#0#PHP" />
-            <element signature="e#841#1468#0#PHP" />
-            <element signature="e#1502#2994#0#PHP" />
-            <element signature="e#3489#3750#0#PHP" />
-            <element signature="e#5059#5505#0#PHP" />
-            <element signature="e#9294#9489#0#PHP" />
-            <element signature="e#9715#10656#0#PHP" />
-            <element signature="e#10022#10293#0#PHP" />
-            <element signature="e#10332#10482#0#PHP" />
-            <element signature="e#10517#10807#0#PHP" />
-            <element signature="e#10695#11125#0#PHP" />
-            <element signature="e#17187#17501#0#PHP" />
-            <element signature="e#17427#22178#0#PHP" />
-            <element signature="e#17031#21400#0#PHP" />
-            <element signature="e#22673#32993#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -731,6 +717,32 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="734">
           <caret line="281" column="19" selection-start-line="281" selection-start-column="19" selection-end-line="281" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/Tool.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="77">
+          <caret line="244" lean-forward="true" selection-start-line="244" selection-end-line="244" />
+          <folding>
+            <element signature="e#986#1364#0#PHP" />
+            <element signature="e#1470#2097#0#PHP" />
+            <element signature="e#2131#3623#0#PHP" />
+            <element signature="e#9566#12535#0#PHP" />
+            <element signature="e#12426#13459#0#PHP" />
+            <element signature="e#13609#17714#0#PHP" />
+            <element signature="e#18346#23093#0#PHP" />
+            <element signature="e#23285#33853#0#PHP" />
+            <element signature="e#34036#34765#0#PHP" />
+            <element signature="e#34947#35709#0#PHP" />
+          </folding>
         </state>
       </provider>
     </entry>

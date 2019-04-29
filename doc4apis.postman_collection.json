@@ -31,22 +31,21 @@
 						},
 						{
 							"key": "class_name_cn",
-							"value": "企业",
+							"value": "部门",
 							"description": "类中文名称",
 							"type": "text"
 						},
 						{
 							"key": "code",
-							"value": "biz",
+							"value": "sec",
 							"description": "类名称缩写；一般为3个英文字母",
 							"type": "text"
 						},
 						{
 							"key": "class_name",
-							"value": "branch",
+							"value": "section",
 							"description": "类名称",
-							"type": "text",
-							"disabled": true
+							"type": "text"
 						},
 						{
 							"key": "table_name",
@@ -99,7 +98,8 @@
 							"key": "file_api",
 							"value": "yes",
 							"description": "是否生成API控制器文件",
-							"type": "text"
+							"type": "text",
+							"disabled": true
 						},
 						{
 							"key": "file_app",
@@ -112,8 +112,13 @@
 							"key": "file_view",
 							"value": "yes",
 							"description": "是否生成应用视图文件",
-							"type": "text",
-							"disabled": true
+							"type": "text"
+						},
+						{
+							"key": "view_mode",
+							"value": "vue",
+							"description": "vue|php",
+							"type": "text"
 						}
 					]
 				},
