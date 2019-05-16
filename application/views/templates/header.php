@@ -27,7 +27,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20190430">
+		<meta name=version content="revision20190517">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@dingtalk.com">
@@ -36,11 +36,10 @@
 		<meta name=viewport content="width=device-width">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://code.jquery.com/jquery-3.4.0.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script defer src="<?php echo base_url('js/jquery-qrcode.js') ?>"></script>
-		<script defer src="<?php echo base_url('js/fontawesome.5.8.1.js') ?>"></script>
-		<script defer src="<?php echo base_url('js/bootstrap.3.4.1.js') ?>"></script>
+    <script defer src="https://pro.fontawesome.com/releases/v5.8.2/js/all.js" integrity="sha384-GBwm0s/0wYcqnK/JmrCoRqWYIWzFiGEucsfFqkB76Ouii5+d4R31vWHPQtfhv55b" crossorigin="anonymous"></script>
     <script>
             const user_agent = {
               is_wechat: <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>,
@@ -72,8 +71,9 @@
         </script>
 
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/reset.css">
-		<link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/bootstrap.3.4.1.css">
+    <link rel=stylesheet href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/flat-ui.min.css">
+    <link rel=stylesheet href="https://pro.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-Bx4pytHkyTDy3aJKjGkGoHPt3tvv6zlwwjc3iqN7ktaiEMLDPqLSZYts2OjKcBx1" crossorigin="anonymous">
 		<link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/style.css">
 
 <!--		<link rel="shortcut icon" href="/media/logos/logo_32x32.png">-->
