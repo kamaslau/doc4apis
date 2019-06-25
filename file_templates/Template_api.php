@@ -169,11 +169,12 @@
             if ($this->app_type === 'client'):
                 $condition['time_delete'] = 'NULL'; // 客户端仅可查看未删除项
             else:
+                if (!isset($condition['time_delete'])) $condition['time_delete'] = 'NULL'; // 默认仅获取未删除项
                 $this->names_to_return = array_merge($this->names_to_return, $this->names_return_for_admin);
             endif;
             $this->db->select( implode(',', $this->names_to_return) );
 
-			// 获取列表；默认可获取已删除项
+			// 获取列表
             $ids = $this->post_input('ids'); // 可以CSV格式指定需要获取的信息ID们
             if ( empty($ids) ):
                 $items = $this->basic_model->select($condition, $order_by);
