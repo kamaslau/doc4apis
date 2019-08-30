@@ -30,7 +30,7 @@ define('ENCRYPTION_KEY', ''); // 秘钥用于加密相关功能，可为空
 // RESTful API
 define('API_TOKEN', '7C4l7JLaM3Fq5biQurtmk9nFS');
 define('API_URL', NULL);
-function api_url($api_name)
+function api_url(string $api_name) :string
 {
 	$api_url = API_URL. $api_name;
 	return $api_url;
@@ -39,7 +39,7 @@ define('VIEWS_PATH', BASE_URL); // 视图文件夹路径
 //define('VIEWS_PATH', APPPATH.'views/'); // 视图文件夹路径
 
 // （可选）JS、CSS等非当前站点特有资源所在URL，可用于配合又拍云等第三方存储
-define('CDN_URL', 'https://cdn-remote.517ybang.com/'); // 生产环境
+define('CDN_URL', 'https://cdn.liuyajie.com/'); // 生产环境
 
 /*
 |--------------------------------------------------------------------------
@@ -176,7 +176,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = TRUE;
+$config['composer_autoload'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------

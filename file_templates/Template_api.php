@@ -26,14 +26,14 @@
 	     * @var array 可根据最大值筛选的字段名
 	     */
 	    protected $max_needed = array(
-	        'time_create', 'score',
+	        'time_create',
 	    );
 
 	    /**
 	     * @var array 可根据最小值筛选的字段名
 	     */
 	    protected $min_needed = array(
-	        'time_create', 'score',
+	        'time_create',
 	    );
 		
 		/**
@@ -86,10 +86,10 @@
 		/**
 		 * 编辑多行特定字段时必要的字段名；若与MY_Controller声明的同名类属性相同，可删除此处
 		 */
-//		protected $names_edit_bulk_required = array(
-//			'operator_id', 'ids',
-//          'operation', 'password',
-//		);
+		protected $names_edit_bulk_required = array(
+			'operator_id', 'ids',
+          'operation', 'password',
+		);
 
 		public function __construct()
 		{
@@ -330,7 +330,7 @@
 			$this->form_validation->set_error_delimiters('', '')->set_data($this->post_input); // 待验证数据
 [[rules]]
 			// 针对特定条件的验证规则
-			if ($this->app_type === '管理员'):
+			if ($this->app_type === 'admin'):
 				// ...
 			endif;
 
@@ -494,7 +494,7 @@
             endforeach;
 
             // 此类型方法通用代码块
-            $this->common_edit_bulk(TRUE);
+            $this->common_edit_bulk(FALSE); // 默认不核对密码
 
             // 验证表单值格式
             if ($this->form_validation->run() === FALSE):

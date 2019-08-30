@@ -1,24 +1,4 @@
 <link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/index.css">
-<style>
-
-	/* 宽度在768像素以上的设备 */
-	@media only screen and (min-width:769px)
-	{
-
-	}
-
-	/* 宽度在992像素以上的设备 */
-	@media only screen and (min-width:993px)
-	{
-
-	}
-
-	/* 宽度在1200像素以上的设备 */
-	@media only screen and (min-width:1201px)
-	{
-
-	}
-</style>
 
 <div id=content class=container>
   	<?php

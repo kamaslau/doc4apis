@@ -27,7 +27,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20190517">
+		<meta name=version content="revision20190831">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@dingtalk.com">
@@ -37,43 +37,37 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://code.jquery.com/jquery-3.4.0.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script defer src="<?php echo base_url('js/jquery-qrcode.js') ?>"></script>
-    <script defer src="https://pro.fontawesome.com/releases/v5.8.2/js/all.js" integrity="sha384-GBwm0s/0wYcqnK/JmrCoRqWYIWzFiGEucsfFqkB76Ouii5+d4R31vWHPQtfhv55b" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
+    <script defer src="<?php echo CDN_URL. 'jquery/jquery-qrcode.js' ?>"></script>
+    <script defer src="https://pro.fontawesome.com/releases/v5.10.2/js/all.js" integrity="sha384-lowSFbzpSYKDOsvnpi2JVneSnkrbVjOTwcHOWpC+tj/YT1mxTDIB3ZqbtllmfUSC" crossorigin="anonymous"></script>
     <script>
-            const user_agent = {
-              is_wechat: <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>,
-              is_ios: <?php echo ($is_ios === TRUE)? 'true': 'false' ?>,
-              is_android: <?php echo ($is_android === TRUE)? 'true': 'false' ?>
-            }
+      const user_agent = {
+        is_wechat: <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>,
+        is_ios: <?php echo ($is_ios === TRUE)? 'true': 'false' ?>,
+        is_android: <?php echo ($is_android === TRUE)? 'true': 'false' ?>
+      }
 
-            // 全局参数
-            // const api_url = '<?php //echo API_URL ?>' // API根URL
-            const base_url = '<?php echo BASE_URL ?>' // 页面根URL
-            const current_url = '<?php echo current_url() ?>'
-            // const cdn_url = '<?php echo CDN_URL ?>'; // CDN根URL
-            // const media_url = '<?php //echo MEDIA_URL ?>' // 媒体文件根URL
-            const class_name = '<?php echo $this->class_name ?>'
-            const class_name_cn = '<?php echo $this->class_name_cn ?>'
+      // 全局参数
+      // const api_url = '<?php //echo API_URL ?>' // API根URL
+      const base_url = '<?php echo BASE_URL ?>' // 页面根URL
+      const current_url = '<?php echo current_url() ?>'
+      // const cdn_url = '<?php echo CDN_URL ?>' // CDN根URL
+      // const media_url = '<?php //echo MEDIA_URL ?>' // 媒体文件根URL
+      const class_name = '<?php echo $this->class_name ?>'
+      const class_name_cn = '<?php echo $this->class_name_cn ?>'
 
-            // 当前用户信息
-            const user_id = '<?php echo $this->session->user_id ?>'
+      // 当前用户信息
+      const user_id = '<?php echo $this->session->user_id ?>'
 
-            let common_params = {
-              app_type: 'client', // 默认为客户端请求
-              user_id
-            }
+      let common_params = {
+        app_type: 'client', // 默认为客户端请求
+        user_id
+      }
+    </script>
 
-            // $.ajaxSetup({
-            //     type: 'post',
-            //     dataType: 'json',
-            // });
-        </script>
-
-		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/reset.css">
-    <link rel=stylesheet href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>css/flat-ui.min.css">
-    <link rel=stylesheet href="https://pro.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-Bx4pytHkyTDy3aJKjGkGoHPt3tvv6zlwwjc3iqN7ktaiEMLDPqLSZYts2OjKcBx1" crossorigin="anonymous">
+		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>normalize.css/normalize.css">
+    <link rel=stylesheet href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>Flat-UI/css/flat-ui.min.css">
 		<link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/style.css">
 
 <!--		<link rel="shortcut icon" href="/media/logos/logo_32x32.png">-->
