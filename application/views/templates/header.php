@@ -65,8 +65,12 @@
       }
     </script>
 
-		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>normalize.css/normalize.css">
+    <!--
     <link rel=stylesheet href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
 		<link rel=stylesheet media=all href="<?php echo CDN_URL ?>Flat-UI/css/flat-ui.min.css">
 		<link rel=stylesheet media=all href="<?php echo VIEWS_PATH ?>css/style.css">
 
@@ -84,13 +88,6 @@
 
 <!-- 内容开始 -->
 	<body<?php echo ( !empty($body_class) )? ' class="'.$body_class.'"': NULL ?>>
-	<?php
-	/**
-		 * APP中调用webview时配合URL按需显示相应部分
-		 * 此处以在APP中以WebView打开页面时不显示页面header部分为例
-		 */
-		if ($this->input->get('from') != 'app'):
-	?>
 		<noscript>
 			<p>您的浏览器功能加载出现问题，请刷新浏览器重试；如果仍然出现此提示，请考虑更换浏览器。</p>
 		</noscript>
@@ -109,36 +106,32 @@
 						<?php if ($this->session->role === '管理员'): ?>
 						<li<?php if (strpos($class, 'biz') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('biz') ?>">企业</a></li>
 						<li<?php if (strpos($class, 'team') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('team') ?>">团队</a></li>
-						<?php endif ?>
+            <?php endif ?>
 
-						<li<?php if (strpos($class, 'user') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('user') ?>">成员</a></li>
-
-						<li<?php if (strpos($class, 'faq') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('faq') ?>">FAQ</a></li>
+            <li<?php if (strpos($class, 'user') !== FALSE) echo ' class=active' ?>><a href="<?php echo base_url('user') ?>">成员</a></li>
 					</ul>
 				</nav>
 
 				<div id=account-panel>
 					<ul id=user-actions class=horizontal>
 						<?php if ($this->session->logged_in !== TRUE): ?>
-						<li><a href="<?php echo base_url('login') ?>"><i class="fal fa-sign-in"></i> 登录/注册</a></li>
+						<li><a href="<?php echo base_url('login') ?>"><i class="fal fa-sign-in"></i> 登录</a></li>
 
 						<?php
 							else:
-							$display_name = !empty($this->session->nickname)? $this->session->nickname: $this->session->firstname.', '.$this->session->lastname;
+							$display_name = empty($this->session->nickname)? $this->session->firstname.', '.$this->session->lastname: $this->session->nickname;
 						?>
 						<li>
                 <a href="<?php echo base_url('user/mine') ?>">
-                    <i class="fal fa-user-circle"></i>
-                    <?php echo $display_name ?>
-                    <?php echo $this->session->role. 'lv.'. $this->session->level ?>
+                    <i class="fal fa-user-circle"></i> <?php echo $display_name ?>
                 </a>
             </li>
-						<li><a href="<?php echo base_url('logout') ?>"><i class="fal fa-sign-out"></i></a></li>
+
+						<li><a href="<?php echo base_url('logout') ?>"><i class="fal fa-sign-out"></i> 退出</a></li>
 						<?php endif ?>
 					</ul>
 				</div>
 			</div>
 		</header>
-<?php endif ?>
 
 		<main id=maincontainer role=main>

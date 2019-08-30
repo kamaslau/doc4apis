@@ -6,10 +6,95 @@
 @charset "utf-8";
 @viewport{width:device-width;}
 
-body {color:#333;background-color:#fff;}
-.container {padding:0;/* 清理BootStrap样式 */}
+/*! common_reset.css v0.0.6 20190519 | MIT License | github.com/kamaslau/common_reset */
 
-a {color:#333;text-decoration:none;/* 清理BootStrap样式 */}
+/**
+ * general
+ */
+html {
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	border-width: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/**
+ * container
+ */
+
+/**
+ * form
+ */
+form * {
+	border-width: 1px; /* restore necessary border */
+}
+
+/**
+ * link
+ */
+a {
+	text-decoration: none;
+}
+
+/**
+ * list
+ */
+ol, ul {
+	list-style: none;
+}
+
+/**
+ * object
+ */
+audio, embed, iframe, img, object, video {
+	height: auto;
+	max-width: 100%;
+}
+
+/**
+ * quote
+ */
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: none;
+}
+
+/**
+ * table
+ */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+table * {
+	border-width: 1px; /* restore necessary border */
+}
+
+/**
+ * misc
+ */
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+}
+p {
+	hyphens: auto; /* so you don't need manual &shy; */
+}
+
+body {color:#333;background-color:#fff;}
+
+a {color:#333;}
 	a:hover {color:#999;}
 
 	ol>li {list-style-type:decimal-leading-zero;}
@@ -17,7 +102,7 @@ a {color:#333;text-decoration:none;/* 清理BootStrap样式 */}
     td {text-align:left;}
 
 /* 修复BootStrap样式 */
-    .container, .container-fluid {width:100%;padding:0;/* 去掉BootStrap默认的左右内边距 */}
+    .container, .container-fluid {width:95%;padding:0;/* 去掉BootStrap默认的左右内边距 */}
     ul,ol {margin-bottom:0;}
     .row {margin-left:0;margin-right:0;}
         .row>* {padding-left:0;padding-right:0;}
@@ -68,6 +153,7 @@ h4 {margin:0;}
     #header>.container>*:not(h1) {height:64px;line-height:64px;}
 	#header h1 {width:auto;float:left;}
 	#nav-header {float:left;}
+		#main-nav {display:flex;}
 	#account-panel {float:right;}
 	
 	#footer {padding:40px 0 50px;}
@@ -76,11 +162,11 @@ h4 {margin:0;}
 /* 宽度在960像素以上的设备 */
 @media only screen and (min-width:961px)
 {
-	.container {width:992px;}
+	.container {width:960px;}
 }
 
 /* 宽度在1280像素以上的设备 */
 @media only screen and (min-width:1281px)
 {
-	.container {width:1200px;}
+	.container {width:1280px;}
 }
