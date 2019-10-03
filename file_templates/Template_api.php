@@ -157,6 +157,7 @@
             // 生成翻页参数
             $this->basic_model->limit = $this->post_input('limit');
             $this->basic_model->offset = $this->post_input('offset');
+            $this->basic_model->since_id = $this->post_input('since_id'); // 起始主键值
 
             // 排序条件
 			$order_by = NULL;
