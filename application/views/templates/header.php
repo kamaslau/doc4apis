@@ -24,10 +24,11 @@
 		<meta charset=utf-8>
 		<meta http-equiv=x-dns-prefetch-control content=on>
 		<link rel=dns-prefetch href="<?php echo CDN_URL ?>">
+		<link rel=dns-prefetch href="https://cdn.jsdelivr.net/">
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20190831">
+		<meta name=version content="revision20191003">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@dingtalk.com">
