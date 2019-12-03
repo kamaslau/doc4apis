@@ -222,19 +222,6 @@
 			</div>
 
 			<div class=form-group>
-				<label for=elements class="col-sm-2 control-label">主要视图元素（可选）</label>
-				<div class=col-sm-10>
-					<code class=help-block>
-						<code class=help-block>常用制表符 ┣┗</code>
-						&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;所属组件ID&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
-					</code>
-					<a class="add-html btn btn-info" data-textarea-name=elements>+</a>
-					<textarea class=form-control name=elements rows=10 placeholder="完成页面功能所必需的视图元素，包括但不限于文本、图片、视频、按钮、表单项等"><?php echo $item['elements'] ?></textarea>
-				</div>
-				<?php echo form_error('elements') ?>
-			</div>
-
-			<div class=form-group>
 				<label for=url_design class="col-sm-2 control-label">设计图URL（可选）</label>
 				<div class=col-sm-10>
 					<?php if ( !empty($item['url_design']) ): ?>
@@ -285,6 +272,19 @@
 				</div>
 				<?php echo form_error('note_designer') ?>
 			</div>
+
+      <div class=form-group>
+        <label for=elements class="col-sm-2 control-label">主要视图元素（可选）</label>
+        <div class=col-sm-10>
+          <code class=help-block>
+            <code class=help-block>常用制表符 ┣┗</code>
+            &lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;所属组件ID&lt;/td&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;说明&lt;/td&gt;&lt;/tr&gt;
+          </code>
+          <a class="add-html btn btn-info" data-textarea-name=elements>+</a>
+          <textarea class=form-control name=elements rows=10 placeholder="完成页面功能所必需的视图元素，包括但不限于文本、图片、视频、按钮、表单项等"><?php echo $item['elements'] ?></textarea>
+        </div>
+          <?php echo form_error('elements') ?>
+      </div>
 
 			<div class=form-group>
 				<label for=onloads class="col-sm-2 control-label">载入事件（可选）</label>

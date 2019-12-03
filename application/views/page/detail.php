@@ -81,18 +81,7 @@
 	</dl>
 
 	<section>
-		<h3>视图元素</h3>
-		<table class="table table-striped">
-			<caption>主要视图元素</caption>
-			<thead>
-				<tr>
-					<td>名称</td><td>所属组件ID</td><td>类型</td><td>说明</td>
-				</tr>
-			</thead>
-			<tbody>
-				<?php echo $item['elements'] ?>
-			</tbody>
-		</table>
+		<h3>视图</h3>
 
 		<ul>
 			<?php if ( !empty($item['url_design']) ): ?>
@@ -114,16 +103,30 @@
 			</figure>
 			<?php endif ?>
 
-			<?php if ( !empty($item['url_design_assets']) ): ?>
+      <!-- 设计附件 -->
+      <?php if ( !empty($item['url_design_assets']) ): ?>
 			<li>
 				设计附件 <a title="下载设计附件" href="<?php echo $item['url_design_assets'] ?>" target=_blank><i class="fal fa-download"></i> 去下载</a>
 			</li>
 			<?php endif ?>
 		</ul>
 
-		<?php if ( !empty($item['note_designer']) ): ?>
+		<!-- 设计师备注 -->
+    <?php if ( !empty($item['note_designer']) ): ?>
 		<p><?php echo $item['note_designer'] ?></p>
 		<?php endif ?>
+
+    <table class="table table-striped">
+      <caption>主要视图元素</caption>
+      <thead>
+      <tr>
+        <td>名称</td><td>所属组件ID</td><td>类型</td><td>说明</td>
+      </tr>
+      </thead>
+      <tbody>
+      <?php echo $item['elements'] ?>
+      </tbody>
+    </table>
 	</section>
 
 	<?php if ( !empty($item['onloads']) ): ?>
