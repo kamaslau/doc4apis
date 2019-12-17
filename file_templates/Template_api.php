@@ -281,16 +281,20 @@
 				foreach ($data_need_no_prepare as $name)
                     $data_to_create[$name] = $this->post_input($name);
 
-				// $result = $this->basic_model->create($data_to_create, TRUE);
-                $result = $this->basic_model->create(array_filter( $data_to_create ), TRUE);
-				if ($result !== FALSE):
-					$this->result['status'] = 200;
-					$this->result['content']['id'] = $result;
-					$this->result['content']['message'] = '创建成功';
+                // 尝试创建
+                try {
+                    $result = $this->basic_model->create(array_filter( $data_to_create ), TRUE);
+                } catch (Exception $error) {
+                    $result = FALSE;
+                }
+				if ($result === FALSE):
+                    $this->result['status'] = 424;
+                    $this->result['content']['error']['message'] = '创建失败';
 
 				else:
-					$this->result['status'] = 424;
-					$this->result['content']['error']['message'] = '创建失败';
+                    $this->result['status'] = 200;
+                    $this->result['content']['id'] = $result;
+                    $this->result['content']['message'] = '创建成功';
 
 				endif;
 			endif;
@@ -359,17 +363,23 @@
 					//unset($data_to_edit['name']);
 				endif;
 
-				// 进行修改
-				$result = $this->basic_model->edit($id, $data_to_edit);
-				if ($result !== FALSE):
-					$this->result['status'] = 200;
-					$this->result['content']['message'] = '编辑成功';
+                // 尝试修改
+                try {
+                    $result = $this->basic_model->edit($id, $data_to_edit);
+                } catch (Exception $error) {
+                    $result = FALSE;
+                }
+                if ($result === FALSE):
+                    $this->result['status'] = 434;
+                    $this->result['content']['error']['message'] = '修改失败';
+                    exit();
 
-				else:
-					$this->result['status'] = 434;
-					$this->result['content']['error']['message'] = '编辑失败';
+                else:
+                    $this->result['status'] = 200;
+                    $this->result['content']['message'] = '修改成功';
 
-				endif;
+                endif;
+
 			endif;
 		} // end edit
 		

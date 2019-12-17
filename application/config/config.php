@@ -8,7 +8,7 @@ define('CURRENT_VERSION_UPDATE', 0); // 副版本号，功能新增
 define('CURRENT_VERSION_SUPPORT', 1); // 支持版本号，功能调整
 
 // 根域名及URL
-define('ROOT_DOMAIN', '.doc4apis.com');
+define('ROOT_DOMAIN', '.doc4apis.liuyajie.com');
 define('ROOT_URL', ROOT_DOMAIN.'/');
 
 // 需要自定义的常量
@@ -18,7 +18,7 @@ define('SITE_KEYWORDS', 'API,RESTful,开发文档,项目管理,开发管理,敏�
 define('SITE_DESCRIPTION', 'doc4apis是一个基于API的WEB项目协作平台，基于BasicCodeIgniter框架'); // 站点描述
 define('ICP_NUMBER', NULL); // ICP备案号码，没有请留空
 
-define('BASE_URL', 'http://'. $_SERVER['SERVER_NAME'].'/'); // 可对外使用的站点URL；在本地测试时须替换为类似“localhost/BasicCodeigniter”形式
+define('BASE_URL', 'https://'. $_SERVER['SERVER_NAME'].'/'); // 可对外使用的站点URL；在本地测试时须替换为类似“localhost/BasicCodeigniter”形式
 define('CURRENT_URL', 'https://'. $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 define('IMAGES_URL', '//'. $_SERVER['SERVER_NAME'].'/uploads/'); // （可选）非样式图片存储的根目录所在URL，可用于配合又拍云等第三方存储
 define('COOKIE_DOMAIN', ROOT_DOMAIN); // cookie存储路径；方便起见可让所有子域共享，若需分离可自行配置
@@ -36,7 +36,6 @@ function api_url(string $api_name) :string
 	return $api_url;
 }
 define('VIEWS_PATH', BASE_URL); // 视图文件夹路径
-//define('VIEWS_PATH', APPPATH.'views/'); // 视图文件夹路径
 
 // （可选）JS、CSS等非当前站点特有资源所在URL，可用于配合又拍云等第三方存储
 define('CDN_URL', 'https://cdn.liuyajie.com/'); // 生产环境
