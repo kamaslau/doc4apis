@@ -20,12 +20,6 @@
 	}
 </style>
 
-<script>
-	$(function(){
-
-	});
-</script>
-
 <div id=content class=container>
 	<h2 class=text-center><?php echo $title ?></h2>
 	<?php

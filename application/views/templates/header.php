@@ -28,7 +28,7 @@
 		<title><?php echo $title ?></title>
 		<meta name=description content="<?php echo $description ?>">
 		<meta name=keywords content="<?php echo $keywords ?>">
-		<meta name=version content="revision20191217">
+		<meta name=version content="revision20200102">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰">
 		<meta name=contact content="kamaslau@dingtalk.com">
@@ -38,8 +38,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
-    <script defer src="<?php echo CDN_URL. 'jquery/jquery-qrcode.js' ?>"></script>
+    <script src="<?php echo CDN_URL ?>jquery/jquery-3.4.1.min.js"></script>
+    <script defer src="<?php echo CDN_URL ?>jquery/jquery-qrcode.js"></script>
     <script>
       const user_agent = {
         is_wechat: <?php echo ($is_wechat === TRUE)? 'true': 'false' ?>,
@@ -66,7 +66,7 @@
     </script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.liuyajie.com/fontawesome/5.12.0/css/all.min.css">
+    <link rel="stylesheet" href="<?php echo CDN_URL ?>fontawesome/5.12.0/css/all.min.css">
 
     <link rel="stylesheet" media=all href="<?php echo CDN_URL ?>Flat-UI/css/flat-ui.min.css">
 		<link rel="stylesheet" media=all href="<?php echo BASE_URL ?>css/style.css">

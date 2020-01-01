@@ -1,26 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-// 当前版本号，仅适用于生产环境
-define('CURRENT_VERSION', '0.0.1');
-define('CURRENT_VERSION_MAJOR', 0); // 主版本号
-define('CURRENT_VERSION_UPDATE', 0); // 副版本号，功能新增
-define('CURRENT_VERSION_SUPPORT', 1); // 支持版本号，功能调整
+// 环境配置文件
+require_once('env.php');
 
 // 根域名及URL
-define('ROOT_DOMAIN', '.doc4apis.liuyajie.com');
 define('ROOT_URL', ROOT_DOMAIN.'/');
 
-// 需要自定义的常量
-define('SITE_NAME', 'doc4APIs'); // 站点名称
-define('SITE_SLOGAN', '创造本该如此敏捷'); // 站点广告语
-define('SITE_KEYWORDS', 'API,RESTful,开发文档,项目管理,开发管理,敏捷开发'); // 站点关键词
-define('SITE_DESCRIPTION', 'doc4apis是一个基于API的WEB项目协作平台，基于BasicCodeIgniter框架'); // 站点描述
-define('ICP_NUMBER', NULL); // ICP备案号码，没有请留空
+define('CURRENT_URL', BASE_URL. $_SERVER['REQUEST_URI']);
 
-define('BASE_URL', 'https://'. $_SERVER['SERVER_NAME'].'/'); // 可对外使用的站点URL；在本地测试时须替换为类似“localhost/BasicCodeigniter”形式
-define('CURRENT_URL', 'https://'. $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
-define('IMAGES_URL', '//'. $_SERVER['SERVER_NAME'].'/uploads/'); // （可选）非样式图片存储的根目录所在URL，可用于配合又拍云等第三方存储
 define('COOKIE_DOMAIN', ROOT_DOMAIN); // cookie存储路径；方便起见可让所有子域共享，若需分离可自行配置
 define('SESSION_COOKIE_NAME', 'ci_sessions_web'); // 用于cookie存储的session名（设置此值后，前后台session互不影响）
 define('SESSION_TABLE', 'ci_sessions_web'); // 用于session存储的数据库表名
@@ -28,17 +16,11 @@ define('SESSION_PERIOD', 2592000); // session有效期秒数，此处设为30天
 define('ENCRYPTION_KEY', ''); // 秘钥用于加密相关功能，可为空
 
 // RESTful API
-define('API_TOKEN', '7C4l7JLaM3Fq5biQurtmk9nFS');
 define('API_URL', NULL);
 function api_url(string $api_name) :string
 {
-	$api_url = API_URL. $api_name;
-	return $api_url;
+	return API_URL. $api_name;
 }
-define('VIEWS_PATH', BASE_URL); // 视图文件夹路径
-
-// （可选）JS、CSS等非当前站点特有资源所在URL，可用于配合又拍云等第三方存储
-define('CDN_URL', 'https://cdn.liuyajie.com/'); // 生产环境
 
 /*
 |--------------------------------------------------------------------------
@@ -486,7 +468,6 @@ $config['compress_output'] = FALSE;
 |
 */
 $config['time_reference'] = 'Asia/Shanghai';
-date_default_timezone_set('Asia/Shanghai');
 
 /*
 |--------------------------------------------------------------------------
