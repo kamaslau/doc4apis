@@ -165,11 +165,12 @@
       $this->basic_model->since_id = $this->post_input('since_id'); // 起始主键值
 
       // 排序条件
-      $order_by = NULL;
+      $order_by = array();
       foreach ($this->names_to_order as $sorter):
         if (!empty($this->post_input('orderby_' . $sorter)))
           $order_by[$sorter] = $this->post_input('orderby_' . $sorter);
       endforeach;
+      if (empty(array_filter($order_by))) $order_by[$this->id_name] = 'DESC'; // 默认排序
 
       // 限制可返回的字段
       if ($this->app_type === 'client'):
@@ -549,7 +550,7 @@
       endif;
     } // end edit_bulk
 		[[extra_functions]]
-			
+
 		/**
      * 以下为工具类方法
      */
@@ -562,6 +563,12 @@
      */
     protected function advanced_sorter($condition = array())
     {
+      // 若传入了名称，模糊查询，并据此排序
+      // if (!empty($this->post_input('name'))):
+      //   $this->db->like('name', $this->post_input('name'));
+      //   $this->db->order_by('name');
+      // endif;
+
       return $condition;
     } // end advanced_sorter
 

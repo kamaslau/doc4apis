@@ -9,7 +9,6 @@
 	define('SITE_DESCRIPTION', 'doc4apis是一个基于API的WEB项目协作平台，基于BasicCodeIgniter框架'); // 站点描述
 	define('ICP_NUMBER', NULL); // （可选）ICP备案号码
 	
-	
 	// define('ROOT_DOMAIN', 'localhost:8888/doc4apis');
 	define('ROOT_DOMAIN', '.doc4apis.liuyajie.com');
 	
@@ -22,6 +21,6 @@
 	define('CDN_URL', 'https://cdn.liuyajie.com/');
 	// （可选）非样式图片存储的根目录所在URL，可用于配合又拍云等第三方存储
 	define('IMAGES_URL', BASE_URL.'uploads/');
-	
+
 /* End of file env.php */
 /* Location: ./application/config/env.php */

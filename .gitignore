@@ -1,6 +1,18 @@
+# Global Level
+## OS
 .DS_Store
+
+## IDE
+.idea
+
+## composer
+vendor
 composer.lock
 
-.idea
+## NPM
+node_modules
+package-lock.json
+
+
+# Project Level
 generated
-vendor
