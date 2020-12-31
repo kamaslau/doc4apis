@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# 请修改成实际需要转发的URL后取消注释
+# RewriteCond %{HTTP_HOST} ^(doc4apis\.com|irestapi\.com|www\.irestapi\.com)$ [NC]
+# RewriteRule ^(.*)$ https://www.doc4apis.com/$1 [R=301,L]
+
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond $1 !^(index\.php|images|robots\.txt)
+RewriteRule ^(.*)$ index.php?/$1 [L]

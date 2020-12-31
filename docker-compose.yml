@@ -1,0 +1,59 @@
+# DockerCompose文件版本兼容性与Docker核心版本相关
+# https://docs.docker.com/compose/compose-file/#compose-and-docker-compatibility-matrix
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx
+    restart: always # 意外退出时自动重启
+    depends_on:
+      - php
+    links:
+      - php
+    ports:
+      - 81:80
+      # - 443:443
+    networks:
+      - frontend
+      - backend
+
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d # nginx 配置文件
+      - ./nginx/logs:/var/log/nginx # 日志目录
+      - ./src:/var/www # 测试目录为./nginx/www
+
+  php:
+    build: ./php
+    image: php:fpm_w_mysqli
+    restart: always
+    # depends_on:
+    #   - mysql
+    # links:
+    #   - mysql
+    ports:
+      - 9000:9000
+    networks:
+      - backend
+    volumes:
+      - ./php/php.ini:/usr/local/etc/php/php.ini # PHP配置文件
+      - ./src:/var/www # 测试目录为./nginx/www
+
+  # mysql:
+  #   image: mysql
+  #   restart: always
+  #   ports:
+  #     - 3306:3306
+  #   networks:
+  #     - backend
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=111111
+  #     - MYSQL_USER=user
+  #     - MYSQL_PASSWORD=123456
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql # 数据容器
+
+networks:
+  frontend:
+  backend:
+# volumes:
+#   mysql_data:
