@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$active_group = 'aliyun';
+$active_group = 'local';
 $query_builder = TRUE;
 
 /* 适用于生产环境的数据库参数 */
@@ -30,9 +30,9 @@ $db['aliyun'] = array(
 /* 适用于本地开发环境的数据库参数 */
 $db['local'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost:8889',
+	'hostname' => 'mysql',
 	'username' => 'root',
-	'password' => 'root',
+	'password' => '123456',
 	'database' => 'doc4apis',
 	'dbdriver' => 'mysqli', // 根据本地环境的不同，可能需要修改为mysql
 	'dbprefix' => '',
@@ -40,8 +40,8 @@ $db['local'] = array(
 	'db_debug' => TRUE,
 	'cache_on' => FALSE,
 	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
+	'char_set' => 'utf8mb4',
+	'dbcollat' => 'utf8mb4_general_ci',
 	'swap_pre' => '',
 	'encrypt' => FALSE,
 	'compress' => FALSE,

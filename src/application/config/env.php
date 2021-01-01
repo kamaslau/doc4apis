@@ -9,11 +9,11 @@
 	define('SITE_DESCRIPTION', 'doc4apis是一个基于API的WEB项目协作平台，基于BasicCodeIgniter框架'); // 站点描述
 	define('ICP_NUMBER', NULL); // （可选）ICP备案号码
 	
-	// define('ROOT_DOMAIN', 'localhost:8888/doc4apis');
-	define('ROOT_DOMAIN', '.doc4apis.liuyajie.com');
+	define('ROOT_DOMAIN', 'localhost');
+	// define('ROOT_DOMAIN', '.doc4apis.liuyajie.com');
 	
-	// define('BASE_URL', 'http://localhost:8888/doc4apis/');
-	define('BASE_URL', 'https://'. $_SERVER['SERVER_NAME'].'/'); // 可对外使用的站点URL
+	define('BASE_URL', 'http://localhost/');
+	// define('BASE_URL', 'https://'. $_SERVER['SERVER_NAME'].'/'); // 可对外使用的站点URL
 	
 	define('API_TOKEN', '7C4l7JLaM3Fq5biQurtmk9nFS');
 	

@@ -44,7 +44,7 @@ function api_url(string $api_name) :string
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = BASE_URL;
+$config['base_url'] = BASE_URL; // 从env.php载入
 
 /*
 |--------------------------------------------------------------------------

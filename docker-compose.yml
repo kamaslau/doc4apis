@@ -3,6 +3,7 @@
 version: '3.8'
 
 services:
+  # Nginx
   nginx:
     image: nginx
     restart: always # 意外退出时自动重启
@@ -11,7 +12,7 @@ services:
     links:
       - php
     ports:
-      - 81:80
+      - 80:80
       # - 443:443
     networks:
       - frontend
@@ -22,6 +23,7 @@ services:
       - ./nginx/logs:/var/log/nginx # 日志目录
       - ./src:/var/www # 测试目录为./nginx/www
 
+  # PHP
   php:
     build: ./php
     image: php:fpm_w_mysqli
@@ -38,22 +40,43 @@ services:
       - ./php/php.ini:/usr/local/etc/php/php.ini # PHP配置文件
       - ./src:/var/www # 测试目录为./nginx/www
 
-  # mysql:
-  #   image: mysql
-  #   restart: always
-  #   ports:
-  #     - 3306:3306
-  #   networks:
-  #     - backend
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=111111
-  #     - MYSQL_USER=user
-  #     - MYSQL_PASSWORD=123456
-  #   volumes:
-  #     - mysql_data:/var/lib/mysql # 数据容器
+  # MySQL
+  mysql:
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    networks:
+      - backend
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - mysql_data:/var/lib/mysql # 数据容器
+
+  #phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - 8080:80
+    networks:
+      - frontend
+      - backend
+    environment: 
+      - TZ=Asia/Shanghai
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=123456
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+    volumes:
+      - mysql_data:/var/lib/mysql # 数据容器
 
 networks:
   frontend:
   backend:
-# volumes:
-#   mysql_data:
+
+volumes:
+  mysql_data:
