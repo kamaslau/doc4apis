@@ -20,7 +20,7 @@
 </style>
 
 <div id=breadcrumb>
-	<ol class="breadcrumb container">
+	<ol class="breadcrumb container-fluid">
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
 		<?php if ( isset($project) ): ?>
 		<li><a title="<?php echo $project['name'] ?>" href="<?php echo base_url('project/detail?id='.$project['project_id']) ?>"><?php echo $project['name'] ?></a></li>
@@ -30,7 +30,7 @@
 	</ol>
 </div>
 
-<div id=content class=container>
+<div id=content class="container-fluid">
 	<?php
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
@@ -40,9 +40,9 @@
 	if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 	?>
 	<div class=btn-group role=group>
-		<a class="btn btn-default" :href="base_url + class_name"><i class="fal fa-list"></i> 所有{{ class_name_cn }}</a>
-    <a class="btn btn-default" :href="base_url + class_name + '/trash'"><i class="fal fa-trash"></i> 回收站</a>
-		<a class="btn btn-default" :href="base_url + class_name + '/create?project_id=' + '<?php echo $project['project_id'] ?>'"><i class="fal fa-plus"></i> 添加{{ class_name_cn }}</a>
+		<a class="btn btn-default" :href="base_url + class_name + '/?project_id=' +item.project_id"><i class="fal fa-list"></i> 所有{{ class_name_cn }}</a>
+    <a class="btn btn-default" :href="base_url + class_name + '/trash?project_id=' + item.project_id"><i class="fal fa-trash"></i> 回收站</a>
+		<a class="btn btn-default" :href="base_url + class_name + '/create?project_id=' + item.project_id"><i class="fal fa-plus"></i> 添加{{ class_name_cn }}</a>
 	</div>
 	<?php endif ?>
 

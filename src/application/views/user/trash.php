@@ -21,14 +21,14 @@
 </style>
 
 <div id=breadcrumb>
-	<ol class="breadcrumb container">
+	<ol class="breadcrumb container-fluid">
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
 		<li><a href="<?php echo base_url($this->class_name) ?>"><?php echo $this->class_name_cn ?></a></li>
 		<li class=active><?php echo $title ?></li>
 	</ol>
 </div>
 
-<div id=content class=container>
+<div id=content class="container-fluid">
 	<?php
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
@@ -95,7 +95,7 @@
 						endforeach;
 					?>
 					<td>
-						<ul class=list-unstyled>
+						<ul class="list-unstyled list-inline">
 							<li><a title="查看" href="<?php echo base_url($this->view_root.'/detail?id='.$item[$this->id_name]) ?>" target=_blank><i class="fal fa-eye"></i> 查看</a></li>
 							<?php
 							// 需要特定角色和权限进行该操作

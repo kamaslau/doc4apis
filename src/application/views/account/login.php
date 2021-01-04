@@ -20,7 +20,7 @@
 	}
 </style>
 
-<div id=content class=container>
+<div id=content class="container-fluid">
 	<h2 class=text-center><?php echo $title ?></h2>
 	<?php
 		if ( !empty($error) ) echo '<div class="alert alert-warning" role=alert>'.$error.'</div>'; // 若有错误提示信息则显示

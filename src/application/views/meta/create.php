@@ -24,7 +24,7 @@
 <script defer src="/js/main.js"></script>
 
 <div id=breadcrumb>
-	<ol class="breadcrumb container">
+	<ol class="breadcrumb container-fluid">
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
 		<li><a title="<?php echo $project['name'] ?>" href="<?php echo base_url('project/detail?id='.$project['project_id']) ?>"><?php echo $project['name'] ?></a></li>
 		<li><a href="<?php echo base_url($this->class_name.'?project_id='.$project['project_id']) ?>"><?php echo $this->class_name_cn ?></a></li>
@@ -32,7 +32,7 @@
 	</ol>
 </div>
 
-<div id=content class=container>
+<div id=content class="container-fluid">
 	<?php
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色

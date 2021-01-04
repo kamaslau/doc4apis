@@ -20,7 +20,7 @@
 </style>
 
 <div id=breadcrumb>
-	<ol class="breadcrumb container">
+	<ol class="breadcrumb container-fluid">
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
 		<li><a title="<?php echo $project['name'] ?>" href="<?php echo base_url('project/detail?id='.$project['project_id']) ?>"><?php echo $project['name'] ?></a></li>
 		<li><a href="<?php echo base_url($this->class_name.'?project_id='.$project['project_id']) ?>"><?php echo $this->class_name_cn ?></a></li>
@@ -28,7 +28,7 @@
 	</ol>
 </div>
 
-<div id=content class=container>
+<div id=content class="container-fluid">
 	<?php
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
@@ -49,7 +49,7 @@
 
   <template v-else>
     <h2>
-      <a :title="project.name" :href="<?php echo base_url() ?> + 'project/detail?id=' + project.project_id" target=_blank>{{ project.name }}</a>
+      <a :title="project.name" :href="'<?php echo base_url() ?>project/detail?id=' + project.project_id" target=_blank>{{ project.name }}</a>
     </h2>
 
     <?php
@@ -57,14 +57,14 @@
     if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
         ?>
       <ul class="list-unstyled list-inline">
-        <li><a :href="<?php echo base_url($this->class_name) ?> + '/edit?id=' + item[id_name]" target=_blank><i class="fal fa-edit"></i> 编辑</a></li>
+        <li><a :href="'<?php echo base_url($this->class_name) ?>/edit?id=' + item[id_name]" target=_blank><i class="fal fa-edit"></i> 编辑</a></li>
       </ul>
     <?php endif ?>
 
     <p>
-      <span v-if="item.sdk_ios.length > 0"><i class="fab fa-apple"></i> ≥ {{ item.sdk_ios }}</span>
+      <span v-if="item.sdk_ios"><i class="fab fa-apple"></i> ≥ {{ item.sdk_ios }}</span>
 
-      <span v-if="item.sdk_android.length > 0"><i class="fab fa-android"></i> ≥ {{ item.sdk_android }}</span>
+      <span v-if="item.sdk_android"><i class="fab fa-android"></i> ≥ {{ item.sdk_android }}</span>
     </p>
 
     <section>
@@ -195,38 +195,42 @@
     <dl id=list-record class=dl-horizontal>
       <dt>创建时间</dt>
       <dd>
-        {{ item.time_create }}
-        <a href="<?php echo base_url('stuff/detail?id='.$item['creator_id']) ?>" target=new>查看创建者</a>
-      </dd>
+			{{ item.time_create }}
+			<a v-if="item.creator_id" :href="url_stuff_detail + item.creator_id" target=new>查看创建者</a>
+		  </dd>
 
-      <?php if ( !empty($item['time_delete']) ): ?>
+      <template v-if="item.time_delete">
       <dt>删除时间</dt>
       <dd>
         {{ item.time_delete }}
-        <a href="<?php echo base_url('stuff/detail?id='.$item['operator_id']) ?>" target=new>查看删除者</a>
+        <a v-if="item.operator_id" :href="url_stuff_detail + item.operator_id" target=new>查看删除者</a>
       </dd>
-      <?php endif ?>
+      </template>
 
-      <?php if ( ! empty($item['operator_id']) ): ?>
       <dt>最后操作时间</dt>
       <dd>
         {{ item.time_edit }}
-        <a href="<?php echo base_url('user/detail?id='.$item['operator_id']) ?>" target=new>查看最后操作者</a>
+        <a v-if="item.operator_id" :href="url_stuff_detail + item.operator_id" target=new>查看删除者</a>
       </dd>
-      <?php endif ?>
     </dl>
   </template>
 </div>
 
 <script>
-  let vue_app = new Vue({
+  const vue_app = new Vue({
     el: '#content',
 
     data: {
       id_name: 'meta_id',
       item: <?php echo empty($item)? '[]': json_encode($item) ?>,
 
-      project: <?php echo empty($item)? '[]': json_encode($project) ?>
+      project: <?php echo empty($project)? '[]': json_encode($project) ?>,
+
+      url_stuff_detail: '<?php echo base_url('stuff/detail?id=') ?>'
+    },
+
+    created() {
+      console.log('created: \r\n item:', this.item, '\r\n project:', this.project)
     }
   })
 </script>

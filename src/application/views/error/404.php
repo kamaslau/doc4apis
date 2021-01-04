@@ -20,7 +20,7 @@
 	}
 </style>
 
-<div id=content class=container>
+<div id=content class="container-fluid">
 	<h2><?php echo $title ?></h2>
 	<p><?php echo $content ?></p>
 

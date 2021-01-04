@@ -21,13 +21,13 @@
 </style>
 
 <div id=breadcrumb>
-	<ol class="breadcrumb container">
+	<ol class="breadcrumb container-fluid">
 		<li><a href="<?php echo base_url($this->class_name) ?>"><?php echo $this->class_name_cn ?></a></li>
 		<li class=active><?php echo $title ?></li>
 	</ol>
 </div>
 
-<div id=content class=container>
+<div id=content class="container-fluid">
 	<?php
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
@@ -50,7 +50,7 @@
   <template v-else>
     <h2>{{ item.name }}</h2>
 
-    <ul class=list-unstyled>
+    <ul class="list-unstyled list-inline">
       <?php
       // 需要特定角色和权限进行该操作
       if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):

@@ -19,13 +19,13 @@
 </style>
 
 <div id=breadcrumb>
-	<ol class="breadcrumb container">
+	<ol class="breadcrumb container-fluid-fluid">
 		<li><a href="<?php echo base_url() ?>">首页</a></li>
 		<li class=active><?php echo $this->class_name_cn ?></li>
 	</ol>
 </div>
 
-<div id=content class=container>
+<div id=content class="container-fluid">
 	<?php
 	// 需要特定角色和权限进行该操作
 	$current_role = $this->session->role; // 当前用户角色
@@ -43,7 +43,7 @@
 
   <h2>项目</h2>
   <div>
-    <p>这里列出了所有你可以查看的项目。每个项目都可以设置参数，多个流程、页面，及API。</p>
+    <p>这里列出了所有你可以查看的项目。每个项目都可以设置参数，发布流程、页面，及API。</p>
   </div>
 
 	<?php if ( empty($items) ): ?>
@@ -57,7 +57,7 @@
       foreach ($items as $item):
         $item_id = $item[$this->id_name]
     ?>
-			<li class=col-sm-6>
+			<li class="col-sm-6 col-lg-4 col-xl-3">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h2 class="panel-title">
@@ -84,9 +84,9 @@
 
 					<div class="panel-footer">
 						<ul class="row actions list-unstyled list-inline">
-							<li class=col-xs-3><a href="<?php echo base_url('flow?project_id='.$item_id) ?>" target=_blank><i class="fal fa-fw fa-code-branch"></i> 流程</a></li>
-							<li class=col-xs-3><a href="<?php echo base_url('page?project_id='.$item_id) ?>" target=_blank><i class="fab fa-fw fa-html5"></i> 页面</a></li>
-							<li class=col-xs-3><a href="<?php echo base_url('api?project_id='.$item_id) ?>" target=_blank><i class="fal fa-fw fa-plug"></i> API</a></li>
+							<li class="col-xs-4"><a href="<?php echo base_url('flow?project_id='.$item_id) ?>" target=_blank><i class="fal fa-fw fa-code-branch"></i> 流程</a></li>
+							<li class="col-xs-4"><a href="<?php echo base_url('page?project_id='.$item_id) ?>" target=_blank><i class="fab fa-fw fa-html5"></i> 页面</a></li>
+							<li class="col-xs-4"><a href="<?php echo base_url('api?project_id='.$item_id) ?>" target=_blank><i class="fal fa-fw fa-plug"></i> API</a></li>
 							<?php
 							// 需要特定角色和权限进行该操作
 							$role_allowed = array('管理员', '经理');
@@ -94,9 +94,9 @@
 							if ( in_array($current_role, $role_allowed) && ($current_level >= $level_allowed) ):
 							?>
 							<!--<li class=col-xs-3><a href="<?php echo base_url('task/create?project_id='.$item_id) ?>" target=_blank><i class="fal fa-plus-square"></i> 创建任务</a></li>-->
-							<li class=col-xs-3><a href="<?php echo base_url('flow/create?project_id='.$item_id) ?>" target=_blank><i class="fal fa-plus-square"></i> 添加流程</a></li>
-							<li class=col-xs-3><a href="<?php echo base_url('page/create?project_id='.$item_id) ?>" target=_blank><i class="fal fa-plus-square"></i> 添加页面</a></li>
-							<li class=col-xs-3><a href="<?php echo base_url('api/create?project_id='.$item_id) ?>" target=_blank><i class="fal fa-plus-square"></i> 添加API</a></li>
+							<li class="col-xs-4"><a href="<?php echo base_url('flow/create?project_id='.$item_id) ?>" target=_blank><i class="fal fa-plus-square"></i> 添加流程</a></li>
+							<li class="col-xs-4"><a href="<?php echo base_url('page/create?project_id='.$item_id) ?>" target=_blank><i class="fal fa-plus-square"></i> 添加页面</a></li>
+							<li class="col-xs-4"><a href="<?php echo base_url('api/create?project_id='.$item_id) ?>" target=_blank><i class="fal fa-plus-square"></i> 添加API</a></li>
 							<?php endif ?>
 						</ul>
 					</div>

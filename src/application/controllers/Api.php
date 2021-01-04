@@ -70,11 +70,11 @@
 		 */
 		public function index()
 		{
-            // 检查是否已传入必要参数
-            $project_id = $this->input->get_post('project_id');
-            if ( empty($project_id) ) redirect(base_url('project'));
+			// 检查是否已传入必要参数
+			$project_id = $this->input->get_post('project_id');
+			if ( empty($project_id) ) redirect(base_url('project'));
 
-            // 页面信息
+			// 页面信息
 			$data = array(
 				'title' => $this->class_name_cn. '列表',
 				'class' => $this->class_name.' '. $this->class_name.'-index',
@@ -83,19 +83,19 @@
 			// 将需要显示的数据传到视图以备使用
 			$data['data_to_display'] = $this->data_to_display;
 
-            // 获取项目数据
+			// 获取项目数据
 			if ( ! empty($project_id)):
-                $data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
+				$data['project'] = $this->basic->get_by_id($project_id, 'project', 'project_id');
 
-                $condition['project_id'] = $project_id; // 添加筛选条件
-            endif;
+				$condition['project_id'] = $project_id; // 添加筛选条件
+			endif;
 
-            // 非系统级管理员仅可看到自己企业相关的信息，否则可接收传入的参数
-            if ( ! empty($this->session->biz_id) ):
-                $condition['biz_id'] = $this->session->biz_id;
-            elseif ($this->session->role === '管理员'):
-                $condition['biz_id'] = $this->input->get_post('biz_id');
-            endif;
+			// 非系统级管理员仅可看到自己企业相关的信息，否则可接收传入的参数
+			if ( ! empty($this->session->biz_id) ):
+					$condition['biz_id'] = $this->session->biz_id;
+			elseif ($this->session->role === '管理员'):
+					$condition['biz_id'] = $this->input->get_post('biz_id');
+			endif;
 
 			// 排序条件
 			$order_by['biz_id'] = 'ASC';
@@ -106,21 +106,22 @@
 			$this->basic->index($data, array_filter($condition), $order_by);
 		} // end index
 
-        /**
-         * 下载API代码文件
-         *
-         * @param $file_name 文件名；不含后缀名，一般为API类名的代码
-         */
-        public function download($file_name)
-        {
-            // 实际文件名
-            $file_name = ucfirst( strtolower($file_name) ). '.php';
+		/**
+		 * 下载API代码文件
+		 *
+		 * @param $file_name 文件名；不含后缀名，一般为API类名的代码
+		 */
+		public function download($file_name)
+		{
+				// 实际文件名
+				$file_name = ucfirst( strtolower($file_name) ). '.php';
 
-            // 下载文件
-            $this->load->helper('download');
-            $file_url = $_SERVER['DOCUMENT_ROOT']. '/generated/api/'. $file_name;
-            force_download($file_url, NULL, true);
-        } // end download
+				// 下载文件
+				$this->load->helper('download');
+				$file_url = $_SERVER['DOCUMENT_ROOT']. '/generated/api/'. $file_name;
+				
+				force_download($file_url, NULL, true);
+		} // end download
 
 		/**
 		 * 详情页
@@ -170,10 +171,8 @@
 			$this->basic->permission_check($role_allowed, $min_level);
 
 			// 对于非系统级管理员之外的角色，需检查是否已传入必要参数
-			if ($this->session->role !== '管理员'):
-				$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
-				if ( empty($project_id) ) redirect(base_url('project'));
-			endif;
+			$project_id = $this->input->get_post('project_id')? $this->input->get_post('project_id'): NULL;
+			if ( empty($project_id) && $this->session->role !== '管理员') redirect(base_url('project'));
 
 			// 页面信息
 			$data = array(

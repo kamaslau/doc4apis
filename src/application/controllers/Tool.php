@@ -413,10 +413,9 @@
                 }
 
             else:
-                exit('API请求不成功');
                 $this->result['status'] = 404;
                 $this->result['content']['error']['message'] = 'grab_table failed';
-                exit();
+                exit('API请求不成功');
             endif;
         } // end grab_table
 

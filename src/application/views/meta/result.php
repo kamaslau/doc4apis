@@ -21,14 +21,14 @@
 </style>
 
 <div id=breadcrumb>
-	<ol class="breadcrumb container">
+	<ol class="breadcrumb container-fluid">
 	  	<li><a href="<?php echo base_url() ?>">首页</a></li>
 	  	<li><a href="<?php echo base_url($this->class_name) ?>"><?php echo $this->class_name_cn ?></a></li>
 		<li class=active><?php echo $title ?></li>
 	</ol>
 </div>
 
-<div id=content class=container>
+<div id=content class="container-fluid">
 	<h2><?php echo $title ?></h2>
 	<section><?php echo $content ?></section>
 	

@@ -1,6 +1,6 @@
 <link rel=stylesheet media=all href="<?php echo VIEWPATH ?>css/index.css">
 
-<div id=content class=container>
+<div id=content class="container-fluid">
   	<?php
   		// 检查是否正在使用默认密码（手机号后6位的sha1加密值）
   		$initial_password = SHA1( substr($this->session->mobile, -6) );

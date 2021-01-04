@@ -4,7 +4,7 @@
 	
 	// 需要自定义的常量
 	define('SITE_NAME', 'doc4APIs'); // 站点名称
-	define('SITE_SLOGAN', '创造本该如此敏捷'); // 站点广告语
+	define('SITE_SLOGAN', '创造本该流畅'); // 站点广告语
 	define('SITE_KEYWORDS', 'API,RESTful,开发文档,项目管理,开发管理,敏捷开发'); // 站点关键词
 	define('SITE_DESCRIPTION', 'doc4apis是一个基于API的WEB项目协作平台，基于BasicCodeIgniter框架'); // 站点描述
 	define('ICP_NUMBER', NULL); // （可选）ICP备案号码

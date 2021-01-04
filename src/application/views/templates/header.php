@@ -90,7 +90,7 @@
 		</noscript>
 		
 		<header id=header role=banner>
-			<div class=container>
+			<div class="container-fluid">
 				<h1>
 					<a id=logo title="<?php echo SITE_NAME ?>" href="<?php echo base_url() ?>"><?php echo SITE_NAME ?></a>
 				</h1>

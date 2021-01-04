@@ -473,16 +473,16 @@
 		{
 			// 从表单获取待修改项ID数组，或从URL获取待修改单项ID后转换为数组
 			$this->CI->input->post('ids')? $ids = $this->CI->input->post('ids'): $ids[0] = $this->CI->input->get('ids');
-			if (count($ids) === 1 && strpos($ids[0], '|') !== FALSE):
-				$ids = explode('|', $ids[0]);
-			endif;
+			// if (count($ids) === 1 && strpos($ids[0], '|') !== FALSE):
+			// 	$ids = explode('|', $ids[0]);
+			// endif;
 
 			// 验证表单值格式
 			if ($this->CI->form_validation->run() === FALSE):
 				$data['error'] = validation_errors();
 				$data['ids'] = $ids;
 				foreach ($ids as $id)
-				    $data['items'][] = $this->CI->basic_model->select_by_id($id);
+					$data['items'][] = $this->CI->basic_model->select_by_id($id);
 
 				$this->CI->load->view('templates/header', $data);
 				$this->CI->load->view($this->view_root. $op_view, $data);
@@ -509,10 +509,10 @@
 
 				if ($result === FALSE):
 					$data['content'] = '<p class="alert alert-warning">'.$data['title'].'失败，请重试。</p>';
-				    $data['result'] = 'succeed';
+					$data['result'] = 'succeed';
 				else:
 					$data['content'] = '<p class="alert alert-success">'.$data['title'].'成功。</p>';
-                    $data['result'] = 'failed';
+					$data['result'] = 'failed';
 				endif;
 
 				$this->CI->load->view('templates/header', $data);
