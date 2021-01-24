@@ -393,12 +393,14 @@
          */
         private function grab_table($api_url, $params = NULL)
         {
+            // $this->output->enable_profiler(TRUE); // 输出调试信息
+            
             try {
                 $result = $this->curl->go($api_url, $params, 'array');
             } catch(Exception $error) {
                 // var_dump($error);
                 $this->result['status'] = 500;
-                $this->result['content']['error']['message'] = 'grab_table failed';
+                $this->result['content']['error']['message'] = 'grab_table failed with code 500';
                 exit();
             }
 
@@ -413,8 +415,9 @@
                 }
 
             else:
+                // var_dump($this->result);
                 $this->result['status'] = 404;
-                $this->result['content']['error']['message'] = 'grab_table failed';
+                $this->result['content']['error']['message'] = 'grab_table failed with code 404';
                 exit('API请求不成功');
             endif;
         } // end grab_table

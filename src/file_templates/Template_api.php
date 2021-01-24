@@ -15,35 +15,25 @@
 	{
     protected $names_csv = '[[names_csv]]'; // 类相关表所有字段
 
-    /**
-     * 可作为列表筛选条件的字段名；可在具体方法中根据需要删除不需要的字段并转换为字符串进行应用，下同
-     *
-     * 计算、对比、最大值最小值等简单业务在condition_generate方法中进行
-     * 若需要模糊查询等复杂业务，在advanced_sorter方法中进行，且不在此处声明，否则会造成冗余
-     */
-    protected $names_to_sort = array(
-      [[names_list]]
+    // 排序字段；详见父类同名属性
+    protected $sorter = array(
+      '[[id_name]]',
+      [[names_list]] 'time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id',
     );
 
-    /**
-     * @var array 可根据最大值筛选的字段名
-     */
-    protected $max_needed = array(
-      'time_create',
-    );
+    // 筛选字段；详见父类同名属性
+    protected $filter = array(
+      // 精准筛选
+      'exact' => array(
+        '[[id_name]]',
+        [[names_list]] 'time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id',
+      ),
 
-    /**
-     * @var array 可根据最小值筛选的字段名
-     */
-    protected $min_needed = array(
-      'time_create',
-    );
-
-    /**
-     * 可作为排序条件的字段名
-     */
-    protected $names_to_order = array(
-      [[names_list]]
+      // 范围筛选
+      'range' => array(
+        '[[id_name]]',
+        [[names_list]] 'time_create', 'time_delete', 'time_edit', 'creator_id', 'operator_id',
+      ),
     );
 
     /**
@@ -115,27 +105,26 @@
 		/**
      * 0 计数
      */
-		public function count()
+    public function count()
     {
       // 生成筛选条件
-      $condition = $this->condition_generate();
-      // 类特有筛选项
-      $condition = $this->advanced_sorter($condition);
-
+      $filter = $this->filter_basic();
+      $filter = $this->filter_advanced($filter); // 类特有筛选项
+  
       // 商家仅可操作自己的数据
-      //if ($this->app_type === 'biz') $condition['biz_id'] = $this->post_input('biz_id');
-
+      // if ($this->app_type === 'biz') $filter['biz_id'] = $this->post_input('biz_id');
+  
       // 获取列表；默认可获取已删除项
-      $count = $this->basic_model->count($condition);
-
-      if ($count !== FALSE):
+      $count = $this->basic_model->count($filter);
+  
+      if ($count !== FALSE) :
         $this->result['status'] = 200;
         $this->result['content']['count'] = $count;
-
-      else:
+  
+      else :
         $this->result['status'] = 404;
         $this->result['content']['error']['message'] = '没有符合条件的数据';
-
+  
       endif;
     } // end count
 
@@ -156,50 +145,49 @@
       endforeach;
 
       // 生成筛选条件
-      $condition = $this->condition_generate();
-      // 类特有筛选项
-      $condition = $this->advanced_sorter($condition);
+      $filter = $this->filter_basic();
+      $filter = $this->filter_advanced($filter); // 类特有筛选项
+
       // 生成翻页参数
       $this->basic_model->limit = $this->post_input('limit');
       $this->basic_model->offset = $this->post_input('offset');
       $this->basic_model->since_id = $this->post_input('since_id'); // 起始主键值
 
-      // 排序条件
-      $order_by = array();
-      foreach ($this->names_to_order as $sorter):
-        if (!empty($this->post_input('orderby_' . $sorter)))
-          $order_by[$sorter] = $this->post_input('orderby_' . $sorter);
-      endforeach;
-      if (empty(array_filter($order_by))) $order_by[$this->id_name] = 'DESC'; // 默认排序
+      // 生成排序条件
+      $sorter = array();
+      $sorter = $this->sorter_basic($sorter);
 
       // 限制可返回的字段
-      if ($this->app_type === 'client'):
-        $condition['time_delete'] = 'NULL'; // 客户端仅可查看未删除项
-      else:
-        if (!isset($condition['time_delete'])) $condition['time_delete'] = 'NULL'; // 默认仅获取未删除项
+      if ($this->app_type === 'client') :
+        $filter['time_delete'] = 'NULL'; // 客户端仅可查看未删除项
+      elseif ($this->app_type === 'biz') :
+        // 商家仅可操作自己的数据
+        $filter['biz_id'] = $this->post_input('biz_id');  
+      else :
+        if (!isset($filter['time_delete'])) $filter['time_delete'] = 'NULL'; // 默认仅获取未删除项
         $this->names_to_return = array_merge($this->names_to_return, $this->names_return_for_admin);
       endif;
       $this->db->select(implode(',', $this->names_to_return));
 
       // 获取列表
       $ids = $this->post_input('ids'); // 可以CSV格式指定需要获取的信息ID们
-      if (empty($ids)):
-        $items = $this->basic_model->select($condition, $order_by);
-      else:
+      if (empty($ids)) :
+        $items = $this->basic_model->select($filter, $sorter);
+      else :
         // 限制可返回的字段
         $this->db->select(implode(',', $this->names_to_return));
         $items = $this->basic_model->select_by_ids($ids);
       endif;
 
-      if (!empty($items)):
+      if (!empty($items)) :
         $this->result['status'] = 200;
         $this->result['content'] = $items['data'];
         $this->result['total_count'] = $items['count'];
 
-      else:
+      else :
         $this->result['status'] = 404;
         $this->result['content']['error']['message'] = '没有符合条件的数据';
-
+        
       endif;
     } // end index
 
@@ -216,7 +204,7 @@
         exit();
       endif;
 
-      if ($this->app_type === 'client') $condition['time_delete'] = 'NULL';
+      if ($this->app_type === 'client') $filter['time_delete'] = 'NULL';
 
       // 限制可返回的字段
       $this->db->select(implode(',', $this->names_to_return));
@@ -266,7 +254,7 @@
       // 初始化并配置表单验证库
       $this->load->library('form_validation');
       $this->form_validation->set_error_delimiters('', '')->set_data($this->post_input); // 待验证数据
-      // 验证规则 https://www.codeigniter.com/user_guide/libraries/form_validation.html#rule-reference
+      // 验证规则 https://www.codeigniter.com/userguide3/libraries/form_validation.html#rule-reference
       [[rules]]
       // 若表单提交不成功
       if ($this->form_validation->run() === FALSE):
@@ -555,22 +543,17 @@
      * 以下为工具类方法
      */
 
-		/**
+    /**
      * 类特有筛选器
      *
-     * @param array $condition 当前筛选条件数组
+     * @param array $filter 当前筛选条件数组
      * @return array 生成的筛选条件数组
      */
-    protected function advanced_sorter($condition = array())
+    protected function filter_advanced(array $filter = array()): array
     {
-      // 若传入了名称，模糊查询，并据此排序
-      // if (!empty($this->post_input('name'))):
-      //   $this->db->like('name', $this->post_input('name'));
-      //   $this->db->order_by('name');
-      // endif;
-
-      return $condition;
-    } // end advanced_sorter
+      // TODO 类特有筛选器（若有）逻辑
+      return $filter;
+    } // end filter_advanced
 
 	} // end class [[class_name]]
 
