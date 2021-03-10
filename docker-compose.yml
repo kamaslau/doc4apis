@@ -28,10 +28,8 @@ services:
     build: ./php
     image: php:fpm_w_mysqli
     restart: always
-    # depends_on:
-    #   - mysql
-    # links:
-    #   - mysql
+    depends_on:
+      - mysql
     ports:
       - 9000:9000
     networks:
