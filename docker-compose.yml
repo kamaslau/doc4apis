@@ -9,8 +9,6 @@ services:
     restart: always # 意外退出时自动重启
     depends_on:
       - php
-    links:
-      - php
     ports:
       - 80:80
       # - 443:443
@@ -75,6 +73,7 @@ services:
 networks:
   frontend:
   backend:
+    driver: overlay
 
 volumes:
   mysql_data:
