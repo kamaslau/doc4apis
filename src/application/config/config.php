@@ -1,13 +1,13 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 // 环境配置文件
 require_once('env.php');
 
 // 根域名及URL
-define('ROOT_URL', ROOT_DOMAIN.'/');
+define('ROOT_URL', ROOT_DOMAIN . '/');
 
-define('CURRENT_URL', BASE_URL. $_SERVER['REQUEST_URI']);
+define('CURRENT_URL', BASE_URL . $_SERVER['REQUEST_URI']);
 
 define('COOKIE_DOMAIN', ROOT_DOMAIN); // cookie存储路径；方便起见可让所有子域共享，若需分离可自行配置
 define('SESSION_COOKIE_NAME', 'ci_sessions_web'); // 用于cookie存储的session名（设置此值后，前后台session互不影响）
@@ -17,9 +17,9 @@ define('ENCRYPTION_KEY', ''); // 秘钥用于加密相关功能，可为空
 
 // RESTful API
 define('API_URL', NULL);
-function api_url(string $api_name) :string
+function api_url(string $api_name): string
 {
-	return API_URL. $api_name;
+	return API_URL . $api_name;
 }
 
 /*

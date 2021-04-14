@@ -1,6 +1,6 @@
 # DockerCompose文件版本兼容性与Docker核心版本相关
 # https://docs.docker.com/compose/compose-file/#compose-and-docker-compatibility-matrix
-version: '3.8'
+version: "3.8"
 
 services:
   # Nginx
@@ -24,7 +24,7 @@ services:
   # PHP
   php:
     build: ./php
-    image: php:fpm_w_mysqli
+    image: php:fpm_doc4apis
     restart: always
     depends_on:
       - mysql
@@ -60,7 +60,7 @@ services:
     networks:
       - frontend
       - backend
-    environment: 
+    environment:
       - TZ=Asia/Shanghai
       - PMA_HOST=mysql
       - PMA_USER=root
