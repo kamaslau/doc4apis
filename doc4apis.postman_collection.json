@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "类文件生产器",
+			"name": "数据表业务化生产器",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -31,44 +31,43 @@
 						},
 						{
 							"key": "class_name_cn",
-							"value": "部门",
+							"value": "文章",
 							"description": "类中文名称",
 							"type": "text"
 						},
 						{
 							"key": "code",
-							"value": "sec",
+							"value": "atc",
 							"description": "类名称缩写；一般为3个英文字母",
 							"type": "text"
 						},
 						{
 							"key": "class_name",
-							"value": "section",
+							"value": "article",
 							"description": "类名称",
 							"type": "text"
 						},
 						{
 							"key": "table_name",
-							"value": "message",
+							"value": "article",
 							"description": "类相关表名称",
 							"type": "text",
 							"disabled": true
 						},
 						{
 							"key": "id_name",
-							"value": "stuff_id",
+							"value": "article_id",
 							"description": "类相关表主键名",
-							"type": "text",
-							"disabled": true
+							"type": "text"
 						},
 						{
 							"key": "api_url",
-							"value": "https://api.imakp.com/tool/table_info",
+							"value": "https://api.imakp.liuyajie.com/tool/table_info",
 							"type": "text"
 						},
 						{
 							"key": "allow_edit_certain",
-							"value": "yes",
+							"value": "no",
 							"description": "是否允许单项修改",
 							"type": "text",
 							"disabled": true
@@ -98,15 +97,13 @@
 							"key": "file_api",
 							"value": "yes",
 							"description": "是否生成API控制器文件",
-							"type": "text",
-							"disabled": true
+							"type": "text"
 						},
 						{
 							"key": "file_app",
 							"value": "yes",
 							"description": "是否生成应用控制器文件",
-							"type": "text",
-							"disabled": true
+							"type": "text"
 						},
 						{
 							"key": "file_view",
@@ -116,25 +113,24 @@
 						},
 						{
 							"key": "view_mode",
-							"value": "vue",
+							"value": "php",
 							"description": "vue|php",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://www.doc4apis.com/tool/class_generate",
+					"raw": "http://localhost/tool/class_generate",
 					"protocol": "http",
 					"host": [
-						"www",
-						"doc4apis",
-						"com"
+						"localhost"
 					],
 					"path": [
 						"tool",
 						"class_generate"
 					]
-				}
+				},
+				"description": "https://doc4apis.liuyajie.com/"
 			},
 			"response": []
 		}

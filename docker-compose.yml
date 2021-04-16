@@ -15,7 +15,6 @@ services:
     networks:
       - frontend
       - backend
-
     volumes:
       - ./nginx/conf:/etc/nginx/conf.d # nginx 配置文件
       - ./nginx/logs:/var/log/nginx # 日志目录

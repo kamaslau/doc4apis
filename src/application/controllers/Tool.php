@@ -217,8 +217,10 @@ class Tool extends CI_Controller
 			$this->template_url = $_SERVER['DOCUMENT_ROOT'] . '/file_templates/';
 
 			// 根据视图文件模式，生成视图文件根路径
-			if ($file_view)
+			if ($file_view) :
+				$this->view_mode = $this->input->post('view_mode') ? $this->input->post('view_mode') : $this->view_mode;
 				$this->view_template_root = $this->template_url . 'view/' . $this->view_mode . '/';
+			endif;
 		endif;
 
 		/**
